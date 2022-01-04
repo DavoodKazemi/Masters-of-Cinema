@@ -10,7 +10,17 @@ namespace MastersOfCinema.Data
 {
     public class Context : DbContext
     {
+        public Context(DbContextOptions<Context> options)
+            : base(options)
+        {
+        }
+
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Director> Directors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
