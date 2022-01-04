@@ -2,7 +2,7 @@
 
 namespace MastersOfCinema.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

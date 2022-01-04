@@ -29,6 +29,8 @@ namespace MastersOfCinema
             
             services.AddDbContext<Context>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ContextDev")));
+
+            services.AddTransient<Seeding>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
