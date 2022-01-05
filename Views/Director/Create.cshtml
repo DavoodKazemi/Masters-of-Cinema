@@ -1,0 +1,54 @@
+﻿@model MastersOfCinema.ViewModels.Director
+
+@{
+    ViewData["Title"] = "Add a director";
+}
+
+<hr />
+<div class="container row">
+    <div class="col-md-4">
+
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group my-3" runat="server">
+                <label asp-for="ImageFile" class="mb-1 control-label">Photo</label>
+
+                <div>
+                    <img id="blah" src="~/image/DirectorsDefaultImage.jpg" />
+                </div>
+
+                <input type="file" asp-for="ImageFile" class="form-control" id="imgInp" value="~/image/DirectorsDefaultImage.jpg" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3">
+                <label asp-for="Name" class="mb-1 control-label"></label>
+                <input asp-for="Name" class="form-control input-small" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3">
+                <label asp-for="Country" class="mb-1 control-label"></label>
+                <input asp-for="Country" class="form-control input-small" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3">
+                <label asp-for="Bio" class="mb-1 control-label"></label>
+                <textarea rows="10" asp-for="Bio" class="form-control"></textarea>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="my-5 text-center">
+    <a class="back-button" asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

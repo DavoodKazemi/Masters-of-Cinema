@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MastersOfCinema.ViewModels.Director>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<section class="director-list container">
+
+    <div class="row">
+        <h1 class="">List of all directors</h1>
+        <p>
+            <a asp-action="Create" class="director-list-add-director">(Add a new director)</a>
+        </p>
+
+        <!--The list of all directors-->
+
+        @foreach (var item in Model)
+        {
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="mx-auto card card-wrapper">
+            <img class="card-img img-thumbnail" src="@("~/image/"+item.ImageName)" asp-append-version="true" />
+
+            <!--#Start ROLLOVER-->
+            <div class="card-img-overlay rollover-object">
+                <div class="rollover-options">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div><!--#End ROLLOVER-->
+
+
+        </div>
+
+        <div class="director-list-name pt-1 pb-5 text-center">
+            <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+        </div>
+    </div>
+        }
+
+
+    </div>
+</section>
