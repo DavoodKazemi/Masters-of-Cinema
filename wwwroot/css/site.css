@@ -1,0 +1,178 @@
+﻿.primary-color {
+  color: #99AABB; }
+
+.main-content {
+  padding-bottom: 100px;
+  min-height: 80vh !important;
+  color: #99AABB;
+  background-color: #14181c; }
+
+footer {
+  color: #6c757d;
+  background-color: #2C3440; }
+
+a {
+  color: #99AABB;
+  text-decoration: none;
+  transition: .3s all ease; }
+  a:hover {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .3s all ease; }
+
+/*General*/
+.input-small {
+  max-width: 200px; }
+
+/*Director selcet list*/
+.directors-select {
+  min-width: 200px;
+  height: 40px;
+  font-size: 18px; }
+
+/*Director list page*/
+.card-wrapper {
+  overflow: hidden; }
+  .card-wrapper .rollover-object {
+    opacity: 0;
+    transform: scale(0, 1);
+    background-color: rgba(205, 255, 0, 0.5);
+    color: #fd120d;
+    position: absolute;
+    height: 100%;
+    width: auto;
+    transition: all .3s ease;
+    text-align: center; }
+    .card-wrapper .rollover-object .rollover-options {
+      position: absolute;
+      bottom: 60px;
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #0000ff !important; }
+  .card-wrapper:hover .rollover-object {
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: all .3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center; }
+    .card-wrapper:hover .rollover-object a {
+      color: #0000ff !important;
+      transition: .3s all ease; }
+      .card-wrapper:hover .rollover-object a:hover {
+        font-weight: bold;
+        color: #fff !important;
+        font-size: larger;
+        transition: .3s all ease; }
+
+@media only screen and (max-width: 1800px) {
+  .card-wrapper {
+    width: 250px; }
+    .card-wrapper img {
+      width: 250px;
+      height: auto;
+      /*Optimise this one later*/
+      height: 360px;
+      object-fit: cover;
+      object-position: top; } }
+
+@media only screen and (max-width: 1200px) {
+  .card-wrapper {
+    width: 200px; }
+    .card-wrapper img {
+      width: 200px;
+      height: 320px;
+      object-fit: cover;
+      object-position: top; } }
+
+/*END Director list page*/
+/*Back button in the pages*/
+.back-button {
+  font-weight: 400 !important;
+  padding: 10px 30px;
+  font-size: smaller;
+  border: 1px solid #fd120d;
+  color: #fd120d;
+  background-color: #fff;
+  outline: none; }
+
+.back-button:hover {
+  border: 1px solid #fd120d;
+  background-color: #fd120d !important;
+  color: #fff !important;
+  outline: none;
+  transition: all .3s ease;
+  transition-property: background-color, color; }
+
+/*end button*/
+/*Director info page*/
+/*movie posters*/
+.movie-poster-wrapper {
+  position: relative; }
+
+.director-info-page .movie-poster-wrapper img {
+  border: 4px solid transparent;
+  border-radius: 5%;
+  transition: all .3s ease; }
+
+.director-info-page .movie-poster-wrapper img:hover {
+  border: 4px solid #00E054;
+  transition: all .3s ease; }
+
+.movie-tooltip {
+  position: absolute;
+  display: block;
+  text-align: center;
+  background-color: #445566;
+  border-radius: 5px;
+  color: #A0CCDD;
+  bottom: 103%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  padding: 5px 3px;
+  width: 100%;
+  transition: .3s all ease-in;
+  visibility: hidden;
+  opacity: 0; }
+
+.movie-tooltip::before {
+  content: '';
+  position: absolute;
+  height: 13px;
+  width: 13px;
+  background-color: #445566;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: -1;
+  /*        transition: .3s all ease-in;
+*/ }
+
+.director-info-page .movie-poster-wrapper:hover .movie-tooltip {
+  /*opacity: 1;
+    z-index: 2;*/
+  visibility: visible;
+  opacity: 1;
+  transition: .3s all ease-in; }
+
+section.director-info-aside {
+  max-width: 280px; }
+
+.movie-poster-wrapper {
+  width: 200px;
+  height: 300px; }
+
+.movie-poster-wrapper img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover; }
+
+/*Director info page*/
+#blah {
+  width: 220px;
+  height: 330px;
+  object-fit: cover; }
