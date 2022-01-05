@@ -18,6 +18,7 @@
     <None Include="Views\Movie\Edit.cshtml" />
     <None Include="Views\Movie\Index.cshtml" />
     <None Include="wwwroot\css\site.scss" />
+    <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>
