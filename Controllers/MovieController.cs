@@ -99,13 +99,13 @@ namespace MastersOfCinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Year,Description,ImageFile,ImageName,DirectorViewModelId")] Movie movieViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Year,Description,ImageFile,ImageName,DirectorId")] Movie movieViewModel)
         {
             /*var OriginalImage = Movie.ImageName;*/
 
             var Movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
             var OriginalImage = Movie.ImageName;
-            //movieViewModel.DirectorViewModelId = 1;
+            //movieViewModel.DirectorId = 1;
 
 
             if (id != movieViewModel.Id)
@@ -174,7 +174,9 @@ namespace MastersOfCinema.Controllers
         // GET: Movie/Create
         public IActionResult Create()
         {
-/*            var tupleModel = new Tuple<IEnumerable<MovieViewModel>, IEnumerable<DirectorViewModel>>(GetMovies(), GetDirectors());
+/*            var tupleModel = new Tuple<IEnumerable<MovieViewModel>, IEnumerable<DirectorViewModel
+ *            
+ *            >>(GetMovies(), GetDirectors());
 */
 
             //Bind director thing in order to display the IDs and Nemes of directors in the view
@@ -191,7 +193,7 @@ namespace MastersOfCinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Year,Description,ImageFile,ImageName,DirectorViewModelId")] Movie movieViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Title,Year,Description,ImageFile,ImageName,DirectorId")] Movie movieViewModel)
         {
             if (ModelState.IsValid)
             {

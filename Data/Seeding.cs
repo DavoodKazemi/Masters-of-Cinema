@@ -35,7 +35,8 @@ namespace MastersOfCinema.Data
                 ctx.Directors.AddRange(directors);
 
 
-            /*var director = new DirectorViewModel()
+            /*var director = new DirectorViewModel
+             * ()
             {
                 Id = 1,
                 Name = "Yasujirō Ozu",
