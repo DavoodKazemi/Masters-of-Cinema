@@ -14,6 +14,9 @@
     <None Include="Views\Director\Details.cshtml" />
     <None Include="Views\Director\Edit.cshtml" />
     <None Include="Views\Director\Index.cshtml" />
+    <None Include="Views\Movie\Create.cshtml" />
+    <None Include="Views\Movie\Edit.cshtml" />
+    <None Include="Views\Movie\Index.cshtml" />
     <None Include="wwwroot\css\site.scss" />
   </ItemGroup>
 

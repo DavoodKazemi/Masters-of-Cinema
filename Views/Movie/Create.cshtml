@@ -1,0 +1,51 @@
+﻿@model MastersOfCinema.ViewModels.Movie
+@{
+    ViewData["Title"] = "Add a movie";
+}
+<hr />
+<div class="container row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <select asp-for="@Model.DirectorId"
+                    asp-items="@(new SelectList(ViewBag.message,"Id","Name"))">
+                <option value="0">--Select Director--</option>
+            </select>
+
+            <div class="form-group my-3" runat="server">
+                <div><label asp-for="ImageFile" class="mb-1 control-label">Photo</label></div>
+                <img id="blah" src="~/image/DirectorsDefaultImage.jpg" />
+                <input type="file" asp-for="ImageFile" class="form-control" id="imgInp" value="~/image/DirectorsDefaultImage.jpg" />
+                <span asp-validation-for="ImageName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Title" class="mb-1 control-label"></label>
+                <input asp-for="Title" class="form-control input-small" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Year" class="mb-1 control-label"></label>
+                <input asp-for="Year" class="form-control input-small"></input>
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Description" class="mb-1 control-label"></label>
+                <textarea rows="10" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-danger btn-lg" />
+                <a class="btn btn-primary btn-lg mx-2" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
