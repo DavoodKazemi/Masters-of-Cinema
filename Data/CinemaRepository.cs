@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MastersOfCinema.Data
 {
-    public class CinemaRepository
+    public class CinemaRepository : ICinemaRepository
     {
         private readonly Context ctx;
         private readonly ILogger<CinemaRepository> logger;
