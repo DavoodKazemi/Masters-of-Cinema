@@ -1,66 +1,75 @@
 ﻿@model MastersOfCinema.ViewModels.Director
-
 @{
     ViewData["Title"] = "Details";
 }
 
-<div class="director-info-page row container-fluid">
+<div class="director-info-page container-xxl">
+    <div class="row">
+        @*The movies list section*@
+        <div class="director-movies-container col-12 col-lg-9">
+
+            <div class="container-xxl px-1 px-lg-4">
+
+                <div class="row">
+                    <div>FILMS DIRECTED BY</div>
+                    <h2>@Html.DisplayFor(model => model.Name)</h2>
+
+                    @foreach (var item in Model.Movies)
+                    {
+
+                        <div class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-3 px-0 px-lg-1">
+                            <div class="mx-auto">
+
+                                @*Movie poster and its tooltip (title (year)) *@
+                                <div class="movie-poster-wrapper mx-auto">
+                                    <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title) (@Html.DisplayFor(modelItem => item.Year))</span>
+                                    <a asp-action="Details" asp-route-id="@item.Id">
+                                        <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
+                                    </a>
+                                </div>
 
 
+                                <div class="direector-page-movie-options text-center px-1">
 
-    <div class="director-movies-container col-md-9 container">
-        <div>FILMS DIRECTED BY</div>
-        <h2>@Html.DisplayFor(model => model.Name)</h2>
-        <div class="row">
-            @foreach (var item in Model.Movies)
-            {
+                                    <a asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </div>
+                            </div>
 
-                <div class="director-list-item mt-4 mb-3 col-3">
-                    <div class="mx-auto">
-
-                        @*Movie poster and its tooltip (title (year)) *@
-                        <div class="movie-poster-wrapper mx-auto">
-                            <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title) (@Html.DisplayFor(modelItem => item.Year))</span>
-                            <a asp-action="Details" asp-route-id="@item.Id">
-                                <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
-                            </a>
                         </div>
-
-
-                        <div class="director-list-options text-center">
-
-                            <a asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </div>
-                    </div>
-
+                    }
                 </div>
-            }
+            </div>
+
+        </div>
+
+        @*The director's photo and biography*@
+        <section class="director-info-aside col-12 col-lg-3 m-0">
+            <div class="portrait text-center text-lg-start">
+                <img class="img-fluid" src="@("~/image/"+Model.ImageName)" asp-append-version="true" />
+            </div>
+
+            <div class="my-2">
+                Country: @Html.DisplayFor(model => model.Country)
+            </div>
+
+            <div class="bio">
+                @Html.DisplayFor(model => model.Bio)
+            </div>
+
+
+
+        </section>
+
+
+
+
+
+        <div class="text-center">
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+            <a asp-action="Index">Back to List</a>
         </div>
     </div>
 
-    <section class="director-info-aside col-md-3">
-        <div class="portrait">
-            <img class="img-fluid" src="@("~/image/"+Model.ImageName)" asp-append-version="true" />
-        </div>
-
-        <div class="my-2">
-            Country: @Html.DisplayFor(model => model.Country)
-        </div>
-
-        <div class="bio">
-            @Html.DisplayFor(model => model.Bio)
-        </div>
-
-        
-
-    </section>
-
-
-
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
 </div>

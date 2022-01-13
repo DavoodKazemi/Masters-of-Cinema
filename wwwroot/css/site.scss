@@ -151,95 +151,133 @@ a {
 /*Director info page*/
 /*movie posters*/
 
-.movie-poster-wrapper {
-    position: relative;
-}
-
-
-.director-info-page .movie-poster-wrapper img {
-    border: 4px solid transparent;
-    border-radius: 5%;
-    transition: all .3s ease;
-}
-
-.director-info-page .movie-poster-wrapper img:hover {
-    border: 4px solid #00E054;
-    transition: all .3s ease;
-}
-
-
-.movie-tooltip {
-    position: absolute;
-    display: block;
-    text-align: center;
-    background-color: #445566;
-    border-radius: 5px;
-    color: #A0CCDD;
-    bottom: 103%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    padding: 5px 3px;
-    width: 100%;
-    transition: .3s all ease-in;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.movie-tooltip:hover {
-}
-
-
-.movie-tooltip::before {
-    content: '';
-    position: absolute;
-    height: 13px;
-    width: 13px;
-    background-color: #445566;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    z-index: -1;
-    /*        transition: .3s all ease-in;
-*/
-}
-
-.director-info-page .movie-poster-wrapper:hover .movie-tooltip {
-    /*opacity: 1;
-    z-index: 2;*/
-    visibility: visible;
-    opacity: 1;
-    transition: .3s all ease-in;
-}
-
-section.director-info-aside {
-    max-width: 280px;
-}
 
 
 
-.movie-poster-wrapper {
-    width: 200px;
-    height: 300px;
-}
+.director-info-page {
+    .director-movies-container {
+        .director-list-item {
+            .movie-poster-wrapper {
+                position: relative;
+                //Important - choose the aspect ratio here
+                padding-bottom: 150%;
 
-.movie-poster-wrapper img {
-    width: 200px;
-    height: 300px;
-    object-fit: cover;
-}
+                a {
+                    img.movie-poster {
+                        border: 4px solid transparent;
+                        border-radius: 5%;
+                        transition: all .3s ease;
+                        object-fit: cover;
+                        object-position: top;
+                        width: 100%;
+                        position: absolute;
+                        height: 100%;
 
-/*Director info page*/
 
+                        &:hover {
+                            border: 4px solid #00E054;
+                            transition: all .3s ease;
+                        }
+                    }
+                }
 
+                .movie-tooltip {
+                    position: absolute;
+                    display: block;
+                    text-align: center;
+                    background-color: #445566;
+                    border-radius: 5px;
+                    color: #A0CCDD;
+                    bottom: 103%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 14px;
+                    padding: 5px 3px;
+                    width: 100%;
+                    transition: .3s all ease-in;
+                    visibility: hidden;
+                    opacity: 0;
 
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        height: 13px;
+                        width: 13px;
+                        background-color: #445566;
+                        bottom: -6px;
+                        left: 50%;
+                        transform: translateX(-50%) rotate(45deg);
+                        z-index: -1;
+                    }
+                }
 
+                &:hover .movie-tooltip {
+                    /*opacity: 1;
+                    z-index: 2;*/
+                    visibility: visible;
+                    opacity: 1;
+                    transition: .3s all ease-in;
+                }
+            }
+            //#movie-poster-wrapper
+            .direector-page-movie-options {
+                @media (max-width: 767px) {
+                    font-size: 0.875em;
+                    line-height: 1.3 !important;
+                }
+            }
+        }
+        //#director-list-item
+    }
+    //#director-movies-container
+    section.director-info-aside {
+        @media (min-width: 992px) {
+            max-width: 280px;
 
+            img {
+                width: 280px;
+                border-radius: 1.5%;
+            }
+        }
 
+        @media (max-width: 991px) {
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            img {
+                width: 100%;
+                max-width: 500px;
+                border-radius: 1%;
+            }
+        }
+
+        img {
+            border: 1px solid transparent;
+            transition: all .3s ease;
+
+            &:hover {
+                border: 1px solid hsla(0,0%,100%,.25);
+                transition: all .3s ease;
+            }
+        }
+    }
+    //End section.director-info-aside
+}//#director-info-page
+
+//End director info page
 
 
 #blah {
     width: 220px;
     height: 330px;
     object-fit: cover;
+}
+
+.director-info-aside {
+    margin: 10px;
+}
+
+
+.director-movies-container {
+    //padding-right: 300px;
 }
