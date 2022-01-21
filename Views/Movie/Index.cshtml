@@ -13,12 +13,16 @@
         @foreach (var movie in Model.Item1)
         {
             <div class="col-4">
-                <img class="img-fluid" src="~/image/@movie.ImageName" />
+                <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
+                    <img class="img-fluid" src="~/image/@movie.ImageName" />
+                </a>
             </div>
 
             <div class="col-8 py-3">
                 <div class="mb-3">
-                    <span class="me-3 fs-3">@Html.DisplayFor(modelItem => movie.Title)</span>
+                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
+                        <span class="me-3 fs-3">@Html.DisplayFor(modelItem => movie.Title)</span>
+                    </a>
                     <span class="me-3 fs-5">@Html.DisplayFor(modelItem => movie.Year)</span>
                     <span>Directed by </span>
                     <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@movie.DirectorId">@Model.Item2.FirstOrDefault(m => m.Id == movie.DirectorId).Name</a></span>

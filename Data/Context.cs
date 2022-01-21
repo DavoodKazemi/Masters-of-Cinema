@@ -17,7 +17,8 @@ namespace MastersOfCinema.Data
 
         public DbSet<Director> Directors { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        
+        public DbSet<MovieRating> MovieRatings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
