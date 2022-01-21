@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MastersOfCinema.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220104203326_InitialCreate")]
+    [Migration("20220121124129_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

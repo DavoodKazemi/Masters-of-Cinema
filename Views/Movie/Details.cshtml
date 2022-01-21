@@ -1,0 +1,37 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = Model.Title + " (" + Model.Year + ")";
+}
+
+@*Movie information*@
+<section class="container my-5">
+    <div class="row">
+
+        <div class="col-4">
+            <img class="img-fluid" src="@("~/image/"+Model.ImageName)" asp-append-version="true" />
+        </div>
+
+        <div class="col-8 py-3">
+            <div class="mb-3">
+                <span class="me-3 fs-3">@Html.DisplayFor(modelItem => Model.Title)</span>
+                <span class="me-3 fs-5">@Html.DisplayFor(modelItem => Model.Year)</span>
+                <span>Directed by </span>
+                <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@Model.DirectorId">@Model.DirectorId</a></span>
+                <span><a class="me-3" asp-action="Edit" asp-route-id="@Model.Id">(Edit movie)</a></span>
+            </div>
+
+            <div class="">
+                @Html.DisplayFor(modelItem => Model.Description)
+                <a class="MovieDetailsEditButton" asp-action="Edit" asp-route-id="@Model.Id">
+                    (Edit)
+                </a>
+            </div>
+
+        </div>
+        <hr id="AllMoviesListHr">
+
+        <br />
+    </div>
+</section>
+@*END Movie information*@

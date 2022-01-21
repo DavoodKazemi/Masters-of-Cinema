@@ -226,5 +226,19 @@ namespace MastersOfCinema.Controllers
             }
             return View(movieViewModel);
         }
+
+        // GET: Movie/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var movieViewModel = await _context.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movieViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(movieViewModel);
+        }
+
     }
 }
