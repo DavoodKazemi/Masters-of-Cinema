@@ -1,4 +1,54 @@
-﻿//rating
+﻿
+.movie-rate-chart {
+    display: table;
+    table-layout: fixed;
+    width: 33%;
+    //max-width: 700px;
+    height: 100px;
+    margin: 0 auto;
+    background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.1) 2%, transparent 2%);
+    background-size: 100% 50px;
+    background-position: left top;
+
+    li {
+        position: relative;
+        display: table-cell;
+        vertical-align: bottom;
+        height: 200px;
+    }
+
+    .tooltip-subject {
+        margin: 0 1em;
+        display: block;
+        //background: rgba(#d1ecfa, .75);
+        background-color: #445566;
+        animation: draw 1s ease-in-out !important;
+        cursor: pointer;
+
+        &:before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            //padding: 5px 1em 0;
+            display: block;
+            text-align: center;
+            content: attr(title);
+            word-wrap: break-word;
+        }
+
+        &:hover {
+            line-height: 1;
+            //border: 0;
+            background-color: #667788;
+            //margin: 0;
+            //outline: 0;
+            color: #40bcf4;
+        }
+    }
+}
+
+//rating
 .rate-icon-wrapper {
     //Delete rate icon
     .delete-rate-icon-wrapper {

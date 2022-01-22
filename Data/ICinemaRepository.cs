@@ -12,5 +12,7 @@ namespace MastersOfCinema.Data
         int GetMovieRatingCountAll(int id);
         double GetAverageRating(int id);
         IEnumerable<int> GetMovieRatingStats(int id);
+        IEnumerable<double> MovieRatingChartStats(int id);
+        IEnumerable<int> MovieRatingCount(int id);
     }
 }

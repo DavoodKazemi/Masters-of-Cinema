@@ -63,6 +63,52 @@ namespace MastersOfCinema.Data
         {
             return null;
         }
+        //For example: 15% of the ratings of a movie is 1, 40% rated 2, ...
+        //Ex. 20 people rated a movie. 5 people rated it by 4. percent(3) = (4 / 20) * 100 = 20%
+        public IEnumerable<double> MovieRatingChartStats(int id)
+        {
+            List<MovieRating> coll;
+            double count1, count2, count3;
+            List<double> percent = new List<double>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                //Get all ratings of i+1 of the movie
+                coll = GetAllMovieRatingsById(id).Where(m => m.Rating == i + 1).ToList();
+                //Ex. 4 people rated the movie by i+1
+                count1 = coll.Count();
+                //Ex. ALL of the people rated the movie = 20 people
+                count2 = GetAllMovieRatingsById(id).Count();
+                //Ex. 4 / 20 = 0.2
+                if(count1!=0 && count2 != 0)
+                {
+                    count3 = count1 / count2;
+                } else
+                {
+                    count3 = 0.0;
+                }
+                //Ex. 0.2 * 100 = 20 (%)
+                percent.Add(count3 * 100);
+            }
+
+            return percent;
+        }
+
+        //For example: 
+        //12 people rated a movie by 4
+        //8 people rated it by 1
+        //And so on
+        public IEnumerable<int> MovieRatingCount(int id)
+        {
+            List<int> count = new List<int>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                count.Add(GetAllMovieRatingsById(id).Where(m => m.Rating == i + 1).Count());
+            }
+            return count;
+        }
+
         //END Movie rating methods
         public CinemaRepository(Context context, ILogger<CinemaRepository> logger)
         {

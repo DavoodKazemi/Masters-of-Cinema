@@ -5,6 +5,14 @@
 
     int olDRate = ViewBag.oldRate;
     int newCount = @Model.RateCountAll;
+
+    double heightFix = Model.RatePercents.Max();
+    double heightFactor = 100 / heightFix;
+    double rate1 = Model.RatePercents.ElementAt(0) * heightFactor;
+    double rate2 = Model.RatePercents.ElementAt(1) * heightFactor;
+    double rate3 = Model.RatePercents.ElementAt(2) * heightFactor;
+    double rate4 = Model.RatePercents.ElementAt(3) * heightFactor;
+    double rate5 = Model.RatePercents.ElementAt(4) * heightFactor;
 }
 
 <section class="container">
@@ -12,39 +20,66 @@
         <div class="col-4">
             <div class="bg-white d-inline">
                 <span id="average-rate" class="movie-tooltip bg-danger">@Math.Round(@Model.AverageRate, 2)</span>
-                
+
                 @*Movie Rating count*@
                 <span id="rate-count">@Model.RateCountAll</span><span> Rating!</span>
 
             </div>
         </div>
         @*Edit rating without reload*@
-    <form id="studenteForm" enctype="multipart/form-data" class="col-8">
-        <div class="form-group my-3">
-            <label asp-for="@Model.MovieRating.MovieId" class="mb-1 control-label"></label>
-            <input asp-for="@Model.MovieRating.MovieId" value="@Model.MovieRating.MovieId" class="form-control input-small" />
-        </div>
+        <form id="studenteForm" enctype="multipart/form-data" class="col-4">
+            <div class="form-group my-3">
+                <label asp-for="@Model.MovieRating.MovieId" class="mb-1 control-label"></label>
+                <input asp-for="@Model.MovieRating.MovieId" value="@Model.MovieRating.MovieId" class="form-control input-small" />
+            </div>
 
-        <div class="form-group my-3">
-            <label asp-for="@Model.MovieRating.Rating" class="mb-1 control-label"></label>
-            <input asp-for="@Model.MovieRating.Rating" id="Rating" class="form-control input-small" />
-        </div>
-        
+            <div class="form-group my-3">
+                <label asp-for="@Model.MovieRating.Rating" class="mb-1 control-label"></label>
+                <input asp-for="@Model.MovieRating.Rating" id="Rating" class="form-control input-small" />
+            </div>
 
 
-        <span class="rate-icon-wrapper" onmouseout="CRateSelected()" type="button">
-            <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
-                <i class="fas fa-times delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
+
+            <span class="rate-icon-wrapper" onmouseout="CRateSelected()" type="button">
+                <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
+                    <i class="fas fa-times delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
+                </span>
+                <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
+                <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
+                <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
+
             </span>
-            <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
-            <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
-            <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
-
-        </span>
 
 
 
-    </form>
+        </form>
+
+
+        @*Adding simple chart bars for presenting a comprehensive rating stats*@
+        <ul class="movie-rate-chart mb-5 bg-light col-4">
+            <li class="movie-poster-wrapper tooltip-wrapper">
+                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
+                <span class="rate-bars tooltip-subject" id="rate-stat-1" style="height:1%" title="Rate 1"></span>
+            </li>
+            <li class="movie-poster-wrapper tooltip-wrapper">
+                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
+                <span class="rate-bars tooltip-subject" id="rate-stat-2" style="height:1%" title="Rate 2"></span>
+            </li>
+            <li class="movie-poster-wrapper tooltip-wrapper">
+                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
+                <span class="rate-bars tooltip-subject" id="rate-stat-3" style="height:1%" title="Rate 3"></span>
+            </li>
+            <li class="movie-poster-wrapper tooltip-wrapper">
+                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
+                <span class="rate-bars tooltip-subject" id="rate-stat-4" style="height:1%" title="Rate 4"></span>
+            </li>
+            <li class="movie-poster-wrapper tooltip-wrapper">
+                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
+                <span class="rate-bars tooltip-subject" id="rate-stat-5" style="height:1%" title="Rate 5"></span>
+            </li>
+        </ul>
+        @*END simple chart bars for presenting a comprehensive rating stats*@
+
     </div>
 </section>
 
@@ -80,7 +115,7 @@
             $("#Rate" + i).attr('class', 'starFadeN');
         }
 
-        
+
         //If they clicked on remove icon
         if (r == 0) {
             $("#Rate0").hide(); //hide remove icon
@@ -90,6 +125,12 @@
             $("#Rate0").show();
         }
 
+
+        $("#rate-stat-1").height("@rate1" + "%");
+        $("#rate-stat-2").height("@rate2"+"%");
+        $("#rate-stat-3").height("@rate3"+"%");
+        $("#rate-stat-4").height("@rate4"+"%");
+        $("#rate-stat-5").height("@rate5"+"%");
 
     }
 

@@ -239,6 +239,8 @@ namespace MastersOfCinema.Controllers
                 Movie = GetMovieById(id),
                 MovieRating = GetRatingByMovieId(id),
                 AverageRate = _repository.GetAverageRating(id),
+                RatePercents = _repository.MovieRatingChartStats(id),
+                RateCounts = _repository.MovieRatingCount(id),
             };
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)

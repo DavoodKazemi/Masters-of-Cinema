@@ -1,4 +1,81 @@
-﻿.rate-icon-wrapper .delete-rate-icon-wrapper {
+﻿.tooltip-wrapper {
+  position: relative; }
+  .tooltip-wrapper .tooltip-supject {
+    border: 4px solid transparent;
+    border-radius: 5%;
+    transition: all .3s ease;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    position: absolute; }
+  .tooltip-wrapper .tooltip-object {
+    position: absolute;
+    display: block;
+    text-align: center;
+    background-color: #445566;
+    border-radius: 5px;
+    color: #A0CCDD;
+    bottom: 103%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    padding: 5px 3px;
+    width: 250%;
+    transition: .3s all ease-in;
+    visibility: hidden;
+    opacity: 0; }
+    .tooltip-wrapper .tooltip-object::before {
+      content: '';
+      position: absolute;
+      height: 13px;
+      width: 13px;
+      background-color: #445566;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      z-index: -1; }
+  .tooltip-wrapper:hover .tooltip-object {
+    /*opacity: 1;
+                    z-index: 2;*/
+    visibility: visible;
+    opacity: 1;
+    transition: .3s all ease-in; }
+
+.movie-rate-chart {
+  display: table;
+  table-layout: fixed;
+  width: 33%;
+  height: 100px;
+  margin: 0 auto;
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.1) 2%, transparent 2%);
+  background-size: 100% 50px;
+  background-position: left top; }
+  .movie-rate-chart li {
+    position: relative;
+    display: table-cell;
+    vertical-align: bottom;
+    height: 200px; }
+  .movie-rate-chart .tooltip-subject {
+    margin: 0 1em;
+    display: block;
+    background-color: #445566;
+    animation: draw 1s ease-in-out !important;
+    cursor: pointer; }
+    .movie-rate-chart .tooltip-subject:before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      display: block;
+      text-align: center;
+      content: attr(title);
+      word-wrap: break-word; }
+    .movie-rate-chart .tooltip-subject:hover {
+      line-height: 1;
+      background-color: #667788;
+      color: #40bcf4; }
+
+.rate-icon-wrapper .delete-rate-icon-wrapper {
   width: 30px;
   height: 30px;
   position: relative;
