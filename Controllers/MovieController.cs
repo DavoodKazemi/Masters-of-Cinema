@@ -289,16 +289,23 @@ namespace MastersOfCinema.Controllers
             }
             //END - Update or Create?
 
-
             //Check the update/create for rate here maybe! Like GetRateByMovie().Any
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && movieRateDirector.MovieRating.Rating != 0)
             {
-                //Save rating
+                //Create/Save rating
                 _context.Update(movieRateDirector.MovieRating);
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                //Delete rating - If rating = 0, it means they clicked on remove rate
+                var directorViewModel = await _context.MovieRatings
+                .FindAsync(movieRateDirector.MovieRating.Id);
+                _context.MovieRatings.Remove(directorViewModel);
+                await _context.SaveChangesAsync();
+            }
 
-            return View(movieRateDirector);
+            return Ok("Form Data received!");
         }
 
         public Movie GetMovieById(int id)

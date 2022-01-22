@@ -13,21 +13,23 @@
             <label asp-for="@Model.MovieRating.MovieId" class="mb-1 control-label"></label>
             <input asp-for="@Model.MovieRating.MovieId" value="@Model.MovieRating.MovieId" class="form-control input-small" />
         </div>
+
         <div class="form-group my-3">
             <label asp-for="@Model.MovieRating.Rating" class="mb-1 control-label"></label>
             <input asp-for="@Model.MovieRating.Rating" id="Rating" class="form-control input-small" />
         </div>
-
-        <inout type="button" class="btn-lg btn-success" onclick="submitStudent()">Rate</inout>
-        <div class="form-group">
-            <input type="submit" value="Save" asp-action="Details" class="btn btn-danger btn-lg" />
-        </div>
+        
 
 
-        <div>
-            <span class="btn-lg btn-dark" type="button" onclick="submitStudent()">
+        <span class="rate-icon-wrapper" onmouseout="CRateSelected()" type="button">
+            <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
+                <i class="fas fa-times delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent()"></i>
             </span>
-        </div>
+            <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent()" onmouseover="CRateOver(1)"></span>
+            <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent()" onmouseover="CRateOver(2)"></span>
+            <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent()" onmouseover="CRateOver(3)"></span>
+
+        </span>
 
 
 
@@ -35,6 +37,59 @@
     </div>
 </section>
 
+<script>
+    //Display current rate when page get loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        CRate(@Model.MovieRating.Rating);
+        if (@Model.MovieRating.Id == 0) {
+            $("#Rate0").hide();
+        }
+    });
+
+    //Click on the nth star
+    function CRate(r) {
+        // #Rating input = n
+        $("#Rating").val(r);
+
+        // nth star and previous are to glow
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'starGlow');
+        }
+        // stars after the nth are to fade
+        for (var i = r + 1; i <= 5; i++) {
+            $("#Rate" + i).attr('class', 'starFadeN');
+        }
+
+        if (r == 0) {
+            $("#Rate0").hide();
+        } else {
+            $("#Rate0").show();
+        }
+    }
+
+    //When mouse over nth star >>
+    function CRateOver(r) {
+        //the nth and previous stars are to glow
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'starGlow');
+        }
+        //stars after the nth are to fade
+        for (var i = 5; i > r; i--) {
+            $("#Rate" + i).attr('class', 'starFadeN');
+        }
+    }
+
+    //When mouse out of all stars >> the stars restore to show the user rate
+    function CRateSelected() {
+        var setRating = $("#Rating").val();
+        for (var i = 1; i <= setRating; i++) {
+            $("#Rate" + i).attr('class', 'starGlow');
+        }
+        for (var i = 5; i > setRating; i--) {
+            $("#Rate" + i).attr('class', 'starFadeN');
+        }
+    }
+</script>
 
 @*Movie information*@
 <section class="container mb-5">
@@ -68,14 +123,14 @@
 </section>
 @*END Movie information*@
 
-
+@*Using ajax to rate movies without reloading the view*@
 <script type="text/javascript">
     function submitStudent() {
 
         var data = $("#studenteForm").serialize();
         console.log(data);
 
-        alert(data);
+        //alert(data);
         $.ajax({
 
             type: 'POST',
@@ -83,11 +138,11 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (result) {
-                alert('Successfully received Data ');
+                //alert('Successfully received Data ');
                 console.log(result);
             },
             error: function () {
-                alert('Failed to receive the Data');
+                //alert('Failed to receive the Data');
                 console.log('Failed ');
             }
         })

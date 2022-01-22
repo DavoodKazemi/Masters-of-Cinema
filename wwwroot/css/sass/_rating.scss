@@ -1,0 +1,75 @@
+﻿//rating
+.rate-icon-wrapper {
+    //Delete rate icon
+    .delete-rate-icon-wrapper {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        display: block;
+        float: left;
+        cursor: default;
+
+        .delete-rate-icon {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 65%;
+            overflow: hidden;
+            opacity: 0;
+            transition: all .2s ease-in;
+            color: red;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 18px;
+
+            &:hover {
+                font-size: 22px;
+                opacity: 1 !important;
+            }
+        }
+    }
+
+    &:hover .delete-rate-icon-wrapper .delete-rate-icon {
+        transition: all .2s ease-in;
+        left: 50%;
+        opacity: .75;
+    }
+    //END Delete rate icon
+}
+
+.commentBox {
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.starFade {
+    background-image: url('/Image/Rating/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starFadeN {
+    background-image: url('/Image/Rating/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.starGlow {
+    background-image: url('/Image/Rating/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starGlowN {
+    background-image: url('/Image/Rating/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+//rating
