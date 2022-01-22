@@ -9,5 +9,8 @@ namespace MastersOfCinema.Data
         Director GetDirectorById(int id);
         IEnumerable<Movie> GetAllMovies();
         Movie GetMovieById(int id);
+        int GetMovieRatingCountAll(int id);
+        double GetAverageRating(int id);
+        IEnumerable<int> GetMovieRatingStats(int id);
     }
 }

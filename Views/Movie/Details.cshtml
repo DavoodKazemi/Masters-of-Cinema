@@ -2,11 +2,22 @@
 
 @{
     ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
+
+    int olDRate = ViewBag.oldRate;
+    int newCount = @Model.RateCountAll;
 }
 
 <section class="container">
     <div class="row">
-        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="bg-white d-inline">
+                <span id="average-rate" class="movie-tooltip bg-danger">@Math.Round(@Model.AverageRate, 2)</span>
+                
+                @*Movie Rating count*@
+                <span id="rate-count">@Model.RateCountAll</span><span> Rating!</span>
+
+            </div>
+        </div>
         @*Edit rating without reload*@
     <form id="studenteForm" enctype="multipart/form-data" class="col-8">
         <div class="form-group my-3">
@@ -23,11 +34,11 @@
 
         <span class="rate-icon-wrapper" onmouseout="CRateSelected()" type="button">
             <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
-                <i class="fas fa-times delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent()"></i>
+                <i class="fas fa-times delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
             </span>
-            <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent()" onmouseover="CRateOver(1)"></span>
-            <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent()" onmouseover="CRateOver(2)"></span>
-            <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent()" onmouseover="CRateOver(3)"></span>
+            <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
+            <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
+            <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
 
         </span>
 
@@ -37,16 +48,25 @@
     </div>
 </section>
 
+
+
+
+
+
 <script>
-    //Display current rate when page get loaded
+    //when page get loaded
     document.addEventListener("DOMContentLoaded", function () {
-        CRate(@Model.MovieRating.Rating);
+        //Display current rate
+        if (@Model.MovieRating.Id != 0) {
+            CRate(@Model.MovieRating.Rating);
+        }
+        //If movie is not rated, hide the remove rate icon
         if (@Model.MovieRating.Id == 0) {
             $("#Rate0").hide();
         }
     });
 
-    //Click on the nth star
+    //Click on the nth star (including remove icon)
     function CRate(r) {
         // #Rating input = n
         $("#Rating").val(r);
@@ -60,11 +80,17 @@
             $("#Rate" + i).attr('class', 'starFadeN');
         }
 
+        
+        //If they clicked on remove icon
         if (r == 0) {
-            $("#Rate0").hide();
+            $("#Rate0").hide(); //hide remove icon
+
+        //If they rated movie, show remove icon
         } else {
             $("#Rate0").show();
         }
+
+
     }
 
     //When mouse over nth star >>
@@ -125,7 +151,35 @@
 
 @*Using ajax to rate movies without reloading the view*@
 <script type="text/javascript">
-    function submitStudent() {
+    function submitStudent(r) {
+
+        //Update rate count
+        var newCount2 = @newCount
+
+        //Rate count decreases by 1
+        //If they had not rated movie before, rate count increased by 1
+        if (r == 1 && newCount2 == 0) {
+            document.getElementById("rate-count").textContent = ++newCount2;
+        } else if (r == 0 && newCount2 > 0) {
+            document.getElementById("rate-count").textContent = --newCount2;
+        } else {
+            document.getElementById("rate-count").textContent = newCount2;
+
+        }
+
+
+        //Update the average instantly
+        var newRate = parseInt($("#Rating").val(), 10); //The rating they just chose
+
+        //If previous average = 0 (noone had rated movie before this one)
+        if (@Model.AverageRate == 0) {
+            //The average will be its only rate (this new rate)
+            document.getElementById("average-rate").textContent = newRate;
+        } else {
+            var diff = (newRate - @ViewBag.OldRate) / @newCount;
+            var newAverage = @Model.AverageRate + diff;
+            document.getElementById("average-rate").textContent = +newAverage.toFixed(2);
+        }
 
         var data = $("#studenteForm").serialize();
         console.log(data);

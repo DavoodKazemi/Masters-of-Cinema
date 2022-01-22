@@ -10,6 +10,7 @@ namespace MastersOfCinema.ViewModels
         public MovieRating MovieRating { get; set; }
         public Director Director { get; set; }
 
+        public int RateCountAll { get; set; }
         //4 people rated this movie by 1, 15 people rated this mocie by 2, ....
         public IEnumerable<int> RateCounts { get; set; }
         //11% rated this movie by 1, 40% people rated this mocie by 2, ....

@@ -19,13 +19,17 @@ namespace MastersOfCinema.Controllers
 
         public IList<Director> DirectorList { get; set; }
         private readonly ILogger<MovieController> logger;
+        private readonly ICinemaRepository _repository;
 
-
-        public MovieController(Context context, IWebHostEnvironment webHostEnvironment, ILogger<MovieController> logger)
+        public MovieController(Context context, 
+            IWebHostEnvironment webHostEnvironment, 
+            ILogger<MovieController> logger,
+            ICinemaRepository repository)
         {
             _context = context;
             _hostEnvironment = webHostEnvironment;
             this.logger = logger;
+            _repository = repository;
         }
 
         private IEnumerable<Movie> GetMovies()
@@ -234,12 +238,23 @@ namespace MastersOfCinema.Controllers
             {
                 Movie = GetMovieById(id),
                 MovieRating = GetRatingByMovieId(id),
+                AverageRate = _repository.GetAverageRating(id),
             };
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)
             { movieRateDirector.MovieRating = new MovieRating
                 {Id = 0, MovieId = id};
             }
+
+            //Start Rate stats
+            //Rate all count + You need to fix this later when add users, you need to define something like isRated (userId)
+            movieRateDirector.RateCountAll = movieRateDirector.Movie.MovieRatings.Count();
+
+            //Saving Old rate
+            ViewBag.oldRate = movieRateDirector.MovieRating.Rating ?? 0;
+            
+            //END Rate stats
+
 
             movieRateDirector.Director = _context.Directors
                 .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
@@ -253,6 +268,8 @@ namespace MastersOfCinema.Controllers
 
             return View(movieRateDirector);
         }
+
+        
 
         [HttpPost]
         public async Task<IActionResult> Details(MovieRateDirector movieRateDirector)
