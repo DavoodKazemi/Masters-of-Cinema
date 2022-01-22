@@ -1,29 +1,61 @@
-﻿@model Movie
+﻿@model MovieRateDirector
 
 @{
-    ViewData["Title"] = Model.Title + " (" + Model.Year + ")";
+    ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
 }
 
+<section class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        @*Edit rating without reload*@
+    <form id="studenteForm" enctype="multipart/form-data" class="col-8">
+        <div class="form-group my-3">
+            <label asp-for="@Model.MovieRating.MovieId" class="mb-1 control-label"></label>
+            <input asp-for="@Model.MovieRating.MovieId" value="@Model.MovieRating.MovieId" class="form-control input-small" />
+        </div>
+        <div class="form-group my-3">
+            <label asp-for="@Model.MovieRating.Rating" class="mb-1 control-label"></label>
+            <input asp-for="@Model.MovieRating.Rating" id="Rating" class="form-control input-small" />
+        </div>
+
+        <inout type="button" class="btn-lg btn-success" onclick="submitStudent()">Rate</inout>
+        <div class="form-group">
+            <input type="submit" value="Save" asp-action="Details" class="btn btn-danger btn-lg" />
+        </div>
+
+
+        <div>
+            <span class="btn-lg btn-dark" type="button" onclick="submitStudent()">
+            </span>
+        </div>
+
+
+
+    </form>
+    </div>
+</section>
+
+
 @*Movie information*@
-<section class="container my-5">
+<section class="container mb-5">
     <div class="row">
 
         <div class="col-4">
-            <img class="img-fluid" src="@("~/image/"+Model.ImageName)" asp-append-version="true" />
+            <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
         </div>
 
         <div class="col-8 py-3">
             <div class="mb-3">
-                <span class="me-3 fs-3">@Html.DisplayFor(modelItem => Model.Title)</span>
-                <span class="me-3 fs-5">@Html.DisplayFor(modelItem => Model.Year)</span>
+                <span class="me-3 fs-3">@Html.DisplayFor(modelItem => Model.Movie.Title)</span>
+                <span class="me-3 fs-5">@Html.DisplayFor(modelItem => Model.Movie.Year)</span>
                 <span>Directed by </span>
-                <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@Model.DirectorId">@Model.DirectorId</a></span>
-                <span><a class="me-3" asp-action="Edit" asp-route-id="@Model.Id">(Edit movie)</a></span>
+                <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@Model.Movie.DirectorId">@Model.Director.Name</a></span>
+                <span><a class="me-3" asp-action="Edit" asp-route-id="@Model.Movie.Id">(Edit movie)</a></span>
             </div>
 
             <div class="">
-                @Html.DisplayFor(modelItem => Model.Description)
-                <a class="MovieDetailsEditButton" asp-action="Edit" asp-route-id="@Model.Id">
+                @Html.DisplayFor(modelItem => Model.Movie.Description)
+                <a class="DetailsEditButton" asp-action="Edit" asp-route-id="@Model.Movie.Id">
                     (Edit)
                 </a>
             </div>
@@ -35,3 +67,30 @@
     </div>
 </section>
 @*END Movie information*@
+
+
+<script type="text/javascript">
+    function submitStudent() {
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+        alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/Movie/Details',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>

@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace MastersOfCinema.ViewModels
 {
@@ -26,5 +22,6 @@ namespace MastersOfCinema.ViewModels
         [DisplayName("Upload Movie Poster")]
         [JsonIgnore]
         public IFormFile ImageFile { get; set; }
+        public List<MovieRating> MovieRatings { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -228,17 +227,108 @@ namespace MastersOfCinema.Controllers
         }
 
         // GET: Movie/Details/5
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var movieViewModel = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movieViewModel == null)
+            //Add data to view model
+            MovieRateDirector movieRateDirector = new MovieRateDirector()
             {
+                Movie = GetMovieById(id),
+                MovieRating = GetRatingByMovieId(id),
+            };
+            //If movie was not rated, make a new Rating obj to prevent error
+            if (movieRateDirector.MovieRating == null)
+            { movieRateDirector.MovieRating = new MovieRating
+                {Id = 0, MovieId = id};
+            }
+
+            movieRateDirector.Director = _context.Directors
+                .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
+            //END Add data to view model
+
+            if (movieRateDirector.Movie == null)
+            {
+                //return view(404);?
                 return NotFound();
             }
 
-            return View(movieViewModel);
+            return View(movieRateDirector);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Details(MovieRateDirector movieRateDirector)
+        {
+            movieRateDirector.Movie = GetMovieById(movieRateDirector.MovieRating.MovieId);
+            movieRateDirector.Director = _context.Directors
+                .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
+
+            //Update or Create?
+            //Check - Movie has any rating
+            int movieId = movieRateDirector.MovieRating.MovieId;
+            bool hadRated = _context.MovieRatings.Any(m => m.MovieId == movieId);
+            if (hadRated)
+            {
+                //Update - Make the Id of view = Id of the existing rate in db
+                movieRateDirector.MovieRating.Id = _context.MovieRatings
+                                .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId).Id;
+            }
+            else
+            {
+                //Create
+                movieRateDirector.MovieRating.Id = 0;
+            }
+ 
+            var local = _context.Set<MovieRating>()
+                .Local
+                .FirstOrDefault(entry => entry.MovieId.Equals(movieRateDirector.MovieRating.MovieId));
+
+            // check if local is not null 
+            if (local != null)
+            {
+                // detach
+                _context.Entry(local).State = EntityState.Detached;
+            }
+            //END - Update or Create?
+
+
+            //Check the update/create for rate here maybe! Like GetRateByMovie().Any
+            if (ModelState.IsValid)
+            {
+                //Save rating
+                _context.Update(movieRateDirector.MovieRating);
+                await _context.SaveChangesAsync();
+            }
+
+            return View(movieRateDirector);
+        }
+
+        public Movie GetMovieById(int id)
+        {
+            try
+            {
+                logger.LogInformation("GetMovieById was called!");
+                return _context.Movies.Include(x => x.MovieRatings).FirstOrDefault(p => p.Id == id);
+                
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Failed to get all movies: {ex}");
+                return null;
+            }
+        }
+
+        //Movie Id - Later should return the user rating of a movie
+        private MovieRating GetRatingByMovieId(int id)
+        {
+            try
+            {
+                logger.LogInformation("GetRatingById was called!");
+                return _context.MovieRatings.FirstOrDefault(m => m.MovieId == id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Failed to get all movie ratings: {ex}");
+                return null;
+            }
+        }
     }
 }
