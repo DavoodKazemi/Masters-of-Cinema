@@ -18,6 +18,8 @@
     <None Include="Views\Movie\Edit.cshtml" />
     <None Include="Views\Movie\Index.cshtml" />
     <None Include="wwwroot\css\site.scss" />
+    <None Include="wwwroot\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\jquery-validation\dist\jquery.validate.min.js" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 

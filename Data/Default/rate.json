@@ -1,72 +1,72 @@
 [
   {
-    "UserId":1,
+    "UserId":"1",
     "MovieId":1,
     "Rating":1
   },
   {
-    "UserId":1,
-    "MovieId":2,
-    "Rating":3
+    "UserId": "1",
+    "MovieId": 2,
+    "Rating": 3
   },
   {
-    "UserId":1,
-    "MovieId":3,
-    "Rating":4
+    "UserId": "1",
+    "MovieId": 3,
+    "Rating": 4
   },
   {
-    "UserId":1,
-    "MovieId":5,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 5,
+    "Rating": 5
   },
   {
-    "UserId":1,
-    "MovieId":6,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 6,
+    "Rating": 5
   },
   {
-    "UserId":1,
-    "MovieId":7,
-    "Rating":4
+    "UserId": "1",
+    "MovieId": 7,
+    "Rating": 4
   },
   {
-    "UserId":1,
-    "MovieId":8,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 8,
+    "Rating": 5
   },
   {
-    "UserId":1,
-    "MovieId":9,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 9,
+    "Rating": 5
   },
   {
-    "UserId":1,
-    "MovieId":12,
-    "Rating":1
+    "UserId": "1",
+    "MovieId": 12,
+    "Rating": 1
   },
   {
-    "UserId":1,
-    "MovieId":13,
-    "Rating":1
+    "UserId": "1",
+    "MovieId": 13,
+    "Rating": 1
   },
   {
-    "UserId":1,
-    "MovieId":14,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 14,
+    "Rating": 5
   },
   {
-    "UserId":1,
-    "MovieId":15,
-    "Rating":3
+    "UserId": "1",
+    "MovieId": 15,
+    "Rating": 3
   },
   {
-    "UserId":1,
-    "MovieId":16,
-    "Rating":4
+    "UserId": "1",
+    "MovieId": 16,
+    "Rating": 4
   },
   {
-    "UserId":1,
-    "MovieId":17,
-    "Rating":5
+    "UserId": "1",
+    "MovieId": 17,
+    "Rating": 5
   }
 ]

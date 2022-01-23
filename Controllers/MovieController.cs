@@ -2,6 +2,7 @@
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -21,16 +22,19 @@ namespace MastersOfCinema.Controllers
         public IList<Director> DirectorList { get; set; }
         private readonly ILogger<MovieController> logger;
         private readonly ICinemaRepository _repository;
+        private readonly UserManager<User> _userManager;
 
         public MovieController(Context context, 
             IWebHostEnvironment webHostEnvironment, 
             ILogger<MovieController> logger,
-            ICinemaRepository repository)
+            ICinemaRepository repository,
+            UserManager<User> userManager)
         {
             _context = context;
             _hostEnvironment = webHostEnvironment;
             this.logger = logger;
             _repository = repository;
+            _userManager = userManager;
         }
 
         private IEnumerable<Movie> GetMovies()
@@ -231,9 +235,14 @@ namespace MastersOfCinema.Controllers
             return View(movieViewModel);
         }
 
+
         // GET: Movie/Details/5
+        [Authorize]
         public IActionResult Details(int id)
         {
+
+            var UserName = HttpContext.User.Identity.Name;
+
             //Add data to view model
             MovieRateDirector movieRateDirector = new MovieRateDirector()
             {
@@ -246,7 +255,7 @@ namespace MastersOfCinema.Controllers
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)
             { movieRateDirector.MovieRating = new MovieRating
-                {Id = 0, MovieId = id};
+                {Id = 0, MovieId = id, User = _context.Users.FirstOrDefault(u => u.UserName == UserName)};
             }
 
             //Start Rate stats
@@ -277,50 +286,66 @@ namespace MastersOfCinema.Controllers
         [HttpPost]
         public async Task<IActionResult> Details(MovieRateDirector movieRateDirector)
         {
+            var UserName = HttpContext.User.Identity.Name;
+
             movieRateDirector.Movie = GetMovieById(movieRateDirector.MovieRating.MovieId);
             movieRateDirector.Director = _context.Directors
                 .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
 
-            //Update or Create?
-            //Check - Movie has any rating
-            int movieId = movieRateDirector.MovieRating.MovieId;
-            bool hadRated = _context.MovieRatings.Any(m => m.MovieId == movieId);
-            if (hadRated)
-            {
-                //Update - Make the Id of view = Id of the existing rate in db
-                movieRateDirector.MovieRating.Id = _context.MovieRatings
-                                .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId).Id;
-            }
-            else
-            {
-                //Create
-                movieRateDirector.MovieRating.Id = 0;
-            }
- 
-            var local = _context.Set<MovieRating>()
-                .Local
-                .FirstOrDefault(entry => entry.MovieId.Equals(movieRateDirector.MovieRating.MovieId));
+            movieRateDirector.MovieRating.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
 
-            // check if local is not null 
-            if (local != null)
-            {
-                // detach
-                _context.Entry(local).State = EntityState.Detached;
-            }
-            //END - Update or Create?
+            //If rating != 0, it's either create or update, else it's delete rate
+            if (movieRateDirector.MovieRating.Rating != 0) {
+                //Update or Create?
+                //Check - Movie has any rating
+                int movieId = movieRateDirector.MovieRating.MovieId;
 
-            //Check the update/create for rate here maybe! Like GetRateByMovie().Any
-            if (ModelState.IsValid && movieRateDirector.MovieRating.Rating != 0)
-            {
-                //Create/Save rating
-                _context.Update(movieRateDirector.MovieRating);
-                await _context.SaveChangesAsync();
+                //Check if this user had rated this movie before!
+                bool hadRated = _context.MovieRatings.Where(u => u.User.UserName == UserName).Any(m => m.MovieId == movieId);
+                if (hadRated)
+                {
+                    //Update - Make the Id of view = Id of the existing rate in db
+                    movieRateDirector.MovieRating.Id = _context.MovieRatings.Where(u => u.User.UserName == UserName)
+                                    .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId).Id;
+
+                    //To avoid error in update
+                    /*var local = _context.Set<MovieRating>()
+                    .Local.Where(u => u.User.UserName == UserName)
+                    .FirstOrDefault(entry => entry.MovieId.Equals(movieRateDirector.MovieRating.MovieId));
+                    */
+                    
+                    var local = _context.Set<MovieRating>()
+                    .Local
+                    .FirstOrDefault(entry => entry.Id.Equals(movieRateDirector.MovieRating.Id));
+                    /*                    .Where(entry => entry.Id.Equals(movieRateDirector.MovieRating.Id));
+                    */
+                    // check if local is not null 
+                    if (local != null)
+                    {
+                        // detach
+
+                        _context.Entry(local).State = EntityState.Detached;
+                    }
+                }
+                else
+                {
+                    //Create
+                    movieRateDirector.MovieRating.Id = 0;
+                }
+                //END - Update or Create?
+
+                if (ModelState.IsValid)
+                {
+                    //Save (Create or update) rating in DB
+                    _context.Update(movieRateDirector.MovieRating);
+                    await _context.SaveChangesAsync();
+                }
             }
-            else
+            else //it's a delete request
             {
-                //Delete rating - If rating = 0, it means they clicked on remove rate
-                var directorViewModel = await _context.MovieRatings
-                .FindAsync(movieRateDirector.MovieRating.Id);
+                //Delete rating - If rating = 0, it means they clicked on remove rate button
+                var directorViewModel = _context.MovieRatings.Where(u => u.User.UserName == UserName)
+                .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId);
                 _context.MovieRatings.Remove(directorViewModel);
                 await _context.SaveChangesAsync();
             }
@@ -343,13 +368,16 @@ namespace MastersOfCinema.Controllers
             }
         }
 
-        //Movie Id - Later should return the user rating of a movie
+        //Movie Id - **Later should return the user rating of a movie**
         private MovieRating GetRatingByMovieId(int id)
         {
             try
             {
+                var UserName = HttpContext.User.Identity.Name;
+
                 logger.LogInformation("GetRatingById was called!");
-                return _context.MovieRatings.FirstOrDefault(m => m.MovieId == id);
+                return _context.MovieRatings.Include(x => x.User).Where(u => u.User.UserName == UserName)
+                    .FirstOrDefault(m => m.MovieId == id);
             }
             catch (Exception ex)
             {

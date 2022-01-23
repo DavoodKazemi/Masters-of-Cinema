@@ -11,5 +11,7 @@ namespace MastersOfCinema.ViewModels
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public List<MovieRating> UserMovieRatings { get; set; }
+
     }
 }

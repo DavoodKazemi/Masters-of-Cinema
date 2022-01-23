@@ -46,6 +46,27 @@ namespace MastersOfCinema.Data
                     throw new InvalidOperationException("Could not create new user in seeder");
                 }
             }
+
+            User user2 = await _userManager.FindByEmailAsync("Mastersofcinema@gmail.com");
+            if (user2 == null)
+            {
+                user2 = new User
+                {
+                    FirstName = "Test",
+                    LastName = "User",
+                    Email = "Mastersofcinema@gmail.com",
+                    UserName = "Mastersofcinema",
+                };
+
+
+                var result2 = await _userManager.CreateAsync(user2, "M@sters@fc1nemA");
+                if (result2 != IdentityResult.Success)
+                {
+                    throw new InvalidOperationException("Could not create new user in seeder");
+                }
+            }
+                
+
             if (!ctx.Directors.Any())
             {
                 //Then we need to create the sample data

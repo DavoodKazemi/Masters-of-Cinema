@@ -66,6 +66,9 @@ namespace MastersOfCinema
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(cfg =>
             {
                 cfg.MapControllerRoute("Default",
