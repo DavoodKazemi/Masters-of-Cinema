@@ -28,7 +28,7 @@ namespace MastersOfCinema
             using (var scope = scopeFactory.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetService<Seeding>();
-                seeder.Seed();
+                seeder.SeedAsync().Wait();
             }
         }
 

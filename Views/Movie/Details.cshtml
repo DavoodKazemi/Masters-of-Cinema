@@ -47,6 +47,8 @@
                 <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
                 <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
                 <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
+                <span class="starFade" id="Rate4" onclick="CRate(4), submitStudent(1)" onmouseover="CRateOver(4)"></span>
+                <span class="starFade" id="Rate5" onclick="CRate(5), submitStudent(1)" onmouseover="CRateOver(5)"></span>
 
             </span>
 
@@ -199,7 +201,7 @@
 
         //Rate count decreases by 1
         //If they had not rated movie before, rate count increased by 1
-        if (r == 1 && newCount2 == 0) {
+        if(r == 1 && newCount2 == 0) {
             document.getElementById("rate-count").textContent = ++newCount2;
         } else if (r == 0 && newCount2 > 0) {
             document.getElementById("rate-count").textContent = --newCount2;
