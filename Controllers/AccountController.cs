@@ -1,10 +1,14 @@
-﻿using MastersOfCinema.ViewModels;
+﻿using MastersOfCinema.Data;
+using MastersOfCinema.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,13 +16,20 @@ namespace MastersOfCinema.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ICinemaRepository _repository;
+        private readonly Context _context;
         private readonly ILogger<AccountController> _logger;
         private readonly SignInManager<User> _signInManager;
+        private readonly IHttpContextAccessor _userId;
 
-        public AccountController(ILogger<AccountController> logger, SignInManager<User> signInManager)
+        public AccountController(IHttpContextAccessor httpContextAccessor,
+            ICinemaRepository repository, Context context, ILogger<AccountController> logger, SignInManager<User> signInManager)
         {
+            _repository = repository;
+            _context = context;
             _logger = logger;
             _signInManager = signInManager;
+            _userId = httpContextAccessor;
         }
         public IActionResult Login()
         {
@@ -49,7 +60,7 @@ namespace MastersOfCinema.Controllers
                     }
                     else
                     {
-                        RedirectToAction("Index", "Movie");
+                        return RedirectToAction("Profile");
                     }
                 }
             }
@@ -57,6 +68,7 @@ namespace MastersOfCinema.Controllers
 
             return View();
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -67,7 +79,16 @@ namespace MastersOfCinema.Controllers
 
         public IActionResult Profile()
         {
-            return View();
+            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            var watchList = new ProfileViewModel()
+            {
+                Movies = _repository.GetWatchlist(),
+                Directors = _repository.GetAllDirectors(),
+                CurrentUser = user
+            };
+
+            return View(watchList);
         }
     }
 }

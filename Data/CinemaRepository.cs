@@ -206,10 +206,17 @@ namespace MastersOfCinema.Data
         public IEnumerable<Movie> GetWatchlist()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
-            var watchList = _context.MovieRatings.Where(r => r.User.UserName == User);
-            IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+            //List of all rates by the user - later added to watchlist
+            var rateList = _context.MovieRatings.Where(r => r.User.UserName == User);
 
-            return movies;
+            var watchList = new List<Movie>();
+            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+            foreach (var item in rateList)
+            {
+                watchList.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
+            }
+
+            return watchList;
         }
     }
 }

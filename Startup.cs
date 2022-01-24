@@ -39,10 +39,11 @@ namespace MastersOfCinema
             
             services.AddDbContext<Context>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ContextDev")));
-
-            services.AddHttpContextAccessor();
+            
             services.AddTransient<Seeding>();
             services.AddScoped<ICinemaRepository, CinemaRepository>();
+            services.AddHttpContextAccessor();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,4 @@
-﻿@model MovieRateDirector
+﻿@model ProfileViewModel
 
 @{
     ViewData["Title"] = "";
@@ -6,5 +6,20 @@
 
 }
 
+<h2>@Model.CurrentUser.FirstName</h2>
 
-<div>50</div>
+@foreach (var movie in Model.Movies)
+{
+
+
+    <div class="mb-3">
+        <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
+            <span class="me-3 fs-3">@Html.DisplayFor(modelItem => movie.Title)</span>
+        </a>
+        <span class="me-3 fs-5">@Html.DisplayFor(modelItem => movie.Year)</span>
+        <span>Directed by </span>
+        <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@movie.DirectorId">@Model.Directors.FirstOrDefault(m => m.Id == movie.DirectorId).Name</a></span>
+        <span><a class="me-3" asp-action="Edit" asp-route-id="@movie.Id">(Edit movie)</a></span>
+    </div>
+
+}
