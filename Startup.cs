@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -33,24 +35,12 @@ namespace MastersOfCinema
             })
         .AddEntityFrameworkStores<Context>();
 
-            /*services.AddAuthentication()
-              .AddCookie()
-              .AddJwtBearer(cfg =>
-              {
-                  cfg.TokenValidationParameters = new TokenValidationParameters()
-                  {
-                      ValidIssuer = _config["Tokens:Issuer"],
-                      ValidAudience = _config["Tokens:Audience"],
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
-                  };
-              });*/
-
-
             services.AddControllersWithViews();
             
             services.AddDbContext<Context>(options =>
             options.UseSqlServer(configuration.GetConnectionString("ContextDev")));
 
+            services.AddHttpContextAccessor();
             services.AddTransient<Seeding>();
             services.AddScoped<ICinemaRepository, CinemaRepository>();
         }

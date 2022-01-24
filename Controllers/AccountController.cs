@@ -64,5 +64,10 @@ namespace MastersOfCinema.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "App");
         }
+
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }

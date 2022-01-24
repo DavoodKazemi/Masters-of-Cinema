@@ -14,5 +14,7 @@ namespace MastersOfCinema.Data
         IEnumerable<int> GetMovieRatingStats(int id);
         IEnumerable<double> MovieRatingChartStats(int id);
         IEnumerable<int> MovieRatingCount(int id);
+        MovieRating GetRatingByMovieId(int id);
+        string CurrnentUserName();
     }
 }

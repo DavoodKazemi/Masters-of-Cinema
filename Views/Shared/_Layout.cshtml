@@ -2,17 +2,16 @@
 <html  dir="ltr">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Masters of Cinema: @ViewBag.Title</title>
+    <title>@ViewBag.Title - Masters of Cinema</title>
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.min.css" rel="stylesheet" />
 </head>
 <body class="body">
-
     @*Navbar Start*@
-    <div class="container-fluid">
-        <header class="row">
+    <div class="container-fluid bg-dark">
+        <header class="container-xxl row mx-auto">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
                 <a class="navbar-brand" asp-controller="App" asp-action="Index">
                     <img src="~/img/Logo3.jpg" />
@@ -21,20 +20,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse pt-2">
+                    <ul class="navbar-nav w-100">
                         <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="Index">Home</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="Director" asp-action="Index">Directors</a></li>
                         <li class="nav-item"><a class="nav-link" asp-controller="Movie" asp-action="Index">Movies</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             
-                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">@User.</a></li>
+                            <li class="nav-item ms-md-auto"><a class="nav-link" asp-controller="Account" asp-action="Profile"><i class="fas fa-user-circle me-2 fs-3"></i><vc:welcome-message></vc:welcome-message></a></li>
                             <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else
                         {
-                            <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li class="nav-item ms-md-auto"><a class="nav-link me-auto" asp-controller="Account" asp-action="Login">Login</a></li>
                         }
                     </ul>
                 </div>
@@ -44,15 +43,15 @@
     @*Navbar End*@
 
     <section class="main-content pt-4">
-        @*<h1 class="text-center">@ViewBag.Title</h1>*@
-        @RenderBody()
+@*        <h1 class="text-center">@ViewBag.Userinfo</h1>
+*@        @RenderBody()
     </section>
 
 
     <footer id="footer" class="site-footer pb-3 pt-3 px-5">
         Copyright 2022 Masters of Cinema LLC
     </footer>
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

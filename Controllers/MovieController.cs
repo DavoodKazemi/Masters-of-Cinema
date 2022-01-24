@@ -18,65 +18,30 @@ namespace MastersOfCinema.Controllers
     {
         private readonly Context _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-
-        public IList<Director> DirectorList { get; set; }
-        private readonly ILogger<MovieController> logger;
         private readonly ICinemaRepository _repository;
         private readonly UserManager<User> _userManager;
 
         public MovieController(Context context, 
             IWebHostEnvironment webHostEnvironment, 
-            ILogger<MovieController> logger,
             ICinemaRepository repository,
             UserManager<User> userManager)
         {
             _context = context;
             _hostEnvironment = webHostEnvironment;
-            this.logger = logger;
             _repository = repository;
             _userManager = userManager;
-        }
-
-        private IEnumerable<Movie> GetMovies()
-        {
-            try
-            {
-                logger.LogInformation("GetMovies was called!");
-                return _context.Movies.OrderBy(p => p.Id).ToList();
-
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to get all movies: {ex}");
-                return null;
-            }
-
-        }
-
-        public IEnumerable<Director> GetDirectors()
-        {
-            try
-            {
-                logger.LogInformation("GetDirectors was called!");
-                return _context.Directors.OrderBy(p => p.Id).ToList();
-
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to get all directors: {ex}");
-                return null;
-            }
-
         }
 
         // GET: Movies
         public ActionResult Index()
         {
-            var tupleModel = new Tuple<IEnumerable<Movie>, IEnumerable<Director>>(GetMovies(), GetDirectors());
-            return View(tupleModel);
-
+            MovieRateDirector movieRateDirector = new MovieRateDirector()
+            {
+                Movies = _repository.GetAllMovies(),
+                Directors = _repository.GetAllDirectors(),
+            };
+            return View(movieRateDirector);
         }
-
 
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -100,8 +65,6 @@ namespace MastersOfCinema.Controllers
             return View(movieViewModel);
         }
 
-
-        
         // POST: Directors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -192,7 +155,6 @@ namespace MastersOfCinema.Controllers
             cl = (from c in _context.Directors select c).ToList();
             ViewBag.message = cl;
             //END Bind director thing
-
             return View();
         }
 
@@ -240,14 +202,14 @@ namespace MastersOfCinema.Controllers
         [Authorize]
         public IActionResult Details(int id)
         {
-
+            //Current User
             var UserName = HttpContext.User.Identity.Name;
 
             //Add data to view model
             MovieRateDirector movieRateDirector = new MovieRateDirector()
             {
-                Movie = GetMovieById(id),
-                MovieRating = GetRatingByMovieId(id),
+                Movie = _repository.GetMovieById(id),
+                MovieRating = _repository.GetRatingByMovieId(id),
                 AverageRate = _repository.GetAverageRating(id),
                 RatePercents = _repository.MovieRatingChartStats(id),
                 RateCounts = _repository.MovieRatingCount(id),
@@ -281,14 +243,13 @@ namespace MastersOfCinema.Controllers
             return View(movieRateDirector);
         }
 
-        
-
         [HttpPost]
         public async Task<IActionResult> Details(MovieRateDirector movieRateDirector)
         {
+            //Current user
             var UserName = HttpContext.User.Identity.Name;
 
-            movieRateDirector.Movie = GetMovieById(movieRateDirector.MovieRating.MovieId);
+            movieRateDirector.Movie = _repository.GetMovieById(movieRateDirector.MovieRating.MovieId);
             movieRateDirector.Director = _context.Directors
                 .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
 
@@ -299,7 +260,6 @@ namespace MastersOfCinema.Controllers
                 //Update or Create?
                 //Check - Movie has any rating
                 int movieId = movieRateDirector.MovieRating.MovieId;
-
                 //Check if this user had rated this movie before!
                 bool hadRated = _context.MovieRatings.Where(u => u.User.UserName == UserName).Any(m => m.MovieId == movieId);
                 if (hadRated)
@@ -309,21 +269,14 @@ namespace MastersOfCinema.Controllers
                                     .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId).Id;
 
                     //To avoid error in update
-                    /*var local = _context.Set<MovieRating>()
-                    .Local.Where(u => u.User.UserName == UserName)
-                    .FirstOrDefault(entry => entry.MovieId.Equals(movieRateDirector.MovieRating.MovieId));
-                    */
-                    
                     var local = _context.Set<MovieRating>()
                     .Local
                     .FirstOrDefault(entry => entry.Id.Equals(movieRateDirector.MovieRating.Id));
-                    /*                    .Where(entry => entry.Id.Equals(movieRateDirector.MovieRating.Id));
-                    */
+
                     // check if local is not null 
                     if (local != null)
                     {
                         // detach
-
                         _context.Entry(local).State = EntityState.Detached;
                     }
                 }
@@ -351,39 +304,6 @@ namespace MastersOfCinema.Controllers
             }
 
             return Ok("Form Data received!");
-        }
-
-        public Movie GetMovieById(int id)
-        {
-            try
-            {
-                logger.LogInformation("GetMovieById was called!");
-                return _context.Movies.Include(x => x.MovieRatings).FirstOrDefault(p => p.Id == id);
-                
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to get all movies: {ex}");
-                return null;
-            }
-        }
-
-        //Movie Id - **Later should return the user rating of a movie**
-        private MovieRating GetRatingByMovieId(int id)
-        {
-            try
-            {
-                var UserName = HttpContext.User.Identity.Name;
-
-                logger.LogInformation("GetRatingById was called!");
-                return _context.MovieRatings.Include(x => x.User).Where(u => u.User.UserName == UserName)
-                    .FirstOrDefault(m => m.MovieId == id);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to get all movie ratings: {ex}");
-                return null;
-            }
         }
     }
 }

@@ -134,6 +134,9 @@
   min-height: 30px;
   display: inline-block; }
 
+.navbar-user-name {
+  vertical-align: top !important; }
+
 .primary-color {
   color: #99AABB; }
 

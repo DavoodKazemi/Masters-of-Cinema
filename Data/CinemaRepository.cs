@@ -1,4 +1,5 @@
 ﻿using MastersOfCinema.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,10 +12,53 @@ namespace MastersOfCinema.Data
 {
     public class CinemaRepository : ICinemaRepository
     {
+        private readonly IHttpContextAccessor _accessor;
         private readonly Context _context;
         private readonly ILogger<CinemaRepository> logger;
 
-        //Movie rating methods
+        public CinemaRepository(IHttpContextAccessor accessor, Context context, ILogger<CinemaRepository> logger)
+        {
+            _accessor = accessor;
+            _context = context;
+            this.logger = logger;
+        }
+
+        public Movie GetMovieById(int id)
+        {
+            try
+            {
+                logger.LogInformation("GetMovieById was called!");
+                return _context.Movies.Include(x => x.MovieRatings).FirstOrDefault(p => p.Id == id);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Failed to get all movies: {ex}");
+                return null;
+            }
+        }
+
+
+        //Start Movie rating methods
+        //Movie Id - **Later should return the user rating of a movie**
+        public MovieRating GetRatingByMovieId(int id)
+        {
+            try
+            {
+                var UserName = _accessor.HttpContext.User.Identity.Name;
+
+                logger.LogInformation("GetRatingById was called!");
+                return _context.MovieRatings.Include(x => x.User).Where(u => u.User.UserName == UserName)
+                    .FirstOrDefault(m => m.MovieId == id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Failed to get all movie ratings: {ex}");
+                return null;
+            }
+        }
+
+
         //20 people rated this movie
         public int GetMovieRatingCountAll(int id)
         {
@@ -110,11 +154,7 @@ namespace MastersOfCinema.Data
         }
 
         //END Movie rating methods
-        public CinemaRepository(Context context, ILogger<CinemaRepository> logger)
-        {
-            _context = context;
-            this.logger = logger;
-        }
+        
 
         public IEnumerable<Director> GetAllDirectors()
         {
@@ -139,34 +179,37 @@ namespace MastersOfCinema.Data
                .Where(o => o.Id == id)
                .Include(o => o.Movies)
                .FirstOrDefault();
-            /*            return _context.Movie.Where(p => id == p.DirectorViewModelId).ToList();
-            */
         }
-
-
 
         public IEnumerable<Movie> GetAllMovies()
         {
             try
             {
-                logger.LogInformation("GetAllProducts was called!!");
+                logger.LogInformation("GetMovies was called!");
                 return _context.Movies.OrderBy(p => p.Id).ToList();
+
             }
             catch (Exception ex)
             {
-                logger.LogError($"Failed to get all products: {ex}");
+                logger.LogError($"Failed to get all movies: {ex}");
                 return null;
             }
 
         }
 
-        public Movie GetMovieById(int id)
+        //User related methods
+        public string CurrnentUserName()
         {
-            return _context.Movies
-               .Where(o => o.Id == id)
-               .FirstOrDefault();
-            /*            return _context.Movie.Where(p => id == p.DirectorViewModelId).ToList();
-            */
+            var UserName = _accessor.HttpContext.User.Identity.Name;
+            return UserName;
+        }
+        public IEnumerable<Movie> GetWatchlist()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            var watchList = _context.MovieRatings.Where(r => r.User.UserName == User);
+            IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+
+            return movies;
         }
     }
 }

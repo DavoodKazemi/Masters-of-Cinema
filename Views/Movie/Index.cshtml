@@ -1,5 +1,4 @@
-﻿@using MastersOfCinema.ViewModels
-@model Tuple<IEnumerable<Movie>, IEnumerable<Director>>
+﻿@model MovieRateDirector
 
 @{
     ViewData["Title"] = "List of all movies";
@@ -10,7 +9,7 @@
     <div class="row">
 
 
-        @foreach (var movie in Model.Item1)
+        @foreach (var movie in Model.Movies)
         {
             <div class="col-4">
                 <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
@@ -25,7 +24,7 @@
                     </a>
                     <span class="me-3 fs-5">@Html.DisplayFor(modelItem => movie.Year)</span>
                     <span>Directed by </span>
-                    <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@movie.DirectorId">@Model.Item2.FirstOrDefault(m => m.Id == movie.DirectorId).Name</a></span>
+                    <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@movie.DirectorId">@Model.Directors.FirstOrDefault(m => m.Id == movie.DirectorId).Name</a></span>
                     <span><a class="me-3" asp-action="Edit" asp-route-id="@movie.Id">(Edit movie)</a></span>
                 </div>
 
