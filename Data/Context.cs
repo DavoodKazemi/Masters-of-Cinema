@@ -1,4 +1,5 @@
-﻿using MastersOfCinema.ViewModels;
+﻿using MastersOfCinema.Data.Entities;
+using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,6 +20,8 @@ namespace MastersOfCinema.Data
         public DbSet<Director> Directors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieRating> MovieRatings { get; set; }
+        public DbSet<Watchlist> Watchlists { get; set; }
+        public DbSet<MovieLog> MovieLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
