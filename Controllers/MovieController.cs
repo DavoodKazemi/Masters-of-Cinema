@@ -217,7 +217,8 @@ namespace MastersOfCinema.Controllers
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)
             { movieRateDirector.MovieRating = new MovieRating
-                {Id = 0, MovieId = id, User = _context.Users.FirstOrDefault(u => u.UserName == UserName)};
+                {Id = 0, MovieId = id, User = _context.Users.FirstOrDefault(u => u.UserName == UserName),
+                Rating = 0};
             }
 
             //Start Rate stats

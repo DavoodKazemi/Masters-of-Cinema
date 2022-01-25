@@ -1,18 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
   <defs>
     <style>
-      .cls-1 {
-        fill: #fff;
-      }
+		.cls-1 {
+		fill: #000;
+		}
 
-      .cls-1, .cls-2, .cls-3 {
-        fill-rule: evenodd;
-      }
+		.cls-1, .cls-2, .cls-3 {
+		fill-rule: evenodd;
+		}
 
-      .cls-2 {
-        fill: #00C030;
-      }
-    </style>
+		.cls-2 {
+		fill: #00C030;
+		}
+
+		.cls-3 {
+		fill: #fff;
+		}
+	</style>
   </defs>
   <g id="Layer_2" data-name="Layer 2">
     <g id="Layer_1-2" data-name="Layer 1">

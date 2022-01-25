@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
 
-    int olDRate = ViewBag.oldRate;
-    int newCount = @Model.RateCountAll;
+    //This user's rating. If had not rated: 0
+    int oldRate = ViewBag.oldRate;
+    //How many people rated this movie
+    int oldAllCount = @Model.RateCountAll;
 
     double heightFix = Model.RatePercents.Max();
     double heightFactor = 100 / heightFix;
@@ -14,94 +16,6 @@
     double rate4 = Model.RatePercents.ElementAt(3) * heightFactor;
     double rate5 = Model.RatePercents.ElementAt(4) * heightFactor;
 }
-
-<section class="container">
-    <div class="row">
-        <div class="col-4">
-            <div class="bg-white d-inline">
-                <div id="">@Model.MovieRating.User.UserName!</div>
-
-                <span id="average-rate" class="movie-tooltip bg-danger">@Math.Round(@Model.AverageRate, 2)</span>
-
-                @*Movie Rating count*@
-                <span id="rate-count">@Model.RateCountAll</span><span> Rating!</span>
-
-            </div>
-        </div>
-        @*Edit rating without reload*@
-    <form id="studenteForm" enctype="multipart/form-data" class="col-4">
-        <div class="form-group my-3">
-            <label asp-for="@Model.MovieRating.MovieId" class="mb-1 control-label"></label>
-            <input asp-for="@Model.MovieRating.MovieId" value="@Model.MovieRating.MovieId" class="form-control input-small" />
-        </div>
-
-        <div class="form-group my-3">
-            <label asp-for="@Model.MovieRating.Rating" class="mb-1 control-label"></label>
-            <input asp-for="@Model.MovieRating.Rating" id="Rating" class="form-control input-small" />
-        </div>
-
-
-        <div class="user-movie-interaction-wrapper">
-            <div class="row text-center">
-                <div id="log-logged" onclick="" class="col-6 log-icon-wrapper w-50">
-                    <span class="log-icon-add"></span>
-                    <div id="" class="log-logged text-center">Watch</div>
-                </div>
-                <div id="watchlist-add" onclick="" class="col-6 watchlist-icon-wrapper w-50">
-                    <span class="watchlist-icon-add"></span>
-                    <div id="" class="watchlist-add text-center">Watchlist</div>
-
-                </div>
-            </div>
-
-
-            <div id="rate-rated" class="pt-2 pb-1 rate-rated text-center">Rate</div>
-            <div class="rate-icon-wrapper pb-3" onmouseout="CRateSelected()" type="button">
-                <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
-                    <i class="delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
-                </span>
-                <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
-                <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
-                <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
-                <span class="starFade" id="Rate4" onclick="CRate(4), submitStudent(1)" onmouseover="CRateOver(4)"></span>
-                <span class="starFade" id="Rate5" onclick="CRate(5), submitStudent(1)" onmouseover="CRateOver(5)"></span>
-
-            </div>
-        </div>
-
-
-</form>
-
-
-        @*Adding simple chart bars for presenting a comprehensive rating stats*@
-        <ul class="movie-rate-chart mb-5 bg-light col-4">
-            <li class="movie-poster-wrapper tooltip-wrapper">
-                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
-                <span class="rate-bars tooltip-subject" id="rate-stat-1" style="height:1%" title="Rate 1"></span>
-            </li>
-            <li class="movie-poster-wrapper tooltip-wrapper">
-                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
-                <span class="rate-bars tooltip-subject" id="rate-stat-2" style="height:1%" title="Rate 2"></span>
-            </li>
-            <li class="movie-poster-wrapper tooltip-wrapper">
-                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
-                <span class="rate-bars tooltip-subject" id="rate-stat-3" style="height:1%" title="Rate 3"></span>
-            </li>
-            <li class="movie-poster-wrapper tooltip-wrapper">
-                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
-                <span class="rate-bars tooltip-subject" id="rate-stat-4" style="height:1%" title="Rate 4"></span>
-            </li>
-            <li class="movie-poster-wrapper tooltip-wrapper">
-                <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
-                <span class="rate-bars tooltip-subject" id="rate-stat-5" style="height:1%" title="Rate 5"></span>
-            </li>
-        </ul>
-        @*END simple chart bars for presenting a comprehensive rating stats*@
-
-    </div>
-</section>
-
-
 
 
 
@@ -114,8 +28,11 @@
             CRate(@Model.MovieRating.Rating);
             document.getElementById("rate-rated").textContent = "Rated";
         }
-        //If movie is not rated, hide the remove rate icon
+        //If movie is not rated, 
         if (@Model.MovieRating.Id == 0) {
+            //Run CRate fuction to generate the chart
+            CRate(0);
+            //hide the remove rate icon
             $("#Rate0").hide();
         }
     });
@@ -148,11 +65,16 @@
         }
 
 
-        $("#rate-stat-1").height("@rate1" + "%");
+        $("#rate-stat-1").height("@rate1"+"%");
         $("#rate-stat-2").height("@rate2"+"%");
         $("#rate-stat-3").height("@rate3"+"%");
         $("#rate-stat-4").height("@rate4"+"%");
         $("#rate-stat-5").height("@rate5"+"%");
+
+
+        $('*[id*=rate-stat]:visible').each(function () {
+            $(this).css('min-height', '1px');
+        });
 
     }
 
@@ -180,15 +102,27 @@
     }
 </script>
 
+
+
+
+<div class="col-4">
+    <div class="bg-white d-inline">
+        <div id="">@Model.MovieRating.User.UserName!</div>
+
+    </div>
+</div>
+
+
+
 @*Movie information*@
 <section class="container mb-5">
     <div class="row">
 
-        <div class="col-4">
+        <div class="col-3">
             <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
         </div>
 
-        <div class="col-8 py-3">
+        <div class="col-9 py-3">
             <div class="mb-3">
                 <span class="me-3 fs-3">@Html.DisplayFor(modelItem => Model.Movie.Title)</span>
                 <span class="me-3 fs-5">@Html.DisplayFor(modelItem => Model.Movie.Year)</span>
@@ -197,11 +131,100 @@
                 <span><a class="me-3" asp-action="Edit" asp-route-id="@Model.Movie.Id">(Edit movie)</a></span>
             </div>
 
-            <div class="">
-                @Html.DisplayFor(modelItem => Model.Movie.Description)
-                <a class="DetailsEditButton" asp-action="Edit" asp-route-id="@Model.Movie.Id">
-                    (Edit)
-                </a>
+            <div class="container row ps-md-0">
+                <div class="col-8">
+                    @Html.DisplayFor(modelItem => Model.Movie.Description)
+                    <a class="DetailsEditButton" asp-action="Edit" asp-route-id="@Model.Movie.Id">
+                        (Edit)
+                    </a>
+                </div>
+                @*Edit rating without reload*@
+                <form id="studenteForm" enctype="multipart/form-data" class="col-4">
+                    <div class="form-group my-3">
+                        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input asp-for="@Model.MovieRating.Rating" type="hidden" id="Rating" class="form-control input-small" />
+                    </div>
+
+
+                    <div class="movie-stats-ultimate-wrapper">
+                        <div class="user-movie-interaction-wrapper mb-3 pb-3">
+                            <div class="row text-center">
+                                <div id="log-logged" onclick="" class="col-6 log-icon-wrapper w-50">
+                                    <span class="log-icon-add"></span>
+                                    <div id="" class="log-logged text-center">Watch</div>
+                                </div>
+                                <div id="watchlist-add" onclick="" class="col-6 watchlist-icon-wrapper w-50">
+                                    <span class="watchlist-icon-add"></span>
+                                    <div id="" class="watchlist-add text-center">Watchlist</div>
+
+                                </div>
+                            </div>
+
+
+                            <div id="rate-rated" class="pt-2 pb-1 rate-rated text-center">Rate</div>
+                            <div class="rate-icon-wrapper pb-3" onmouseout="CRateSelected()" type="button">
+                                <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
+                                    <i class="delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
+                                </span>
+                                <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
+                                <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
+                                <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
+                                <span class="starFade" id="Rate4" onclick="CRate(4), submitStudent(1)" onmouseover="CRateOver(4)"></span>
+                                <span class="starFade" id="Rate5" onclick="CRate(5), submitStudent(1)" onmouseover="CRateOver(5)"></span>
+
+                            </div>
+                        </div>
+                        @*Adding simple chart bars for presenting a comprehensive rating stats*@
+                        @*Movie Rating count*@
+                        <div class="movie-rate-count">Rated by <span id="rate-count">@Model.RateCountAll</span> members.</div>
+                        <div class="col-4">
+                            <ul class="movie-rate-chart mb-5 px-0">
+                                <li class="movie-poster-wrapper tooltip-wrapper">
+                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-1" style="height:1%"></span>
+                                </li>
+                                <li class="movie-poster-wrapper tooltip-wrapper">
+                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-2" style="height:1%"></span>
+                                </li>
+                                <li class="movie-poster-wrapper tooltip-wrapper">
+                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-3" style="height:1%"></span>
+                                </li>
+                                <li class="movie-poster-wrapper tooltip-wrapper">
+                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-4" style="height:1%"></span>
+                                </li>
+                                <li class="movie-poster-wrapper tooltip-wrapper">
+                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-5" style="height:1%"></span>
+                                </li>
+                                <li class="ps-2 pb-4 tooltip-wrapper movie-average-rate-wrapper text-center">
+
+                                    <div class=""><span id="average-rate" class="movie-average-rate fs-3 text-white">@Math.Round(@Model.AverageRate, 1)</span><span>/5</span></div>
+                                    <span class="movie-tooltip tooltip-object">Wighted average of @Math.Round(@Model.AverageRate, 2) based on @Model.RateCountAll ratings.</span>
+                                    <div class="star-glow-small-wrapper">
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        @*END simple chart bars for presenting a comprehensive rating stats*@
+                    </div>
+
+
+
+
+                </form>
             </div>
 
         </div>
@@ -212,25 +235,35 @@
 </section>
 @*END Movie information*@
 
+
+
+
+
+
+
+
 @*Using ajax to rate movies without reloading the view*@
 <script type="text/javascript">
     function submitStudent(r) {
 
         //Update rate count
-        var newCount2 = @newCount
+        var originalRate = @oldRate;
+        var originalCount = @oldAllCount;
 
         //Rate count decreases by 1
         //If they had not rated movie before, rate count increased by 1
-        if(r == 1 && newCount2 == 0) {
-            document.getElementById("rate-count").textContent = ++newCount2;
-        } else if (r == 0 && newCount2 > 0) {
-            document.getElementById("rate-count").textContent = --newCount2;
+        if (r == 1 && originalRate == 0) {
+            document.getElementById("rate-count").textContent = ++originalCount;
+        } else if (r == 0 && originalRate > 0) {
+            document.getElementById("rate-count").textContent = --originalCount;
         } else {
-            document.getElementById("rate-count").textContent = newCount2;
-
+            document.getElementById("rate-count").textContent = originalCount;
         }
 
+        var originalAverage = @Model.AverageRate;
+        if (r == 0) {
 
+        }
         //Update the average instantly
         var newRate = parseInt($("#Rating").val(), 10); //The rating they just chose
 
@@ -238,10 +271,26 @@
         if (@Model.AverageRate == 0) {
             //The average will be its only rate (this new rate)
             document.getElementById("average-rate").textContent = newRate;
-        } else {
-            var diff = (newRate - @ViewBag.OldRate) / @newCount;
+        } else if (r == 1 && originalRate > 0) {  //done - update
+            var diff = (newRate - originalRate) / (originalCount);
+
             var newAverage = @Model.AverageRate + diff;
-            document.getElementById("average-rate").textContent = +newAverage.toFixed(2);
+            document.getElementById("average-rate").textContent = newAverage.toFixed(1);
+
+        } else if (r == 1 && originalRate == 0) {
+            originalCount = @oldAllCount;
+            var newSum = newRate + (originalAverage * originalCount);
+            var newCount = originalCount + 1;
+            var newAverage3 = newSum / newCount;
+            document.getElementById("average-rate").textContent = newAverage3.toFixed(1);
+        } else if (r == 0 && originalRate > 0) { //done - delete
+            originalCount = @oldAllCount
+            newSum = (originalAverage * originalCount) - originalRate;
+            newCount = originalCount - 1;
+            newAverage2 = newSum / newCount;
+            document.getElementById("average-rate").textContent = newAverage2.toFixed(1);
+        } else if (r == 0 && originalRate == 0) {
+            document.getElementById("average-rate").textContent = originalAverage.toFixed(1);
         }
 
         var data = $("#studenteForm").serialize();
