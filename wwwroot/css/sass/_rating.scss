@@ -49,43 +49,140 @@
 }
 
 //rating
-.rate-icon-wrapper {
-    //Delete rate icon
-    .delete-rate-icon-wrapper {
-        width: 30px;
-        height: 30px;
-        position: relative;
-        display: block;
-        float: left;
-        cursor: default;
+.user-movie-interaction-wrapper {
+    width: 230px !important;
+    background-color: #456;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 
-        .delete-rate-icon {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 65%;
-            overflow: hidden;
-            opacity: 0;
-            transition: all .2s ease-in;
-            color: red;
-            cursor: pointer;
-            padding: 5px;
-            font-size: 18px;
+    > .row {
+        width: 230px !important;
+        min-height: 80px !important;
+        border-bottom: 1px solid #2c3440;
+        margin: 0;
+        padding-top: 15px;
+        padding-bottom: 10px;
 
-            &:hover {
-                font-size: 22px;
-                opacity: 1 !important;
+
+        .log-icon-wrapper {
+            //width: 50px;
+            //height: 33px;
+            .log-icon-add {
+                //padding: 10px;
+                cursor: pointer;
+                display: block;
+                min-width: 50px;
+                text-transform: capitalize;
+
+                &:before {
+                    //padding: 5px 25px;
+                    content: "";
+                    background-image: url('/Image/Icon/log.svg');
+                    /*            }*/
+                    //background-image: url(../img/sprite.9b9f573a.svg);
+                    background-repeat: no-repeat;
+                    background-size: 50px 40px;
+                    content: "";
+                    display: block;
+                    height: 40px;
+                    margin: 0 auto 3px;
+                    width: 50px;
+                }
+            }
+
+            .log-icon-delete {
+                background-image: url('/Image/Icon/logged.svg');
+                width: 33px;
+                height: 33px;
+            }
+        }
+
+
+        .watchlist-icon-wrapper {
+            width: 50px;
+            height: 33px;
+
+            .watchlist-icon-add {
+                //padding: 10px;
+                cursor: pointer;
+                display: block;
+                min-width: 50px;
+                text-transform: capitalize;
+
+                &:before {
+                    //padding: 5px 25px;
+                    content: "";
+                    background-image: url('/Image/Icon/watchlist-add.svg');
+                    /*            }*/
+                    //background-image: url(../img/sprite.9b9f573a.svg);
+                    background-repeat: no-repeat;
+                    background-size: 78.5px 68px;
+                    content: "";
+                    display: block;
+                    height: 40px;
+                    margin: 0 auto 3px;
+                    width: 50px;
+                }
+            }
+
+            .wachlist-icon-delete {
+                background-image: url('/Image/Icon/watchlist-add.svg');
+                width: 33px;
+                height: 33px;
             }
         }
     }
 
-    &:hover .delete-rate-icon-wrapper .delete-rate-icon {
-        transition: all .2s ease-in;
-        left: 50%;
-        opacity: .75;
+
+
+
+
+    .rate-rated {
     }
-    //END Delete rate icon
+
+    .rate-icon-wrapper {
+        font-size: 0;
+        //Delete rate icon
+        .delete-rate-icon-wrapper {
+            width: 33px;
+            height: 33px;
+            position: relative;
+            display: block;
+            float: left;
+            cursor: default;
+
+            .delete-rate-icon {
+                background-image: url('/Image/Icon/delete-rate.svg');
+                width: 13px;
+                height: 13px;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 65%;
+                overflow: hidden;
+                opacity: 0;
+                transition: all .2s ease-in;
+                cursor: pointer;
+                padding: 5px;
+
+                &:hover {
+                    transform: translate(-50%, -50%) scale(1.2, 1.2);
+                    transition: all .2s ease-in;
+                    //font-size: 22px;
+                    opacity: 1 !important;
+                }
+            }
+        }
+
+        &:hover .delete-rate-icon-wrapper .delete-rate-icon {
+            transition: all .2s ease-in;
+            left: 50%;
+            opacity: .75;
+        }
+        //END Delete rate icon
+    }
 }
+
 
 .commentBox {
     background-color: #efefef;
@@ -94,32 +191,40 @@
 }
 
 .starFade {
-    background-image: url('/Image/Rating/StarFade.gif');
-    min-width: 30px;
-    min-height: 30px;
+    background-image: url('/Image/Icon/StarFade.svg');
+    min-width: 33px;
+    min-height: 33px;
     display: inline-block;
     cursor: pointer;
 }
 
 .starFadeN {
-    background-image: url('/Image/Rating/StarFade.gif');
-    min-width: 30px;
-    min-height: 30px;
+    background-image: url('/Image/Icon/StarFade.svg');
+    min-width: 33px;
+    min-height: 33px;
     display: inline-block;
 }
 
 .starGlow {
-    background-image: url('/Image/Rating/starglow.gif');
-    min-width: 30px;
-    min-height: 30px;
+    background-image: url('/Image/Icon/starglow.svg');
+    min-width: 33px;
+    min-height: 33px;
     display: inline-block;
     cursor: pointer;
 }
 
 .starGlowN {
-    background-image: url('/Image/Rating/starglow.gif');
-    min-width: 30px;
-    min-height: 30px;
+    background-image: url('/Image/Icon/starglow.svg');
+    min-width: 33px;
+    min-height: 33px;
     display: inline-block;
+}
+
+.starBlue {
+    background-image: url('/Image/Icon/StarBlue.svg');
+    min-width: 33px;
+    min-height: 33px;
+    display: inline-block;
+    cursor: pointer;
 }
 //rating

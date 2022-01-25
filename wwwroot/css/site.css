@@ -75,33 +75,91 @@
       background-color: #667788;
       color: #40bcf4; }
 
-.rate-icon-wrapper .delete-rate-icon-wrapper {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  display: block;
-  float: left;
-  cursor: default; }
-  .rate-icon-wrapper .delete-rate-icon-wrapper .delete-rate-icon {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 65%;
-    overflow: hidden;
-    opacity: 0;
-    transition: all .2s ease-in;
-    color: red;
-    cursor: pointer;
-    padding: 5px;
-    font-size: 18px; }
-    .rate-icon-wrapper .delete-rate-icon-wrapper .delete-rate-icon:hover {
-      font-size: 22px;
-      opacity: 1 !important; }
-
-.rate-icon-wrapper:hover .delete-rate-icon-wrapper .delete-rate-icon {
-  transition: all .2s ease-in;
-  left: 50%;
-  opacity: .75; }
+.user-movie-interaction-wrapper {
+  width: 230px !important;
+  background-color: #456;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px; }
+  .user-movie-interaction-wrapper > .row {
+    width: 230px !important;
+    min-height: 80px !important;
+    border-bottom: 1px solid #2c3440;
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 10px; }
+    .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add {
+      cursor: pointer;
+      display: block;
+      min-width: 50px;
+      text-transform: capitalize; }
+      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add:before {
+        content: "";
+        background-image: url("/Image/Icon/log.svg");
+        /*            }*/
+        background-repeat: no-repeat;
+        background-size: 50px 40px;
+        content: "";
+        display: block;
+        height: 40px;
+        margin: 0 auto 3px;
+        width: 50px; }
+    .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-delete {
+      background-image: url("/Image/Icon/logged.svg");
+      width: 33px;
+      height: 33px; }
+    .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper {
+      width: 50px;
+      height: 33px; }
+      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-add {
+        cursor: pointer;
+        display: block;
+        min-width: 50px;
+        text-transform: capitalize; }
+        .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-add:before {
+          content: "";
+          background-image: url("/Image/Icon/watchlist-add.svg");
+          /*            }*/
+          background-repeat: no-repeat;
+          background-size: 78.5px 68px;
+          content: "";
+          display: block;
+          height: 40px;
+          margin: 0 auto 3px;
+          width: 50px; }
+      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .wachlist-icon-delete {
+        background-image: url("/Image/Icon/watchlist-add.svg");
+        width: 33px;
+        height: 33px; }
+  .user-movie-interaction-wrapper .rate-icon-wrapper {
+    font-size: 0; }
+    .user-movie-interaction-wrapper .rate-icon-wrapper .delete-rate-icon-wrapper {
+      width: 33px;
+      height: 33px;
+      position: relative;
+      display: block;
+      float: left;
+      cursor: default; }
+      .user-movie-interaction-wrapper .rate-icon-wrapper .delete-rate-icon-wrapper .delete-rate-icon {
+        background-image: url("/Image/Icon/delete-rate.svg");
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 65%;
+        overflow: hidden;
+        opacity: 0;
+        transition: all .2s ease-in;
+        cursor: pointer;
+        padding: 5px; }
+        .user-movie-interaction-wrapper .rate-icon-wrapper .delete-rate-icon-wrapper .delete-rate-icon:hover {
+          transform: translate(-50%, -50%) scale(1.2, 1.2);
+          transition: all .2s ease-in;
+          opacity: 1 !important; }
+    .user-movie-interaction-wrapper .rate-icon-wrapper:hover .delete-rate-icon-wrapper .delete-rate-icon {
+      transition: all .2s ease-in;
+      left: 50%;
+      opacity: .75; }
 
 .commentBox {
   background-color: #efefef;
@@ -109,30 +167,37 @@
   border-radius: 10px; }
 
 .starFade {
-  background-image: url("/Image/Rating/StarFade.gif");
-  min-width: 30px;
-  min-height: 30px;
+  background-image: url("/Image/Icon/StarFade.svg");
+  min-width: 33px;
+  min-height: 33px;
   display: inline-block;
   cursor: pointer; }
 
 .starFadeN {
-  background-image: url("/Image/Rating/StarFade.gif");
-  min-width: 30px;
-  min-height: 30px;
+  background-image: url("/Image/Icon/StarFade.svg");
+  min-width: 33px;
+  min-height: 33px;
   display: inline-block; }
 
 .starGlow {
-  background-image: url("/Image/Rating/starglow.gif");
-  min-width: 30px;
-  min-height: 30px;
+  background-image: url("/Image/Icon/starglow.svg");
+  min-width: 33px;
+  min-height: 33px;
   display: inline-block;
   cursor: pointer; }
 
 .starGlowN {
-  background-image: url("/Image/Rating/starglow.gif");
-  min-width: 30px;
-  min-height: 30px;
+  background-image: url("/Image/Icon/starglow.svg");
+  min-width: 33px;
+  min-height: 33px;
   display: inline-block; }
+
+.starBlue {
+  background-image: url("/Image/Icon/StarBlue.svg");
+  min-width: 33px;
+  min-height: 33px;
+  display: inline-block;
+  cursor: pointer; }
 
 .navbar-user-name {
   vertical-align: top !important; }
