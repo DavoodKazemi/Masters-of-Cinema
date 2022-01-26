@@ -8,6 +8,7 @@
     //How many people rated this movie
     int oldAllCount = @Model.RateCountAll;
 
+
     double heightFix = Model.RatePercents.Max();
     double heightFactor = 100 / heightFix;
     double rate1 = Model.RatePercents.ElementAt(0) * heightFactor;
@@ -15,6 +16,8 @@
     double rate3 = Model.RatePercents.ElementAt(2) * heightFactor;
     double rate4 = Model.RatePercents.ElementAt(3) * heightFactor;
     double rate5 = Model.RatePercents.ElementAt(4) * heightFactor;
+
+
 }
 
 
@@ -174,6 +177,9 @@
 
         <div class="col-3">
             <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
+            <div class="movie-lists-stats-wrapper">
+
+            </div>
         </div>
 
         <div class="col-9 py-3">
@@ -356,7 +362,7 @@
         $.ajax({
 
             type: 'POST',
-            url: '/Movie/Rate',
+            url: '/MovieRate/Rate',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (result) {
@@ -385,7 +391,7 @@
         $.ajax({
 
             type: 'POST',
-            url: '/Movie/Watchlist',
+            url: '/MovieRate/Watchlist',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (result) {
