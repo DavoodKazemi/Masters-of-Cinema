@@ -19,8 +19,6 @@
     double rate3 = Model.RatePercents.ElementAt(2) * heightFactor;
     double rate4 = Model.RatePercents.ElementAt(3) * heightFactor;
     double rate5 = Model.RatePercents.ElementAt(4) * heightFactor;
-
-
 }
 
 
@@ -50,6 +48,7 @@
         if (@Model.MovieLog.Id > 0) {
             document.getElementById("log-caption").textContent = "Logged";
             $("#log-icon").attr('class', 'log-icon-remove');
+            $("#log-caption").toggleClass('log-caption-remove');
         }
         //If not added to watchlist
         if (@Model.Watchlist.Id == 0) {
@@ -108,7 +107,7 @@
         }
         // stars after the nth are to fade
         for (var i = r + 1; i <= 5; i++) {
-            $("#Rate" + i).attr('class', 'starFadeN');
+            $("#Rate" + i).attr('class', 'starFade');
         }
 
 
@@ -146,7 +145,7 @@
         }
         //stars after the nth are to fade
         for (var i = 5; i > r; i--) {
-            $("#Rate" + i).attr('class', 'starFadeN');
+            $("#Rate" + i).attr('class', 'starFade');
         }
     }
 
@@ -157,7 +156,7 @@
             $("#Rate" + i).attr('class', 'starGlow');
         }
         for (var i = 5; i > setRating; i--) {
-            $("#Rate" + i).attr('class', 'starFadeN');
+            $("#Rate" + i).attr('class', 'starFade');
         }
     }
 </script>
@@ -169,14 +168,14 @@
 
 
 @*Movie information*@
-<section class="container-fluid mb-5">
+<section class="container-md mb-5">
     <div class="row">
 
         <div class="col-3 text-center">
             <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
             <div class="row movie-lists-stats-wrapper mt-2">
-                <div class="offset-3 col-3 tooltip-wrapper mb-3">
-                    <span class="tooltip-object">Whatched by @watchlistCount members.</span>
+                <div class="offset-3 col-3 tooltip-wrapper">
+                    <span class="tooltip-object mb-2">Whatched by @watchlistCount members.</span>
                     <span class="tooltip-subject movie-logs-stats"></span>
                     <span class="">@watchlistCount</span>
                 </div>
@@ -199,14 +198,14 @@
             </div>
 
             <div class="container row ps-md-0">
-                <div class="col-8">
+                <div class="col-6 col-lg-8">
                     @Html.DisplayFor(modelItem => Model.Movie.Description)
                     <a class="DetailsEditButton" asp-action="Edit" asp-route-id="@Model.Movie.Id">
                         (Edit)
                     </a>
                 </div>
                 @*Edit rating without reload*@
-                <form id="studenteForm" enctype="multipart/form-data" class="col-4">
+                <form id="studenteForm" enctype="multipart/form-data" class="col-6 col-lg-4">
                     <div class="form-group my-3">
                         <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
                     </div>
@@ -251,30 +250,30 @@
                         <div class="movie-rate-count">Rated by <span id="rate-count">@Model.RateCountAll</span> members.</div>
                         <div class="col-4">
                             <ul class="movie-rate-chart mb-5 px-0">
-                                <li class="movie-poster-wrapper tooltip-wrapper">
-                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
                                     <span class="rate-bars tooltip-subject" id="rate-stat-1" style="height:1%"></span>
                                 </li>
-                                <li class="movie-poster-wrapper tooltip-wrapper">
-                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
                                     <span class="rate-bars tooltip-subject" id="rate-stat-2" style="height:1%"></span>
                                 </li>
-                                <li class="movie-poster-wrapper tooltip-wrapper">
-                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
                                     <span class="rate-bars tooltip-subject" id="rate-stat-3" style="height:1%"></span>
                                 </li>
-                                <li class="movie-poster-wrapper tooltip-wrapper">
-                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
                                     <span class="rate-bars tooltip-subject" id="rate-stat-4" style="height:1%"></span>
                                 </li>
-                                <li class="movie-poster-wrapper tooltip-wrapper">
-                                    <span class="movie-tooltip tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
                                     <span class="rate-bars tooltip-subject" id="rate-stat-5" style="height:1%"></span>
                                 </li>
                                 <li class="ps-2 pb-4 tooltip-wrapper movie-average-rate-wrapper text-center">
 
                                     <div class=""><span id="average-rate" class="movie-average-rate fs-3 text-white">@Math.Round(@Model.AverageRate, 1)</span><span>/5</span></div>
-                                    <span class="movie-tooltip tooltip-object">Wighted average of @Math.Round(@Model.AverageRate, 2) based on @Model.RateCountAll ratings.</span>
+                                    <span class="tooltip-object">Wighted average of @Math.Round(@Model.AverageRate, 2) based on @Model.RateCountAll ratings.</span>
                                     <div class="star-glow-small-wrapper">
                                         <span class="star-glow-small"></span>
                                         <span class="star-glow-small"></span>

@@ -1,4 +1,23 @@
-﻿
+﻿@mixin svg-icon ( $svg-url, $bg-size, $height, $width ){
+    display: inline-block;
+    text-transform: capitalize;
+    background-image: url('/Image/Icon/' + $svg-url);
+    background-repeat: no-repeat;
+    background-size: $bg-size;
+    height: $height;
+    margin: 0 auto 3px;
+    width: $width;
+    vertical-align: middle;
+}
+
+@mixin star-rating-icon ( $svg-file ){
+    background-image: url('/Image/Icon/' + $svg-file);
+    min-width: 33px;
+    min-height: 33px;
+    display: inline-block;
+    cursor: pointer;
+}
+
 .movie-stats-ultimate-wrapper{
     width: 230px !important;
 }
@@ -23,21 +42,7 @@
             cursor: pointer;
 
             .log-icon-add {
-                //padding: 10px;
-                display: block;
-                min-width: 50px;
-                text-transform: capitalize;
-                content: "";
-                background-image: url('/Image/Icon/log.svg');
-                /*            }*/
-                //background-image: url(../img/sprite.9b9f573a.svg);
-                background-repeat: no-repeat;
-                background-size: 50px 40px;
-                content: "";
-                display: block;
-                height: 40px;
-                margin: 0 auto 3px;
-                width: 50px;
+                @include svg-icon ( 'log.svg', 50px 40px, 40px, 50px );
             }
 
             &:hover {
@@ -45,20 +50,7 @@
             }
 
             .log-icon-remove {
-                background-image: url('/Image/Icon/logged.svg');
-                display: block;
-                min-width: 50px;
-                text-transform: capitalize;
-                content: "";
-                /*            }*/
-                //background-image: url(../img/sprite.9b9f573a.svg);
-                background-repeat: no-repeat;
-                background-size: 50px 40px;
-                content: "";
-                display: block;
-                height: 40px;
-                margin: 0 auto 3px;
-                width: 50px;
+                @include svg-icon ( 'logged.svg', 50px 40px, 40px, 50px );
             }
         }
 
@@ -69,17 +61,7 @@
             cursor: pointer;
 
             .watchlist-icon-add {
-                display: block;
-                min-width: 50px;
-                text-transform: capitalize;
-                background-image: url('/Image/Icon/watchlist-add.svg');
-                background-repeat: no-repeat;
-                background-size: 78.5px 68px;
-                content: "";
-                display: block;
-                height: 40px;
-                margin: 0 auto 3px;
-                width: 50px;
+                @include svg-icon ( 'watchlist-add.svg', 78.5px 68px, 40px, 50px );
             }
 
             &:hover {
@@ -87,17 +69,7 @@
             }
 
             .watchlist-icon-remove {
-                background-image: url('/Image/Icon/watchlist-remove.svg');
-                display: block;
-                min-width: 50px;
-                text-transform: capitalize;
-                background-repeat: no-repeat;
-                background-size: 78.5px 68px;
-                content: "";
-                display: block;
-                height: 40px;
-                margin: 0 auto 3px;
-                width: 50px;
+                @include svg-icon ( 'watchlist-remove.svg', 78.5px 68px, 40px, 50px );
             }
         }
     }
@@ -152,50 +124,20 @@
 }
 
 
-.commentBox {
-    background-color: #efefef;
-    padding: 10px;
-    border-radius: 10px;
-}
-
 .starFade {
-    background-image: url('/Image/Icon/StarFade.svg');
-    min-width: 33px;
-    min-height: 33px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.starFadeN {
-    background-image: url('/Image/Icon/StarFade.svg');
-    min-width: 33px;
-    min-height: 33px;
-    display: inline-block;
+    @include star-rating-icon ( 'StarFade.svg' );
 }
 
 .starGlow {
-    background-image: url('/Image/Icon/starglow.svg');
-    min-width: 33px;
-    min-height: 33px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.starGlowN {
-    background-image: url('/Image/Icon/starglow.svg');
-    min-width: 33px;
-    min-height: 33px;
-    display: inline-block;
+    @include star-rating-icon ( 'starglow.svg' );
 }
 
 .starBlue {
-    background-image: url('/Image/Icon/StarBlue.svg');
-    min-width: 33px;
-    min-height: 33px;
-    display: inline-block;
-    cursor: pointer;
+    @include star-rating-icon ( 'StarBlue.svg' );
 }
+
 //rating
+
 .movie-average-rate-wrapper {
     width: 80px !important;
     .star-glow-small-wrapper {
@@ -234,20 +176,5 @@
 }
 
 .movie-watchlist-stats {
-    //padding: 10px;
-    display: inline-block;
-    //min-width: 50px;
-    text-transform: capitalize;
-    content: "";
-    background-image: url('/Image/Icon/list-stat.svg');
-    /*            }*/
-    //background-image: url(../img/sprite.9b9f573a.svg);
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    content: "";
-    //display: block;
-    height: 20px;
-    margin: 0 auto 3px;
-    width: 20px;
-    vertical-align: middle;
+    @include svg-icon ( 'list-stat.svg', 20px 20px, 20px, 20px );
 }

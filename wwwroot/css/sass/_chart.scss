@@ -1,4 +1,6 @@
-﻿.movie-rate-chart {
+﻿//set a different syle for max-width: 720
+//ex. width: 150px
+.movie-rate-chart {
     display: table;
     table-layout: fixed;
     width: 230px;
@@ -38,7 +40,7 @@
             display: block;
             text-align: center;
             content: attr(title);
-            word-wrap: break-word;
+            //word-wrap: break-word;
         }
 
         &:hover {

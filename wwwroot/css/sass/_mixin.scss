@@ -1,4 +1,25 @@
-﻿body {
+﻿@mixin tooltip-object ( $width, $white-space, $bottom, $padding ){
+    width: $width;
+    white-space: $white-space;
+    padding: $padding;
+    bottom: $bottom;
+
+    position: absolute;
+    display: block;
+    text-align: center;
+    background-color: #445566;
+    border-radius: 5px;
+    color: #A0CCDD;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    transition: .3s all ease-in;
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+body {
     section {
         //background-color: aquamarine !important;
     }
@@ -22,22 +43,8 @@
     }
 
     .tooltip-object {
-        position: absolute;
-        display: block;
-        text-align: center;
-        background-color: #445566;
-        border-radius: 5px;
-        color: #A0CCDD;
-        bottom: 103%;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 14px;
-        padding: 5px 6px;
-        //width: 200px;
-        white-space: nowrap;
-        transition: .3s all ease-in;
-        visibility: hidden;
-        opacity: 0;
+
+        @include tooltip-object("", nowrap, 103%, 5px 6px);
 
         &::before {
             content: '';
@@ -58,5 +65,20 @@
         visibility: visible;
         opacity: 1;
         transition: .3s all ease-in;
+    }
+}
+
+.movie-average-rate-wrapper{
+    .tooltip-object {
+        @media (max-width: 1200px) {
+            @include tooltip-object (250%, normal, 103%, 3px 4px);
+            left: 0%;
+            &::before {
+                
+                left: 70%;
+            }
+        }
+        
+        
     }
 }

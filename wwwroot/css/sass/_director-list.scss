@@ -1,0 +1,82 @@
+/*Director list page*/
+.card-wrapper {
+    overflow: hidden;
+
+    .rollover-object {
+        opacity: 0;
+        transform: scale(0, 1);
+        background-color: rgba(205, 255, 0, 0.5);
+        color: #fd120d;
+        position: absolute;
+        height: 100%;
+        width: auto;
+        transition: all .3s ease;
+        text-align: center;
+
+
+        .rollover-options {
+            position: absolute;
+            bottom: 60px;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #0000ff !important;
+        }
+    }
+
+    &:hover {
+        .rollover-object {
+            opacity: 1;
+            transform: scale(1, 1);
+            transition: all .3s ease-in-out;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            text-align: center;
+
+            a {
+                color: #0000ff !important;
+                transition: .3s all ease;
+
+                &:hover {
+                    font-weight: bold;
+                    color: #fff !important;
+                    font-size: larger;
+                    transition: .3s all ease;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1800px) {
+    .card-wrapper {
+        width: 250px;
+
+        img {
+            width: 250px;
+            height: auto;
+            /*Optimise this one later*/
+            height: 360px;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .card-wrapper {
+        width: 200px;
+
+        img {
+            width: 200px;
+            height: 320px;
+            object-fit: cover;
+            object-position: top;
+        }
+    }
+}
+
+
+/*END Director list page*/
