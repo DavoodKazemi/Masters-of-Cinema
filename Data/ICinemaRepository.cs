@@ -1,4 +1,5 @@
-﻿using MastersOfCinema.ViewModels;
+﻿using MastersOfCinema.Data.Entities;
+using MastersOfCinema.ViewModels;
 using System.Collections.Generic;
 
 namespace MastersOfCinema.Data
@@ -17,5 +18,7 @@ namespace MastersOfCinema.Data
         MovieRating GetRatingByMovieId(int id);
         string CurrnentUserName();
         IEnumerable<Movie> GetWatchlist();
+        MovieLog IsLoggedMovieId(int id);
+        Watchlist IsInWatchlistById(int id);
     }
 }

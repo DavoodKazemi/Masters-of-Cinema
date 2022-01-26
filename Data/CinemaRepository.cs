@@ -1,4 +1,5 @@
-﻿using MastersOfCinema.ViewModels;
+﻿using MastersOfCinema.Data.Entities;
+using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -215,6 +216,21 @@ namespace MastersOfCinema.Data
             {
                 watchList.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
             }
+
+            return watchList;
+        }
+
+        public MovieLog IsLoggedMovieId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Watchlist IsInWatchlistById(int id)
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var watchList = _context.Watchlists.Where(r => r.User.UserName == User)
+                .FirstOrDefault(i => i.MovieId == id);
 
             return watchList;
         }

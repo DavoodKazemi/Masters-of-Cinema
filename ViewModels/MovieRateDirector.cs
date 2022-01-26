@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MastersOfCinema.Data.Entities;
+using System.Collections.Generic;
 
 namespace MastersOfCinema.ViewModels
 {
@@ -21,5 +22,8 @@ namespace MastersOfCinema.ViewModels
         //chart bar's height for rate 4 will be 100% and so on
         public IEnumerable<double> ProportionalRatePercents { get; set; }
         public double AverageRate { get; set; }
+
+        public Watchlist Watchlist { get; set; }
+        public MovieLog MovieLog { get; set; }
     }
 }

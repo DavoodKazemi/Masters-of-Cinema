@@ -1,4 +1,5 @@
 ﻿using MastersOfCinema.Data;
+using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -213,7 +214,20 @@ namespace MastersOfCinema.Controllers
                 AverageRate = _repository.GetAverageRating(id),
                 RatePercents = _repository.MovieRatingChartStats(id),
                 RateCounts = _repository.MovieRatingCount(id),
+                //MovieLog = _repository.IsLoggedMovieId(id),
+                Watchlist = _repository.IsInWatchlistById(id)
             };
+            //If movie was not logged, make a new log obj to prevent error
+            if (movieRateDirector.Watchlist == null)
+            {
+                movieRateDirector.Watchlist = new Watchlist
+                {
+                    Id = 0,
+                    MovieId = id,
+                    User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
+                };
+            }
+
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)
             { movieRateDirector.MovieRating = new MovieRating
@@ -245,7 +259,7 @@ namespace MastersOfCinema.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(MovieRateDirector movieRateDirector)
+        public async Task<IActionResult> Rate(MovieRateDirector movieRateDirector)
         {
             //Current user
             var UserName = HttpContext.User.Identity.Name;
@@ -302,6 +316,48 @@ namespace MastersOfCinema.Controllers
                 .FirstOrDefault(m => m.MovieId == movieRateDirector.MovieRating.MovieId);
                 _context.MovieRatings.Remove(directorViewModel);
                 await _context.SaveChangesAsync();
+            }
+
+            return Ok("Form Data received!");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Watchlist(MovieRateDirector movieRateDirector)
+        {
+
+            //Only need to get movieId from view
+            //Need to set a movieId and User to the new record
+            Watchlist watchlist = new Watchlist();
+            var movieId = movieRateDirector.MovieRating.MovieId;
+            //Check to see if this movie had been added to the user's watchlist before
+            var UserName = HttpContext.User.Identity.Name;
+            //watchlist.MovieId = id;
+            watchlist.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+            //If true it had been in user's watchlist (meaning user wants to remove it from watchlist)
+            bool wasInWatchlist = _context.Watchlists.Where(u => u.User.UserName == UserName).Any(m => m.MovieId == movieId);
+
+            //If rating != 0, it's either create or update, else it's delete rate
+            if (!wasInWatchlist)
+            {
+                //Create
+                watchlist.Id = 0;
+                watchlist.MovieId = movieId;
+                if (ModelState.IsValid)
+                {
+                    //Save (Create or update) rating in DB
+                    _context.Update(watchlist);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            else //it's a delete request
+            {
+                //Delete rating - If rating = 0, it means they clicked on remove rate button
+                var watchlistItem = _context.Watchlists.Where(u => u.User.UserName == UserName)
+                .FirstOrDefault(m => m.MovieId == movieId);
+                _context.Watchlists.Remove(watchlistItem);
+                await _context.SaveChangesAsync();
+
             }
 
             return Ok("Form Data received!");

@@ -28,14 +28,47 @@
             CRate(@Model.MovieRating.Rating);
             document.getElementById("rate-rated").textContent = "Rated";
         }
-        //If movie is not rated, 
+        //If movie is not rated,
         if (@Model.MovieRating.Id == 0) {
             //Run CRate fuction to generate the chart
             CRate(0);
             //hide the remove rate icon
             $("#Rate0").hide();
         }
+
+        //Log things
+        //If not added to watchlist
+        if (@Model.Watchlist.Id == 0) {
+        }
+        //If added to watchlist
+        if (@Model.Watchlist.Id > 0) {
+            //document.getElementById("watchlist-caption").textContent = "Is in your watchlist";
+            $("#watchlist-icon").attr('class', 'watchlist-icon-remove');
+            $("#watchlist-caption").toggleClass('watchlist-caption-remove');
+        }
+        //END Log things
     });
+
+    //Log functions
+    //Change the watchlist icon if user clicked on it
+    function watchlist() {
+        $("#watchlist-icon").toggleClass('watchlist-icon-add watchlist-icon-remove');
+        $("#watchlist-caption").toggleClass('watchlist-caption-remove');
+        watchlistHover();
+    }
+
+    function watchlistHover() {
+        if ($('#watchlist-caption').hasClass('watchlist-caption-remove')) {
+            document.getElementById("watchlist-caption").textContent = "Remove";
+        } else {
+            document.getElementById("watchlist-caption").textContent = "Watchlist";
+        }
+    }
+    function watchlistOut() {
+        document.getElementById("watchlist-caption").textContent = "Watchlist";
+    }
+    //END Log functions
+
 
     //Click on the nth star (including remove icon)
     function CRate(r) {
@@ -141,7 +174,7 @@
                 @*Edit rating without reload*@
                 <form id="studenteForm" enctype="multipart/form-data" class="col-4">
                     <div class="form-group my-3">
-                        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" />
+                        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
                     </div>
 
                     <div class="form-group my-3">
@@ -156,13 +189,14 @@
                                     <span class="log-icon-add"></span>
                                     <div id="" class="log-logged text-center">Watch</div>
                                 </div>
-                                <div id="watchlist-add" onclick="" class="col-6 watchlist-icon-wrapper w-50">
-                                    <span class="watchlist-icon-add"></span>
-                                    <div id="" class="watchlist-add text-center">Watchlist</div>
+                                <div id="watchlist-button" onclick="watchlist(), watchlistSubmit()" onmouseover="watchlistHover()" onmouseout="watchlistOut()" class="col-6 watchlist-icon-wrapper w-50">
+                                    <span id="watchlist-icon" class="watchlist-icon-add"></span>
+                                    <div id="watchlist-caption" class="watchlist-add text-center">Watchlist</div>
 
                                 </div>
                             </div>
 
+                            
 
                             <div id="rate-rated" class="pt-2 pb-1 rate-rated text-center">Rate</div>
                             <div class="rate-icon-wrapper pb-3" onmouseout="CRateSelected()" type="button">
@@ -300,7 +334,7 @@
         $.ajax({
 
             type: 'POST',
-            url: '/Movie/Details',
+            url: '/Movie/Rate',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (result) {
@@ -315,3 +349,34 @@
     }
 
 </script>
+
+
+<script type="text/javascript">
+    function watchlistSubmit() {
+
+        var data = $("#movie-id").serialize();
+
+
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/Movie/Watchlist',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
+
+

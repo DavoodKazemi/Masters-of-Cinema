@@ -55,49 +55,59 @@
     margin: 0;
     padding-top: 15px;
     padding-bottom: 10px; }
-    .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add {
-      cursor: pointer;
-      display: block;
-      min-width: 50px;
-      text-transform: capitalize; }
-      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add:before {
-        content: "";
-        background-image: url("/Image/Icon/log.svg");
-        /*            }*/
-        background-repeat: no-repeat;
-        background-size: 50px 40px;
-        content: "";
-        display: block;
-        height: 40px;
-        margin: 0 auto 3px;
-        width: 50px; }
-    .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-delete {
-      background-image: url("/Image/Icon/logged.svg");
-      width: 33px;
-      height: 33px; }
-    .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper {
-      width: 50px;
-      height: 33px; }
-      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-add {
-        cursor: pointer;
+    .user-movie-interaction-wrapper > .row .log-icon-wrapper {
+      cursor: pointer; }
+      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add {
         display: block;
         min-width: 50px;
         text-transform: capitalize; }
-        .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-add:before {
+        .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add:before {
           content: "";
-          background-image: url("/Image/Icon/watchlist-add.svg");
+          background-image: url("/Image/Icon/log.svg");
           /*            }*/
           background-repeat: no-repeat;
-          background-size: 78.5px 68px;
+          background-size: 50px 40px;
           content: "";
           display: block;
           height: 40px;
           margin: 0 auto 3px;
           width: 50px; }
-      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .wachlist-icon-delete {
-        background-image: url("/Image/Icon/watchlist-add.svg");
+      .user-movie-interaction-wrapper > .row .log-icon-wrapper:hover {
+        color: white; }
+      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-delete {
+        background-image: url("/Image/Icon/logged.svg");
         width: 33px;
         height: 33px; }
+    .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper {
+      width: 50px;
+      height: 33px;
+      cursor: pointer; }
+      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-add {
+        display: block;
+        min-width: 50px;
+        text-transform: capitalize;
+        background-image: url("/Image/Icon/watchlist-add.svg");
+        background-repeat: no-repeat;
+        background-size: 78.5px 68px;
+        content: "";
+        display: block;
+        height: 40px;
+        margin: 0 auto 3px;
+        width: 50px; }
+      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper:hover {
+        color: white; }
+      .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper .watchlist-icon-remove {
+        background-image: url("/Image/Icon/watchlist-remove.svg");
+        display: block;
+        min-width: 50px;
+        text-transform: capitalize;
+        background-repeat: no-repeat;
+        background-size: 78.5px 68px;
+        content: "";
+        display: block;
+        height: 40px;
+        margin: 0 auto 3px;
+        width: 50px; }
   .user-movie-interaction-wrapper .rate-icon-wrapper {
     font-size: 0; }
     .user-movie-interaction-wrapper .rate-icon-wrapper .delete-rate-icon-wrapper {
