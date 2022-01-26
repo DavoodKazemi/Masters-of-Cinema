@@ -238,7 +238,12 @@ namespace MastersOfCinema.Controllers
                 };
             }
 
-            
+            //List count
+            ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count();
+
+            //Log count
+            ViewBag.logCount = _context.MovieLogs.Where(m => m.MovieId == id).Count();
+
             //If movie was not rated, make a new Rating obj to prevent error
             if (movieRateDirector.MovieRating == null)
             { movieRateDirector.MovieRating = new MovieRating

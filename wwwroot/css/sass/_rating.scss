@@ -211,3 +211,43 @@
     }
 }
 
+
+
+//list stats
+
+.movie-logs-stats {
+    background-image: url('/Image/Icon/logged.svg');
+    //padding: 10px;
+    display: inline-block;
+    //min-width: 50px;
+    text-transform: capitalize;
+    content: "";
+    /*            }*/
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    content: "";
+    //display: block;
+    height: 25px;
+    margin: 0 auto 3px;
+    width: 25px;
+    vertical-align: middle;
+}
+
+.movie-watchlist-stats {
+    //padding: 10px;
+    display: inline-block;
+    //min-width: 50px;
+    text-transform: capitalize;
+    content: "";
+    background-image: url('/Image/Icon/list-stat.svg');
+    /*            }*/
+    //background-image: url(../img/sprite.9b9f573a.svg);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    content: "";
+    //display: block;
+    height: 20px;
+    margin: 0 auto 3px;
+    width: 20px;
+    vertical-align: middle;
+}
