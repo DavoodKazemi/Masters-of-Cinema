@@ -60,24 +60,33 @@
       .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add {
         display: block;
         min-width: 50px;
-        text-transform: capitalize; }
-        .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-add:before {
-          content: "";
-          background-image: url("/Image/Icon/log.svg");
-          /*            }*/
-          background-repeat: no-repeat;
-          background-size: 50px 40px;
-          content: "";
-          display: block;
-          height: 40px;
-          margin: 0 auto 3px;
-          width: 50px; }
+        text-transform: capitalize;
+        content: "";
+        background-image: url("/Image/Icon/log.svg");
+        /*            }*/
+        background-repeat: no-repeat;
+        background-size: 50px 40px;
+        content: "";
+        display: block;
+        height: 40px;
+        margin: 0 auto 3px;
+        width: 50px; }
       .user-movie-interaction-wrapper > .row .log-icon-wrapper:hover {
         color: white; }
-      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-delete {
+      .user-movie-interaction-wrapper > .row .log-icon-wrapper .log-icon-remove {
         background-image: url("/Image/Icon/logged.svg");
-        width: 33px;
-        height: 33px; }
+        display: block;
+        min-width: 50px;
+        text-transform: capitalize;
+        content: "";
+        /*            }*/
+        background-repeat: no-repeat;
+        background-size: 50px 40px;
+        content: "";
+        display: block;
+        height: 40px;
+        margin: 0 auto 3px;
+        width: 50px; }
     .user-movie-interaction-wrapper > .row .watchlist-icon-wrapper {
       width: 50px;
       height: 33px;

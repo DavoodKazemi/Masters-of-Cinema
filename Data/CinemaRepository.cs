@@ -222,7 +222,12 @@ namespace MastersOfCinema.Data
 
         public MovieLog IsLoggedMovieId(int id)
         {
-            throw new NotImplementedException();
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var movieLog = _context.MovieLogs.Where(r => r.User.UserName == User)
+                .FirstOrDefault(i => i.MovieId == id);
+
+            return movieLog;
         }
 
         public Watchlist IsInWatchlistById(int id)

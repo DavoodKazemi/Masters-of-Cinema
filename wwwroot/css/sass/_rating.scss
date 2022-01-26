@@ -27,31 +27,38 @@
                 display: block;
                 min-width: 50px;
                 text-transform: capitalize;
-
-                &:before {
-                    //padding: 5px 25px;
-                    content: "";
-                    background-image: url('/Image/Icon/log.svg');
-                    /*            }*/
-                    //background-image: url(../img/sprite.9b9f573a.svg);
-                    background-repeat: no-repeat;
-                    background-size: 50px 40px;
-                    content: "";
-                    display: block;
-                    height: 40px;
-                    margin: 0 auto 3px;
-                    width: 50px;
-                }
+                content: "";
+                background-image: url('/Image/Icon/log.svg');
+                /*            }*/
+                //background-image: url(../img/sprite.9b9f573a.svg);
+                background-repeat: no-repeat;
+                background-size: 50px 40px;
+                content: "";
+                display: block;
+                height: 40px;
+                margin: 0 auto 3px;
+                width: 50px;
             }
 
             &:hover {
                 color: white;
             }
 
-            .log-icon-delete {
+            .log-icon-remove {
                 background-image: url('/Image/Icon/logged.svg');
-                width: 33px;
-                height: 33px;
+                display: block;
+                min-width: 50px;
+                text-transform: capitalize;
+                content: "";
+                /*            }*/
+                //background-image: url(../img/sprite.9b9f573a.svg);
+                background-repeat: no-repeat;
+                background-size: 50px 40px;
+                content: "";
+                display: block;
+                height: 40px;
+                margin: 0 auto 3px;
+                width: 50px;
             }
         }
 

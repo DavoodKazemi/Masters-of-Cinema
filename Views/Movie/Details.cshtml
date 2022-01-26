@@ -37,6 +37,14 @@
         }
 
         //Log things
+        //If was not logged
+        if (@Model.MovieLog.Id == 0) {
+        }
+        //If added to watchlist
+        if (@Model.MovieLog.Id > 0) {
+            document.getElementById("log-caption").textContent = "Logged";
+            $("#log-icon").attr('class', 'log-icon-remove');
+        }
         //If not added to watchlist
         if (@Model.Watchlist.Id == 0) {
         }
@@ -50,6 +58,19 @@
     });
 
     //Log functions
+    function log() {
+        $("#log-icon").toggleClass('log-icon-add log-icon-remove');
+        $("#log-caption").toggleClass('log-caption-remove');
+        if ($('#log-caption').hasClass('log-caption-remove')) {
+            document.getElementById("log-caption").textContent = "Logged";
+        } else {
+            document.getElementById("log-caption").textContent = "Watch";
+        }
+    }
+
+    @*function watchlistOut() {
+        document.getElementById("watchlist-caption").textContent = "Watchlist";
+    }*@
     //Change the watchlist icon if user clicked on it
     function watchlist() {
         $("#watchlist-icon").toggleClass('watchlist-icon-add watchlist-icon-remove');
@@ -185,9 +206,10 @@
                     <div class="movie-stats-ultimate-wrapper">
                         <div class="user-movie-interaction-wrapper mb-3 pb-3">
                             <div class="row text-center">
-                                <div id="log-logged" onclick="" class="col-6 log-icon-wrapper w-50">
-                                    <span class="log-icon-add"></span>
-                                    <div id="" class="log-logged text-center">Watch</div>
+                                <div id="log-button" onclick="log(), logSubmit()" class="col-6 log-icon-wrapper w-50">
+                                    <span id="log-icon" class="log-icon-add"></span>
+                                    <div id="log-caption" class="log-add text-center">Watch</div>
+
                                 </div>
                                 <div id="watchlist-button" onclick="watchlist(), watchlistSubmit()" onmouseover="watchlistHover()" onmouseout="watchlistOut()" class="col-6 watchlist-icon-wrapper w-50">
                                     <span id="watchlist-icon" class="watchlist-icon-add"></span>
@@ -196,7 +218,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div id="rate-rated" class="pt-2 pb-1 rate-rated text-center">Rate</div>
                             <div class="rate-icon-wrapper pb-3" onmouseout="CRateSelected()" type="button">
@@ -380,3 +402,32 @@
 </script>
 
 
+
+
+<script type="text/javascript">
+    function logSubmit() {
+
+        var data = $("#movie-id").serialize();
+
+
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/MovieRate/Log',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>

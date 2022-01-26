@@ -214,10 +214,20 @@ namespace MastersOfCinema.Controllers
                 AverageRate = _repository.GetAverageRating(id),
                 RatePercents = _repository.MovieRatingChartStats(id),
                 RateCounts = _repository.MovieRatingCount(id),
-                //MovieLog = _repository.IsLoggedMovieId(id),
+                MovieLog = _repository.IsLoggedMovieId(id),
                 Watchlist = _repository.IsInWatchlistById(id)
             };
             //If movie was not logged, make a new log obj to prevent error
+            if (movieRateDirector.MovieLog == null)
+            {
+                movieRateDirector.MovieLog = new MovieLog
+                {
+                    Id = 0,
+                    MovieId = id,
+                    User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
+                };
+            }
+            //If movie was not in Watchlist, make a new Watchlist obj to prevent error
             if (movieRateDirector.Watchlist == null)
             {
                 movieRateDirector.Watchlist = new Watchlist
