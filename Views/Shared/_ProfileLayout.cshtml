@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+@*Navbar Start*@
+<div class="container-fluid bg-dark">
+    <header class="container-xxl row mx-auto">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse pt-2">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Films">Films</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
+@*Navbar End*@
+
+@*Render the main view*@
+@RenderBody()

@@ -90,5 +90,36 @@ namespace MastersOfCinema.Controllers
 
             return View(watchList);
         }
+        public IActionResult Watchlist()
+        {
+            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            var watchList = new ProfileViewModel()
+            {
+                Movies = _repository.GetWatchlist(),
+                Directors = _repository.GetAllDirectors(),
+                CurrentUser = user,
+                
+            };
+            watchList.listCount = watchList.Movies.Count();
+
+            return View(watchList);
+        }
+
+        //Films user has watched (logged) listed
+        public IActionResult Films()
+        {
+            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            var films = new ProfileViewModel()
+            {
+                Movies = _repository.GetFilms(),
+                Directors = _repository.GetAllDirectors(),
+                CurrentUser = user
+            };
+            films.listCount = films.Movies.Count();
+
+            return View(films);
+        }
     }
 }

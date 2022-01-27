@@ -13,6 +13,7 @@ namespace MastersOfCinema.ViewModels
         public User CurrentUser { get; set; }
         public Movie Movie { get; set; }
         public IEnumerable<Movie> Movies { get; set; }
+        public int listCount { get; set; }
         //Temporarily saves the first rating of this movie, 
         //later saves the user's rating of this movie
         public MovieRating MovieRating { get; set; }

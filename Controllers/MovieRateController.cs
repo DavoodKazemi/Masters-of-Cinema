@@ -38,7 +38,6 @@ namespace MastersOfCinema.Controllers
         [HttpPost]
         public async Task<IActionResult> Log(MovieRateDirector movieRateDirector)
         {
-
             //Only need to get movieId from view
             //Need to set a movieId and User to the new record
             MovieLog log = new MovieLog();
@@ -72,14 +71,12 @@ namespace MastersOfCinema.Controllers
                 await _context.SaveChangesAsync();
 
             }
-
             return Ok("Form Data received!");
         }
 
         [HttpPost]
         public async Task<IActionResult> Watchlist(MovieRateDirector movieRateDirector)
         {
-
             //Only need to get movieId from view
             //Need to set a movieId and User to the new record
             Watchlist watchlist = new Watchlist();
@@ -122,10 +119,6 @@ namespace MastersOfCinema.Controllers
         {
             //Current user
             var UserName = HttpContext.User.Identity.Name;
-
-            movieRateDirector.Movie = _repository.GetMovieById(movieRateDirector.MovieRating.MovieId);
-            movieRateDirector.Director = _context.Directors
-                .FirstOrDefault(m => m.Id == movieRateDirector.Movie.DirectorId);
 
             movieRateDirector.MovieRating.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
 

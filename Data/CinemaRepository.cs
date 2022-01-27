@@ -204,20 +204,39 @@ namespace MastersOfCinema.Data
             var UserName = _accessor.HttpContext.User.Identity.Name;
             return UserName;
         }
+
+        //fixed
         public IEnumerable<Movie> GetWatchlist()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
             //List of all rates by the user - later added to watchlist
-            var rateList = _context.MovieRatings.Where(r => r.User.UserName == User);
+            var watchList = _context.Watchlists.Where(r => r.User.UserName == User);
 
-            var watchList = new List<Movie>();
+            var movies = new List<Movie>();
             //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
-            foreach (var item in rateList)
+            foreach (var item in watchList)
             {
-                watchList.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
+                movies.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
             }
 
-            return watchList;
+            return movies;
+        }
+
+        //done
+        public IEnumerable<Movie> GetFilms()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var loggedList = _context.MovieLogs.Where(r => r.User.UserName == User);
+
+            var films = new List<Movie>();
+            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+            foreach (var item in loggedList)
+            {
+                films.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
+            }
+
+            return films;
         }
 
         public MovieLog IsLoggedMovieId(int id)
