@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,6 +18,11 @@ namespace MastersOfCinema.Controllers
 {
     public class MovieController : Controller
     {
+
+
+
+
+
         private readonly Context _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly ICinemaRepository _repository;

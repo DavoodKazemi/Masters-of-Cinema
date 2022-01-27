@@ -22,13 +22,13 @@
 
                 <div id="navbarSupportedContent" class="collapse navbar-collapse pt-2">
                     <ul class="navbar-nav w-100">
-                        <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Director" asp-action="Index">Directors</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Movie" asp-action="Index">Movies</a></li>
+                        <li class="nav-item"><a class="nav-link @Html.ActiveClass("App", "Index")" asp-controller="App" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link @Html.ActiveClass("Director", "Index")" asp-controller="Director" asp-action="Index">Directors</a></li>
+                        <li class="nav-item"><a class="nav-link @Html.ActiveClass("Movie", "Index")" asp-controller="Movie" asp-action="Index">Movies</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             
-                            <li class="nav-item ms-md-auto"><a class="nav-link" asp-controller="Account" asp-action="Profile"><i class="fas fa-user-circle me-2 fs-3"></i><vc:welcome-message></vc:welcome-message></a></li>
+                            <li class="nav-item ms-md-auto"><a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist")" asp-controller="Account" asp-action="Profile"><i class="fas fa-user-circle me-2 fs-3"></i><vc:welcome-message></vc:welcome-message></a></li>
                             <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else

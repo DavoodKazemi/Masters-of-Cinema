@@ -10,9 +10,9 @@
 
             <div id="navbarSupportedContent" class="collapse navbar-collapse pt-2">
                 <ul class="navbar-nav w-100">
-                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Films">Films</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
+                    <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Profile")" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Films")" asp-controller="Account" asp-action="Films">Films</a></li>
+                    <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Watchlist")" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
                     
                 </ul>
             </div>
