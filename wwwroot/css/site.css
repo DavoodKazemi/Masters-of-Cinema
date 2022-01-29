@@ -243,6 +243,26 @@
       object-position: top; } }
 
 /*END Director list page*/
+footer {
+  color: #6c757d;
+  background-color: #2C3440; }
+
+@media (max-width: 900px) {
+  .main-navigation-wrapper header {
+    padding-right: 0;
+    padding-left: 0; } }
+
+.main-navigation-wrapper header nav {
+  min-height: 66px; }
+  .main-navigation-wrapper header nav .navbar-brand {
+    max-width: 80%; }
+    @media (max-width: 400px) {
+      .main-navigation-wrapper header nav .navbar-brand {
+        max-width: 65%;
+        margin-right: 5px; } }
+    .main-navigation-wrapper header nav .navbar-brand img {
+      max-width: 100% !important; }
+
 .nav-profile-picture-wrapper {
   position: relative; }
   .nav-profile-picture-wrapper .nav-profile-picture {
@@ -494,10 +514,9 @@ html, body {
   padding-bottom: 100px;
   color: #99AABB;
   background: #14181c url("/Image/General/content-bg.0d9a0f0f.png") 0 -1px repeat-x; }
-
-footer {
-  color: #6c757d;
-  background-color: #2C3440; }
+  @media (max-width: 300px) {
+    .main-content {
+      min-height: calc(100% - 146px); } }
 
 a {
   color: #99AABB;

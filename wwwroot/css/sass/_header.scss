@@ -1,4 +1,35 @@
 ﻿
+
+.main-navigation-wrapper {
+    
+        header {
+            @media (max-width: 900px) {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            nav{
+                min-height: 66px;
+
+                .navbar-brand {
+                max-width: 80%;
+
+                @media (max-width: 400px) {
+                    max-width: 65%;
+                    margin-right: 5px;
+                }
+
+                img {
+                    max-width: 100% !important;
+                }
+            }
+            //End navbar-brand
+            }
+
+        }
+        //End header
+}
+
+
 .nav-profile-picture-wrapper {
     position: relative;
 

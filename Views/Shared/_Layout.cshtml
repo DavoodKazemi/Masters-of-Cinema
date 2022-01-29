@@ -11,7 +11,7 @@
 </head>
 <body class="body">
     @*Navbar Start*@
-    <div class="main-navigation-bg">
+    <div class="main-navigation-bg main-navigation-wrapper">
         <header class="container-xxl row mx-auto">
             <nav class="navbar navbar-expand-md navbar-dark">
                 <a class="navbar-brand" asp-controller="App" asp-action="Index">
@@ -53,8 +53,10 @@
     </section>
 
 
-    <footer id="footer" class="site-footer pb-3 pt-3 px-5">
-        Copyright 2022 Masters of Cinema LLC
+    <footer id="footer" class="site-footer pb-3 pt-3">
+        <div class="container-xl text-center text-sm-start">
+            Copyright 2022 Masters of Cinema LLC
+        </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
