@@ -1,6 +1,7 @@
 ﻿@import "sass/_chart.scss";
 @import "sass/_director-info.scss";
 @import "sass/_director-list.scss";
+@import 'sass/_header.scss';
 @import 'sass/_mixin.scss';
 @import "sass/_navbar.scss";
 @import 'sass/_rating.scss';
@@ -17,7 +18,7 @@ html, body {
 }
 
 .main-content {
-    min-height: calc(100% - 126px);
+    min-height: calc(100% - 122px);
     padding-bottom: 100px;
     //min-height: 90vh !important;
     color: #99AABB;

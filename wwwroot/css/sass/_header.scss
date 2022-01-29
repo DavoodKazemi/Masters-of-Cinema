@@ -1,0 +1,21 @@
+﻿
+.nav-profile-picture-wrapper {
+    position: relative;
+
+    .nav-profile-picture {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 30px;
+        position: absolute;
+        left: -77%;
+        top: 4%;
+    }
+
+    .nav-default-profile-picture {
+        position: absolute;
+        left: -48%;
+        top: 12%;
+        font-size: 36px;
+    }
+}

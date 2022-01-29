@@ -243,6 +243,22 @@
       object-position: top; } }
 
 /*END Director list page*/
+.nav-profile-picture-wrapper {
+  position: relative; }
+  .nav-profile-picture-wrapper .nav-profile-picture {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 30px;
+    position: absolute;
+    left: -77%;
+    top: 4%; }
+  .nav-profile-picture-wrapper .nav-default-profile-picture {
+    position: absolute;
+    left: -48%;
+    top: 12%;
+    font-size: 36px; }
+
 .tooltip-wrapper {
   position: relative; }
   .tooltip-wrapper .tooltip-supject {
@@ -474,7 +490,7 @@ html, body {
   color: #99AABB; }
 
 .main-content {
-  min-height: calc(100% - 126px);
+  min-height: calc(100% - 122px);
   padding-bottom: 100px;
   color: #99AABB;
   background: #14181c url("/Image/General/content-bg.0d9a0f0f.png") 0 -1px repeat-x; }
