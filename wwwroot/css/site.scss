@@ -5,17 +5,25 @@
 @import "sass/_navbar.scss";
 @import 'sass/_rating.scss';
 
-
+html, body {
+    height: 100%;
+}
+.main-navigation-bg {
+    background-color: #14181c;
+}
 
 .primary-color {
     color: #99AABB;
 }
 
 .main-content {
+    min-height: calc(100% - 126px);
     padding-bottom: 100px;
-    min-height: 80vh !important;
+    //min-height: 90vh !important;
     color: #99AABB;
-    background-color: #14181c;
+    //background-color: #1E252C;
+    background: #14181c url('/Image/General/content-bg.0d9a0f0f.png') 0 -1px repeat-x;
+    //padding: 30px 0;
 }
 
 footer {
