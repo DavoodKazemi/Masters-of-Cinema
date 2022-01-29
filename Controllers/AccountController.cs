@@ -77,6 +77,7 @@ namespace MastersOfCinema.Controllers
             return RedirectToAction("Index", "App");
         }
 
+        //to be fixed
         public IActionResult Profile()
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;

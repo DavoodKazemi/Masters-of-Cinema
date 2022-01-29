@@ -33,7 +33,8 @@ namespace MastersOfCinema
             {
                 cfg.User.RequireUniqueEmail = true;
             })
-        .AddEntityFrameworkStores<Context>();
+        .AddEntityFrameworkStores<Context>().AddDefaultTokenProviders().AddDefaultUI();
+
 
             services.AddControllersWithViews();
             
@@ -44,6 +45,10 @@ namespace MastersOfCinema
             services.AddScoped<ICinemaRepository, CinemaRepository>();
             services.AddHttpContextAccessor();
 
+
+
+            //services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +57,7 @@ namespace MastersOfCinema
 
             //Display error information - remove it at the end
             app.UseDeveloperExceptionPage();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
@@ -60,12 +66,17 @@ namespace MastersOfCinema
             app.UseAuthentication();
             app.UseAuthorization();
 
+
+
             app.UseEndpoints(cfg =>
             {
                 cfg.MapControllerRoute("Default",
                     "/{controller}/{action}/{id?}",
                     new { controller = "App", action = "Index" });
+                cfg.MapRazorPages();
             });
+
+
         }
     }
 }

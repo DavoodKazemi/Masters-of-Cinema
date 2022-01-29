@@ -27,13 +27,16 @@
                         <li class="nav-item"><a class="nav-link @Html.ActiveClass("Movie", "Index")" asp-controller="Movie" asp-action="Index">Movies</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            
-                            <li class="nav-item ms-md-auto"><a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist")" asp-controller="Account" asp-action="Profile"><i class="fas fa-user-circle me-2 fs-3"></i><vc:welcome-message></vc:welcome-message></a></li>
+
+                            <li class="nav-item ms-md-auto"><a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist") @Html.ActiveClass("Settings", "Index")
+                                                                               @Html.ActiveClass("Settings", "Email") @Html.ActiveClass("Settings", "ChangePassword") @Html.ActiveClass("Settings", "PersonalData")" 
+                                                               asp-controller="Settings" asp-action="Index"><i class="fas fa-user-circle me-2 fs-3"></i><vc:welcome-message></vc:welcome-message></a></li>
                             <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else
                         {
-                            <li class="nav-item ms-md-auto"><a class="nav-link me-auto" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li class="nav-item ms-md-auto"><a class="nav-link me-auto" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link me-auto @Html.ActiveClass("Account", "Login")" asp-controller="Account" asp-action="Login">Login</a></li>
                         }
                     </ul>
                 </div>

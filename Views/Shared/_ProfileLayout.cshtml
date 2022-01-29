@@ -4,16 +4,17 @@
 }
 
 @*Navbar Start*@
-<div class="container-fluid bg-dark">
+<div class="container bg-dark">
     <header class="container-xxl row mx-auto">
         <nav class="navbar navbar-expand navbar-dark bg-dark">
 
             <div id="navbarSupportedContent" class="collapse navbar-collapse pt-2">
                 <ul class="navbar-nav w-100">
+                    <li class="nav-item"><a class="nav-link @Html.ActiveClass("Settings", "Index") @Html.ActiveClass("Settings", "Email") @Html.ActiveClass("Settings", "ChangePassword") @Html.ActiveClass("Settings", "PersonalData")" asp-controller="Settings" asp-action="Index">Settings</a></li>
                     <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Profile")" asp-controller="Account" asp-action="Profile">Profile</a></li>
                     <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Films")" asp-controller="Account" asp-action="Films">Films</a></li>
                     <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "Watchlist")" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
-                    
+
                 </ul>
             </div>
         </nav>
