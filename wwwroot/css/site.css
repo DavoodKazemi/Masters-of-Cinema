@@ -521,7 +521,8 @@ footer {
 .settings-navbar {
   align-content: center; }
   .settings-navbar li {
-    max-width: 240px; }
+    max-width: 240px;
+    min-width: 160px; }
 
 html, body {
   height: 100%; }
