@@ -6,6 +6,7 @@
 @import 'sass/_mixin.scss';
 @import "sass/_navbar.scss";
 @import 'sass/_rating.scss';
+@import "sass/_settings.scss";
 
 html, body {
     height: 100%;
@@ -53,6 +54,9 @@ a {
     max-width: 200px;
 }
 
+.input-medium {
+    max-width: 360px;
+}
 
 /*Director selcet list*/
 .directors-select{

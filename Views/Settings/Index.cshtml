@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model ProfileViewModel
 @{
     //ViewData["Title"] = "Profile";
     //ViewData["ActivePage"] = ManageNavPages.Index;
@@ -6,65 +6,78 @@
     Layout = "~/Views/Shared/_ProfileSettingsLayout.cshtml";
 }
 
-<partial name="_StatusMessage" model="Model.FirstName" />
+<partial name="_StatusMessage" model="@TempData["ConfirmMessage2"]" />
+<partial name="_StatusMessage" model="@TempData["UserNameChangeLimitMessage2"]" />
 
-
-<div class="director-info-page container-sm mt-4">
+<div class="container-sm profile-settings-container">
     <h4>@ViewData["Title"]</h4>
     <div class="row">
-        <div class="col-md-6">
-            <form id="profile-form" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="@Model.FirstName"></label>
-                            <input asp-for="@Model.FirstName" class="form-control" />
-                            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LastName"></label>
-                            <input asp-for="@Model.LastName" class="form-control" />
-                            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.UserName"></label>
-                            <input asp-for="@Model.UserName" class="form-control" />
-                            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.PhoneNumber"></label>
-                            <input asp-for="@Model.PhoneNumber" class="form-control" />
-                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
-                        </div>
-                        <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mt-2">
+                        <label asp-for="@Model.CurrentUser.FirstName"></label>
+                        <input asp-for="@Model.CurrentUser.FirstName" class="form-control input-medium" />
+                        <span asp-validation-for="@Model.CurrentUser.FirstName" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ProfilePicture" style="width: 100%;"></label>
-                            @if (@Model.ProfilePicture != null)
-                            {
-                                <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@Model.ProfilePicture))">
-                            }
-                            else
-                            {
-                                <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
-                            }
-                            <input type="file"
-                                   accept=".png,.jpg,.jpeg,.gif,.tif"
-                                   asp-for="@Model.ProfilePicture"
-                                   class="form-control"
-                                   style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                   onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
-                            <span asp-validation-for="@Model.ProfilePicture" class="text-danger"></span>
-                        </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="@Model.CurrentUser.LastName"></label>
+                        <input asp-for="@Model.CurrentUser.LastName" class="form-control input-medium" />
+                        <span asp-validation-for="@Model.CurrentUser.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="@Model.CurrentUser.UserName">User Name</label>
+                        @if (Model.CurrentUser.UsernameChangeLimit > 0)
+                        {
+                            <input asp-for="@Model.CurrentUser.UserName" class="form-control input-medium" />
+                        }
+                        else
+                        {
+                            <input title="You have consumed your 10 chances to change your user name!" asp-for="@Model.CurrentUser.UserName" disabled class="form-control input-medium" />
+
+                        }
+                        <span asp-validation-for="@Model.CurrentUser.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="@Model.CurrentUser.PhoneNumber">Phone Number</label>
+                        <input asp-for="@Model.CurrentUser.PhoneNumber" class="form-control input-medium" />
+                        <span asp-validation-for="@Model.CurrentUser.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <button id="update-profile-button" type="submit" class="d-none d-lg-block btn btn-primary mt-4">Save</button>
+
+                </div>
+                <div class="col-lg-9">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mt-2 profile-picture-wrapper">
+                        <label asp-for="@Model.CurrentUser.ProfilePicture" style="width: 100%;"></label>
+                        @if (@Model.CurrentUser.ProfilePicture != null)
+                        {
+                            <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@Model.CurrentUser.ProfilePicture))">
+                        }
+                        else
+                        {
+                            <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
+                        }
+                        <input type="file"
+                               accept=".png,.jpg,.jpeg,.gif,.tif"
+                               asp-for="@Model.CurrentUser.ProfilePicture" class="form-control input-medium"
+                               onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                        <span asp-validation-for="@Model.CurrentUser.ProfilePicture" class="text-danger"></span>
                     </div>
                 </div>
-            </form>
-        </div>
+
+                <div class="col-md-3 d-lg-none mt-4">
+                    <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+
+                </div>
+
+            </div>
+        </form>
+
     </div>
 </div>
-    @*@section Scripts {
-            <partial name="_ValidationScriptsPartial" />
-        }*@
+@*@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }*@

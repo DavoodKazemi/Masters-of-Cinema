@@ -271,7 +271,7 @@ footer {
     object-fit: cover;
     border-radius: 30px;
     position: absolute;
-    left: -77%;
+    right: 100%;
     top: 4%; }
   .nav-profile-picture-wrapper .nav-default-profile-picture {
     position: absolute;
@@ -500,6 +500,29 @@ footer {
   width: 20px;
   vertical-align: middle; }
 
+@media (max-width: 400px) {
+  .profile-settings-container {
+    padding-left: 0;
+    padding-right: 0; } }
+
+.profile-settings-container .profile-picture-wrapper img {
+  max-width: 100%; }
+
+@media (max-width: 400px) {
+  .profile-navigation-container {
+    padding-left: 0;
+    padding-right: 0; } }
+
+@media (max-width: 400px) {
+  .profile-navigation-container nav {
+    padding-left: 0;
+    padding-right: 0; } }
+
+.settings-navbar {
+  align-content: center; }
+  .settings-navbar li {
+    max-width: 240px; }
+
 html, body {
   height: 100%; }
 
@@ -531,6 +554,9 @@ a {
 /*General*/
 .input-small {
   max-width: 200px; }
+
+.input-medium {
+  max-width: 360px; }
 
 /*Director selcet list*/
 .directors-select {

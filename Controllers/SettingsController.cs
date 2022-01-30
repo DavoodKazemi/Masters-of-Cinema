@@ -42,6 +42,9 @@ namespace MastersOfCinema.Controllers
             _logger = logger;
         }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         [HttpPost]
         public async Task<IActionResult> DownloadPersonalData()
         {
@@ -221,8 +224,8 @@ namespace MastersOfCinema.Controllers
 
         public string Username { get; set; }
 
-            [TempData]
-            public string StatusMessage { get; set; }
+            /*[TempData]
+            public string StatusMessage { get; set; }*/
 
             [BindProperty]
             public InputModel Input { get; set; }
@@ -263,63 +266,94 @@ namespace MastersOfCinema.Controllers
             [HttpGet]
             public async Task<IActionResult> Index()
             {
-                var userName = await _userManager.GetUserAsync(User);
-
-                var Input2 = new User
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
                 {
-                    PhoneNumber = userName.PhoneNumber,
-                    UserName = userName.UserName,
-                    FirstName = userName.FirstName,
-                    LastName = userName.LastName,
-                    ProfilePicture = userName.ProfilePicture
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+            var userInfo = new User
+            {
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ProfilePicture = user.ProfilePicture,
+                UsernameChangeLimit = user.UsernameChangeLimit
                 };
 
-                var user = await _userManager.GetUserAsync(User);
-                    if (user == null)
-                    {
-                        return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                    }
+                ProfileViewModel profileViewModel = new ProfileViewModel();
+                profileViewModel.CurrentUser = userInfo;
 
-                //await LoadAsync(user);
-
-                return View(Input2);
+                if(user.UsernameChangeLimit > 0)
+                {
+                    TempData["UserNameChangeLimitMessage2"] = 
+                                    $"You can change your username {user.UsernameChangeLimit} more time(s)!";
+                }
+                return View(profileViewModel);
             }
 
-            /*public async Task<IActionResult> OnGetAsync()
+        [HttpPost]
+        public async Task<IActionResult> Index(ProfileViewModel profileViewModel)
+        {
+            //Getting original propeties of the user
+            var user = await _userManager.GetUserAsync(User);
+            //Getting new propeties of the user, Entered in the form
+            var newInfo = profileViewModel.CurrentUser;
+
+            if (user == null)
             {
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                }
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
 
-                await LoadAsync(user);
-                return Page();
-            }*/
+            string ConfirmMessage = "";
 
-            [HttpPost]
-            public async Task<IActionResult> Index(User user2)
+            /*var errors = ModelState
+           .Where(x => x.Value.Errors.Count > 0)
+           .Select(x => new { x.Key, x.Value.Errors })
+           .ToArray();*/
+
+            if (!ModelState.IsValid)
             {
+                return View(profileViewModel);
+            }
 
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                }
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-                var firstName = user.FirstName;
-                var lastName = user.LastName;
-                if (Input.FirstName != firstName)
+            if (newInfo.FirstName == user.FirstName && newInfo.LastName == user.LastName && Request.Form.Files.Count == 0
+                && newInfo.PhoneNumber == phoneNumber && newInfo.UserName == user.UserName)
+            {
+                TempData["ConfirmMessage2"] = "You have made no change to save!";
+                profileViewModel.CurrentUser.ProfilePicture = user.ProfilePicture;
+            }
+            else
+            {
+                //First name
+                if (user.FirstName != newInfo.FirstName)
                 {
-                    user.FirstName = Input.FirstName;
-                    await _userManager.UpdateAsync(user);
+                    user.FirstName = newInfo.FirstName;
+                    ConfirmMessage = "First name";
                 }
-                if (Input.LastName != lastName)
+                //Last name
+                if (user.LastName != newInfo.LastName)
                 {
-                    user.LastName = Input.LastName;
-                    await _userManager.UpdateAsync(user);
+                    user.LastName = newInfo.LastName;
+                    ConfirmMessage += 
+                        string.IsNullOrEmpty(ConfirmMessage) ? "Last name" : ", Last name";
                 }
-
+                //Phone number
+                if (newInfo.PhoneNumber != phoneNumber)
+                {
+                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, newInfo.PhoneNumber);
+                    if (!setPhoneResult.Succeeded)
+                    {
+                        ConfirmMessage = "Error: Unexpected error when trying to set phone number.";
+                        return View(profileViewModel);
+                    }
+                    ConfirmMessage +=
+                        string.IsNullOrEmpty(ConfirmMessage) ? "Phone number" : ", Phone number";
+                }
+                //Picture
                 if (Request.Form.Files.Count > 0)
                 {
                     IFormFile file = Request.Form.Files.FirstOrDefault();
@@ -328,30 +362,45 @@ namespace MastersOfCinema.Controllers
                         await file.CopyToAsync(dataStream);
                         user.ProfilePicture = dataStream.ToArray();
                     }
-                    await _userManager.UpdateAsync(user);
+                    ConfirmMessage +=
+                        string.IsNullOrEmpty(ConfirmMessage) ? "Profile picture" : ", Profile picture";
                 }
 
-
-                if (!ModelState.IsValid)
+                //User name
+                if (user.UsernameChangeLimit > 0)
                 {
-                    await LoadAsync(user);
-                    return View();
-                }
-
-                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-                if (Input.PhoneNumber != phoneNumber)
-                {
-                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                    if (!setPhoneResult.Succeeded)
+                    if (newInfo.UserName != user.UserName)
                     {
-                        StatusMessage = "Unexpected error when trying to set phone number.";
-                        return View();
+                        var userNameExists = await _userManager.FindByNameAsync(newInfo.UserName);
+                        if (userNameExists != null)
+                        {
+                            TempData["UserNameChangeLimitMessage2"] = "Error: User name already taken. Select a different user name.";
+                            return View(profileViewModel);
+                        }
+                        var setUserName = await _userManager.SetUserNameAsync(user, newInfo.UserName);
+                        if (!setUserName.Succeeded)
+                        {
+                            TempData["UserNameChangeLimitMessage2"] = "Error: Unexpected error when trying to set user name.";
+                            return View(profileViewModel);
+                        }
+                        else
+                        {
+                            ConfirmMessage +=
+                            string.IsNullOrEmpty(ConfirmMessage) ? "User name" : ", User name";
+                            user.UsernameChangeLimit -= 1;
+                        }
                     }
                 }
-
-                await _signInManager.RefreshSignInAsync(user);
-                StatusMessage = "Your profile has been updated";
-                return View(user2);
+                await _userManager.UpdateAsync(user);
+                TempData["ConfirmMessage2"] = "Your profile has been updated in the following properties: "
+                    + ConfirmMessage + ".";
             }
+
+            //Display the profile picture (either it's changed or not)
+            profileViewModel.CurrentUser.ProfilePicture = user.ProfilePicture;
+
+            await _signInManager.RefreshSignInAsync(user);
+            return View(profileViewModel);
+        }
     }
-}
+}//468
