@@ -27,7 +27,6 @@ namespace MastersOfCinema.ViewModels
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         //Change Password
-        public string NewEmail { get; set; }
         //Remove the unhelpful later
 
         public User CurrentUser { get; set; }

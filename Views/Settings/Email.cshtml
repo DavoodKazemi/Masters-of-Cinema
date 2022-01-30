@@ -1,43 +1,32 @@
-﻿@model SettingsViewModel
+﻿@model ProfileViewModel
 @{
     ViewData["Title"] = "Manage Email";
     Layout = "~/Views/Shared/_ProfileSettingsLayout.cshtml";
 }
 
-@*<h4>@ViewData["Title"]</h4>*@
-@*<partial name="_StatusMessage" model="Model.FirstName" />*@
+<h4>@ViewData["Title"]</h4>
+
+<partial name="_StatusMessage" model="@TempData["ConfirmMessage2"]" />
 <div class="row">
     <div class="col-md-6">
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.CurrentUser.Email"></label>
-                @if (@Model.CurrentUser.EmailConfirmed)
-                {
-                    <div class="input-group">
-                        <input asp-for="@Model.CurrentUser.Email" class="form-control" disabled />
-                        <div class="input-group-append">
-                            <span class="input-group-text text-success font-weight-bold">✓</span>
-                        </div>
-                    </div>
-                }
-                else
-                {
+            <div class="form-group mt-2">
+                <label asp-for="@Model.CurrentUser.Email">Current Email</label>
+
+                <div class="input-group">
                     <input asp-for="@Model.CurrentUser.Email" class="form-control" disabled />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
+                    <div class="input-group-append">
+                        <span class="input-group-text text-success font-weight-bold">✓</span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="@Model.NewEmail"></label>
+            <div class="form-group mt-2">
+                <label asp-for="@Model.NewEmail">New Email</label>
                 <input asp-for="@Model.NewEmail" class="form-control" />
                 <span asp-validation-for="@Model.NewEmail" class="text-danger"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Change email</button>
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="mt-4 btn btn-primary">Change email</button>
         </form>
     </div>
 </div>
-
-@*@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-*@

@@ -133,26 +133,44 @@ namespace MastersOfCinema.Controllers
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";
-
             return View(settingsViewModel);
         }
 
         //End ChangePassword
 
-        //Email - not working now (neither the razor does)
-
-        /*private async Task LoadAsync(User user)
+        //Email - Only change the address (doesn't send confirmation email)
+        [HttpPost]
+        public async Task<IActionResult> Email(ProfileViewModel profileViewModel)
         {
-            var email = await _userManager.GetEmailAsync(user);
-            Email = email;
+            var user = await _userManager.GetUserAsync(User);
+            //Getting new Email of the user, Entered in the form
+            var newInfo = profileViewModel.NewEmail;
 
-            Input = new InputModel
+            if (user == null)
             {
-                NewEmail = email,
-            };
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
 
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-        }*/
+            if (!ModelState.IsValid)
+            {
+                return View(profileViewModel);
+            }
+
+            var email = await _userManager.GetEmailAsync(user);
+            if (newInfo != email)
+            {
+                user.Email = newInfo;
+                await _userManager.UpdateAsync(user);
+                TempData["ConfirmMessage2"] = "Your Email address is updated.";
+                return View(profileViewModel);
+            }
+
+            TempData["ConfirmMessage2"] = "Your Email has not been changed.";
+            return View(profileViewModel);
+        }
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> Email()
@@ -163,7 +181,7 @@ namespace MastersOfCinema.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var Input2Email = new SettingsViewModel
+            var Input2Email = new ProfileViewModel
             {
                 CurrentUser = user2,
                 NewEmail = user2.Email
@@ -175,52 +193,7 @@ namespace MastersOfCinema.Controllers
             return View(Input2Email);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Email(SettingsViewModel settingsViewModel)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                //await LoadAsync(user);
-                return View();
-            }
-
-            var email = await _userManager.GetEmailAsync(user);
-            if (settingsViewModel.NewEmail != email)
-            {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, settingsViewModel.NewEmail);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { userId = userId, email = settingsViewModel.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    settingsViewModel.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
-
-                settingsViewModel.CurrentUser = user;
-
-
-                return View(settingsViewModel);
-            }
-
-            StatusMessage = "Your email is unchanged.";
-            return View(settingsViewModel);
-        }
-
         //End Email
-
 
         public string Username { get; set; }
 
