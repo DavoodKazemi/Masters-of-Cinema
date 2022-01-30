@@ -42,8 +42,7 @@ namespace MastersOfCinema.Controllers
             _logger = logger;
         }
 
-        [TempData]
-        public string StatusMessage { get; set; }
+        //remove all StatusMessage sh*t
 
         [HttpPost]
         public async Task<IActionResult> DownloadPersonalData()
@@ -132,7 +131,7 @@ namespace MastersOfCinema.Controllers
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            TempData["ConfirmMessage2"] = "Your password has been changed.";
             return View(settingsViewModel);
         }
 
@@ -169,9 +168,6 @@ namespace MastersOfCinema.Controllers
             return View(profileViewModel);
         }
 
-
-
-
         [HttpGet]
         public async Task<IActionResult> Email()
         {
@@ -197,44 +193,7 @@ namespace MastersOfCinema.Controllers
 
         public string Username { get; set; }
 
-            /*[TempData]
-            public string StatusMessage { get; set; }*/
 
-            [BindProperty]
-            public InputModel Input { get; set; }
-
-            public class InputModel
-            {
-                [Display(Name = "First Name")]
-                public string FirstName { get; set; }
-                [Display(Name = "Last Name")]
-                public string LastName { get; set; }
-                [Display(Name = "Username")]
-                public string Username { get; set; }
-                [Phone]
-                [Display(Name = "Phone number")]
-                public string PhoneNumber { get; set; }
-                [Display(Name = "Profile Picture")]
-                public byte[] ProfilePicture { get; set; }
-            }
-
-            private async Task LoadAsync(User user)
-            {
-                var userName = await _userManager.GetUserNameAsync(user);
-                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-                var firstName = user.FirstName;
-                var lastName = user.LastName;
-                var profilePicture = user.ProfilePicture;
-                Username = userName;
-                Input = new InputModel
-                {
-                    PhoneNumber = phoneNumber,
-                    Username = userName,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    ProfilePicture = profilePicture
-                };
-            }
 
             [HttpGet]
             public async Task<IActionResult> Index()
