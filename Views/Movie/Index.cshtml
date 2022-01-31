@@ -1,43 +1,13 @@
-﻿@model MovieRateDirector
+﻿@model MovieListViewModel
 
 @{
     ViewData["Title"] = "List of all movies";
 }
 
-
-<section class="container my-5">
+<div class="container px-lg-3 mt-4 px-3 text-center">
     <div class="row">
-
-
-        @foreach (var movie in Model.Movies)
-        {
-            <div class="col-4">
-                <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
-                    <img class="img-fluid" src="~/image/@movie.ImageName" />
-                </a>
-            </div>
-
-            <div class="col-8 py-3">
-                <div class="mb-3">
-                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
-                        <span class="me-3 fs-3">@Html.DisplayFor(modelItem => movie.Title)</span>
-                    </a>
-                    <span class="me-3 fs-5">@Html.DisplayFor(modelItem => movie.Year)</span>
-                    <span>Directed by </span>
-                    <span class="me-3 fs-4"><a asp-controller="Director" asp-action="Details" asp-route-id="@movie.DirectorId">@Model.Directors.FirstOrDefault(m => m.Id == movie.DirectorId).Name</a></span>
-                    <span><a class="me-3" asp-action="Edit" asp-route-id="@movie.Id">(Edit movie)</a></span>
-                </div>
-
-                <div class="">
-                    @Html.DisplayFor(modelItem => movie.Description)
-                    <a class="DetailsEditButton" asp-action="Edit" asp-route-id="@movie.Id">
-                        (Edit)
-                    </a>
-                </div>
-            </div>
-            <hr id="AllMoviesListHr">
-
-            <br />
-        }
+        <div class="border-bottom mb-3">EXPLROR AMONG @Model.listCount FILMS. LOG, RATE AND REVIEW YOUR FAVOURITE MOVIES.</div>
     </div>
-</section>
+</div>
+
+<partial name="~/Views/Shared/_MovieListPartial.cshtml" />

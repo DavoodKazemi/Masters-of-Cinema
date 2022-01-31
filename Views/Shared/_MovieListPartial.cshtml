@@ -1,0 +1,23 @@
+﻿@model MovieListViewModel
+
+<div class="director-info-page mt-2">
+    @*The movies list section*@
+    <div class="director-movies-container container">
+        <div class="row px-1">
+            @foreach (var item in Model.Movies)
+            {
+                <div class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+                    <div class="mx-auto">
+                        @*Movie poster and its tooltip (title (year)) *@
+                        <div class="movie-poster-wrapper mx-auto">
+                            <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title) (@Html.DisplayFor(modelItem => item.Year))</span>
+                            <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
+                                <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

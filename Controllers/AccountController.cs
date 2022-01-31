@@ -95,10 +95,10 @@ namespace MastersOfCinema.Controllers
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
-            var watchList = new ProfileViewModel()
+            MovieListViewModel watchList = new MovieListViewModel()
             {
                 Movies = _repository.GetWatchlist(),
-                Directors = _repository.GetAllDirectors(),
+                //Directors = _repository.GetAllDirectors(),
                 CurrentUser = user,
                 
             };
@@ -112,10 +112,10 @@ namespace MastersOfCinema.Controllers
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
-            var films = new ProfileViewModel()
+            MovieListViewModel films = new MovieListViewModel()
             {
                 Movies = _repository.GetFilms(),
-                Directors = _repository.GetAllDirectors(),
+                //Directors = _repository.GetAllDirectors(),
                 CurrentUser = user
             };
             films.listCount = films.Movies.Count();

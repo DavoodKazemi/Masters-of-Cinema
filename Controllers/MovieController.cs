@@ -42,12 +42,12 @@ namespace MastersOfCinema.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            MovieRateDirector movieRateDirector = new MovieRateDirector()
+            MovieListViewModel movieListViewModel = new MovieListViewModel()
             {
                 Movies = _repository.GetAllMovies(),
-                Directors = _repository.GetAllDirectors(),
+                listCount = _context.Movies.Count()
             };
-            return View(movieRateDirector);
+            return View(movieListViewModel);
         }
 
         // GET: Movies/Edit/5
