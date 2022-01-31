@@ -206,7 +206,6 @@ namespace MastersOfCinema.Controllers
 
 
         // GET: Movie/Details/5
-        [Authorize]
         public IActionResult Details(int id)
         {
             //Current User

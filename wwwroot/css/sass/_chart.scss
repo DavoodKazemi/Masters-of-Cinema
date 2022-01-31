@@ -63,3 +63,16 @@
 .movie-rate-count{
     border-bottom: 1px solid #456;
 }
+
+@media (max-width: 280px){
+    .movie-rate-chart {
+        margin-left: auto;
+        margin-left: auto;
+        width: 200px;
+
+        .tooltip-subject {
+            width: 22px !important;
+        }
+    }
+}
+

@@ -10,13 +10,22 @@
     vertical-align: middle;
 }
 
-@mixin star-rating-icon ( $svg-file ){
+@mixin star-rating-icon ( $svg-file ) {
     background-image: url('/Image/Icon/' + $svg-file);
     min-width: 33px;
     min-height: 33px;
+
+    @media (max-width: 280px) {
+        min-width: 30px;
+        min-height: 30px;
+    }
+
     display: inline-block;
     cursor: pointer;
 }
+
+
+
 
 .movie-stats-ultimate-wrapper{
     width: 230px !important;
@@ -177,4 +186,26 @@
 
 .movie-watchlist-stats {
     @include svg-icon ( 'list-stat.svg', 20px 20px, 20px, 20px );
+}
+
+
+//For guest visitors
+.movie-stats-limited {
+    //: 50px;
+}
+
+
+@media (max-width: 280px) {
+    .movie-stats-form {
+        padding-right: 0px;
+        padding-left: 0px;
+
+        .movie-stats-ultimate-wrapper {
+            width: 200px !important;
+
+            .user-movie-interaction-wrapper > .row, .user-movie-interaction-wrapper > .movie-stats-limited {
+                width: 200px !important;
+            }
+        }
+    }
 }

@@ -46,6 +46,7 @@ body {
 
         @include tooltip-object("", nowrap, 103%, 5px 6px);
 
+       
         &::before {
             content: '';
             position: absolute;
@@ -68,17 +69,19 @@ body {
     }
 }
 
-.movie-average-rate-wrapper{
+.movie-average-rate-wrapper {
     .tooltip-object {
         @media (max-width: 1200px) {
             @include tooltip-object (250%, normal, 103%, 3px 4px);
             left: 0%;
+
+            @media (max-width: 280px) {
+                left: -21%;
+            }
+
             &::before {
-                
                 left: 70%;
             }
         }
-        
-        
     }
 }

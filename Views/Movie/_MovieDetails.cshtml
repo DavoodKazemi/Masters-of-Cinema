@@ -1,0 +1,441 @@
+﻿@model MovieRateDirector
+
+@{
+    ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
+
+    //This user's rating. If had not rated: 0
+    int oldRate = ViewBag.oldRate;
+    //How many people rated this movie
+    int oldAllCount = @Model.RateCountAll;
+    //How many people have this movie in their watchlists
+    int watchlistCount = @ViewBag.watchlistCount;
+    //How many people have this movie in their watchlists
+    int logCount = @ViewBag.logCount;
+
+    double heightFix = Model.RatePercents.Max();
+    double heightFactor = 100 / heightFix;
+    double rate1 = Model.RatePercents.ElementAt(0) * heightFactor;
+    double rate2 = Model.RatePercents.ElementAt(1) * heightFactor;
+    double rate3 = Model.RatePercents.ElementAt(2) * heightFactor;
+    double rate4 = Model.RatePercents.ElementAt(3) * heightFactor;
+    double rate5 = Model.RatePercents.ElementAt(4) * heightFactor;
+}
+
+@*3*@
+<script>
+    //when page get loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        //Display current rate
+        if (@Model.MovieRating.Id != 0) {
+            CRate(@Model.MovieRating.Rating);
+            document.getElementById("rate-rated").textContent = "Rated";
+        }
+        //If movie is not rated,
+        if (@Model.MovieRating.Id == 0) {
+            //Run CRate fuction to generate the chart
+            CRate(0);
+            //hide the remove rate icon
+            $("#Rate0").hide();
+        }
+
+        //Log things
+        //If was not logged
+        if (@Model.MovieLog.Id == 0) {
+        }
+        //If added to watchlist
+        if (@Model.MovieLog.Id > 0) {
+            document.getElementById("log-caption").textContent = "Logged";
+            $("#log-icon").attr('class', 'log-icon-remove');
+            $("#log-caption").toggleClass('log-caption-remove');
+        }
+        //If not added to watchlist
+        if (@Model.Watchlist.Id == 0) {
+        }
+        //If added to watchlist
+        if (@Model.Watchlist.Id > 0) {
+            //document.getElementById("watchlist-caption").textContent = "Is in your watchlist";
+            $("#watchlist-icon").attr('class', 'watchlist-icon-remove');
+            $("#watchlist-caption").toggleClass('watchlist-caption-remove');
+        }
+        //END Log things
+    });
+
+    //Log functions
+    function log() {
+        $("#log-icon").toggleClass('log-icon-add log-icon-remove');
+        $("#log-caption").toggleClass('log-caption-remove');
+        if ($('#log-caption').hasClass('log-caption-remove')) {
+            document.getElementById("log-caption").textContent = "Logged";
+        } else {
+            document.getElementById("log-caption").textContent = "Watch";
+        }
+    }
+
+    //Change the watchlist icon if user clicked on it
+    function watchlist() {
+        $("#watchlist-icon").toggleClass('watchlist-icon-add watchlist-icon-remove');
+        $("#watchlist-caption").toggleClass('watchlist-caption-remove');
+        watchlistHover();
+    }
+
+    function watchlistHover() {
+        if ($('#watchlist-caption').hasClass('watchlist-caption-remove')) {
+            document.getElementById("watchlist-caption").textContent = "Remove";
+        } else {
+            document.getElementById("watchlist-caption").textContent = "Watchlist";
+        }
+    }
+    function watchlistOut() {
+        document.getElementById("watchlist-caption").textContent = "Watchlist";
+    }
+    //END Log functions
+
+    //Click on the nth star (including remove icon)
+    function CRate(r) {
+        // #Rating input = n
+        $("#Rating").val(r);
+
+        // nth star and previous are to glow
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'starGlow');
+        }
+        // stars after the nth are to fade
+        for (var i = r + 1; i <= 5; i++) {
+            $("#Rate" + i).attr('class', 'starFade');
+        }
+
+
+        //If they clicked on remove icon
+        if (r == 0) {
+            $("#Rate0").hide(); //hide remove icon
+            document.getElementById("rate-rated").textContent = "Rate";
+
+        //If they rated movie, show remove icon
+        } else {
+            $("#Rate0").show();
+            document.getElementById("rate-rated").textContent = "Rated";
+        }
+
+        $("#rate-stat-1").height("@rate1"+"%");
+        $("#rate-stat-2").height("@rate2"+"%");
+        $("#rate-stat-3").height("@rate3"+"%");
+        $("#rate-stat-4").height("@rate4"+"%");
+        $("#rate-stat-5").height("@rate5"+"%");
+
+
+        $('*[id*=rate-stat]:visible').each(function () {
+            $(this).css('min-height', '1px');
+        });
+
+    }
+
+    //When mouse over nth star >>
+    function CRateOver(r) {
+        //the nth and previous stars are to glow
+        for (var i = 1; i <= r; i++) {
+            $("#Rate" + i).attr('class', 'starBlue');
+        }
+        //stars after the nth are to fade
+        for (var i = 5; i > r; i--) {
+            $("#Rate" + i).attr('class', 'starFade');
+        }
+    }
+
+    //When mouse out of all stars >> the stars restore to show the user rate
+    function CRateSelected() {
+        var setRating = $("#Rating").val();
+        for (var i = 1; i <= setRating; i++) {
+            $("#Rate" + i).attr('class', 'starGlow');
+        }
+        for (var i = 5; i > setRating; i--) {
+            $("#Rate" + i).attr('class', 'starFade');
+        }
+    }
+</script>
+
+
+
+
+
+
+
+@*Movie information*@
+<section class="container mb-5 px-sm-2">
+    <div class="row">
+
+        @*Movie poster*@
+        <div class="col-md-3 text-center">
+            <div class="movie-lists-poster-wrapper">
+                <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
+                <div class="row movie-lists-stats-wrapper mt-2">
+                    <div class="tooltip-wrapper">
+                        <span class="tooltip-object mb-2">Whatched by @watchlistCount members.</span>
+                        <span class="tooltip-subject movie-logs-stats"></span>
+                        <span class="">@watchlistCount</span>
+                    </div>
+                    <div class="tooltip-wrapper">
+                        <span class="tooltip-object mb-2">Appears in @logCount lists.</span>
+                        <span class="tooltip-subject movie-watchlist-stats"></span>
+                        <span class="d-inline-block">@logCount</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="col-md-9 py-3 px-0">
+            @*Movie title and header *@
+            <div class="mb-3 movie-details-header text-center text-sm-start">
+                <span class="me-sm-3 fs-2 fw-bold movie-header-title d-block d-sm-inline">@Html.DisplayFor(modelItem => Model.Movie.Title)</span>
+                <span class="me-sm-3 fs-5 movie-header-year d-block d-sm-inline">@Html.DisplayFor(modelItem => Model.Movie.Year)</span>
+                <span class="me-sm-3 fs-5 d-block d-sm-inline">Directed by </span>
+                <span class="fs-4 d-block d-sm-inline"><a class="movie-header-director" asp-controller="Director" asp-action="Details" asp-route-id="@Model.Movie.DirectorId">@Model.Director.Name</a></span>
+            </div>
+
+
+            <div class="container-fluid row ps-md-0 px-0 px-sm-2 mx-0">
+                @*Movie description*@
+                <div class="col-sm-6 col-lg-8 my-3 my-sm-0">
+                    @Html.DisplayFor(modelItem => Model.Movie.Description)
+                </div>
+
+
+                @*Movie stats*@
+                <form id="studenteForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
+                    <div class="form-group my-3">
+                        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input asp-for="@Model.MovieRating.Rating" type="hidden" id="Rating" class="form-control input-small" />
+                    </div>
+
+
+                    <div class="movie-stats-ultimate-wrapper">
+                        <div class="user-movie-interaction-wrapper mb-3 pb-3">
+                            <div class="row text-center">
+                                <div id="log-button" onclick="log(), logSubmit()" class="col-6 log-icon-wrapper w-50">
+                                    <span id="log-icon" class="log-icon-add"></span>
+                                    <div id="log-caption" class="log-add text-center">Watch</div>
+
+                                </div>
+                                <div id="watchlist-button" onclick="watchlist(), watchlistSubmit()" onmouseover="watchlistHover()" onmouseout="watchlistOut()" class="col-6 watchlist-icon-wrapper w-50">
+                                    <span id="watchlist-icon" class="watchlist-icon-add"></span>
+                                    <div id="watchlist-caption" class="watchlist-add text-center">Watchlist</div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div id="rate-rated" class="pt-2 pb-1 rate-rated text-center">Rate</div>
+                            <div class="rate-icon-wrapper pb-3" onmouseout="CRateSelected()" type="button">
+                                <span class="delete-rate-icon-wrapper" id="delete-rate-icon-wrapper">
+                                    <i class="delete-rate-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
+                                </span>
+                                <span class="starFade" id="Rate1" onclick="CRate(1), submitStudent(1)" onmouseover="CRateOver(1)"></span>
+                                <span class="starFade" id="Rate2" onclick="CRate(2), submitStudent(1)" onmouseover="CRateOver(2)"></span>
+                                <span class="starFade" id="Rate3" onclick="CRate(3), submitStudent(1)" onmouseover="CRateOver(3)"></span>
+                                <span class="starFade" id="Rate4" onclick="CRate(4), submitStudent(1)" onmouseover="CRateOver(4)"></span>
+                                <span class="starFade" id="Rate5" onclick="CRate(5), submitStudent(1)" onmouseover="CRateOver(5)"></span>
+
+                            </div>
+                        </div>
+                        @*Adding simple chart bars for presenting a comprehensive rating stats*@
+                        @*Movie Rating count*@
+                        <div class="movie-rate-count">Rated by <span id="rate-count">@Model.RateCountAll</span> members.</div>
+                        <div class="">
+                            <ul class="movie-rate-chart mb-5 px-0">
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(0) ★ ratings (@Math.Round(Model.RatePercents.ElementAt(0), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-1" style="height:1%"></span>
+                                </li>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(1) ★★ ratings (@Math.Round(Model.RatePercents.ElementAt(1), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-2" style="height:1%"></span>
+                                </li>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(2) ★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(2), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-3" style="height:1%"></span>
+                                </li>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(3) ★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(3), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-4" style="height:1%"></span>
+                                </li>
+                                <li class="tooltip-wrapper">
+                                    <span class="tooltip-object">@Model.RateCounts.ElementAt(4) ★★★★★ ratings (@Math.Round(Model.RatePercents.ElementAt(4), 2)%)</span>
+                                    <span class="rate-bars tooltip-subject" id="rate-stat-5" style="height:1%"></span>
+                                </li>
+                                <li class="ps-2 pb-4 tooltip-wrapper movie-average-rate-wrapper text-center">
+
+                                    <div class=""><span id="average-rate" class="movie-average-rate fs-3 text-white">@Math.Round(@Model.AverageRate, 1)</span><span>/5</span></div>
+                                    <span class="tooltip-object">Wighted average of @Math.Round(@Model.AverageRate, 2) based on @Model.RateCountAll ratings.</span>
+                                    <div class="star-glow-small-wrapper">
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                        <span class="star-glow-small"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        @*END simple chart bars for presenting a comprehensive rating stats*@
+                    </div>
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+        <hr class="d-sm-block d-none" id="AllMoviesListHr">
+
+    </div>
+</section>
+@*END Movie information*@
+
+
+
+
+
+
+
+
+@*Using ajax to rate movies without reloading the view*@
+<script type="text/javascript">
+    function submitStudent(r) {
+
+        //Update rate count
+        var originalRate = @oldRate;
+        var originalCount = @oldAllCount;
+
+        //Rate count decreases by 1
+        //If they had not rated movie before, rate count increased by 1
+        if (r == 1 && originalRate == 0) {
+            document.getElementById("rate-count").textContent = ++originalCount;
+        } else if (r == 0 && originalRate > 0) {
+            document.getElementById("rate-count").textContent = --originalCount;
+        } else {
+            document.getElementById("rate-count").textContent = originalCount;
+        }
+
+        var originalAverage = @Model.AverageRate;
+        if (r == 0) {
+
+        }
+        //Update the average instantly
+        var newRate = parseInt($("#Rating").val(), 10); //The rating they just chose
+
+        //If previous average = 0 (noone had rated movie before this one)
+        if (@Model.AverageRate == 0) {
+            //The average will be its only rate (this new rate)
+            document.getElementById("average-rate").textContent = newRate;
+        } else if (r == 1 && originalRate > 0) {  //done - update
+            var diff = (newRate - originalRate) / (originalCount);
+
+            var newAverage = @Model.AverageRate + diff;
+            document.getElementById("average-rate").textContent = newAverage.toFixed(1);
+
+        } else if (r == 1 && originalRate == 0) {
+            originalCount = @oldAllCount;
+            var newSum = newRate + (originalAverage * originalCount);
+            var newCount = originalCount + 1;
+            var newAverage3 = newSum / newCount;
+            document.getElementById("average-rate").textContent = newAverage3.toFixed(1);
+        } else if (r == 0 && originalRate > 0) { //done - delete
+            originalCount = @oldAllCount
+            newSum = (originalAverage * originalCount) - originalRate;
+            newCount = originalCount - 1;
+            newAverage2 = newSum / newCount;
+            document.getElementById("average-rate").textContent = newAverage2.toFixed(1);
+        } else if (r == 0 && originalRate == 0) {
+            document.getElementById("average-rate").textContent = originalAverage.toFixed(1);
+        }
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/MovieRate/Rate',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    function watchlistSubmit() {
+
+        var data = $("#movie-id").serialize();
+
+
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/MovieRate/Watchlist',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
+
+
+
+
+<script type="text/javascript">
+    function logSubmit() {
+
+        var data = $("#movie-id").serialize();
+
+
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/MovieRate/Log',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
+@*421*@

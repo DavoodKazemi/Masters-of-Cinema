@@ -1,0 +1,42 @@
+﻿.movie-details-header {
+    .movie-header-title {
+        color: #fff;
+    }
+    .movie-header-director, .movie-header-year {
+        @media (min-width: 576px){
+            border-bottom: 1px solid #456;
+        }
+    color: #def;
+    transition: color .3s ease;
+
+    &:hover {
+        color: #40bcf4;
+        transition: color .3s ease;
+    }
+    }
+
+    .movie-header-year {
+    }
+}
+
+
+.movie-stats-ultimate-wrapper {
+    @media (max-width: 767px) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.movie-lists-poster-wrapper {
+    display: inline-table;
+    .movie-lists-stats-wrapper {
+        //max-width: 232px;
+
+        .tooltip-wrapper {
+            width: 50%
+        }
+
+        .movie-logs-stats {
+        }
+    }
+}

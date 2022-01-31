@@ -40,6 +40,14 @@
 .movie-rate-count {
   border-bottom: 1px solid #456; }
 
+@media (max-width: 280px) {
+  .movie-rate-chart {
+    margin-left: auto;
+    margin-left: auto;
+    width: 200px; }
+    .movie-rate-chart .tooltip-subject {
+      width: 22px !important; } }
+
 .tooltip-wrapper {
   position: relative; }
   .tooltip-wrapper .tooltip-supject {
@@ -102,7 +110,12 @@
     transition: .3s all ease-in;
     visibility: hidden;
     opacity: 0;
-    left: 0%; }
+    left: 0%; } }
+  @media (max-width: 1200px) and (max-width: 280px) {
+    .movie-average-rate-wrapper .tooltip-object {
+      left: -21%; } }
+
+@media (max-width: 1200px) {
     .movie-average-rate-wrapper .tooltip-object::before {
       left: 70%; } }
 
@@ -265,19 +278,32 @@ footer {
 
 .nav-profile-picture-wrapper {
   position: relative; }
+  @media (min-width: 768px) {
+    .nav-profile-picture-wrapper .nav-profile-picture {
+      position: absolute;
+      right: 100%;
+      top: 4%; }
+    .nav-profile-picture-wrapper .nav-default-profile-picture {
+      position: absolute;
+      left: -48%;
+      top: 12%; } }
   .nav-profile-picture-wrapper .nav-profile-picture {
     width: 40px;
     height: 40px;
     object-fit: cover;
-    border-radius: 30px;
-    position: absolute;
-    right: 100%;
-    top: 4%; }
+    border-radius: 30px; }
   .nav-profile-picture-wrapper .nav-default-profile-picture {
     position: absolute;
     left: -48%;
     top: 12%;
     font-size: 36px; }
+
+.navbar-user-name {
+  vertical-align: top !important; }
+  @media (max-width: 767px) {
+    .navbar-user-name {
+      vertical-align: middle !important;
+      margin-left: 8px; } }
 
 .tooltip-wrapper {
   position: relative; }
@@ -341,12 +367,14 @@ footer {
     transition: .3s all ease-in;
     visibility: hidden;
     opacity: 0;
-    left: 0%; }
+    left: 0%; } }
+  @media (max-width: 1200px) and (max-width: 280px) {
+    .movie-average-rate-wrapper .tooltip-object {
+      left: -21%; } }
+
+@media (max-width: 1200px) {
     .movie-average-rate-wrapper .tooltip-object::before {
       left: 70%; } }
-
-.navbar-user-name {
-  vertical-align: top !important; }
 
 .movie-stats-ultimate-wrapper {
   width: 230px !important; }
@@ -449,6 +477,10 @@ footer {
   min-height: 33px;
   display: inline-block;
   cursor: pointer; }
+  @media (max-width: 280px) {
+    .starFade {
+      min-width: 30px;
+      min-height: 30px; } }
 
 .starGlow {
   background-image: url("/Image/Icon/starglow.svg");
@@ -456,6 +488,10 @@ footer {
   min-height: 33px;
   display: inline-block;
   cursor: pointer; }
+  @media (max-width: 280px) {
+    .starGlow {
+      min-width: 30px;
+      min-height: 30px; } }
 
 .starBlue {
   background-image: url("/Image/Icon/StarBlue.svg");
@@ -463,6 +499,10 @@ footer {
   min-height: 33px;
   display: inline-block;
   cursor: pointer; }
+  @media (max-width: 280px) {
+    .starBlue {
+      min-width: 30px;
+      min-height: 30px; } }
 
 .movie-average-rate-wrapper {
   width: 80px !important; }
@@ -500,6 +540,15 @@ footer {
   width: 20px;
   vertical-align: middle; }
 
+@media (max-width: 280px) {
+  .movie-stats-form {
+    padding-right: 0px;
+    padding-left: 0px; }
+    .movie-stats-form .movie-stats-ultimate-wrapper {
+      width: 200px !important; }
+      .movie-stats-form .movie-stats-ultimate-wrapper .user-movie-interaction-wrapper > .row, .movie-stats-form .movie-stats-ultimate-wrapper .user-movie-interaction-wrapper > .movie-stats-limited {
+        width: 200px !important; } }
+
 @media (max-width: 400px) {
   .profile-settings-container {
     padding-left: 0;
@@ -523,6 +572,29 @@ footer {
   .settings-navbar li {
     max-width: 240px;
     min-width: 160px; }
+
+.movie-details-header .movie-header-title {
+  color: #fff; }
+
+.movie-details-header .movie-header-director, .movie-details-header .movie-header-year {
+  color: #def;
+  transition: color .3s ease; }
+  @media (min-width: 576px) {
+    .movie-details-header .movie-header-director, .movie-details-header .movie-header-year {
+      border-bottom: 1px solid #456; } }
+  .movie-details-header .movie-header-director:hover, .movie-details-header .movie-header-year:hover {
+    color: #40bcf4;
+    transition: color .3s ease; }
+
+@media (max-width: 767px) {
+  .movie-stats-ultimate-wrapper {
+    margin-left: auto;
+    margin-right: auto; } }
+
+.movie-lists-poster-wrapper {
+  display: inline-table; }
+  .movie-lists-poster-wrapper .movie-lists-stats-wrapper .tooltip-wrapper {
+    width: 50%; }
 
 html, body {
   height: 100%; }
