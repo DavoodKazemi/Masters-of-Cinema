@@ -3,12 +3,12 @@
     ViewData["Title"] = @Html.DisplayFor(model => model.Name);
 }
 
-<div class="director-info-page container-xxl">
+<div class="director-info-page container">
     <div class="row">
         @*The movies list section*@
         <div class="director-movies-container col-12 col-lg-9">
 
-            <div class="container-xxl px-1 px-lg-4">
+            <div class="container-xxl px-1 pe-lg-4">
 
                 <div class="row">
                     <div>FILMS DIRECTED BY</div>
@@ -29,12 +29,6 @@
                                 </div>
 
 
-                                <div class="direector-page-movie-options text-center px-1">
-
-                                    <a asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                    <a asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                </div>
                             </div>
 
                         </div>

@@ -9,10 +9,7 @@ namespace MastersOfCinema.ViewModels
 {
     public class ProfileViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "New email")]
-        public string NewEmail { get; set; }
+        
         //Remove the unhelpful later
 
         public User CurrentUser { get; set; }

@@ -29,8 +29,13 @@ namespace MastersOfCinema.Views.ViewComponents
         public IViewComponentResult Invoke()
         {
             User user = _context.Users.Where(i => i.Id == _userId).FirstOrDefault();
-            var Username = user.FirstName;
-            return View("Default", Username);
+            if(User.Identity.IsAuthenticated == true)
+            {
+                var Username = user.FirstName ?? user.UserName;
+                return View("Default", Username);
+            }
+            //Fix later - shouldn't be executed if no user is logged in
+            return View("Default");
         }
     }
 }

@@ -139,11 +139,11 @@ namespace MastersOfCinema.Controllers
 
         //Email - Only change the address (doesn't send confirmation email)
         [HttpPost]
-        public async Task<IActionResult> Email(ProfileViewModel profileViewModel)
+        public async Task<IActionResult> Email(ChangeEmailViewModel changeEmailViewModel)
         {
             var user = await _userManager.GetUserAsync(User);
             //Getting new Email of the user, Entered in the form
-            var newInfo = profileViewModel.NewEmail;
+            var newInfo = changeEmailViewModel.NewEmail;
 
             if (user == null)
             {
@@ -152,7 +152,7 @@ namespace MastersOfCinema.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(profileViewModel);
+                return View(changeEmailViewModel);
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -161,11 +161,11 @@ namespace MastersOfCinema.Controllers
                 user.Email = newInfo;
                 await _userManager.UpdateAsync(user);
                 TempData["ConfirmMessage2"] = "Your Email address is updated.";
-                return View(profileViewModel);
+                return View(changeEmailViewModel);
             }
 
             TempData["ConfirmMessage2"] = "Your Email has not been changed.";
-            return View(profileViewModel);
+            return View(changeEmailViewModel);
         }
 
         [HttpGet]
@@ -177,7 +177,7 @@ namespace MastersOfCinema.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var Input2Email = new ProfileViewModel
+            var Input2Email = new ChangeEmailViewModel
             {
                 CurrentUser = user2,
                 NewEmail = user2.Email
@@ -240,10 +240,10 @@ namespace MastersOfCinema.Controllers
 
             string ConfirmMessage = "";
 
-            /*var errors = ModelState
+            var errors = ModelState
            .Where(x => x.Value.Errors.Count > 0)
            .Select(x => new { x.Key, x.Value.Errors })
-           .ToArray();*/
+           .ToArray();
 
             if (!ModelState.IsValid)
             {
