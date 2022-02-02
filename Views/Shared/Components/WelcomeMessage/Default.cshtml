@@ -5,10 +5,10 @@
 @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
 {
     <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+    <span class="navbar-user-name">@Model</span>
 }
 else
 {
     <i class="fas fa-user-circle me-2 nav-default-profile-picture"></i>
+    <span class="navbar-user-name-default">@Model</span>
 }
-
-<span class="navbar-user-name">@Model</span>

@@ -278,25 +278,23 @@ footer {
 
 .nav-profile-picture-wrapper {
   position: relative; }
-  @media (min-width: 768px) {
-    .nav-profile-picture-wrapper .nav-profile-picture {
-      position: absolute;
-      right: 100%;
-      top: 4%; }
-    .nav-profile-picture-wrapper .nav-default-profile-picture {
-      position: absolute;
-      left: -48%;
-      top: 12%; } }
   .nav-profile-picture-wrapper .nav-profile-picture {
     width: 40px;
     height: 40px;
     object-fit: cover;
     border-radius: 30px; }
+    @media (min-width: 768px) {
+      .nav-profile-picture-wrapper .nav-profile-picture {
+        position: absolute;
+        right: 100%;
+        top: 4%; } }
   .nav-profile-picture-wrapper .nav-default-profile-picture {
-    position: absolute;
-    left: -48%;
     top: 12%;
     font-size: 36px; }
+    @media (min-width: 768px) {
+      .nav-profile-picture-wrapper .nav-default-profile-picture {
+        position: absolute;
+        left: -36px; } }
 
 .navbar-user-name {
   vertical-align: top !important; }
@@ -304,6 +302,12 @@ footer {
     .navbar-user-name {
       vertical-align: middle !important;
       margin-left: 8px; } }
+
+.navbar-user-name-default {
+  vertical-align: top !important; }
+  @media (max-width: 767px) {
+    .navbar-user-name-default {
+      vertical-align: super !important; } }
 
 .tooltip-wrapper {
   position: relative; }
