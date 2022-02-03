@@ -120,10 +120,38 @@ namespace MastersOfCinema.Data
                 //Then we need to create the sample data
                 var filePath = Path.Combine(env.ContentRootPath, "Data/Default/rate.json");
                 var json = File.ReadAllText(filePath);
+
+                //rate = a list of movie rating, but the user field needs to be passed by foreach loop
                 var rate = JsonSerializer.Deserialize<IEnumerable<MovieRating>>(json);
+                
+                //List all the users
+                List<User> userList = ctx.Users.ToList();
+
+                //array = all data in rate.json file.
+                //We will use the UserId field in "array" to pass User to the "rate"
+                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+                //before: UserId = "1" or "2" or ...
+                //after: UserId = real user Ids.
+                foreach (var item in array)
+                {
+                    int simpleUserId = item.UserId - 1;
+                    string realUserId = userList[simpleUserId].Id;
+                    item.UserId = realUserId;
+                }
+
+                int i = 0;
+
+                //pass real users to the rate, using real ids in array
+                foreach (var item in rate)
+                {
+                    string id = array[i].UserId;
+                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
+                    item.User = User;
+                    i++;
+                }
 
                 ctx.MovieRatings.AddRange(rate);
-
                 ctx.SaveChanges();
             }
         }
