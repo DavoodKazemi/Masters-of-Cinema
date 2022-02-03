@@ -128,7 +128,7 @@
     "UserId": "1",
     "MovieId": 35,
     "Rating": 3
-  }, //End user 1
+  },
   {
     "UserId": "2",
     "MovieId": 1,
@@ -283,5 +283,5 @@
     "UserId": "2",
     "MovieId": 35,
     "Rating": 3
-  } //End user 2
+  }
 ]

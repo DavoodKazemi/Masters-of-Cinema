@@ -28,7 +28,32 @@ namespace MastersOfCinema.Data
         {
             ctx.Database.EnsureCreated();
 
-            User user = await _userManager.FindByEmailAsync("SacredCode1@gmail.com");
+            //Seed users data
+            if (!ctx.Users.Any())
+            {
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/user.json");
+                var userJson = File.ReadAllText(filePath);
+                var users = JsonSerializer.Deserialize<IEnumerable<User>>(userJson);
+
+                dynamic UsersDynamic = Newtonsoft.Json.JsonConvert.DeserializeObject(userJson);
+
+                int i = 0;
+                IdentityResult result;
+                foreach (var item in users)
+                {
+                    string passwrd = UsersDynamic[i].Password;
+
+                    result = await _userManager.CreateAsync(item, passwrd);
+                    if (result != IdentityResult.Success)
+                    {
+                        throw new InvalidOperationException("Could not create new user in seeder");
+                    }
+                    i++;
+                }
+                ctx.SaveChanges();
+            }
+
+            /*User user = await _userManager.FindByEmailAsync("SacredCode1@gmail.com");
             if (user == null)
             {
                 user = new User
@@ -45,28 +70,9 @@ namespace MastersOfCinema.Data
                 {
                     throw new InvalidOperationException("Could not create new user in seeder");
                 }
-            }
+            }*/
 
-            User user2 = await _userManager.FindByEmailAsync("Mastersofcinema@gmail.com");
-            if (user2 == null)
-            {
-                user2 = new User
-                {
-                    FirstName = "Test",
-                    LastName = "User",
-                    Email = "Mastersofcinema@gmail.com",
-                    UserName = "Mastersofcinema",
-                };
-
-
-                var result2 = await _userManager.CreateAsync(user2, "M@sters@fc1nemA");
-                if (result2 != IdentityResult.Success)
-                {
-                    throw new InvalidOperationException("Could not create new user in seeder");
-                }
-            }
-                
-
+            //Seed director table
             if (!ctx.Directors.Any())
             {
                 //Then we need to create the sample data
@@ -102,7 +108,7 @@ namespace MastersOfCinema.Data
             ctx.SaveChanges();
             }
 
-
+            //Seed movie table
             if (!ctx.Movies.Any())
             {
                 //Then we need to create the sample data
@@ -115,6 +121,7 @@ namespace MastersOfCinema.Data
                 ctx.SaveChanges();
             }
 
+            //Seed movie rating table
             if (!ctx.MovieRatings.Any())
             {
                 //Then we need to create the sample data
