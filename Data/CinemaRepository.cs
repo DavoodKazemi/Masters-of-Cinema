@@ -204,6 +204,21 @@ namespace MastersOfCinema.Data
             var UserName = _accessor.HttpContext.User.Identity.Name;
             return UserName;
         }
+        public IEnumerable<Movie> GetRatings()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var rateList = _context.MovieRatings.Where(r => r.User.UserName == User);
+
+            var movies = new List<Movie>();
+            //IEnumerable<Movie> movies2 = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == rateList);
+            foreach (var item in rateList)
+            {
+                movies.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
+            }
+
+            return movies;
+        }
 
         //fixed
         public IEnumerable<Movie> GetWatchlist()
@@ -258,5 +273,7 @@ namespace MastersOfCinema.Data
 
             return watchList;
         }
+
+        
     }
 }

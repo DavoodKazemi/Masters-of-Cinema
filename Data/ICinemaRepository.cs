@@ -22,6 +22,7 @@ namespace MastersOfCinema.Data
         string CurrnentUserName();
         IEnumerable<Movie> GetFilms();
         IEnumerable<Movie> GetWatchlist();
+        IEnumerable<Movie> GetRatings();
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
 

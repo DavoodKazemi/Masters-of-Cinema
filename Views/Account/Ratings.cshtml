@@ -1,0 +1,15 @@
+﻿@model MovieListViewModel
+
+@{
+    ViewData["Title"] = "Movies rated by " + @Model.CurrentUser.FirstName;
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+
+}
+
+<div class="container px-lg-3 mt-4 px-3">
+    <div class="row">
+        <div class="border-bottom">YOU HAVE RATED @Model.listCount FILMS</div>
+    </div>
+</div>
+
+<partial name="~/Views/Shared/_MovieListPartial.cshtml" />

@@ -122,5 +122,21 @@ namespace MastersOfCinema.Controllers
 
             return View(films);
         }
+
+        //Films user has rated listed
+        public IActionResult Ratings()
+        {
+            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            MovieListViewModel films = new MovieListViewModel()
+            {
+                Movies = _repository.GetRatings(),
+                //Directors = _repository.GetAllDirectors(),
+                CurrentUser = user
+            };
+            films.listCount = films.Movies.Count();
+
+            return View(films);
+        }
     }
 }
