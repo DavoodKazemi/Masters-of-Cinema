@@ -1,4 +1,5 @@
-﻿using MastersOfCinema.ViewModels;
+﻿using MastersOfCinema.Data.Entities;
+using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -159,6 +160,88 @@ namespace MastersOfCinema.Data
                 }
 
                 ctx.MovieRatings.AddRange(rate);
+                ctx.SaveChanges();
+            }
+
+            //Seed log table
+            if (!ctx.MovieLogs.Any())
+            {
+                //Then we need to create the sample data
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/log.json");
+                var json = File.ReadAllText(filePath);
+
+                //log = a list of logs, but the user field needs to be passed by foreach loop
+                var log = JsonSerializer.Deserialize<IEnumerable<MovieLog>>(json);
+
+                //List all the users
+                List<User> userList = ctx.Users.ToList();
+
+                //array = all data in rate.json file.
+                //We will use the UserId field in "array" to pass User to the "log"
+                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+                //before: UserId = "1" or "2" or ...
+                //after: UserId = real user Ids.
+                foreach (var item in array)
+                {
+                    int simpleUserId = item.UserId - 1;
+                    string realUserId = userList[simpleUserId].Id;
+                    item.UserId = realUserId;
+                }
+
+                int i = 0;
+
+                //pass real users to the watchlist, using real ids in array
+                foreach (var item in log)
+                {
+                    string id = array[i].UserId;
+                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
+                    item.User = User;
+                    i++;
+                }
+
+                ctx.MovieLogs.AddRange(log);
+                ctx.SaveChanges();
+            }
+
+            //Seed watchlist table
+            if (!ctx.Watchlists.Any())
+            {
+                //Then we need to create the sample data
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/watchlist.json");
+                var json = File.ReadAllText(filePath);
+
+                //watchlist = a list of watchilists, but the user field needs to be passed by foreach loop
+                var watchlist = JsonSerializer.Deserialize<IEnumerable<Watchlist>>(json);
+
+                //List all the users
+                List<User> userList = ctx.Users.ToList();
+
+                //array = all data in rate.json file.
+                //We will use the UserId field in "array" to pass User to the "watchlist"
+                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+                //before: UserId = "1" or "2" or ...
+                //after: UserId = real user Ids.
+                foreach (var item in array)
+                {
+                    int simpleUserId = item.UserId - 1;
+                    string realUserId = userList[simpleUserId].Id;
+                    item.UserId = realUserId;
+                }
+
+                int i = 0;
+
+                //pass real users to the watchlist, using real ids in array
+                foreach (var item in watchlist)
+                {
+                    string id = array[i].UserId;
+                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
+                    item.User = User;
+                    i++;
+                }
+
+                ctx.Watchlists.AddRange(watchlist);
                 ctx.SaveChanges();
             }
         }
