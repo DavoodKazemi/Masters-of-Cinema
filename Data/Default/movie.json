@@ -246,5 +246,283 @@
     "Year": "1933",
     "Description": "Two Tokyo co-workers come across a destitute young lady in search of a place to live.",
     "ImageName": "Passing Fancy_07d3.jpg"
+  },
+  {
+    "Title": "The Good, the Bad and the Ugly",
+    "DirectorId": 3,
+    "Year": "1966",
+    "Description": "FOR THREE MEN THE CIVIL WAR WASN’T HELL. IT WAS PRACTICE. While the Civil War rages between the Union and the Confederacy, three men – a quiet loner, a ruthless hit man and a Mexican bandit – comb the American Southwest in search of a strongbox containing $200,000 in stolen gold.",
+    "ImageName": "The-Good,-the-Bad-and-the-Ugly.jpg"
+  },
+  {
+    "Title": "Once Upon a Time in the West",
+    "DirectorId": 3,
+    "Year": "1968",
+    "Description": "THE FATHER OF THE SPAGHETTI WESTERN RETURNS AGAIN, WITH HIS MOST MASTERFUL WORK YET! A widow whose land and life are in danger as the railroad is getting closer and closer to taking them over. A mysterious harmonica player joins forces with a desperado to protect the woman and her land.",
+    "ImageName": "Once-Upon-a-Time-in-the-West.jpg"
+  },
+  {
+    "Title": "Once-Upon-a-Time-in-America",
+    "DirectorId": 3,
+    "Year": "1984",
+    "Description": "CRIME, PASSION AND LUST FOR POWER. A former Prohibition-era Jewish gangster returns to the Lower East Side of Manhattan over thirty years later, where he once again must confront the ghosts and regrets of his old life.",
+    "ImageName": "Once-Upon-a-Time-in-America.jpg"
+  },
+  {
+    "Title": "A Fistful of Dollars",
+    "DirectorId": 3,
+    "Year": "1964",
+    "Description": "IN HIS OWN WAY HE IS PERHAPS, THE MOST DANGEROUS MAN WHO EVER LIVED! The Man With No Name enters the Mexican village of San Miguel in the midst of a power struggle among the three Rojo brothers and sheriff John Baxter. When a regiment of Mexican soldiers bearing gold intended to pay for new weapons is waylaid by the Rojo brothers, the stranger inserts himself into the middle of the long-simmering battle, selling false information to both sides for his own benefit.",
+    "ImageName": "A-Fistful-of-Dollars.jpg"
+  },
+  {
+    "Title": "For a Few Dollars More",
+    "DirectorId": 3,
+    "Year": "1965",
+    "Description": "THE MAN WITH NO NAME IS BACK… THE MAN IN BLACK IS WAITING… A WALKING ARSENAL - HE UNCOILS, STRIKES AND KILLS! Two bounty hunters are in pursuit of “El Indio,” one of the most wanted fugitives in the western territories, and his gang.",
+    "ImageName": "For-a-Few-Dollars-More.jpg"
+  },
+  {
+    "Title": "Stalker",
+    "DirectorId": 4,
+    "Year": "1979",
+    "Description": "Near a gray and unnamed city is the Zone, a place guarded by barbed wire and soldiers, and where the normal laws of physics are victim to frequent anomalies. A stalker guides two men into the Zone, specifically to an area in which deep-seated desires are granted.",
+    "ImageName": "Stalker_6ec0.jpg"
+  },
+  {
+    "Title": "Solaris",
+    "DirectorId": 4,
+    "Year": "1972",
+    "Description": "A psychologist is sent to a space station orbiting a planet called Solaris to investigate the death of a doctor and the mental problems of cosmonauts on the station. He soon discovers that the water on the planet is a type of brain which brings out repressed memories and obsessions.",
+    "ImageName": "Solaris_3c88.jpg"
+  },
+  {
+    "Title": "Mirror",
+    "DirectorId": 4,
+    "Year": "1975",
+    "Description": "A dying man in his forties recalls his childhood, his mother, the war and personal moments that tell of and juxtapose pivotal moments in Soviet history with daily life.",
+    "ImageName": "Mirror_1009.jpg"
+  },
+  {
+    "Title": "Andrei Rublev",
+    "DirectorId": 4,
+    "Year": "1966",
+    "Description": "An expansive Russian drama, this film focuses on the life of revered religious icon painter Andrei Rublev. Drifting from place to place in a tumultuous era, the peace-seeking monk eventually gains a reputation for his art. But after Rublev witnesses a brutal battle and unintentionally becomes involved, he takes a vow of silence and spends time away from his work. As he begins to ease his troubled soul, he takes steps towards becoming a painter once again.",
+    "ImageName": "Andrei Rublev_61ae.jpg"
+  },
+  {
+    "Title": "The Sacrifice",
+    "DirectorId": 4,
+    "Year": "1986",
+    "Description": "Alexander, a journalist, philosopher and retired actor, celebrates a birthday with friends and family when it is announced that nuclear war has begun.",
+    "ImageName": "The Sacrifice_4281.jpg"
+  },
+  {
+    "Title": "The Steamroller and the Violin",
+    "DirectorId": 4,
+    "Year": "1961",
+    "Description": "Seven year old Sasha practices violin every day to satisfy the ambition of his parents. Already withdrawn as a result of his routines, Sasha quickly regains confidence when he accidentally meets and befriends worker Sergei, who works on a steamroller in their upscale Moscow neighborhood.",
+    "ImageName": "The Steamroller and the Violin_1642.jpg"
+  },
+  {
+    "Title": "Nostalgia",
+    "DirectorId": 4,
+    "Year": "1983",
+    "Description": "The Russian poet Andrei Gorchakov, accompanied by guide and translator Eugenia, is traveling through Italy researching the life of an 18th-century Russian composer. In an ancient spa town, he meets the lunatic Domenico, who years earlier had imprisoned his own family in his house for seven years to save them from the evils of the world. Seeing some deep truth in Domenico’s act, Andrei becomes drawn to him. In a series of dreams, the poet’s nostalgia for his homeland and his longing for his wife, his ambivalent feelings for Eugenia and Italy, and his sense of kinship with Domenico become intertwined.",
+    "ImageName": "Nostalgia_a4b5.jpg"
+  },
+  {
+    "Title": "Harakiri",
+    "DirectorId": 5,
+    "Year": "1962",
+    "Description": "THE WORLD HAS NEVER UNDERSTOOD WHY THE JAPANESE PREFER DEATH TO DISHONOR! WINNER OF PRIX SPECIAL DU JURY AT CANNES 1963 PROVIDES THE ANSWER!! Down-on-his-luck veteran Tsugumo Hanshirō enters the courtyard of the prosperous House of Iyi. Unemployed, and with no family, he hopes to find a place to commit seppuku—and a worthy second to deliver the coup de grâce in his suicide ritual. The senior counselor for the Iyi clan questions the ronin’s resolve and integrity, suspecting Hanshirō of seeking charity rather than an honorable end. What follows is a pair of interlocking stories which lay bare the difference between honor and respect, and promises to examine the legendary foundations of the Samurai code.",
+    "ImageName": "Harakiri_0d1d_cc44.jpg"
+  },
+  {
+    "Title": "Kwaidan",
+    "DirectorId": 5,
+    "Year": "1964",
+    "Description": "BIZARRE, UNEARTHLY, TERRIFYING— A NATION’S LEGEND, AN AUTHOR’S IMAGINATION, A DIRECTOR’S CREATION MANIFEST IN THE SUPERLATIVE— KWAIDAN. Taking its title from an archaic Japanese word meaning “ghost story,” this anthology adapts four folk tales. A penniless samurai marries for money with tragic results. A man stranded in a blizzard is saved by Yuki the Snow Maiden, but his rescue comes at a cost. Blind musician Hoichi is forced to perform for an audience of ghosts. An author relates the story of a samurai who sees another warrior’s reflection in his teacup.",
+    "ImageName": "Kwaidan_bb4e.jpg"
+  },
+  {
+    "Title": "Samurai Rebellion",
+    "DirectorId": 5,
+    "Year": "1967",
+    "Description": "The mother of a feudal lord’s only heir is kidnapped away from her husband by the lord. The husband and his samurai father must decide whether to accept the unjust decision, or risk death to get her back.",
+    "ImageName": "Samurai Rebellion_f892.jpg"
+  },
+  {
+    "Title": "The Human Condition I: No Greater Love",
+    "DirectorId": 5,
+    "Year": "1959",
+    "Description": "THE IMMORTAL STORY. During the Second World War, Japanese conscientious objector Kaji works as a supervisor in a Manchurian prison camp. He hopes to avoid duty as a soldier, but he also hopes to be helpful to the welfare of his prisoners. But an escape attempt by Chinese prisoners results in Kaji’s arrest for collusion. He faces the possibility of transferral to combat–or worse.",
+    "ImageName": "The Human Condition I No Greater Love_b80d.jpg"
+  },
+  {
+    "Title": "The Human Condition II: Road to Eternity",
+    "DirectorId": 5,
+    "Year": "1959",
+    "Description": "FIRST SEQUEL OF AN ANTI-WAR MASTERPIECE. Kaji is sent to the Japanese army labeled Red and is mistreated by the vets. Along his assignment, Kaji witnesses cruelties in the army and revolts against the abusive treatment against the recruit Obara. He also sees his friend Shinjô Ittôhei defecting to the Russian border, and he ends in the front to fight a lost battle against the Russian tanks division.",
+    "ImageName": "The Human Condition II Road to Eternity_c744.jpg"
+  },
+  {
+    "Title": "The Human Condition III: A Soldier’s Prayer",
+    "DirectorId": 5,
+    "Year": "1961",
+    "Description": "LOVE IS THE CONDITION FOR BEING HUMAN. After the Japanese defeat to the Russians, Kaji leads the last remaining men through Manchuria. Intent on returning to his dear wife and his old life, Kaji faces great odds in a variety of different harrowing circumstances as he and his fellow men sneak behind enemy lines.",
+    "ImageName": "The Human Condition III A Soldier’s Prayer_ef91.jpg"
+  },
+  {
+    "Title": "Psycho",
+    "DirectorId": 6,
+    "Year": "1960",
+    "Description": "A NEW—AND ALTOGETHER DIFFERENT—SCREEN EXCITEMENT!!! When larcenous real estate clerk Marion Crane goes on the lam with a wad of cash and hopes of starting a new life, she ends up at the notorious Bates Motel, where manager Norman Bates cares for his housebound mother. The place seems quirky, but fine… until Marion decides to take a shower.",
+    "ImageName": "Psycho_2f96.jpg"
+  },
+  {
+    "Title": "Vertigo",
+    "DirectorId": 6,
+    "Year": "1958",
+    "Description": "ALFRED HITCHCOCK ENGULFS YOU IN A WHIRLPOOL OF TERROR AND TENSION! A retired San Francisco detective suffering from acrophobia investigates the strange activities of an old friend’s wife, all the while becoming dangerously obsessed with her.",
+    "ImageName": "Vertigo_cbcb.jpg"
+  },
+  {
+    "Title": "Rear Window",
+    "DirectorId": 6,
+    "Year": "1954",
+    "Description": "IT ONLY TAKES ONE WITNESS TO SPOIL THE PERFECT CRIME. Professional photographer L.B. ‘Jeff’ Jeffries breaks his leg while getting an action shot at an auto race. Confined to his New York apartment, he spends his time looking out of the rear window observing the neighbors. When he begins to suspect that a man across the courtyard may have murdered his wife, Jeff enlists the help of his high society fashion-consultant girlfriend and his visiting nurse to investigate.",
+    "ImageName": "Rear Window_769c.jpg"
+  },
+  {
+    "Title": "The Birds",
+    "DirectorId": 6,
+    "Year": "1963",
+    "Description": "…AND REMEMBER, THE NEXT SCREAM YOU HEAR MAY BE YOUR OWN! Chic socialite Melanie Daniels enjoys a passing flirtation with an eligible attorney in a San Francisco pet shop and, on an impulse, follows him to his hometown bearing a gift of lovebirds. But upon her arrival, the bird population runs amok. Suddenly, the townsfolk face a massive avian onslaught, with the feathered fiends inexplicably attacking people all over Bodega Bay.",
+    "ImageName": "The Birds_d961.jpg"
+  },
+  {
+    "Title": "North by Northwest",
+    "DirectorId": 6,
+    "Year": "1959",
+    "Description": "IT’S A DEADLY GAME OF ‘TAG’ AND CARY GRANT IS ‘IT’… . Advertising man Roger Thornhill is mistaken for a spy, triggering a deadly cross-country chase.",
+    "ImageName": "North by Northwest_2bed.jpg"
+  },
+  {
+    "Title": "Rope",
+    "DirectorId": 6,
+    "Year": "1948",
+    "Description": "Two men attempt to prove they committed the perfect crime by hosting a dinner party after strangling their former classmate to death.",
+    "ImageName": "Rope_1145.jpg"
+  },
+  {
+    "Title": "Rebecca",
+    "DirectorId": 6,
+    "Year": "1940",
+    "Description": "THE SHADOW OF THIS WOMAN DARKENED THEIR LOVE. Story of a young woman who marries a fascinating widower only to find out that she must live in the shadow of his former wife, Rebecca, who died mysteriously several years earlier. The young wife must come to grips with the terrible secret of her handsome, cold husband, Max De Winter. She must also deal with the jealous, obsessed Mrs. Danvers, the housekeeper, who will not accept her as the mistress of the house.",
+    "ImageName": "Rebecca_b5ba.jpg"
+  },
+  {
+    "Title": "Strangers on a Train",
+    "DirectorId": 6,
+    "Year": "1951",
+    "Description": "IT STARTS WITH A SHRIEK OF A TRAIN WHISTLE…AND ENDS WITH SHRIEKING EXCITEMENT. A psychotic socialite confronts a pro tennis star with a theory on how two complete strangers can get away with murder—a theory that he plans to implement.",
+    "ImageName": "Strangers on a Train_0943.jpg"
+  },
+  {
+    "Title": "The Life of Oharu",
+    "DirectorId": 7,
+    "Year": "1952",
+    "Description": "Follows a woman’s fight and survival amid the vicissitudes of life and the cruelty of the society.",
+    "ImageName": "The Life of Oharu_6467.jpg"
+  },
+  {
+    "Title": "Sansho the Bailiff",
+    "DirectorId": 7,
+    "Year": "1954",
+    "Description": "A FILM OF UNPARALLELED BEAUTY BY THE GREAT JAPANESE MASTER KENJI MIZOGUCHI. In medieval Japan a compassionate governor is sent into exile. His wife and children try to join him, but are separated, and the children grow up amid suffering and oppression.",
+    "ImageName": "Sansho the Bailiff_9590.jpg"
+  },
+  {
+    "Title": "Ugetsu",
+    "DirectorId": 7,
+    "Year": "1953",
+    "Description": "In 16th century Japan, peasants Genjuro and Tobei sell their earthenware pots to a group of soldiers in a nearby village, in defiance of a local sage’s warning against seeking to profit from warfare. Genjuro’s pursuit of both riches and the mysterious Lady Wakasa, as well as Tobei’s desire to become a samurai, run the risk of destroying both themselves and their wives, Miyagi and Ohama.",
+    "ImageName": "Ugetsu_2a65_6f85.jpg"
+  },
+  {
+    "Title": "Street of Shame",
+    "DirectorId": 7,
+    "Year": "1956",
+    "Description": "MEN WERE THEIR PREY! BEAUTY WAS THEIR LURE! The personal tales of various sex workers who occupy a Japanese brothel.",
+    "ImageName": "Street of Shame_7595.jpg"
+  },
+  {
+    "Title": "The Story of the Last Chrysanthemum",
+    "DirectorId": 7,
+    "Year": "1939",
+    "Description": "In late 19th century Tokyo, Kikunosuke Onoue, the adopted son of a legendary actor, himself an actor specializing in female roles, discovers that he is only praised for his acting due to his status as his father’s heir. Devastated by this, he turns to Otoku, a servant of his family, for comfort, and they fall in love. Kikunosuke becomes determined to leave home and develop as an actor on his own merits, and Otoku faithfully follows him.",
+    "ImageName": "The Story of the Last Chrysanthemum_e2b0.jpg"
+  },
+  {
+    "Title": "The Crucified Lovers",
+    "DirectorId": 7,
+    "Year": "1954",
+    "Description": "THE TORTURED HEART BEHIND THE CULTIVATED IMAGE. In 17th century Kyoto, Osan is married to Ishun, a wealthy miserly scroll-maker. When Osan is falsely accused of having an affair with the best worker, Mohei, the pair flee the city and declare their love for each other. Ishun orders his men to find them, and separate them to avoid public humiliation.",
+    "ImageName": "The Crucified Lovers_2b03.jpg"
+  },
+  {
+    "Title": "The 47 Ronin",
+    "DirectorId": 7,
+    "Year": "1941",
+    "Description": "In 1701, Lord Takuminokami Asano has a feud with Lord Kira and he tries to kill Kira in the corridors of the Shogun’s palace. The Shogun sentences Lord Asano to commit suppuku and deprives the palace and lands from his clan, but does not punish Lord Kira. Lord Asano’s vassals leave the land and his samurais become ronin and want to seek revenge against the dishonor of their Lord. But their leader Kuranosuke Oishi asks the Shogun to restore the Asano clan with his brother Daigaku Asano. One year later, the Shogun refuses his request and Oishi and forty-six ronin revenge their Lord.",
+    "ImageName": "The 47 Ronin_6ac0.jpg"
+  },
+  {
+    "Title": "Osaka Elegy",
+    "DirectorId": 7,
+    "Year": "1936",
+    "Description": "Ayako becomes the mistress of her boss so she can pay her father’s debt and prevent him from going to prison for embezzlement.",
+    "ImageName": "Osaka Elegy_f4e6.jpg"
+  },
+
+
+  {
+    "Title": "Inception",
+    "DirectorId": 8,
+    "Year": "2010",
+    "Description": "YOUR MIND IS THE SCENE OF THE CRIME. Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: “inception”, the implantation of another person’s idea into a target’s subconscious.",
+    "ImageName": "Inception_dea0.jpg"
+  },
+  {
+    "Title": "Interstellar",
+    "DirectorId": 8,
+    "Year": "2014",
+    "Description": "MANKIND WAS BORN ON EARTH. IT WAS NEVER MEANT TO DIE HERE. The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+    "ImageName": "Interstellar_b0ec.jpg"
+  },
+  {
+    "Title": "The Dark Knight",
+    "DirectorId": 8,
+    "Year": "2008",
+    "Description": "WHY SO SERIOUS? Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
+    "ImageName": "The Dark Knight_2a74.jpg"
+  },
+
+
+
+  {
+    "Title": "2001 A Space Odyssey",
+    "DirectorId": 9,
+    "Year": "1968",
+    "Description": "THE ULTIMATE TRIP. Humanity finds a mysterious object buried beneath the lunar surface and sets off to find its origins with the help of HAL 9000, the world’s most advanced super computer.",
+    "ImageName": "2001 A Space Odyssey_00f4.jpg"
+  },
+  {
+    "Title": "The Shining",
+    "DirectorId": 9,
+    "Year": "1980",
+    "Description": "HE CAME AS THE CARETAKER, BUT THIS HOTEL HAD ITS OWN GUARDIANS - WHO’D BEEN THERE A LONG TIME. Jack Torrance accepts a caretaker job at the Overlook Hotel, where he, along with his wife Wendy and their son Danny, must live isolated from the rest of the world for the winter. But they aren’t prepared for the madness that lurks within.",
+    "ImageName": "The Shining_0b9d.jpg"
   }
 ]
