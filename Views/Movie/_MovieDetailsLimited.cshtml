@@ -1,8 +1,6 @@
 ﻿@model MovieRateDirector
 
 @{
-    ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
-
     //How many people rated this movie
     int oldAllCount = @Model.RateCountAll;
     //How many people have this movie in their watchlists
@@ -28,14 +26,14 @@
                 <img class="img-fluid" src="@("~/image/"+Model.Movie.ImageName)" asp-append-version="true" />
                 <div class="row movie-lists-stats-wrapper mt-2">
                     <div class="tooltip-wrapper">
-                        <span class="tooltip-object mb-2">Watched by @watchlistCount members.</span>
+                        <span class="tooltip-object mb-2">Watched by @logCount members.</span>
                         <span class="tooltip-subject movie-logs-stats"></span>
-                        <span class="">@watchlistCount</span>
+                        <span class="">@logCount</span>
                     </div>
                     <div class="tooltip-wrapper">
-                        <span class="tooltip-object mb-2">Appears in @logCount lists.</span>
+                        <span class="tooltip-object mb-2">Appears in @watchlistCount lists.</span>
                         <span class="tooltip-subject movie-watchlist-stats"></span>
-                        <span class="d-inline-block">@logCount</span>
+                        <span class="d-inline-block">@watchlistCount</span>
                     </div>
 
                 </div>

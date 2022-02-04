@@ -1,4 +1,9 @@
-﻿
+﻿@model MovieRateDirector
+
+@{
+    ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
+}
+
 @if (User.Identity.IsAuthenticated)
 {
     <partial name="_MovieDetails" />
