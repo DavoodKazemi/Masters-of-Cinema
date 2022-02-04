@@ -255,6 +255,12 @@
       object-fit: cover;
       object-position: top; } }
 
+.img-thumbnail {
+  background-color: #99AABB !important; }
+
+.card {
+  border-color: #99AABB !important; }
+
 /*END Director list page*/
 footer {
   color: #6c757d;
@@ -445,7 +451,8 @@ footer {
         width: 50px;
         vertical-align: middle; }
   .user-movie-interaction-wrapper .rate-icon-wrapper {
-    font-size: 0; }
+    font-size: 0;
+    cursor: default; }
     .user-movie-interaction-wrapper .rate-icon-wrapper .delete-rate-icon-wrapper {
       width: 33px;
       height: 33px;

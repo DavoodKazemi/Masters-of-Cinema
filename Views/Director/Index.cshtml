@@ -1,34 +1,36 @@
 ﻿@model IEnumerable<MastersOfCinema.ViewModels.Director>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Masters of Cinema";
 }
 
 
 <section class="director-list container">
 
     <div class="row">
-        <h1 class="">List of all directors</h1>
-        <p>
+        <h1 class="mt-2 mb-4 pb-2 text-center text-white">The Masters of Cinema</h1>
+        @*<p>
             <a asp-action="Create" class="director-list-add-director">(Add a new director)</a>
-        </p>
+        </p>*@
 
         <!--The list of all directors-->
 
         @foreach (var item in Model)
         {
-    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
         <div class="mx-auto card card-wrapper">
             <img class="card-img img-thumbnail" src="@("~/image/"+item.ImageName)" asp-append-version="true" />
-
-            <!--#Start ROLLOVER-->
-            <div class="card-img-overlay rollover-object">
-                <div class="rollover-options">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            
+            <a asp-action="Details" asp-route-id="@item.Id">
+                <!--#Start ROLLOVER-->
+                <div class="card-img-overlay rollover-object">
+                    <div class="rollover-options">
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Info</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div>
-            </div><!--#End ROLLOVER-->
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </div>
+                </div><!--#End ROLLOVER-->
+            </a>
 
 
         </div>
