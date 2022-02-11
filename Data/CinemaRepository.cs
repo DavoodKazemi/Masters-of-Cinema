@@ -215,6 +215,19 @@ namespace MastersOfCinema.Data
             var page = movieList.Skip(from).Take(itemsPerPage);
             return page;
         }
+
+        public IEnumerable<Movie> GetMovieListForAjax(int pageNum, int itemsPerPage, IEnumerable<Movie> movies)
+        {
+            //List all items
+            List<Movie> movieList = movies.ToList();
+
+            //loaded items number
+            int from = (pageNum * itemsPerPage);
+
+            //skip the loaded ones, and load the next page
+            var page = movieList.Skip(from).Take(itemsPerPage);
+            return page;
+        }
         //end ajax
         public string CurrnentUserName()
         {

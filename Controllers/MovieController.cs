@@ -42,6 +42,15 @@ namespace MastersOfCinema.Controllers
         // GET: Movies with inifinite scroll 
         public ActionResult Index(int? pageNum)
         {
+
+            MovieListViewModel films = new MovieListViewModel()
+            {
+                Movies = _repository.GetAllMovies(),
+                //Directors = _repository.GetAllDirectors(),
+                //CurrentUser = user
+            };
+            films.listCount = films.Movies.Count();
+
             int itemsPerPage = 15;
             //page number - starts from 0
             pageNum = pageNum ?? 0;
@@ -52,14 +61,16 @@ namespace MastersOfCinema.Controllers
             if (isAjaxCall)
             {
                 var customers = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
-                return PartialView("Index", customers);
+                films.Movies = customers;
+                return PartialView("_AjaxMovieListPartial", films);
             }
             else
             {
                 int pageCount = (_context.Movies.ToList().Count() - 1) / 15 + 1;
                 ViewBag.listCount = _context.Movies.ToList().Count();
                 ViewBag.pageCount = pageCount;
-                return View("Index", _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage));
+                films.Movies = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
+                return View("Index", films);
             }
         }
 

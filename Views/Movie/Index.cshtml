@@ -1,17 +1,16 @@
-﻿@model IEnumerable<Movie>
+﻿@model MovieListViewModel
 @{
     ViewData["Title"] = "List of all movies";
     int pageCount = ViewBag.pageCount;
-    int listCount = ViewBag.listCount;
 }
-
 
 <div class="container px-lg-3 mt-4 px-3 text-center">
     <div class="row">
-        <div class="border-bottom mb-3">EXPLROR AMONG @listCount FILMS. LOG, RATE AND REVIEW YOUR FAVOURITE MOVIES.</div>
+        <div class="border-bottom mb-3">EXPLROR AMONG @Model.listCount FILMS. LOG, RATE AND REVIEW YOUR FAVOURITE MOVIES.</div>
     </div>
 </div>
 
+@*Movie grids container*@
 <div class="director-info-page mt-2">
     <div class="director-movies-container container list-ajax-container">
         <div class="row px-1 tbody">
@@ -21,89 +20,11 @@
 </div>
 
 
-@*Loading animation*@
-<div id="loading">
-    <div class="loader-ellips">
-        <span class="loader-ellips__dot"></span>
-        <span class="loader-ellips__dot"></span>
-        <span class="loader-ellips__dot"></span>
-        <span class="loader-ellips__dot"></span>
-    </div>
-</div>
-
-@*Message when reaching end*@
-<div id="reached-end" class="mt-5 mb-2 text-center text-white fs-3">
-    You reached the end!
-</div>
-
-@section scripts{
-    <script type="text/javascript">
-        $(function () {
-            $("div#loading").hide();
-            $("div#reached-end").hide();
-        });
-        var moreRowsUrl = "/Account/Filmsajax";
-        $(window).scroll(scrollHandler);
-    </script>
-}
-
-
+<partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
 
 <script>
-    var page = 0,
-        inCallback = false,
-        hasReachedEndOfInfiniteScroll = false;
-
-    var scrollHandler = function () {
-        //if not reached end
-        if (!hasReachedEndOfInfiniteScroll &&
-            ($(window).scrollTop() == $(document).height() - $(window).height())) {
-            loadMoreToInfiniteScrollTable(moreRowsUrl);
-        }
-        //if reached end
-        if (hasReachedEndOfInfiniteScroll && !inCallback &&
-            ($(window).scrollTop() == $(document).height() - $(window).height())) {
-            $("div#reached-end").show();
-            //console.log(hasReachedEndOfInfiniteScroll);
-        }
-
-        //reached end?
-        hasReachedEndOfInfiniteScroll = (page + 1) >= @pageCount;
-    }
-
-    function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
-        if (!inCallback) {
-            inCallback = true;
-
-            //increase page counter
-            page++;
-
-            //display loading message
-            $("div#loading").show();
-
-            $.ajax({
-                type: 'GET',
-                //Controller function url
-                url: loadMoreRowsUrl,
-
-                data: "pageNum=" + page,
-                success: function (data, textstatus) {
-                    setTimeout(function () {
-                        console.log(hasReachedEndOfInfiniteScroll);
-                        console.log(page);
-                        if (data != '') {
-                            $(".list-ajax-container > .tbody").append(data);
-                        }
-                        inCallback = false;
-                        $("div#loading").hide();
-                    }, 800);
-
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log('Failed ');
-
-                }
-            });
-        }
-    }
+    var pageCount = @pageCount;
+    var controllerActionUrl = "/Movie/Index";
 </script>
+
+<script src="~/js/ajax-infinite-scroll.js" asp-append-version="true"></script>

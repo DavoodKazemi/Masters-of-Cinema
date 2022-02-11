@@ -28,6 +28,7 @@ namespace MastersOfCinema.Data
 
         //Infinity scroll
         IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage);
+        IEnumerable<Movie> GetMovieListForAjax(int pageNum, int itemsPerPage, IEnumerable<Movie> movies);
 
     }
 }

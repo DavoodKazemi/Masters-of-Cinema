@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Movie>
+@{
+    ViewBag.Title = "Movie List";
+    int pageCount = ViewBag.pageCount;
+}
+
+
+<div class="director-info-page mt-2">
+    <div class="director-movies-container container list-ajax-container">
+        <div class="row px-1 tbody">
+            <partial name="~/Views/Shared/_AjaxMovieListPartial.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+@*Loading animation*@
+<div id="loading">
+    <div class="loader-ellips">
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+        <span class="loader-ellips__dot"></span>
+    </div>
+</div>
+
+@*Message when reaching end*@
+<div id="reached-end" class="text-center text-white fs-3">
+    You reached the end!
+</div>
+
+@section scripts{
+    @*<script src="~/Scripts/infiniteScroll.js"></script>*@
+    <script type="text/javascript">
+        $(function () {
+            $("div#loading").hide();
+            $("div#reached-end").hide();
+        });
+        var moreRowsUrl = "/Account/Filmsajax";
+        $(window).scroll(scrollHandler);
+    </script>
+}
+
+
+
+<script>
+    var page = 0,
+        inCallback = false,
+        hasReachedEndOfInfiniteScroll = false;
+
+    var scrollHandler = function () {
+        //if not reached end
+        if (!hasReachedEndOfInfiniteScroll &&
+            ($(window).scrollTop() == $(document).height() - $(window).height())) {
+            loadMoreToInfiniteScrollTable(moreRowsUrl);
+        }
+        //if reached end
+        if (hasReachedEndOfInfiniteScroll && !inCallback &&
+            ($(window).scrollTop() == $(document).height() - $(window).height())) {
+            $("div#reached-end").show();
+            //console.log(hasReachedEndOfInfiniteScroll);
+        }
+
+        //reached end?
+        hasReachedEndOfInfiniteScroll = (page + 1) >= @pageCount;
+    }
+
+    function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
+        if (!inCallback) {
+            inCallback = true;
+
+            //increase page counter
+            page++;
+
+            //display loading message
+            $("div#loading").show();
+
+            $.ajax({
+                type: 'GET',
+                //Controller function url
+                url: loadMoreRowsUrl,
+
+                data: "pageNum=" + page,
+                success: function (data, textstatus) {
+                    setTimeout(function () {
+                        console.log(hasReachedEndOfInfiniteScroll);
+                        console.log(page);
+                        if (data != '') {
+                            $(".list-ajax-container > .tbody").append(data);
+                        }
+                        inCallback = false;
+                        $("div#loading").hide();
+                    }, 800);
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Failed ');
+
+                }
+            });
+        }
+    }
+</script>
