@@ -199,6 +199,23 @@ namespace MastersOfCinema.Data
         }
 
         //User related methods
+
+        //ajax
+        //Number of grids for each page in infinite scroll
+        //public const int ItemsPerPage = 15;
+        public IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage)
+        {
+            //List all items
+            List<Movie> movieList = _context.Movies.ToList();
+
+            //loaded items number
+            int from = (pageNum * itemsPerPage);
+
+            //skip the loaded ones, and load the next page
+            var page = movieList.Skip(from).Take(itemsPerPage);
+            return page;
+        }
+        //end ajax
         public string CurrnentUserName()
         {
             var UserName = _accessor.HttpContext.User.Identity.Name;
@@ -274,6 +291,6 @@ namespace MastersOfCinema.Data
             return watchList;
         }
 
-        
+
     }
 }

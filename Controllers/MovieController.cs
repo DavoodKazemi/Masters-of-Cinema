@@ -39,15 +39,28 @@ namespace MastersOfCinema.Controllers
             _userManager = userManager;
         }
 
-        // GET: Movies
-        public ActionResult Index()
+        // GET: Movies with inifinite scroll 
+        public ActionResult Index(int? pageNum)
         {
-            MovieListViewModel movieListViewModel = new MovieListViewModel()
+            int itemsPerPage = 15;
+            //page number - starts from 0
+            pageNum = pageNum ?? 0;
+
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            if (isAjaxCall)
             {
-                Movies = _repository.GetAllMovies(),
-                listCount = _context.Movies.Count()
-            };
-            return View(movieListViewModel);
+                var customers = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
+                return PartialView("Index", customers);
+            }
+            else
+            {
+                int pageCount = (_context.Movies.ToList().Count() - 1) / 15 + 1;
+                ViewBag.listCount = _context.Movies.ToList().Count();
+                ViewBag.pageCount = pageCount;
+                return View("Index", _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage));
+            }
         }
 
         // GET: Movies/Edit/5

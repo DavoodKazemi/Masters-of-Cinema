@@ -26,5 +26,8 @@ namespace MastersOfCinema.Data
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
 
+        //Infinity scroll
+        IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage);
+
     }
 }
