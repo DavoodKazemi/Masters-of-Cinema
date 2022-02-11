@@ -11,5 +11,6 @@ namespace MastersOfCinema.ViewModels
         public int listCount { get; set; }
         public IEnumerable<Movie> Movies { get; set; }
         public User CurrentUser { get; set; }
+        public bool IsFirstPage { get; set; }
     }
 }

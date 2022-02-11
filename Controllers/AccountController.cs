@@ -132,32 +132,37 @@ namespace MastersOfCinema.Controllers
 
         public ActionResult Films(int? pageNum)
         {
+            int itemsPerPage = 15;
+            //page number (starts from 0)
+            pageNum = pageNum ?? 0;
+
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
             MovieListViewModel films = new MovieListViewModel()
             {
                 Movies = _repository.GetFilms(),
                 //Directors = _repository.GetAllDirectors(),
-                CurrentUser = user
+                CurrentUser = user,
+                IsFirstPage = false
             };
             films.listCount = films.Movies.Count();
 
-            int itemsPerPage = 15;
-            //page number (starts from 0)
-            pageNum = pageNum ?? 0;
+            
 
             //first time it's not ajax, next times it is
             bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
 
             if (isAjaxCall)
             {
+                
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);
                 films.Movies = movies;
-
                 return PartialView("_AjaxMovieListPartial", films);
             }
             else
             {
+                films.IsFirstPage = true;
+
                 int pageCount = (films.Movies.ToList().Count() - 1) / 15 + 1;
                 ViewBag.pageCount = pageCount;
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);

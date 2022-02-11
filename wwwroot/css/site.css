@@ -658,6 +658,28 @@ footer {
   animation-name: reveal;
   animation-direction: reverse; }
 
+/**/
+/*Blog posts animation*/
+.ajax-individual-item-wrapper {
+  -webkit-transition: all 320ms ease;
+  -moz-transition: all 320ms ease;
+  -ms-transition: all 320ms ease;
+  -o-transition: all 320ms ease;
+  transition: all 320ms ease;
+  -webkit-transform: translateY(100px);
+  -moz-transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  -o-transform: translateY(100px);
+  transform: translateY(100px);
+  opacity: 0; }
+  .ajax-individual-item-wrapper.reveal {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1; }
+
 html, body {
   height: 100%; }
 

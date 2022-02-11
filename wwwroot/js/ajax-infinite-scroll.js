@@ -11,6 +11,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //start ajax for infinite scroll
 
+
+function revealPosts() {
+    var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
+    var i = 0;
+    setInterval(function () {
+        if (i >= posts.length) return false;
+
+        var el = posts[i];
+        $(el).addClass('reveal');
+
+        i++;
+    }, 120);
+}
+
+
+
+
 var page = 0,
     inCallback = false,
     hasReachedEndOfInfiniteScroll = false;
@@ -57,6 +74,9 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
                     }
                     inCallback = false;
                     $("div#loading").hide();
+
+                    revealPosts();
+
                 }, 800);
 
             },
