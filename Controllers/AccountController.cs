@@ -130,7 +130,6 @@ namespace MastersOfCinema.Controllers
 
         }
 
-        
         public ActionResult Films(int? pageNum)
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -167,35 +166,7 @@ namespace MastersOfCinema.Controllers
             }
         }
 
-        /*test*/
 
-        public ActionResult FilmsAjax(int? pageNum)
-        {
-            int itemsPerPage = 15;
-            //page number - starts from 0
-            pageNum = pageNum ?? 0;
-            
-            //first time it's not ajax, next times it is
-            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
-
-            if (isAjaxCall)
-            {
-                var customers = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
-                return PartialView("_AjaxMovieListPartial", customers);
-            }
-            else
-            {
-                int pageCount = (_context.Movies.ToList().Count() -1) / 15 + 1;
-                ViewBag.listCount = _context.Movies.ToList().Count();
-                ViewBag.pageCount = pageCount;
-                return View("FilmsAjax", _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage));
-            }
-
-        }
-
-        
-
-        /*end test*/
         //Films user has rated listed
         public IActionResult Ratings(int? pageNum)
         {
