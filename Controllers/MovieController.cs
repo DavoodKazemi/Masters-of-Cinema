@@ -46,6 +46,7 @@ namespace MastersOfCinema.Controllers
             MovieListViewModel films = new MovieListViewModel()
             {
                 Movies = _repository.GetAllMovies(),
+                IsFirstPage = false,
                 //Directors = _repository.GetAllDirectors(),
                 //CurrentUser = user
             };
@@ -66,6 +67,7 @@ namespace MastersOfCinema.Controllers
             }
             else
             {
+                films.IsFirstPage = true;
                 int pageCount = (_context.Movies.ToList().Count() - 1) / 15 + 1;
                 ViewBag.listCount = _context.Movies.ToList().Count();
                 ViewBag.pageCount = pageCount;
