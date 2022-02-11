@@ -91,7 +91,7 @@ namespace MastersOfCinema.Controllers
 
             return View(watchList);
         }
-        public IActionResult Watchlist()
+        public ActionResult Watchlist(int? pageNum)
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
@@ -100,15 +100,38 @@ namespace MastersOfCinema.Controllers
                 Movies = _repository.GetWatchlist(),
                 //Directors = _repository.GetAllDirectors(),
                 CurrentUser = user,
-                
+
             };
+
             watchList.listCount = watchList.Movies.Count();
 
-            return View(watchList);
+            int itemsPerPage = 15;
+            //page number (starts from 0)
+            pageNum = pageNum ?? 0;
+
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            if (isAjaxCall)
+            {
+                var newItems = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, watchList.Movies);
+                watchList.Movies = newItems;
+
+                return PartialView("_AjaxMovieListPartial", watchList);
+            }
+            else
+            {
+                int pageCount = (watchList.Movies.ToList().Count() - 1) / 15 + 1;
+                ViewBag.pageCount = pageCount;
+                var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, watchList.Movies);
+                watchList.Movies = movies;
+                return View("Watchlist", watchList);
+            }
+
         }
 
-        //Films user has watched (logged) listed
-        public IActionResult Films()
+        
+        public ActionResult Films(int? pageNum)
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
@@ -120,9 +143,59 @@ namespace MastersOfCinema.Controllers
             };
             films.listCount = films.Movies.Count();
 
-            return View(films);
+            int itemsPerPage = 15;
+            //page number (starts from 0)
+            pageNum = pageNum ?? 0;
+
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            if (isAjaxCall)
+            {
+                var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);
+                films.Movies = movies;
+
+                return PartialView("_AjaxMovieListPartial", films);
+            }
+            else
+            {
+                int pageCount = (films.Movies.ToList().Count() - 1) / 15 + 1;
+                ViewBag.pageCount = pageCount;
+                var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);
+                films.Movies = movies;
+                return View("Films", films);
+            }
         }
 
+        /*test*/
+
+        public ActionResult FilmsAjax(int? pageNum)
+        {
+            int itemsPerPage = 15;
+            //page number - starts from 0
+            pageNum = pageNum ?? 0;
+            
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            if (isAjaxCall)
+            {
+                var customers = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
+                return PartialView("_AjaxMovieListPartial", customers);
+            }
+            else
+            {
+                int pageCount = (_context.Movies.ToList().Count() -1) / 15 + 1;
+                ViewBag.listCount = _context.Movies.ToList().Count();
+                ViewBag.pageCount = pageCount;
+                return View("FilmsAjax", _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage));
+            }
+
+        }
+
+        
+
+        /*end test*/
         //Films user has rated listed
         public IActionResult Ratings()
         {
