@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Movies rated by " + @Model.CurrentUser.FirstName;
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    int pageCount = ViewBag.pageCount;
 
 }
 
@@ -12,4 +13,21 @@
     </div>
 </div>
 
-<partial name="~/Views/Shared/_MovieListPartial.cshtml" />
+@*Movie grids container*@
+<div class="director-info-page mt-2">
+    <div class="director-movies-container container list-ajax-container">
+        <div class="row px-1 tbody">
+            <partial name="~/Views/Shared/_AjaxMovieListPartial.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+<partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
+
+<script>
+    var pageCount = @pageCount;
+    var controllerActionUrl = "/Account/Ratings";
+</script>
+
+<script src="~/js/ajax-infinite-scroll.js" asp-append-version="true"></script>
