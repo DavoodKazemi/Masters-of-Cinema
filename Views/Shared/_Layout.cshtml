@@ -28,12 +28,14 @@
                         <li class="nav-item"><a class="nav-link @Html.ActiveClass("Movie", "Index")" asp-controller="Movie" asp-action="Index">Movies</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
-
-                            <li class="nav-item ms-md-auto nav-profile-picture-wrapper"><a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist") @Html.ActiveClass("Settings", "Index")
+                            <li class="nav-item ms-md-auto nav-profile-picture-wrapper">
+                                <a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist") @Html.ActiveClass("Settings", "Index")
                                 @Html.ActiveClass("Settings", "Email") @Html.ActiveClass("Settings", "ChangePassword") @Html.ActiveClass("Settings", "PersonalData")
-                                @Html.ActiveClass("Account", "Ratings")" 
-                                asp-controller="Settings" asp-action="Index"><vc:welcome-message></vc:welcome-message>
-                                  </a></li>
+                                @Html.ActiveClass("Account", "Ratings")"
+                                   asp-controller="Settings" asp-action="Index">
+                                    <vc:welcome-message></vc:welcome-message>
+                                </a>
+                            </li>
                             <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else
