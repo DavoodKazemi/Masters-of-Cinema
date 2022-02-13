@@ -122,7 +122,7 @@ namespace MastersOfCinema.Controllers
             else
             {
                 watchList.IsFirstPage = true;
-                int pageCount = (watchList.Movies.ToList().Count() - 1) / 15 + 1;
+                int pageCount = (watchList.Movies.ToList().Count() - 1) / itemsPerPage + 1;
                 ViewBag.pageCount = pageCount;
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, watchList.Movies);
                 watchList.Movies = movies;
@@ -164,7 +164,7 @@ namespace MastersOfCinema.Controllers
             {
                 films.IsFirstPage = true;
 
-                int pageCount = (films.Movies.ToList().Count() - 1) / 15 + 1;
+                int pageCount = (films.Movies.ToList().Count() - 1) / itemsPerPage + 1;
                 ViewBag.pageCount = pageCount;
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);
                 films.Movies = movies;
@@ -205,7 +205,7 @@ namespace MastersOfCinema.Controllers
             else
             {
                 ratedMovies.IsFirstPage = true;
-                int pageCount = (ratedMovies.Movies.ToList().Count() - 1) / 15 + 1;
+                int pageCount = (ratedMovies.Movies.ToList().Count() - 1) / itemsPerPage + 1;
                 ViewBag.pageCount = pageCount;
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, ratedMovies.Movies);
                 ratedMovies.Movies = movies;

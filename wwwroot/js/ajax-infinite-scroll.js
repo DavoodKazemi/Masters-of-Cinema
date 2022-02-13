@@ -2,14 +2,37 @@
 //pageCount and controllerActionUrl
 
 //when page get loaded
+var page = 0,
+    inCallback = false,
+    hasReachedEndOfInfiniteScroll = false;
+
 document.addEventListener("DOMContentLoaded", function () {
 
-        $("div#loading").hide();
+        $("div#loading-animation").hide();
         $("div#reached-end").hide();
         $(window).scroll(scrollHandler);
+
+    //load more button
+    if (hasReachedEndOfInfiniteScroll == false) {
+        $(document).on('click', '#load-more-movies-button:not(.button-loading)', function () {
+            loadMoreAjax(controllerActionUrl);
+            $(this).addClass('button-loading');
+            hasReachedEndOfInfiniteScroll = (page + 1) >= pageCount;
+        });
+    }    
 });
 
-//start ajax for infinite scroll
+//load with scrolling
+var scrollHandler = function () {
+    //if not reached end
+    if (!hasReachedEndOfInfiniteScroll &&
+        ($(window).scrollTop() == $(document).height() - $(window).height())) {
+        loadMoreAjax(controllerActionUrl);
+        $("div#loading-animation").show();
+        $("#load-more-movies-button").hide();
+    }
+    hasReachedEndOfInfiniteScroll = (page + 1) >= pageCount;
+}
 
 
 function revealPosts() {
@@ -26,38 +49,14 @@ function revealPosts() {
 }
 
 
+//start ajax function for infinite scroll
 
-
-var page = 0,
-    inCallback = false,
-    hasReachedEndOfInfiniteScroll = false;
-
-var scrollHandler = function () {
-    //if not reached end
-    if (!hasReachedEndOfInfiniteScroll &&
-        ($(window).scrollTop() == $(document).height() - $(window).height())) {
-        loadMoreToInfiniteScrollTable(controllerActionUrl);
-    }
-    //if reached end
-    if (hasReachedEndOfInfiniteScroll && !inCallback &&
-        ($(window).scrollTop() == $(document).height() - $(window).height())) {
-        $("div#reached-end").show();
-        //console.log(hasReachedEndOfInfiniteScroll);
-    }
-
-    //reached end?
-    hasReachedEndOfInfiniteScroll = (page + 1) >= pageCount;
-}
-
-function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
+function loadMoreAjax(loadMoreRowsUrl) {
     if (!inCallback) {
         inCallback = true;
 
         //increase page counter
         page++;
-
-        //display loading message
-        $("div#loading").show();
 
         $.ajax({
             type: 'GET',
@@ -73,16 +72,22 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
                         $(".list-ajax-container > .tbody").append(data);
                     }
                     inCallback = false;
-                    $("div#loading").hide();
-
+                    $("div#loading-animation").hide();
+                    $('#load-more-movies-button').removeClass('button-loading');
                     revealPosts();
+
+
+                    //if reached end, hide button and show the message
+                    if (hasReachedEndOfInfiniteScroll) {
+                        $("div#reached-end").slideDown(320);
+                        $("#load-more-movies-button").slideUp(320);
+                    }
 
                 }, 800);
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log('Failed ');
-
             }
         });
     }

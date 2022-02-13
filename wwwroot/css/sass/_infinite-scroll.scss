@@ -1,4 +1,5 @@
-﻿.loader-ellips {
+﻿//Scroll loading animation 
+.loader-ellips {
     font-size: 20px; /* change size here */
     position: relative;
     width: 4em;
@@ -60,10 +61,10 @@
     animation-name: reveal;
     animation-direction: reverse;
 }
+//End scroll loading animation
 
 
-/**/
-/*Blog posts animation*/
+/*load items animation defined*/
 @mixin animate ( $attr, $time) {
     -webkit-transition: $attr $time ease;
     -moz-transition: $attr $time ease;
@@ -79,11 +80,12 @@
     -o-transform: $val;
     transform: $val;
 }
+/*End load items animation defined*/
 
 
 
 
-
+//Add animations to the items elements
 .ajax-individual-item-wrapper {
     @include animate(all, 320ms);
     @include transform(translateY(100px));
@@ -94,3 +96,91 @@
         opacity: 1;
     }
 }
+//End add animations to the items elements
+
+//Styles and animations for the load button
+@keyframes ld-spin-fast {
+    0% {
+        animation-timing-function: cubic-bezier(0.5856,0.0703,0.4143,0.9297);
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(1800deg)
+    }
+}
+
+#load-more-movies-button {
+    position: relative;
+    transition: all .3s;
+    cursor: pointer;
+    background-color: rgba(37, 188, 50, 0.0);
+    padding: 0.5em 1em;
+    color: rgba(0, 0, 0, 0.80);
+    border: 0;
+    font-size: 1.25em;
+    width: 100px;
+    height: 50px;
+
+    .loading-icon {
+        transition: all .3s;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        opacity: .2;
+    }
+
+    .ld.ld-spin-fast {
+        font-size: 1.25em;
+        position: absolute;
+        width: 1em;
+        height: 1em;
+        margin: -0.5em;
+        opacity: 0;
+        z-index: -1;
+        transition: all .3s;
+        transition-timing-function: ease-in;
+        top: 50%;
+        right: 50%;
+        color: white;
+
+        &::after {
+            border-radius: 50%;
+            border: 1em solid currentColor;
+            border-left-color: transparent;
+            content: "";
+            display: block;
+            box-sizing: border-box;
+            transform-origin: 0 0;
+            transform: translateZ(0) scale(0.5);
+        }
+    }
+    //When loading
+    &.button-loading {
+        cursor: default;
+        //hide arrow icon
+        .loading-icon {
+            display: none;
+        }
+        //display loading animation
+        .ld.ld-spin-fast {
+            animation: ld-spin-fast 1s infinite linear;
+            opacity: 1;
+            z-index: auto;
+            visibility: visible;
+        }
+    }
+
+    &:hover {
+        opacity: 1;
+        transition: all .3s;
+
+        .loading-icon {
+            opacity: 1;
+            transition: all .3s;
+        }
+    }
+}
+

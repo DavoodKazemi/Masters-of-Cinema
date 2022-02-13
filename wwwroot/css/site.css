@@ -658,8 +658,8 @@ footer {
   animation-name: reveal;
   animation-direction: reverse; }
 
-/**/
-/*Blog posts animation*/
+/*load items animation defined*/
+/*End load items animation defined*/
 .ajax-individual-item-wrapper {
   -webkit-transition: all 320ms ease;
   -moz-transition: all 320ms ease;
@@ -679,6 +679,70 @@ footer {
     -o-transform: translateY(0);
     transform: translateY(0);
     opacity: 1; }
+
+@keyframes ld-spin-fast {
+  0% {
+    animation-timing-function: cubic-bezier(0.5856, 0.0703, 0.4143, 0.9297);
+    transform: rotate(0); }
+  100% {
+    transform: rotate(1800deg); } }
+
+#load-more-movies-button {
+  position: relative;
+  transition: all .3s;
+  cursor: pointer;
+  background-color: rgba(37, 188, 50, 0);
+  padding: 0.5em 1em;
+  color: rgba(0, 0, 0, 0.8);
+  border: 0;
+  font-size: 1.25em;
+  width: 100px;
+  height: 50px; }
+  #load-more-movies-button .loading-icon {
+    transition: all .3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: .2; }
+  #load-more-movies-button .ld.ld-spin-fast {
+    font-size: 1.25em;
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    margin: -0.5em;
+    opacity: 0;
+    z-index: -1;
+    transition: all .3s;
+    transition-timing-function: ease-in;
+    top: 50%;
+    right: 50%;
+    color: white; }
+    #load-more-movies-button .ld.ld-spin-fast::after {
+      border-radius: 50%;
+      border: 1em solid currentColor;
+      border-left-color: transparent;
+      content: "";
+      display: block;
+      box-sizing: border-box;
+      transform-origin: 0 0;
+      transform: translateZ(0) scale(0.5); }
+  #load-more-movies-button.button-loading {
+    cursor: default; }
+    #load-more-movies-button.button-loading .loading-icon {
+      display: none; }
+    #load-more-movies-button.button-loading .ld.ld-spin-fast {
+      animation: ld-spin-fast 1s infinite linear;
+      opacity: 1;
+      z-index: auto;
+      visibility: visible; }
+  #load-more-movies-button:hover {
+    opacity: 1;
+    transition: all .3s; }
+    #load-more-movies-button:hover .loading-icon {
+      opacity: 1;
+      transition: all .3s; }
 
 html, body {
   height: 100%; }
