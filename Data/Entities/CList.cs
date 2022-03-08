@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MastersOfCinema.Data.Entities
 {
-    public class List
+    public class CList
     {
         [Key]
         public int Id { get; set; }

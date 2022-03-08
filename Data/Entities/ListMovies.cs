@@ -7,7 +7,7 @@ namespace MastersOfCinema.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-        public int ListId { get; set; }
+        public int CListId { get; set; }
         public int MovieId { get; set; }
     }
 }
