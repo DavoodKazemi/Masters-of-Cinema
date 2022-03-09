@@ -12,5 +12,7 @@ namespace MastersOfCinema.ViewModels
         public IEnumerable<Movie> Movies { get; set; }
         public User CurrentUser { get; set; }
         public bool IsFirstPage { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

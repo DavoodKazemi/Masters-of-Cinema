@@ -23,6 +23,10 @@ namespace MastersOfCinema.Data
         IEnumerable<Movie> GetFilms();
         IEnumerable<Movie> GetWatchlist();
         IEnumerable<Movie> GetRatings();
+        IEnumerable<Movie> GetCustomList();
+        string GetListTitle();
+        string GetListDescription();
+
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
 

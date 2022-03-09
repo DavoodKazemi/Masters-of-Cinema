@@ -212,5 +212,47 @@ namespace MastersOfCinema.Controllers
                 return View("Ratings", ratedMovies);
             }
         }
+
+        public ActionResult CLists(int? pageNum)
+        {
+            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            MovieListViewModel customList = new MovieListViewModel()
+            {
+                Movies = _repository.GetCustomList(),
+                Title = _repository.GetListTitle(),
+                Description = _repository.GetListDescription(),
+                //Directors = _repository.GetAllDirectors(),
+                CurrentUser = user,
+                IsFirstPage = false
+            };
+
+            customList.listCount = customList.Movies.Count();
+
+            int itemsPerPage = 15;
+            //page number (starts from 0)
+            pageNum = pageNum ?? 0;
+
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            if (isAjaxCall)
+            {
+                var newItems = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, customList.Movies);
+                customList.Movies = newItems;
+
+                return PartialView("_AjaxMovieListPartial", customList);
+            }
+            else
+            {
+                customList.IsFirstPage = true;
+                int pageCount = (customList.Movies.ToList().Count() - 1) / itemsPerPage + 1;
+                ViewBag.pageCount = pageCount;
+                var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, customList.Movies);
+                customList.Movies = movies;
+                return View("CList", customList);
+            }
+
+        }
     }
 }

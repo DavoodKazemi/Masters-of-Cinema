@@ -305,5 +305,42 @@ namespace MastersOfCinema.Data
         }
 
 
+        //Begin Custom lists
+        public IEnumerable<Movie> GetCustomList()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //First custom list of the user - later fix it to display the list user wants
+            //Get the list ID
+            var id = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Id;
+            //Get all movie ids of the list
+            var customList = _context.ListMovies.Where(r => r.CListId == id);
+
+            var films = new List<Movie>();
+            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+            foreach (var item in customList)
+            {
+                films.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
+            }
+
+            return films;
+        }
+
+        public string GetListTitle()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //Title of the first custom list of the user - later fix it to get the title of the list user wants
+            string title = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Title;
+
+            return title;
+        }
+        public string GetListDescription()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //Description of the first custom list of the user - later fix it to get the Description of the list user wants
+            string description = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Description;
+
+            return description;
+        }
+        //END Custom lists
     }
 }
