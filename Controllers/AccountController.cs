@@ -117,7 +117,7 @@ namespace MastersOfCinema.Controllers
                 var newItems = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, watchList.Movies);
                 watchList.Movies = newItems;
 
-                return PartialView("_AjaxMovieListPartial", watchList);
+                return PartialView("Lists/_AjaxMovieListPartial", watchList);
             }
             else
             {
@@ -158,7 +158,7 @@ namespace MastersOfCinema.Controllers
                 
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, films.Movies);
                 films.Movies = movies;
-                return PartialView("_AjaxMovieListPartial", films);
+                return PartialView("Lists/_AjaxMovieListPartial", films);
             }
             else
             {
@@ -200,7 +200,7 @@ namespace MastersOfCinema.Controllers
                 var newItems = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, ratedMovies.Movies);
                 ratedMovies.Movies = newItems;
 
-                return PartialView("_AjaxMovieListPartial", ratedMovies);
+                return PartialView("Lists/_AjaxMovieListPartial", ratedMovies);
             }
             else
             {
@@ -288,7 +288,7 @@ namespace MastersOfCinema.Controllers
                 var newItems = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, customList.Movies);
                 customList.Movies = newItems;
 
-                return PartialView("_AjaxMovieListPartial", customList);
+                return PartialView("Lists/_AjaxMovieListPartial", customList);
             }
             else
             {
