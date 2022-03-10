@@ -220,33 +220,37 @@ namespace MastersOfCinema.Controllers
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
             CListsViewModel customList = new CListsViewModel()
             {
-                //Movies = _repository.GetCustomList(),
-                //Title = _repository.GetListTitle(),
-                //Description = _repository.GetListDescription(),
-                //Directors = _repository.GetAllDirectors(),
-                //movieList = _repository.GetListsList(),
+
                 Lists = _repository.GetListsList(),
                 User = user,
                 IsFirstPage = false
             };
-            int itemsPerPage = 15;
+            int itemsPerPage = 3;
             pageNum = pageNum ?? 0;
 
-            customList.listCount= (customList.Lists.ToList().Count() - 1) / itemsPerPage + 1;
-            customList.IsFirstPage = true;
+            customList.listCount = customList.Lists.Count();
+            
+            //first time it's not ajax, next times it is
+            bool isAjaxCall = HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
 
-            int pageCount = (customList.Lists.ToList().Count() - 1) / itemsPerPage + 1;
-            ViewBag.pageCount = pageCount;
+            if (isAjaxCall)
+            {
+                var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
+                customList.Lists = newItems;
+                return PartialView("Lists/_CListPartial", customList);
+            }
+            else
+            {
+                customList.IsFirstPage = true;
 
-            var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
+                int pageCount = (customList.Lists.ToList().Count() - 1) / itemsPerPage + 1;
 
+                ViewBag.pageCount = pageCount;
 
-            customList.Lists= newItems;
-
-            //customList.listCount = _repository.GetListCount
-            //ViewBag.pageCount = pageCount;
-
-            return View("CLists", customList);
+                var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
+                customList.Lists = newItems;
+                return View("CLists", customList);
+            }
         }
 
         //Displays a custom list!

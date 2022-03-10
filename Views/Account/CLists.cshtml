@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = @Model.User.FirstName + "'s fims";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
-    //int pageCount = ViewBag.pageCount;
+    int pageCount = ViewBag.pageCount;
 }
 
 <div class="container px-lg-3 mt-4 px-3">
@@ -28,7 +28,7 @@
 <partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
 
 <script>
-    @*var pageCount = @pageCount;*@
+    var pageCount = @pageCount;
     var controllerActionUrl = "/Account/CLists";
 </script>
 
