@@ -63,7 +63,7 @@ namespace MastersOfCinema.Controllers
             {
                 var customers = _repository.GetMoviesForAjax(pageNum.Value, itemsPerPage);
                 films.Movies = customers;
-                return PartialView("_AjaxMovieListPartial", films);
+                return PartialView("Lists/_AjaxMovieListPartial", films);
             }
             else
             {
