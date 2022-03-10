@@ -267,7 +267,7 @@ namespace MastersOfCinema.Data
             return movies;
         }
 
-        //done
+        //done - get all of the movies one user logged
         public IEnumerable<Movie> GetFilms()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
@@ -306,17 +306,18 @@ namespace MastersOfCinema.Data
 
 
         //Begin Custom lists
-        public IEnumerable<Movie> GetCustomList()
+
+        //Get one custom list - id refers to the property of id in CList table (id = id of the custom list)
+        public IEnumerable<Movie> GetCustomList(int id)
         {
-            var User = _accessor.HttpContext.User.Identity.Name;
-            //First custom list of the user - later fix it to display the list user wants
-            //Get the list ID
-            var id = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Id;
+            //fixed it to display the list user wants
+
             //Get all movie ids of the list
             var customList = _context.ListMovies.Where(r => r.CListId == id);
 
             var films = new List<Movie>();
-            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+
+            //Add movie objects to the list, using the movie ids we have
             foreach (var item in customList)
             {
                 films.Add(_context.Movies.FirstOrDefault(m => m.Id == item.MovieId));
@@ -325,21 +326,53 @@ namespace MastersOfCinema.Data
             return films;
         }
 
-        public string GetListTitle()
+        public string GetListTitle(int id)
         {
-            var User = _accessor.HttpContext.User.Identity.Name;
-            //Title of the first custom list of the user - later fix it to get the title of the list user wants
-            string title = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Title;
+            //fixed it to get the title of the list user wants
+            var title = _context.Lists.Where(r => r.Id == id).FirstOrDefault().Title;
 
             return title;
         }
-        public string GetListDescription()
+
+        public string GetListDescription(int id)
         {
-            var User = _accessor.HttpContext.User.Identity.Name;
-            //Description of the first custom list of the user - later fix it to get the Description of the list user wants
-            string description = _context.Lists.Where(r => r.User.UserName == User).FirstOrDefault().Description;
+            //fixed it to get the Description of the list user wants
+            var description = _context.Lists.Where(r => r.Id == id).FirstOrDefault().Description;
 
             return description;
+        }
+
+        //Get all the custom lists one user created
+        public IEnumerable<CList> GetListsList()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all custom lists by the user!
+            var customLists = _context.Lists.Where(r => r.User.UserName == User);
+
+            var lists = new List<CList>();
+            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+            foreach (var item in _context.Lists.Include(x => x.Movies).ToArray())
+            {
+                if (item.User.UserName == User)
+                {
+                    lists.Add(item);
+                }
+            }
+
+            return lists;
+        }
+
+        public IEnumerable<CList> GetListsListForAjax(int pageNum, int itemsPerPage, IEnumerable<CList> lists)
+        {
+            //List all items
+            List<CList> listsList = lists.ToList();
+
+            //loaded items number
+            int from = (pageNum * itemsPerPage);
+
+            //skip the loaded ones, and load the next page
+            var page = listsList.Skip(from).Take(itemsPerPage);
+            return page;
         }
         //END Custom lists
     }

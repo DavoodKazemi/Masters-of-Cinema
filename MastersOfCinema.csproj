@@ -18,6 +18,7 @@
     <None Include="Views\Movie\Create.cshtml" />
     <None Include="Views\Movie\Edit.cshtml" />
     <None Include="Views\Movie\Index.cshtml" />
+    <None Include="Views\Shared\Lists\_CListPartial.cshtml" />
     <None Include="wwwroot\css\site.scss" />
     <None Include="wwwroot\jquery-validation\dist\jquery.validate.js" />
     <None Include="wwwroot\jquery-validation\dist\jquery.validate.min.js" />

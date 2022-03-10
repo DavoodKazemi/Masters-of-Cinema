@@ -1,0 +1,41 @@
+﻿@model CListsViewModel
+
+@if (Model.IsFirstPage)
+{
+    foreach (var item in Model.Lists)
+    {
+        <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+            <div class="mx-auto">
+                @*Movie poster and its tooltip (title (year)) *@
+                <div class="movie-poster-wrapper mx-auto">
+                    @*<span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>*@
+                    <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                    <div>@Html.DisplayFor(modelItem => item.Description)</div>
+                    <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
+                    @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
+            <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
+        </a>*@
+                </div>
+            </div>
+        </article>
+    }
+
+}
+else
+{
+    @foreach (var item in Model.Lists)
+    {
+        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+            <div class="mx-auto">
+                @*Movie poster and its tooltip (title (year)) *@
+                <div class="movie-poster-wrapper mx-auto">
+                    <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>
+                    @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
+                        <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
+                    </a>*@
+                </div>
+            </div>
+        </article>
+    }
+
+}

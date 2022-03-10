@@ -184,7 +184,7 @@ namespace MastersOfCinema.Controllers
                 //Directors = _repository.GetAllDirectors(),
                 CurrentUser = user,
                 IsFirstPage = false
-        };
+            };
 
             ratedMovies.listCount = ratedMovies.Movies.Count();
 
@@ -213,15 +213,58 @@ namespace MastersOfCinema.Controllers
             }
         }
 
+        //Displays all of the custom lists of the user!
         public ActionResult CLists(int? pageNum)
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+            CListsViewModel customList = new CListsViewModel()
+            {
+                //Movies = _repository.GetCustomList(),
+                //Title = _repository.GetListTitle(),
+                //Description = _repository.GetListDescription(),
+                //Directors = _repository.GetAllDirectors(),
+                //movieList = _repository.GetListsList(),
+                Lists = _repository.GetListsList(),
+                User = user,
+                IsFirstPage = false
+            };
+            int itemsPerPage = 15;
+            pageNum = pageNum ?? 0;
+
+            customList.listCount= (customList.Lists.ToList().Count() - 1) / itemsPerPage + 1;
+            customList.IsFirstPage = true;
+
+            int pageCount = (customList.Lists.ToList().Count() - 1) / itemsPerPage + 1;
+            ViewBag.pageCount = pageCount;
+
+            var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
+
+
+            customList.Lists= newItems;
+
+            //customList.listCount = _repository.GetListCount
+            //ViewBag.pageCount = pageCount;
+
+            return View("CLists", customList);
+        }
+
+        //Displays a custom list!
+        public ActionResult CList(int? id, int? pageNum)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var userId = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _context.Users.Where(i => i.Id == userId).FirstOrDefault();
+
             MovieListViewModel customList = new MovieListViewModel()
             {
-                Movies = _repository.GetCustomList(),
-                Title = _repository.GetListTitle(),
-                Description = _repository.GetListDescription(),
+                Movies = _repository.GetCustomList(id.Value),
+                Title = _repository.GetListTitle(id.Value),
+                Description = _repository.GetListDescription(id.Value),
                 //Directors = _repository.GetAllDirectors(),
                 CurrentUser = user,
                 IsFirstPage = false

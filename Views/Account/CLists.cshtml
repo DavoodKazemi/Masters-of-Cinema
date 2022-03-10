@@ -1,17 +1,17 @@
-﻿@model MovieListViewModel
+﻿@model CListsViewModel
 
 @{
-    ViewData["Title"] = @Model.CurrentUser.FirstName + "'s fims";
+    ViewData["Title"] = @Model.User.FirstName + "'s fims";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
-    int pageCount = ViewBag.pageCount;
+    //int pageCount = ViewBag.pageCount;
 }
 
 <div class="container px-lg-3 mt-4 px-3">
     <div class="row">
         @*add avatar, etc later*@
-        <div class="">List by @Model.CurrentUser.FirstName</div>
-        <h2>@Model.Title</h2>
-        <div>@Model.Description</div>
+        <div class="">Lists by @Model.User.FirstName</div>
+        @*<h2>@Model.Title</h2>
+        <div>@Model.Description</div>*@
     </div>
 </div>
 
@@ -19,7 +19,7 @@
 <div class="director-info-page mt-2">
     <div class="director-movies-container container list-ajax-container">
         <div class="row px-1 tbody">
-            <partial name="~/Views/Shared/_AjaxMovieListPartial.cshtml" />
+            <partial name="~/Views/Shared/Lists/_CListPartial.cshtml" />
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
 <partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
 
 <script>
-    var pageCount = @pageCount;
+    @*var pageCount = @pageCount;*@
     var controllerActionUrl = "/Account/CLists";
 </script>
 
