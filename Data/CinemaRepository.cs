@@ -1,5 +1,6 @@
 ﻿using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
+using MastersOfCinema.ViewModels.Lists;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -343,19 +344,28 @@ namespace MastersOfCinema.Data
         }
 
         //Get all the custom lists one user created
-        public IEnumerable<CList> GetListsList()
+        public List<CListAvatarViewModel> GetListsList()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
             //List of all custom lists by the user!
             var customLists = _context.Lists.Where(r => r.User.UserName == User);
 
-            var lists = new List<CList>();
+            var lists = new List<CListAvatarViewModel>();
             //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+
+            //lists.AddRange.(_context.Lists.Where(x => x.User.UserName == User));
+
             foreach (var item in _context.Lists.Include(x => x.Movies).ToArray())
             {
                 if (item.User.UserName == User)
                 {
-                    lists.Add(item);
+
+                    var obj = new CListAvatarViewModel {
+                        Lists = item,
+                        
+                    };
+                    obj.Movies.Add(_context.Movies.FirstOrDefault(m => m.Id == 50));
+                    lists.Add(obj);
                 }
             }
 

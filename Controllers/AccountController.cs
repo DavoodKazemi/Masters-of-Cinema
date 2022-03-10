@@ -221,12 +221,20 @@ namespace MastersOfCinema.Controllers
             CListsViewModel customList = new CListsViewModel()
             {
 
-                Lists = _repository.GetListsList(),
+                Lists = (IEnumerable<ViewModels.Lists.CListAvatarViewModel>)_repository.GetListsList(),
                 User = user,
                 IsFirstPage = false
             };
             int itemsPerPage = 3;
             pageNum = pageNum ?? 0;
+
+
+            /*test*/
+            /*foreach (var list in customList.Lists)
+            {
+                var 
+            }*/
+            /*end test*/
 
             customList.listCount = customList.Lists.Count();
             
@@ -235,6 +243,8 @@ namespace MastersOfCinema.Controllers
 
             if (isAjaxCall)
             {
+
+                var jdfs = customList.Lists.
                 var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
                 customList.Lists = newItems;
                 return PartialView("Lists/_CListPartial", customList);

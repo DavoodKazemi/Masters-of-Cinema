@@ -29,7 +29,7 @@ namespace MastersOfCinema.Data
         IEnumerable<CList> GetListsListForAjax(int pageNum, int itemsPerPage, IEnumerable<CList> lists);
         string GetListTitle(int id);
         string GetListDescription(int id);
-        IEnumerable<CList> GetListsList();
+        IEnumerable<CListAvatarViewModel> GetListsList();
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
 
