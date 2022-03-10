@@ -9,7 +9,9 @@
                 @*Movie poster and its tooltip (title (year)) *@
                 <div class="movie-poster-wrapper mx-auto">
                     @*<span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>*@
-                    <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                    <a asp-action="Clist" asp-route-id="@item.Id">
+                        <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                    </a>
                     <div>@Html.DisplayFor(modelItem => item.Description)</div>
                     <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
                     @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">

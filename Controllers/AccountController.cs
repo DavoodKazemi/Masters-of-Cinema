@@ -291,6 +291,7 @@ namespace MastersOfCinema.Controllers
                 customList.IsFirstPage = true;
                 int pageCount = (customList.Movies.ToList().Count() - 1) / itemsPerPage + 1;
                 ViewBag.pageCount = pageCount;
+                ViewBag.listId = id.ToString();
                 var movies = _repository.GetMovieListForAjax(pageNum.Value, itemsPerPage, customList.Movies);
                 customList.Movies = movies;
                 return View("CList", customList);

@@ -4,6 +4,7 @@
     ViewData["Title"] = @Model.CurrentUser.FirstName + "'s fims";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
     int pageCount = ViewBag.pageCount;
+    string listId = ViewBag.listId;
 }
 
 <div class="container px-lg-3 mt-4 px-3">
@@ -29,7 +30,7 @@
 
 <script>
     var pageCount = @pageCount;
-    var controllerActionUrl = "/Account/CLists";
+    var controllerActionUrl = "/Account/CList/" + @listId;
 </script>
 
 <script src="~/js/ajax-infinite-scroll.js" asp-append-version="true"></script>
