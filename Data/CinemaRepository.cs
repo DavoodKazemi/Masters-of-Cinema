@@ -356,6 +356,7 @@ namespace MastersOfCinema.Data
                 if (item.User.UserName == User)
                 {
                     lists.Add(item);
+                    item.Avatars = new List<int> { 96, 2, 3, 4, 5 };
                 }
             }
 
@@ -369,6 +370,8 @@ namespace MastersOfCinema.Data
 
             //loaded items number
             int from = (pageNum * itemsPerPage);
+
+            
 
             //skip the loaded ones, and load the next page
             var page = listsList.Skip(from).Take(itemsPerPage);
