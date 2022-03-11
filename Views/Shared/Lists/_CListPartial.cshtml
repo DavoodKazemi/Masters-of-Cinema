@@ -4,23 +4,28 @@
 {
     foreach (var item in Model.Lists)
     {
-        <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+        <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-4 px-0 px-lg-1">
             <div class="mx-auto">
                 @*Movie poster and its tooltip (title (year)) *@
-                <div class="movie-poster-wrapper mx-auto">
-                    @*<span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>*@
-                    <a asp-action="Clist" asp-route-id="@item.Id">
-                        <div>@Html.DisplayFor(modelItem => item.Title)</div>
-                    </a>
-                    <div>@Html.DisplayFor(modelItem => item.Description)</div>
-                    <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
 
+                <div class="movie-poster-wrapper mx-auto">
+                    <a asp-action="Clist" asp-route-id="@item.Id">
+                        @*<span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>*@
+                        <img src="@("~/image/"+@item.Avatars.FirstOrDefault())" class="movie-poster" asp-append-version="true" />
+                    </a>
                     <div>@item.Avatars.FirstOrDefault().ToString()</div>
                     <div>@item.Avatars[1].ToString()</div>
                     @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
             <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
         </a>*@
                 </div>
+
+                <a asp-action="Clist" asp-route-id="@item.Id">
+                    <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                </a>
+                <div>@Html.DisplayFor(modelItem => item.Description)</div>
+                <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
+
             </div>
         </article>
     }
@@ -30,7 +35,7 @@ else
 {
     @foreach (var item in Model.Lists)
     {
-        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-4 px-0 px-lg-1">
             <div class="mx-auto">
                 @*Movie poster and its tooltip (title (year)) *@
                 <div class="movie-poster-wrapper mx-auto">
@@ -40,7 +45,9 @@ else
                     </a>
                     <div>@Html.DisplayFor(modelItem => item.Description)</div>
                     <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
-                    <div>@item.Avatars.FirstOrDefault().ToString()</div>
+
+                    
+                    @*<div>@item.Avatars.FirstOrDefault().ToString()</div>*@
 
                     @*                    <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>
                     *@                    @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">

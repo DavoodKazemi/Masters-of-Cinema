@@ -744,6 +744,156 @@ footer {
       opacity: 1;
       transition: all .3s; }
 
+.tooltip-wrapper {
+  position: relative; }
+  .tooltip-wrapper .tooltip-supject {
+    border: 4px solid transparent;
+    border-radius: 5%;
+    transition: all .3s ease;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    position: absolute; }
+  .tooltip-wrapper .tooltip-object {
+    width: "";
+    white-space: nowrap;
+    padding: 5px 6px;
+    bottom: 103%;
+    position: absolute;
+    display: block;
+    text-align: center;
+    background-color: #445566;
+    border-radius: 5px;
+    color: #A0CCDD;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    transition: .3s all ease-in;
+    visibility: hidden;
+    opacity: 0; }
+    .tooltip-wrapper .tooltip-object::before {
+      content: '';
+      position: absolute;
+      height: 13px;
+      width: 13px;
+      background-color: #445566;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      z-index: -1; }
+  .tooltip-wrapper:hover .tooltip-object {
+    /*opacity: 1;
+                    z-index: 2;*/
+    visibility: visible;
+    opacity: 1;
+    transition: .3s all ease-in; }
+
+@media (max-width: 1200px) {
+  .movie-average-rate-wrapper .tooltip-object {
+    width: 250%;
+    white-space: normal;
+    padding: 3px 4px;
+    bottom: 103%;
+    position: absolute;
+    display: block;
+    text-align: center;
+    background-color: #445566;
+    border-radius: 5px;
+    color: #A0CCDD;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    transition: .3s all ease-in;
+    visibility: hidden;
+    opacity: 0;
+    left: 0%; } }
+  @media (max-width: 1200px) and (max-width: 280px) {
+    .movie-average-rate-wrapper .tooltip-object {
+      left: -21%; } }
+
+@media (max-width: 1200px) {
+    .movie-average-rate-wrapper .tooltip-object::before {
+      left: 70%; } }
+
+/*Director info page*/
+/*movie posters*/
+.custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper {
+  position: relative;
+  padding-bottom: 78%; }
+  .custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper a img.movie-poster {
+    border: 4px solid transparent;
+    border-radius: 5%;
+    transition: all .3s ease;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    position: absolute;
+    height: 100%; }
+    .custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper a img.movie-poster:hover {
+      border: 4px solid #00E054;
+      transition: all .3s ease; }
+  .custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper .movie-tooltip {
+    width: 100%;
+    white-space: "";
+    padding: 5px 3px;
+    bottom: 103%;
+    position: absolute;
+    display: block;
+    text-align: center;
+    background-color: #445566;
+    border-radius: 5px;
+    color: #A0CCDD;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    transition: .3s all ease-in;
+    visibility: hidden;
+    opacity: 0; }
+    .custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper .movie-tooltip::before {
+      content: '';
+      position: absolute;
+      height: 13px;
+      width: 13px;
+      background-color: #445566;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      z-index: -1; }
+  .custom-lists-page .director-movies-container .director-list-item .movie-poster-wrapper:hover .movie-tooltip {
+    /*opacity: 1;
+                    z-index: 2;*/
+    visibility: visible;
+    opacity: 1;
+    transition: .3s all ease-in; }
+
+@media (max-width: 767px) {
+  .custom-lists-page .director-movies-container .director-list-item .direector-page-movie-options {
+    font-size: 0.875em;
+    line-height: 1.3 !important; } }
+
+@media (min-width: 992px) {
+  .custom-lists-page section.director-info-aside {
+    max-width: 280px; }
+    .custom-lists-page section.director-info-aside img {
+      width: 280px;
+      border-radius: 1.5%; } }
+
+@media (max-width: 991px) {
+  .custom-lists-page section.director-info-aside {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+    .custom-lists-page section.director-info-aside img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 1%; } }
+
+.custom-lists-page section.director-info-aside img {
+  border: 1px solid transparent;
+  transition: all .3s ease; }
+  .custom-lists-page section.director-info-aside img:hover {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all .3s ease; }
+
 html, body {
   height: 100%; }
 

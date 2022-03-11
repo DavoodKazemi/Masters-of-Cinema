@@ -350,13 +350,30 @@ namespace MastersOfCinema.Data
             var customLists = _context.Lists.Where(r => r.User.UserName == User);
 
             var lists = new List<CList>();
-            //IEnumerable<Movie> movies = _context.Movies.Include(x => x.MovieRatings).Where(m => m.MovieRatings == watchList);
+
+            //add data to the lists
             foreach (var item in _context.Lists.Include(x => x.Movies).ToArray())
             {
                 if (item.User.UserName == User)
                 {
+                    //If the list is created by this user, add it to lists
                     lists.Add(item);
-                    item.Avatars = new List<int> { 96, 2, 3, 4, 5 };
+
+                    item.Avatars = new List<string>();
+
+                    //Add the images of the first few movies in the list to the avatar property!
+                    //Join two lists in order to find the images of the movies!
+                    // (By matching movieId in item with id in movie table)
+                    var extractAvatars = item.Movies.Join(_context.Movies, prod => prod.MovieId,
+                      sale => sale.Id,
+                      (prod, sale) => new
+                      {
+                          sale.ImageName
+                      }).Take(5);
+
+                   
+                    item.Avatars.AddRange(extractAvatars.Select(prods => prods.ImageName));
+                    //End Add images to the avatar property
                 }
             }
 
@@ -366,7 +383,7 @@ namespace MastersOfCinema.Data
         public IEnumerable<CList> GetListsListForAjax(int pageNum, int itemsPerPage, IEnumerable<CList> lists)
         {
             //List all items
-            List<CList> listsList = lists.ToList();
+            var listsList = lists.ToList();
 
             //loaded items number
             int from = (pageNum * itemsPerPage);

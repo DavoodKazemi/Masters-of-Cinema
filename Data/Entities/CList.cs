@@ -20,9 +20,9 @@ namespace MastersOfCinema.Data.Entities
 
         public List<ListMovies> Movies { get; set; }
         [NotMapped]
-        public List<int> Avatars { get; set; }
+        public List<string> Avatars { get; set; }
 
-        public void GetAvatars()
+/*        public void GetAvatars()
         {
             //StringBuilder sb = new StringBuilder(1024);
             List<int> list = new List<int> { 1, 2, 3, 4, 5};
@@ -31,7 +31,7 @@ namespace MastersOfCinema.Data.Entities
 
             Avatars = list;
             //Movies.Clear();
-        }
+        }*/
     }
 }
 
