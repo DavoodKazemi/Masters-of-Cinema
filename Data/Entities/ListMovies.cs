@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MastersOfCinema.Data.Entities
 {
@@ -9,6 +9,8 @@ namespace MastersOfCinema.Data.Entities
         public int Id { get; set; }
         public int CListId { get; set; }
         public int MovieId { get; set; }
+        /*[NotMapped]
+        public CList CList { get; set; }*/
     }
 }
 

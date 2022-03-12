@@ -317,43 +317,16 @@ namespace MastersOfCinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddList(AddListViewModel newList)
         {
-
-
-
-
-
             if (ModelState.IsValid)
             {
-
-                /*string fileName;
-
-                if (directorViewModel.ImageFile == null)
-                {
-                    //If image not uploaded, assign the default photo
-                    fileName = "DirectorsDefaultImage.jpg";
-                    directorViewModel.ImageName = fileName;
-                }*/
-                /*else
-                {
-                    //If image uploaded, Save image to wwwroot/image
-                    string wwwRootPath = _hostEnvironment.WebRootPath;
-                    fileName = Path.GetFileNameWithoutExtension(directorViewModel.ImageFile.FileName);
-                    string extension = Path.GetExtension(directorViewModel.ImageFile.FileName);
-                    directorViewModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                    var path = Path.Combine(wwwRootPath + "/Image/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        await directorViewModel.ImageFile.CopyToAsync(fileStream);
-                    }
-                }*/
                 var UserName = HttpContext.User.Identity.Name;
 
+                //First we create a record for the list in CList table
+                //Title, Description and user id will be saved there
                 var viewModelObject = new CList
                 {
-                    
                     Title = newList.Title,
                     Description =newList.Description,
-
                     User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
                 };
 
@@ -361,13 +334,18 @@ namespace MastersOfCinema.Controllers
                 _context.Add(viewModelObject);
                 await _context.SaveChangesAsync();
 
-
+                //Then we create one record for each movies of the list in ListMovies table
+                //MovieId and List id will be saved there
                 var viewModelMovie = new ListMovies
                 {
 
                     MovieId = newList.MovieId[0],
-                    CListId = _context.Lists.Where(x => x.User.UserName == HttpContext.User.Identity.Name).OrderByDescending(x => x.Id).FirstOrDefault().Id
+                    CListId = viewModelObject.Id,
+                    /*_context.Lists.
+                    Where(x => x.User.UserName == HttpContext.User.Identity.Name)
+                    .OrderByDescending(x => x.Id).FirstOrDefault().Id*/
                 };
+
                 //Insert record
                 _context.Add(viewModelMovie);
                 await _context.SaveChangesAsync();
