@@ -14,6 +14,8 @@ namespace MastersOfCinema.ViewModels
         public IEnumerable<CList> Lists { get; set; }
         //public IEnumerable<MovieListViewModel> movieList { get; set; }
         public bool IsFirstPage { get; set; }
+
+        
     }
 }
 
