@@ -315,7 +315,7 @@ namespace MastersOfCinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddList(CList newList)
+        public async Task<IActionResult> AddList(AddListViewModel newList)
         {
 
 
@@ -346,14 +346,32 @@ namespace MastersOfCinema.Controllers
                         await directorViewModel.ImageFile.CopyToAsync(fileStream);
                     }
                 }*/
-
                 var UserName = HttpContext.User.Identity.Name;
 
-                newList.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-                
+                var viewModelObject = new CList
+                {
+                    
+                    Title = newList.Title,
+                    Description =newList.Description,
+
+                    User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
+                };
+
                 //Insert record
-                _context.Add(newList);
+                _context.Add(viewModelObject);
                 await _context.SaveChangesAsync();
+
+
+                var viewModelMovie = new ListMovies
+                {
+
+                    MovieId = newList.MovieId[0],
+                    CListId = _context.Lists.Where(x => x.User.UserName == HttpContext.User.Identity.Name).OrderByDescending(x => x.Id).FirstOrDefault().Id
+                };
+                //Insert record
+                _context.Add(viewModelMovie);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(CLists));
             }
             return View(newList);
