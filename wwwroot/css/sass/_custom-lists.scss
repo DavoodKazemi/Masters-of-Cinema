@@ -4,35 +4,175 @@
 /*movie posters*/
 
 
+.list-avarar-placeholder {
+    color: #678;
+    list-style: none;
+    border: 0;
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    font-size: inherit;
+    line-height: 1.38461538;
+    border-radius: 4px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    background: #161718;
+    float: left;
+    width: 150px;
+    z-index: 13;
+    background-color: #111;
+    margin-right: -115px;
+    height: 225px;
+    box-shadow: inset 0 0 0 1px rgba(221,238,255,.1);
+}
+
+
 
 
 .custom-lists-page {
     .director-movies-container {
         .director-list-item {
+            div {
+                @media (min-width: 1200px) {
+                    width: 290px;
+                }
+            }
+
+
             .movie-poster-wrapper {
                 position: relative;
                 //Important - choose the aspect ratio here
-                padding-bottom: 78%;
-
+                //padding-bottom: 15px;
+                overflow: hidden;
+                //styles for the list-poster
                 a {
-                    img.movie-poster {
-                        border: 4px solid transparent;
-                        border-radius: 5%;
-                        transition: all .3s ease;
-                        object-fit: cover;
-                        object-position: top;
-                        width: 100%;
-                        position: absolute;
-                        height: 100%;
+                    @media (min-width: 1200px) {
+                        width: 290px;
 
-
-                        &:hover {
-                            border: 4px solid #00E054;
-                            transition: all .3s ease;
+                        ul {
+                            li {
+                                margin-left: -115px;
+                            }
                         }
                     }
-                }
+                    /*border: 4px solid transparent;
+                    border-radius: 5%;
+                    transition: all .3s ease;
+                    object-fit: cover;
+                    object-position: top;
+                    width: 100%;
+                    position: absolute;
+                    height: 100%;*/
+                    //z-index: 10;
+                    line-height: 1;
+                    border: 0;
+                    font-family: inherit;
+                    font-size: 100%;
+                    font-style: inherit;
+                    font-weight: inherit;
+                    margin: 0;
+                    outline: 0;
+                    vertical-align: baseline;
+                    color: #678;
+                    text-decoration: none;
+                    border-color: #14181c;
+                    clear: both;
+                    margin-bottom: 3px;
+                    padding: 0;
+                    position: relative;
+                    transition: background-color,border-color .1s linear;
+                    display: block;
+                    overflow: hidden;
 
+                    .avatars-wrapper {
+                        //position: relative;
+                        //Important - choose the aspect ratio here
+                        //padding-bottom: 78%;
+                        /**/
+                        line-height: 1;
+                        color: #678;
+                        border: 0;
+                        font-family: inherit;
+                        font-size: 100%;
+                        font-style: inherit;
+                        font-weight: inherit;
+                        margin: 0;
+                        outline: 0;
+                        padding: 0;
+                        vertical-align: baseline;
+                        clear: both;
+
+                        ul {
+                            line-height: 1;
+                            color: #678;
+                            border: 0;
+                            font-family: inherit;
+                            font-size: 100%;
+                            font-style: inherit;
+                            font-weight: inherit;
+                            margin: 0;
+                            outline: 0;
+                            padding: 0;
+                            vertical-align: baseline;
+                            list-style: none;
+                            overflow: hidden;
+                            position: relative;
+                            z-index: 0;
+                            width: auto;
+
+                            li {
+                                color: #678;
+                                list-style: none;
+                                border: 0;
+                                font-family: inherit;
+                                font-style: inherit;
+                                font-weight: inherit;
+                                margin: 0;
+                                outline: 0;
+                                padding: 0;
+                                vertical-align: baseline;
+                                font-size: inherit;
+                                line-height: 1.38461538;
+                                border-radius: 4px;
+                                display: inline-block;
+                                overflow: hidden;
+                                position: relative;
+                                background: #161718;
+                                float: right;
+                                height: 225px;
+                                width: 150px;
+                                z-index: 15;
+                                box-shadow: 2px 0 7px #000;
+                                margin-left: -115px;
+
+                                img {
+                                    //position: absolute;
+                                    height: 100%;
+                                    //padding-left: 50%;
+                                    //z-index: -111;
+                                    object-fit: cover;
+                                    object-position: top;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    border: 4px solid transparent;
+                    transition: all .3s ease;
+                    border-radius: 4px;
+
+                    &:hover {
+                        border: 4px solid #00E054;
+                        transition: all .3s ease;
+                    }
+                }
+                //End styles for the list-poster
                 .movie-tooltip {
                     @include tooltip-object(100%, "", 103%, 5px 3px);
 
@@ -58,6 +198,34 @@
                 }
             }
             //#movie-poster-wrapper
+            a.clist-title-wrapper {
+                color: #fff;
+                transition: .3s all ease-in;
+
+                .lists-list-title {
+                    font-size: 1.38461538rem;
+                    font-weight: 400;
+                }
+
+
+
+                &:hover {
+                    color: #def;
+                    transition: .3s all ease-in;
+                }
+            }
+
+            .clist-description {
+                overflow: hidden;
+                //width: 100px;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
+
+
+
+
             .direector-page-movie-options {
                 @media (max-width: 767px) {
                     font-size: 0.875em;
@@ -101,6 +269,5 @@
     }
     //End section.director-info-aside
 }
-//#director-info-page
-
-//End director info page
+    //#director-info-page
+    //End director info page

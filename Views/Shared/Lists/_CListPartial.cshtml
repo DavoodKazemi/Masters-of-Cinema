@@ -4,28 +4,44 @@
 {
     foreach (var item in Model.Lists)
     {
-        <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-4 px-0 px-lg-1">
+        <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-6 col-lg-4">
             <div class="mx-auto">
                 @*Movie poster and its tooltip (title (year)) *@
-
-                <div class="movie-poster-wrapper mx-auto">
-                    <a asp-action="Clist" asp-route-id="@item.Id">
-                        @*<span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>*@
-                        <img src="@("~/image/"+@item.Avatars.FirstOrDefault())" class="movie-poster" asp-append-version="true" />
+                <div class="movie-poster-wrapper list-poster mx-auto">
+                    <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                        <div class="avatars-wrapper">
+                            <ul>
+                                @foreach (var avatar in item.Avatars)
+                                {
+                                    if (avatar != "defaultImage")
+                                    {
+                                        <li>
+                                            <img src="@("~/image/"+avatar)" class="" asp-append-version="true" />
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-avarar-placeholder">
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
                     </a>
-                    <div>@item.Avatars.FirstOrDefault().ToString()</div>
-                    <div>@item.Avatars[1].ToString()</div>
-                    @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
-            <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
-        </a>*@
                 </div>
 
-                <a asp-action="Clist" asp-route-id="@item.Id">
-                    <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                    <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
                 </a>
-                <div>@Html.DisplayFor(modelItem => item.Description)</div>
-                <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
-
+                <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>
+                <div class="nav-item ms-md-auto profile-picture-small-wrapper">
+                    <a class="nav-link profile-picture-small"
+                        asp-controller="Settings" asp-action="Index">
+                        <vc:welcome-message></vc:welcome-message>
+                    </a>
+                </div>
+                
+                
             </div>
         </article>
     }
@@ -35,24 +51,44 @@ else
 {
     @foreach (var item in Model.Lists)
     {
-        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-4 px-0 px-lg-1">
+        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-6 col-lg-4">
             <div class="mx-auto">
                 @*Movie poster and its tooltip (title (year)) *@
-                <div class="movie-poster-wrapper mx-auto">
+                <div class="movie-poster-wrapper list-poster mx-auto">
 
-                    <a asp-action="Clist" asp-route-id="@item.Id">
-                        <div>@Html.DisplayFor(modelItem => item.Title)</div>
+                    <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                        <div class="avatars-wrapper">
+                            <ul>
+                                @foreach (var avatar in item.Avatars)
+                                {
+                                    if (avatar != "defaultImage")
+                                    {
+                                        <li>
+                                            <img src="@("~/image/"+avatar)" class="" asp-append-version="true" />
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-avarar-placeholder">
+                                        </li>
+                                    }
+
+                                }
+
+                            </ul>
+                        </div>
                     </a>
-                    <div>@Html.DisplayFor(modelItem => item.Description)</div>
-                    <div>@Html.DisplayFor(modelItem => item.Movies.FirstOrDefault().MovieId)</div>
+                </div>
 
-                    
-                    @*<div>@item.Avatars.FirstOrDefault().ToString()</div>*@
-
-                    @*                    <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title)</span>
-                    *@                    @*<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
-            <img src="@("~/image/"+item.ImageName)" class="movie-poster" asp-append-version="true" />
-        </a>*@
+                <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                    <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
+                </a>
+                <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>
+                <div class="nav-item ms-md-auto profile-picture-small-wrapper">
+                    <a class="nav-link profile-picture-small"
+                       asp-controller="Settings" asp-action="Index">
+                        <vc:welcome-message></vc:welcome-message>
+                    </a>
                 </div>
             </div>
         </article>

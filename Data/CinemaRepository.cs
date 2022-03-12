@@ -369,10 +369,19 @@ namespace MastersOfCinema.Data
                       (prod, sale) => new
                       {
                           sale.ImageName
-                      }).Take(5);
+                      }).Take(5).Reverse();
+                    
+                    //if there are less than 5 movies in the list
+                    for (int i = extractAvatars.ToList().Count(); i < 5; i++) {
+                    item.Avatars.Add("defaultImage");
+                    }
 
-                   
+
                     item.Avatars.AddRange(extractAvatars.Select(prods => prods.ImageName));
+
+                    
+                    
+                    
                     //End Add images to the avatar property
                 }
             }
