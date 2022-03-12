@@ -12,8 +12,16 @@
         <div class="">Lists by @Model.User.FirstName</div>
         @*<h2>@Model.Title</h2>
         <div>@Model.Description</div>*@
+
+    <div class="text-center">
+            <a asp-controller="Account" asp-action="AddList" role="button" class="btn btn-success">
+                Start a new list...
+            </a>
+    </div>
     </div>
 </div>
+
+
 
 @*Movie grids container*@
 <div class="custom-lists-page mt-2">

@@ -302,5 +302,11 @@ namespace MastersOfCinema.Controllers
             }
 
         }
+
+        //Displays a custom list!
+        public ActionResult AddList()
+        {
+            return View();
+        }
     }
 }
