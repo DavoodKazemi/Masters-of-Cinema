@@ -17,21 +17,9 @@ namespace MastersOfCinema.Data.Entities
         public User User { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-
         public List<ListMovies> Movies { get; set; }
         [NotMapped]
         public List<string> Avatars { get; set; }
-
-/*        public void GetAvatars()
-        {
-            //StringBuilder sb = new StringBuilder(1024);
-            List<int> list = new List<int> { 1, 2, 3, 4, 5};
-            // Method Syntax
-            //list.AddRange(Movies.Select(prods => prods.MovieId).Take(5));
-
-            Avatars = list;
-            //Movies.Clear();
-        }*/
     }
 }
 

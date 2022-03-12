@@ -1,4 +1,5 @@
 ﻿using MastersOfCinema.Data;
+using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -304,9 +305,58 @@ namespace MastersOfCinema.Controllers
         }
 
         //Displays a custom list!
+        
+        //Begin Create Custom list 
+        [HttpGet]
         public ActionResult AddList()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddList(CList newList)
+        {
+
+
+
+
+
+            if (ModelState.IsValid)
+            {
+
+                /*string fileName;
+
+                if (directorViewModel.ImageFile == null)
+                {
+                    //If image not uploaded, assign the default photo
+                    fileName = "DirectorsDefaultImage.jpg";
+                    directorViewModel.ImageName = fileName;
+                }*/
+                /*else
+                {
+                    //If image uploaded, Save image to wwwroot/image
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    fileName = Path.GetFileNameWithoutExtension(directorViewModel.ImageFile.FileName);
+                    string extension = Path.GetExtension(directorViewModel.ImageFile.FileName);
+                    directorViewModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    var path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await directorViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                }*/
+
+                var UserName = HttpContext.User.Identity.Name;
+
+                newList.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+                
+                //Insert record
+                _context.Add(newList);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(CLists));
+            }
+            return View(newList);
         }
     }
 }
