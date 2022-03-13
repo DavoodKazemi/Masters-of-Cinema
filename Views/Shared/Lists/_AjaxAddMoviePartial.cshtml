@@ -1,0 +1,16 @@
+﻿@model AddListViewModel
+
+@if (Model.resultMovies != null)
+{
+    <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
+        <div class="mx-auto">
+            @*Movie poster and its tooltip (title (year)) *@
+            <div class="movie-poster-wrapper mx-auto">
+                <span class="movie-tooltip">@Html.DisplayFor(modelItem => Model.resultMovies[0].Title) (@Html.DisplayFor(modelItem => Model.resultMovies[0].Year))</span>
+                <a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.resultMovies[0].Id">
+                    <img src="@("~/image/"+@Model.resultMovies[0].ImageName)" class="movie-poster" asp-append-version="true" />
+                </a>
+            </div>
+        </div>
+    </article>
+}

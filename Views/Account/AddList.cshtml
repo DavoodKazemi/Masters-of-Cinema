@@ -71,17 +71,55 @@
     <a class="back-button" asp-action="Index">Back to List</a>
 </div>
 
-<div id="log-button" onclick="search2()" class="col-6 log-icon-wrapper w-50">
-    <input asp-for="@Model.resultMovies[0].Id" type="" value="50" class="form-control input-small" id="movie-id" />
-    <button id="log-icon" class="log-icon-add">Search</button>
+<div id="log-button" class="col-6 log-icon-wrapper w-50">
+    <input value="50" class="form-control input-small" id="movie-id" />
+    <button  onclick="search2()" id="log-icon" class="log-icon-add">Search</button>
     <div id="log-caption" class="log-add text-center">Watch</div>
 </div>
 
 
-<script type="text/javascript">
-    function search2() {
+<div class="director-info-page mt-2">
+    <div class="director-movies-container container list-ajax-container">
+        <div class="row px-1 tbody">
+            
+        </div>
+    </div>
+</div>
 
-        var data = $("#movie-id").serialize();
+
+@*start ajax function for infinite scroll*@
+<script type="text/javascript">
+    
+
+
+    //end ajax for infinite scroll
+
+    </script>
+
+
+    <script type="text/javascript">
+
+
+
+        function revealPosts() {
+            var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
+            var i = 0;
+            setInterval(function () {
+                if (i >= posts.length) return false;
+
+                var el = posts[i];
+                $(el).addClass('reveal');
+
+                i++;
+            }, 120);
+        }
+
+
+
+
+        function search2() {
+
+            var data = "movieId=" + 50;
 
 
         console.log(data);
@@ -89,17 +127,34 @@
         //alert(data);
         $.ajax({
 
-            type: 'POST',
+            type: 'GET',
             url: '/Account/Search',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
-            success: function (result) {
-                //alert('Successfully received Data ');
-                console.log(result);
+            success: function (data, result) {
+                setTimeout(function () {
+                    if (data != '') {
+                        $(".list-ajax-container > .tbody").append(data);
+                    }
+                    //inCallback = false;
+                    //$("div#loading-animation").hide();
+                    //$('#load-more-movies-button').removeClass('button-loading');
+                    revealPosts();
+
+
+                    //if reached end, hide button and show the message
+                    @*if (hasReachedEndOfInfiniteScroll) {
+                        $("div#reached-end").slideDown(320);
+                        $("#load-more-movies-button").slideUp(320);
+                    }*@
+
+                }, 800);
+            //alert('Successfully received Data ');
+            console.log(result);
             },
             error: function () {
-                //alert('Failed to receive the Data');
-                console.log('Failed ');
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
             }
         })
     }

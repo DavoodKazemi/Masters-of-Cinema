@@ -361,18 +361,22 @@ namespace MastersOfCinema.Controllers
             return View(newList);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Search(AddListViewModel model)
+        
+        public async Task<IActionResult> Search(int? movieId)
         {
             //AddListViewModel searchModel = new AddListViewModel();
             /*var results = _repository.SearchMovie(model.SearchTerm);
             model.resultMovies.AddRange(results);*/
-
-            var movieId = model.resultMovies[0].Id;
+            AddListViewModel model = new AddListViewModel()
+            {
+                resultMovies = new List<Movie>(),
+            };
+            //var movieId = model.resultMovies[0].Id;
 
             model.resultMovies.Add(_context.Movies.Where(x => x.Id == movieId).FirstOrDefault());
 
 
+            return PartialView("Lists/_AjaxAddMoviePartial", model);
 
             //return View("AddList", model);
 
@@ -381,11 +385,11 @@ namespace MastersOfCinema.Controllers
             /*Movie resultMovie = new Movie();*/
             //var movieId = movieRateDirector.MovieRating.MovieId;
             //Check to see if this movie had been added to the user's watchlist before
-            var UserName = HttpContext.User.Identity.Name;
+            //var UserName = HttpContext.User.Identity.Name;
             //watchlist.MovieId = id;
             //log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
 
-            return Ok("Form Data received!");
+            //return Ok("Form Data received!");
         }
     }
 }
