@@ -403,6 +403,14 @@ namespace MastersOfCinema.Data
             var page = listsList.Skip(from).Take(itemsPerPage);
             return page;
         }
+
+        public IEnumerable<Movie> SearchMovie(string searchTerm)
+        {
+            var movies = new List<Movie>();
+            movies = _context.Movies.Where(m => m.Title.Contains(searchTerm)).Take(10).ToList();
+
+            return movies;
+        }
         //END Custom lists
     }
 }

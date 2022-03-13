@@ -14,5 +14,8 @@ namespace MastersOfCinema.ViewModels
         //Movies
         public int CListId { get; set; }
         public List<int> MovieId { get; set; }
+        //search
+        public string SearchTerm { get; set; }
+        public List<Movie> resultMovies { get; set; }
     }
 }

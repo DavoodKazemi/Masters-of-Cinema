@@ -32,10 +32,13 @@ namespace MastersOfCinema.Data
         IEnumerable<CList> GetListsList();
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
-
+        //Search for create list
+        IEnumerable<Movie> SearchMovie(string searchTerm);
         //Infinity scroll
         IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage);
         IEnumerable<Movie> GetMovieListForAjax(int pageNum, int itemsPerPage, IEnumerable<Movie> movies);
+
+        
 
     }
 }

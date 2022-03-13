@@ -337,22 +337,14 @@ namespace MastersOfCinema.Controllers
 
                 //Then we create one record for each movies of the list in ListMovies table
                 //MovieId and List id will be saved there
-
                 int i = 0;
                 List<ListMovies> viewModelMovie = new List<ListMovies>
                 {
-                    //new List<CListId> = viewModelObject.Id;
-                    //public int CListId { get; set; } = viewModelObject.Id;
-                     //public int CListId { get; set; } = viewModelObject.Id;
-                    /*_context.Lists.
-                    Where(x => x.User.UserName == HttpContext.User.Identity.Name)
-                    .OrderByDescending(x => x.Id).FirstOrDefault().Id*/
                     
                 };
 
                 foreach (var item in newList.MovieId)
                 {
-                    ////new ListMovies { MovieId = item, CListId = viewModelObject.Id }
                     viewModelMovie.Add(new ListMovies { MovieId = item, CListId = viewModelObject.Id });
                     _context.Add(viewModelMovie[i]);
 
@@ -367,6 +359,33 @@ namespace MastersOfCinema.Controllers
                 return RedirectToAction(nameof(CLists));
             }
             return View(newList);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(AddListViewModel model)
+        {
+            //AddListViewModel searchModel = new AddListViewModel();
+            /*var results = _repository.SearchMovie(model.SearchTerm);
+            model.resultMovies.AddRange(results);*/
+
+            var movieId = model.resultMovies[0].Id;
+
+            model.resultMovies.Add(_context.Movies.Where(x => x.Id == movieId).FirstOrDefault());
+
+
+
+            //return View("AddList", model);
+
+            //Only need to get movieId from view
+            //Need to set a movieId and User to the new record
+            /*Movie resultMovie = new Movie();*/
+            //var movieId = movieRateDirector.MovieRating.MovieId;
+            //Check to see if this movie had been added to the user's watchlist before
+            var UserName = HttpContext.User.Identity.Name;
+            //watchlist.MovieId = id;
+            //log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+
+            return Ok("Form Data received!");
         }
     }
 }

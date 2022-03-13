@@ -13,8 +13,8 @@
 </div>
 
 <hr />
-<div class="container row">
-    <div class="col-md-4">
+<div class="container">
+    <div class="row col-md-4">
 
         <form asp-action="AddList" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -57,12 +57,54 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
+        <form asp-action="Search" enctype="multipart/form-data">
+            <input asp-for="SearchTerm" class="form-control input-small" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
 <div class="my-5 text-center">
     <a class="back-button" asp-action="Index">Back to List</a>
 </div>
+
+<div id="log-button" onclick="search2()" class="col-6 log-icon-wrapper w-50">
+    <input asp-for="@Model.resultMovies[0].Id" type="" value="50" class="form-control input-small" id="movie-id" />
+    <button id="log-icon" class="log-icon-add">Search</button>
+    <div id="log-caption" class="log-add text-center">Watch</div>
+</div>
+
+
+<script type="text/javascript">
+    function search2() {
+
+        var data = $("#movie-id").serialize();
+
+
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/Account/Search',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+</script>
 
 
 @section Scripts {
