@@ -334,20 +334,34 @@ namespace MastersOfCinema.Controllers
                 _context.Add(viewModelObject);
                 await _context.SaveChangesAsync();
 
+
                 //Then we create one record for each movies of the list in ListMovies table
                 //MovieId and List id will be saved there
-                var viewModelMovie = new ListMovies
-                {
 
-                    MovieId = newList.MovieId[0],
-                    CListId = viewModelObject.Id,
+                int i = 0;
+                List<ListMovies> viewModelMovie = new List<ListMovies>
+                {
+                    //new List<CListId> = viewModelObject.Id;
+                    //public int CListId { get; set; } = viewModelObject.Id;
+                     //public int CListId { get; set; } = viewModelObject.Id;
                     /*_context.Lists.
                     Where(x => x.User.UserName == HttpContext.User.Identity.Name)
                     .OrderByDescending(x => x.Id).FirstOrDefault().Id*/
+                    
                 };
 
+                foreach (var item in newList.MovieId)
+                {
+                    ////new ListMovies { MovieId = item, CListId = viewModelObject.Id }
+                    viewModelMovie.Add(new ListMovies { MovieId = item, CListId = viewModelObject.Id });
+                    _context.Add(viewModelMovie[i]);
+
+                    i++;
+                    
+                }
+
                 //Insert record
-                _context.Add(viewModelMovie);
+                //_context.Add(viewModelMovie);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(CLists));
