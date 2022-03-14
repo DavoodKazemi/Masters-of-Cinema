@@ -362,7 +362,7 @@ namespace MastersOfCinema.Controllers
         }
 
         
-        public async Task<IActionResult> Search(int? movieId)
+        public async Task<IActionResult> Search(string? movieId)
         {
             //AddListViewModel searchModel = new AddListViewModel();
             /*var results = _repository.SearchMovie(model.SearchTerm);
@@ -372,8 +372,18 @@ namespace MastersOfCinema.Controllers
                 resultMovies = new List<Movie>(),
             };
             //var movieId = model.resultMovies[0].Id;
+            /*foreach (var item in movieId)
+            {*/
 
-            model.resultMovies.Add(_context.Movies.Where(x => x.Id == movieId).FirstOrDefault());
+            var searchResult = _repository.SearchMovie(movieId);
+
+            foreach(var movie in searchResult)
+            {
+                model.resultMovies.Add(movie);
+            }
+
+                
+            //}
 
 
             return PartialView("Lists/_AjaxAddMoviePartial", model);

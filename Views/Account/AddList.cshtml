@@ -71,17 +71,21 @@
     <a class="back-button" asp-action="Index">Back to List</a>
 </div>
 
-<div id="log-button" class="col-6 log-icon-wrapper w-50">
-    <input value="50" class="form-control input-small" id="movie-id" />
-    <button  onclick="search2()" id="log-icon" class="log-icon-add">Search</button>
+
+@*<div class="form-group my-3">
+        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
+    </div>*@
+<form enctype="multipart/form-data" id="log-button" class="col-6 log-icon-wrapper w-50">
+    <input asp-for="@Model.MovieId" value="The" class="form-control input-small" id="movie-id" />
     <div id="log-caption" class="log-add text-center">Watch</div>
-</div>
+</form>
+<button onclick="search2()" id="log-icon" class="log-icon-add">Search</button>
 
 
 <div class="director-info-page mt-2">
     <div class="director-movies-container container list-ajax-container">
         <div class="row px-1 tbody">
-            
+
         </div>
     </div>
 </div>
@@ -89,15 +93,15 @@
 
 @*start ajax function for infinite scroll*@
 <script type="text/javascript">
-    
+
 
 
     //end ajax for infinite scroll
 
-    </script>
+</script>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
 
@@ -118,11 +122,28 @@
 
 
         function search2() {
+            info = [];
+            info[0] = 50;
+            info[1] = 51;
+            //var sdata = $("#movie-id").serialize();
+            //var data = "movieId=" + 50;
+            //var data = "movieId=" + $(info).serialize();
+            //var data = $("#movie-id").serialize();
 
-            var data = "movieId=" + 50;
+            
+            var data = "movieId=" + $("#movie-id").val();
+            //var data = "movieId= " + movieId;
+            //data = "movieId=" 44, 45 };
+            //std.studentAddress = $("#StudentAddress").val();  
 
+            //var data = "movieId=" + 50;
+            //std.studentAddress = $("#StudentAddress").val();
+            @*$.ajax({
+                type: "POST",
+                url: '@Url.Action("createStudent")',
+                data: '{std: ' + JSON.stringify(std) + '}',*@
 
-        console.log(data);
+            console.log(data);
 
         //alert(data);
         $.ajax({
@@ -131,6 +152,10 @@
             url: '/Account/Search',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
+            //data: '{movieId: ' + JSON.stringify(data) + '}',
+            //dataType: "json",
+            //contentType: "application/json; charset=utf-8", 
+            //contentType: "application/json; charset=utf-8",
             success: function (data, result) {
                 setTimeout(function () {
                     if (data != '') {
