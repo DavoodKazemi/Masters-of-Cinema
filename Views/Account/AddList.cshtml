@@ -159,7 +159,7 @@
             success: function (data, result) {
                 setTimeout(function () {
                     if (data != '') {
-                        $(".list-ajax-container > .tbody").append(data);
+                        $(".list-ajax-container > .tbody").empty().append(data);
                     }
                     //inCallback = false;
                     //$("div#loading-animation").hide();
