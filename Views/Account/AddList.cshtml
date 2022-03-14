@@ -6,6 +6,8 @@
     //int pageCount = ViewBag.pageCount;
 }
 
+
+
 <div class="container px-lg-3 mt-4 px-3">
     <div class="row">
         <div class="border-bottom fs-4">New List</div>
@@ -38,21 +40,6 @@
                 <span asp-validation-for="MovieId" class="text-danger"></span>
             </div>
 
-            <div class="form-group my-3">
-                <label asp-for="MovieId" class="mb-1 control-label"></label>
-                <input asp-for="MovieId" class="form-control input-small" />
-
-                <span asp-validation-for="MovieId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group my-3">
-                <label asp-for="MovieId" class="mb-1 control-label"></label>
-                <input asp-for="MovieId" class="form-control input-small" />
-
-                <span asp-validation-for="MovieId" class="text-danger"></span>
-            </div>
-
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -67,21 +54,23 @@
     </div>
 </div>
 
-<div class="my-5 text-center">
-    <a class="back-button" asp-action="Index">Back to List</a>
-</div>
-
 
 @*<div class="form-group my-3">
         <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
     </div>*@
-<form enctype="multipart/form-data" id="log-button" class="col-6 log-icon-wrapper w-50">
-    <input asp-for="@Model.MovieId" value="The" class="form-control input-small" id="movie-id" />
-    <div id="log-caption" class="log-add text-center">Watch</div>
+
+@*Begin Add movies section*@
+
+@*Search input*@
+<form>
+    <input value="The" class="form-control input-small" id="movie-id" />
 </form>
-<button onclick="search2()" id="log-icon" class="log-icon-add">Search</button>
+
+@*Search results as suggestions*@
 
 
+
+@*Added movies*@
 <div class="director-info-page mt-2">
     <div class="director-movies-container container list-ajax-container">
         <div class="row px-1 tbody">
@@ -94,95 +83,51 @@
 @*start ajax function for infinite scroll*@
 <script type="text/javascript">
 
-
-
-    //end ajax for infinite scroll
-
 </script>
 
 
-<script type="text/javascript">
+<script>
 
+    function revealPosts() {
+        var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
+        var i = 0;
+        setInterval(function () {
+            if (i >= posts.length) return false;
 
+            var el = posts[i];
+            $(el).addClass('reveal');
 
-        function revealPosts() {
-            var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
-            var i = 0;
-            setInterval(function () {
-                if (i >= posts.length) return false;
+            i++;
+        }, 120);
+    }
 
-                var el = posts[i];
-                $(el).addClass('reveal');
-
-                i++;
-            }, 120);
-        }
-
-
-
-
-        function search2() {
-            info = [];
-            info[0] = 50;
-            info[1] = 51;
-            //var sdata = $("#movie-id").serialize();
-            //var data = "movieId=" + 50;
-            //var data = "movieId=" + $(info).serialize();
-            //var data = $("#movie-id").serialize();
-
-            
-            var data = "movieId=" + $("#movie-id").val();
-            //var data = "movieId= " + movieId;
-            //data = "movieId=" 44, 45 };
-            //std.studentAddress = $("#StudentAddress").val();  
-
-            //var data = "movieId=" + 50;
-            //std.studentAddress = $("#StudentAddress").val();
-            @*$.ajax({
-                type: "POST",
-                url: '@Url.Action("createStudent")',
-                data: '{std: ' + JSON.stringify(std) + '}',*@
-
+    $(document).ready(function () {
+        $("#movie-id").keyup(function () {
+        var data = "movieId=" + $("#movie-id").val();
             console.log(data);
 
-        //alert(data);
         $.ajax({
-
             type: 'GET',
             url: '/Account/Search',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
-            //data: '{movieId: ' + JSON.stringify(data) + '}',
-            //dataType: "json",
-            //contentType: "application/json; charset=utf-8", 
-            //contentType: "application/json; charset=utf-8",
             success: function (data, result) {
                 setTimeout(function () {
                     if (data != '') {
                         $(".list-ajax-container > .tbody").empty().append(data);
                     }
-                    //inCallback = false;
-                    //$("div#loading-animation").hide();
-                    //$('#load-more-movies-button').removeClass('button-loading');
                     revealPosts();
-
-
-                    //if reached end, hide button and show the message
-                    @*if (hasReachedEndOfInfiniteScroll) {
-                        $("div#reached-end").slideDown(320);
-                        $("#load-more-movies-button").slideUp(320);
-                    }*@
-
                 }, 800);
-            //alert('Successfully received Data ');
-            console.log(result);
+                //alert('Successfully received Data ');
+                console.log(result);
             },
             error: function () {
-            //alert('Failed to receive the Data');
-            console.log('Failed ');
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
             }
         })
-    }
+    });
+    });
 
 </script>
 
