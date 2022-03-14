@@ -17,5 +17,6 @@ namespace MastersOfCinema.ViewModels
         //search
         public string SearchTerm { get; set; }
         public List<Movie> resultMovies { get; set; }
+        public List<ResultMovie> suggestMovies { get; set; }
     }
 }

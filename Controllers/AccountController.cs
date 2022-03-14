@@ -369,24 +369,31 @@ namespace MastersOfCinema.Controllers
             model.resultMovies.AddRange(results);*/
             AddListViewModel model = new AddListViewModel()
             {
-                resultMovies = new List<Movie>(),
+                suggestMovies = new List<ResultMovie>(),
             };
             //var movieId = model.resultMovies[0].Id;
             /*foreach (var item in movieId)
             {*/
 
             var searchResult = _repository.SearchMovie(movieId);
-
+            var result = new ResultMovie();
             foreach(var movie in searchResult)
             {
-                model.resultMovies.Add(movie);
+                result.MovieDirector = _repository.GetDirectorById(movie.DirectorId).Name;
+                result.MovieTitleYear = movie.Title + " " + movie.Year;
+                model.suggestMovies.Add(result);
             }
 
                 
             //}
 
 
-            return PartialView("Lists/_AjaxAddMoviePartial", model);
+            return PartialView("Lists/_AjaxAddClistSuggest", model);
+
+
+            //for later
+            /*return PartialView("Lists/_AjaxAddMoviePartial", model);*/
+
 
             //return View("AddList", model);
 
