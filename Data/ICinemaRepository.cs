@@ -34,6 +34,7 @@ namespace MastersOfCinema.Data
         Watchlist IsInWatchlistById(int id);
         //Search for create list
         IEnumerable<Movie> SearchMovie(string searchTerm);
+        AddListViewModel GetSuggest(string searchTerm);
         //Infinity scroll
         IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage);
         IEnumerable<Movie> GetMovieListForAjax(int pageNum, int itemsPerPage, IEnumerable<Movie> movies);

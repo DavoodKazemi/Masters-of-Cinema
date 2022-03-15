@@ -1,4 +1,4 @@
-﻿using MastersOfCinema.Data;
+using MastersOfCinema.Data;
 using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -369,20 +369,21 @@ namespace MastersOfCinema.Controllers
             model.resultMovies.AddRange(results);*/
             AddListViewModel model = new AddListViewModel()
             {
-                suggestMovies = new List<ResultMovie>(),
+                //suggestMovies = new List<ResultMovie>(),
             };
             //var movieId = model.resultMovies[0].Id;
             /*foreach (var item in movieId)
             {*/
 
-            var searchResult = _repository.SearchMovie(movieId);
-            var result = new ResultMovie();
+            model = _repository.GetSuggest(movieId);
+            /*var result = new ResultMovie();
             foreach(var movie in searchResult)
             {
+
                 result.MovieDirector = _repository.GetDirectorById(movie.DirectorId).Name;
                 result.MovieTitleYear = movie.Title + " " + movie.Year;
                 model.suggestMovies.Add(result);
-            }
+            }*/
 
                 
             //}
@@ -392,7 +393,7 @@ namespace MastersOfCinema.Controllers
 
 
             //for later
-            /*return PartialView("Lists/_AjaxAddMoviePartial", model);*/
+            //return PartialView("Lists/_AjaxAddMoviePartial", model);
 
 
             //return View("AddList", model);

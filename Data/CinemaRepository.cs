@@ -411,6 +411,39 @@ namespace MastersOfCinema.Data
 
             return movies;
         }
+
+
+        public AddListViewModel GetSuggest(string searchTerm)
+        {
+            /*var movies = new List<Movie>();
+            movies = _context.Movies.Where(m => m.Title.Contains(searchTerm)).Take(10).ToList();*/
+
+
+            AddListViewModel model = new AddListViewModel()
+            {
+                suggestMovies = new List<ResultMovie>(),
+                resultMovies = new List<Movie>()
+            };
+
+            model.resultMovies = SearchMovie(searchTerm).ToList();
+
+            List<ResultMovie> result = new List<ResultMovie>();
+            //ResultMovie res = new ResultMovie();
+            int id;
+            string info1;
+            string info2; 
+            foreach (var movie in model.resultMovies)
+            {
+                id = movie.Id;
+                info1 = GetDirectorById(movie.DirectorId).Name;
+                info2 = movie.Title + " (" + movie.Year + ")";
+                result.Add(new ResultMovie { Id = id, MovieDirector = info1, MovieTitleYear = info2 });
+            }
+
+            model.suggestMovies = result;
+
+            return model;
+        }
         //END Custom lists
     }
 }

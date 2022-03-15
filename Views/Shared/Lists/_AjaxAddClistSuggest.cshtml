@@ -6,9 +6,9 @@
 @if (Model.suggestMovies != null)
     @foreach (var item in Model.suggestMovies)
     {
-<li class="ac_even">
-   @Html.DisplayFor(modelItem => item.MovieTitleYear)
-    <span class="directors">@item.MovieDirector</span>
-</li>
+        <li class="ac_even">
+            @item.MovieTitleYear
+            <span class="directors">@item.MovieDirector</span>
+        </li>
 
     }
