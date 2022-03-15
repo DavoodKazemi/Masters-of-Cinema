@@ -14,7 +14,6 @@
     </div>
 </div>
 
-<hr />
 <div class="container add-clist-main-content">
     <div class="">
 
@@ -44,15 +43,16 @@
                         <input value="Gh" class="form-control add-list-search-input" id="movie-id" />
 
                         @*BEGIN Search results as suggestions*@
-                        <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */width: 283px;">
+                        <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */">
                             <ul style="max-height: 180px; overflow: auto;" class="tbody">
                                 <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
                             </ul>
-                            <div class="autocomplete-not-found">
+                            @*<div class="autocomplete-not-found">
                                 Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-                                @*END Search results as suggestions*@
-                            </div>
+                            </div>*@
                         </div>
+                        @*END Search results as suggestions*@
+
                     </div>
 
 

@@ -1152,6 +1152,11 @@ footer {
   float: left;
   width: 285px;
   padding: 8px 9px 7px; }
+  .add-list-search-input:focus-visible {
+    outline: none;
+    background-color: #fff;
+    color: #234;
+    outline-offset: 0px; }
 
 .clist-add-movies-wrapper {
   line-height: 1;

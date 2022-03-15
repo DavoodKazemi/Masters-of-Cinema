@@ -95,6 +95,13 @@ $input-width: 285px;
     float: left;
     width: $input-width;
     padding: 8px 9px 7px;
+
+    &:focus-visible {
+        outline: none;
+        background-color: #fff;
+        color: #234;
+        outline-offset: 0px;
+    }
 }
 
 .clist-add-movies-wrapper {
