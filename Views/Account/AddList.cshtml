@@ -33,24 +33,70 @@
             </div>
 
             @*Movies*@
-            <div class="form-group my-3">
-                <label asp-for="MovieId" class="mb-1 control-label"></label>
-                <input asp-for="MovieId" class="form-control input-small" />
+            @*<div class="form-group my-3">
+            <label asp-for="MovieId" class="mb-1 control-label"></label>
+            <input asp-for="MovieId" class="form-control input-small" />
 
-                <span asp-validation-for="MovieId" class="text-danger"></span>
-            </div>
+            <span asp-validation-for="MovieId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group my-3">
+            <label asp-for="MovieId" class="mb-1 control-label"></label>
+            <input asp-for="MovieId" class="form-control input-small" />
+
+            <span asp-validation-for="MovieId" class="text-danger"></span>
+        </div>
+
+        <input asp-for="MovieId" class="form-control input-small" />*@
+
+
+
+
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+
+
+
+            <section class="clist-add-movies-wrapper">
+                <div class="position-relative container">
+                    <div class="row">
+                        <input value="Gh" class="form-control add-list-search-input" id="movie-id" />
+
+                        @*BEGIN Search results as suggestions*@
+                        <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */width: 283px;">
+                            <ul style="max-height: 180px; overflow: auto;" class="tbody">
+                                <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
+                            </ul>
+                            <div class="autocomplete-not-found">
+                                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
+                                @*END Search results as suggestions*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*Added movies*@
+                <div class="director-info-page container to-add-movies-wrapper">
+                    <div class="director-movies-container container list-ajax-container2">
+                        <div class="row px-1 tbody2">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
         </form>
 
-        <form asp-action="Search" enctype="multipart/form-data">
-            <input asp-for="SearchTerm" class="form-control input-small" />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
     </div>
 </div>
 
@@ -63,35 +109,6 @@
 
 @*Search input*@
 
-<section class="clist-add-movies-wrapper">
-    <form class="position-relative container">
-        <div class="row">
-            <input value="Gh" class="form-control add-list-search-input" id="movie-id" />
-
-            @*BEGIN Search results as suggestions*@
-            <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */width: 283px;">
-                <ul style="max-height: 180px; overflow: auto;" class="tbody">
-                    <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
-                </ul>
-                <div class="autocomplete-not-found">
-                    Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-                    @*END Search results as suggestions*@
-                </div>
-            </div>
-        </div>
-    </form>
-
-
-
-    @*Added movies*@
-    <div class="director-info-page container to-add-movies-wrapper">
-        <div class="director-movies-container container list-ajax-container2">
-            <div class="row px-1 tbody2">
-
-            </div>
-        </div>
-    </div>
-</section>
 
 @*start ajax function for infinite scroll*@
 <script type="text/javascript">
