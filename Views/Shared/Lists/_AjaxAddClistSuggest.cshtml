@@ -6,7 +6,7 @@
 @if (Model.suggestMovies != null)
     @foreach (var item in Model.suggestMovies)
     {
-        <li class="ac_even" id="@item.Id">
+        <li class="ac_even" id="@item.Id" onclick="AddMovie(@item.Id)">
             @item.MovieTitleYear
             <span class="directors">@item.MovieDirector</span>
         </li>
@@ -30,9 +30,11 @@
         }, 120);
     }
 
-    $(document).ready(function () {
-        $("#movieToAdd_39").click(function () {
-            var data = "movieIdToAdd=" + 39;
+
+
+
+        function AddMovie(id) {
+            var data = "movieIdToAdd=" + id;
             console.log(data);
 
             $.ajax({
@@ -55,8 +57,8 @@
                     console.log('Failed ');
                 }
             })
-        });
-    });
+        }
+
 
 </script>
 
