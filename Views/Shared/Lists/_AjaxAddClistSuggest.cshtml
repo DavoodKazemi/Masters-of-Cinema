@@ -45,7 +45,7 @@
                 success: function (data, result) {
                     setTimeout(function () {
                         if (data != '') {
-                            $(".list-ajax-container2 > .tbody2").empty().append(data);
+                            $(".list-ajax-container2 > .tbody2").append(data);
                         }
                         revealPosts2();
                     }, 800);

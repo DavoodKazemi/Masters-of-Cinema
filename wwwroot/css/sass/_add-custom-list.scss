@@ -90,3 +90,59 @@ $input-width: 285px;
         }
     }
 }
+
+
+article.movie-to-add {
+
+
+    .movie-poster {
+        list-style: none;
+        color: #89a;
+        line-height: 1.38461538;
+        border: 0;
+        font-family: inherit;
+        font-size: 100%;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        border-radius: 4px;
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        background: #161718;
+        box-shadow: 0 1px 3px rgba(0,0,0,.35);
+        float: left;
+        margin-right: 10px;
+
+
+
+        img {
+            list-style: none;
+            color: #89a;
+            line-height: 1.38461538;
+            width: 35px;
+            //aspect-ratio: auto 35 / 52;
+            height: 52px;
+            border: 0;
+            font-family: inherit;
+            font-size: 100%;
+            font-style: inherit;
+            font-weight: inherit;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            vertical-align: baseline;
+            border-radius: 4px;
+            display: block;
+        }
+    }
+
+    .list-item-details{
+        h3{
+
+        }
+    }
+}

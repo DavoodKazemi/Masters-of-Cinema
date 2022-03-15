@@ -361,65 +361,25 @@ namespace MastersOfCinema.Controllers
             return View(newList);
         }
 
-        
+        //Display suggestions when user type in input of the live search
         public async Task<IActionResult> Search(string? movieId)
         {
             AddListViewModel model = new AddListViewModel()
             {
             };
-
             model = _repository.GetSuggest(movieId);
-
-
             return PartialView("Lists/_AjaxAddClistSuggest", model);
-
-
-            //for later
-            //return PartialView("Lists/_AjaxAddMoviePartial", model);
-
-
-            //return View("AddList", model);
-
-            //Only need to get movieId from view
-            //Need to set a movieId and User to the new record
-            /*Movie resultMovie = new Movie();*/
-            //var movieId = movieRateDirector.MovieRating.MovieId;
-            //Check to see if this movie had been added to the user's watchlist before
-            //var UserName = HttpContext.User.Identity.Name;
-            //watchlist.MovieId = id;
-            //log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-
-            //return Ok("Form Data received!");
         }
 
+        //Add a movie when user clicks on one of the items in the live search suggestions
         public async Task<IActionResult> AddMovieToCList(int? movieIdToAdd)
         {
             AddListViewModel model = new AddListViewModel()
             {
             };
-
             model.MovieToAdd = _repository.GetMovieById(movieIdToAdd.Value);
-
-
-            //return PartialView("Lists/_AjaxAddClistSuggest", model);
-
-
-            //for later
             return PartialView("Lists/_AjaxAddMoviePartial", model);
 
-
-            //return View("AddList", model);
-
-            //Only need to get movieId from view
-            //Need to set a movieId and User to the new record
-            /*Movie resultMovie = new Movie();*/
-            //var movieId = movieRateDirector.MovieRating.MovieId;
-            //Check to see if this movie had been added to the user's watchlist before
-            //var UserName = HttpContext.User.Identity.Name;
-            //watchlist.MovieId = id;
-            //log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-
-            //return Ok("Form Data received!");
         }
     }
 }
