@@ -1,16 +1,14 @@
 ﻿@model AddListViewModel
 
-@if (Model.resultMovies != null) 
-    @foreach (var item in Model.resultMovies)
-    {
-
+@if (Model.MovieToAdd != null)
+{ 
     <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-4 col-md-3 col-lg-2 px-0 px-lg-1">
         <div class="mx-auto">
             @*Movie poster and its tooltip (title (year)) *@
             <div class="movie-poster-wrapper mx-auto">
-                <span class="movie-tooltip">@Html.DisplayFor(modelItem => item.Title) (@Html.DisplayFor(modelItem => item.Year))</span>
-                <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
-                    <img src="@("~/image/"+@item.ImageName)" class="movie-poster" asp-append-version="true" />
+                <span class="movie-tooltip">@Html.DisplayFor(modelItem => @Model.MovieToAdd.Title) (@Html.DisplayFor(modelItem => @Model.MovieToAdd.Year))</span>
+                <a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.MovieToAdd.Id">
+                    <img src="@("~/image/"+Model.MovieToAdd.ImageName)" class="movie-poster" asp-append-version="true" />
                 </a>
             </div>
         </div>

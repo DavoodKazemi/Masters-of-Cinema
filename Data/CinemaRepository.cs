@@ -429,12 +429,12 @@ namespace MastersOfCinema.Data
 
             List<ResultMovie> result = new List<ResultMovie>();
             //ResultMovie res = new ResultMovie();
-            int id;
+            string id;
             string info1;
             string info2; 
             foreach (var movie in model.resultMovies)
             {
-                id = movie.Id;
+                id = "movieToAdd_" + movie.Id.ToString();
                 info1 = GetDirectorById(movie.DirectorId).Name;
                 info2 = movie.Title + " (" + movie.Year + ")";
                 result.Add(new ResultMovie { Id = id, MovieDirector = info1, MovieTitleYear = info2 });

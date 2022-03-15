@@ -364,29 +364,11 @@ namespace MastersOfCinema.Controllers
         
         public async Task<IActionResult> Search(string? movieId)
         {
-            //AddListViewModel searchModel = new AddListViewModel();
-            /*var results = _repository.SearchMovie(model.SearchTerm);
-            model.resultMovies.AddRange(results);*/
             AddListViewModel model = new AddListViewModel()
             {
-                //suggestMovies = new List<ResultMovie>(),
             };
-            //var movieId = model.resultMovies[0].Id;
-            /*foreach (var item in movieId)
-            {*/
 
             model = _repository.GetSuggest(movieId);
-            /*var result = new ResultMovie();
-            foreach(var movie in searchResult)
-            {
-
-                result.MovieDirector = _repository.GetDirectorById(movie.DirectorId).Name;
-                result.MovieTitleYear = movie.Title + " " + movie.Year;
-                model.suggestMovies.Add(result);
-            }*/
-
-                
-            //}
 
 
             return PartialView("Lists/_AjaxAddClistSuggest", model);
@@ -394,6 +376,36 @@ namespace MastersOfCinema.Controllers
 
             //for later
             //return PartialView("Lists/_AjaxAddMoviePartial", model);
+
+
+            //return View("AddList", model);
+
+            //Only need to get movieId from view
+            //Need to set a movieId and User to the new record
+            /*Movie resultMovie = new Movie();*/
+            //var movieId = movieRateDirector.MovieRating.MovieId;
+            //Check to see if this movie had been added to the user's watchlist before
+            //var UserName = HttpContext.User.Identity.Name;
+            //watchlist.MovieId = id;
+            //log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+
+            //return Ok("Form Data received!");
+        }
+
+        public async Task<IActionResult> AddMovieToCList(int? movieIdToAdd)
+        {
+            AddListViewModel model = new AddListViewModel()
+            {
+            };
+
+            model.MovieToAdd = _repository.GetMovieById(movieIdToAdd.Value);
+
+
+            //return PartialView("Lists/_AjaxAddClistSuggest", model);
+
+
+            //for later
+            return PartialView("Lists/_AjaxAddMoviePartial", model);
 
 
             //return View("AddList", model);

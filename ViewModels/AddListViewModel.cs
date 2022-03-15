@@ -16,7 +16,12 @@ namespace MastersOfCinema.ViewModels
         public List<int> MovieId { get; set; }
         //search
         public string SearchTerm { get; set; }
+
+        //Used for suggestions in live search
         public List<Movie> resultMovies { get; set; }
         public List<ResultMovie> suggestMovies { get; set; }
+
+        //Used to selct a movie from live serach suggestions
+        public Movie MovieToAdd { get; set; }
     }
 }
