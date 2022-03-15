@@ -15,55 +15,32 @@
 </div>
 
 <hr />
-<div class="container">
-    <div class="row col-md-4">
+<div class="container add-clist-main-content">
+    <div class="">
 
-        <form asp-action="AddList" enctype="multipart/form-data">
+        <form asp-action="AddList" enctype="multipart/form-data" class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group my-3">
-                <label asp-for="Title" class="mb-1 control-label"></label>
-                <input asp-for="Title" class="form-control input-small" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group my-3">
-                <label asp-for="Description" class="mb-1 control-label"></label>
-                <input asp-for="Description" class="form-control input-small" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+            <div class="col-md-6">
+                <div class="col-sm-8 my-3">
+                    <label asp-for="Title" class="mb-1 control-label title-label">Name of list</label>
+                    <input asp-for="Title" class="title-input" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class=" my-3">
+                    <label asp-for="Description" class="mb-1 control-label"></label>
+                    <textarea asp-for="Description" class="clist-add-description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
 
-            @*Movies*@
-            @*<div class="form-group my-3">
-            <label asp-for="MovieId" class="mb-1 control-label"></label>
-            <input asp-for="MovieId" class="form-control input-small" />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
 
-            <span asp-validation-for="MovieId" class="text-danger"></span>
-        </div>
+                @*Begin Add movies section*@
+                <section class="clist-add-movies-wrapper">
+                    <div class="position-relative">
 
-        <div class="form-group my-3">
-            <label asp-for="MovieId" class="mb-1 control-label"></label>
-            <input asp-for="MovieId" class="form-control input-small" />
-
-            <span asp-validation-for="MovieId" class="text-danger"></span>
-        </div>
-
-        <input asp-for="MovieId" class="form-control input-small" />*@
-
-
-
-
-
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-
-
-
-
-            <section class="clist-add-movies-wrapper">
-                <div class="position-relative container">
-                    <div class="row">
                         <input value="Gh" class="form-control add-list-search-input" id="movie-id" />
 
                         @*BEGIN Search results as suggestions*@
@@ -77,23 +54,26 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
 
+
+
+                </section>
+            </div>
+
+
+            <div class="col-md-6">
                 @*Added movies*@
-                <div class="director-info-page container to-add-movies-wrapper">
+                <div class="director-info-page to-add-movies-wrapper">
                     <div class="director-movies-container container list-ajax-container2">
                         <div class="row px-1 tbody2">
 
                         </div>
                     </div>
                 </div>
-            </section>
-
-
-
-
-
+                @*End Added movies*@
+            </div>
+            
         </form>
 
 
@@ -105,7 +85,7 @@
         <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
     </div>*@
 
-@*Begin Add movies section*@
+
 
 @*Search input*@
 
