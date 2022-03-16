@@ -1,6 +1,9 @@
 ﻿$input-height: 32px;
 $input-width: 285px;
 
+
+
+
 .add-clist-main-content {
     .title-label {
         border: 0;
@@ -18,7 +21,6 @@ $input-width: 285px;
         display: block;
         position: relative;
         padding-left: 12px;
-        
     }
 
     .title-input {
@@ -209,7 +211,8 @@ $input-width: 285px;
         position: relative;
 
         article.movie-to-add {
-
+            display: flex;
+            align-items: center;
 
             .movie-poster {
                 list-style: none;
@@ -256,13 +259,50 @@ $input-width: 285px;
                 }
             }
 
-            .list-item-details {
-                h3 {
+            .clist-delete-added-movie {
+                color: #99AABB;
+                box-sizing: border-box;
+                width: 33px;
+                height: 33px;
+                position: relative;
+                display: block;
+                float: right;
+                cursor: default;
+                margin-left: auto;
+                margin-right: 5px;
+                cursor: pointer;
+
+                .delete-movie-icon {
+                    color: #99AABB;
+                    font-size: 20px;
+                    box-sizing: border-box;
+                    background-image: url("/Image/Icon/delete-rate.svg");
+                    width: 13px;
+                    height: 13px;
+                    position: absolute;
+                    transform: translate(-50%, -50%);
+                    top: 50%;
+                    left: 50%;
+                    overflow: hidden;
+                    opacity: 1;
+                    transition: all .2s ease-in;
+                    padding: 5px;
+                }
+
+                &:hover {
+                    .delete-movie-icon {
+                        background-image: url("/Image/Icon/delete-hover.svg");
+                        }
+                    }
+                }
+
+                .list-item-details {
+                    h3 {
+                    }
                 }
             }
         }
     }
-}
 
 
 

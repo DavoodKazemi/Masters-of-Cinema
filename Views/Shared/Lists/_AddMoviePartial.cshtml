@@ -1,0 +1,17 @@
+﻿@model AddListViewModel
+
+@if (Model.MovieToAdd != null)
+{
+    <article class="movie-to-add my-2">
+        <input asp-for="MovieId" class="form-control input-small" type="hidden" value="@Model.MovieToAdd.Id" />
+        <div class="movie-poster">
+            <img src="@("~/image/"+Model.MovieToAdd.ImageName)" class="" asp-append-version="true" />
+        </div>
+        <div class="list-item-details @Model.MovieToAdd.Id" id="">
+            <div><span class="fs-4 fw-bold">@Html.DisplayFor(modelItem => @Model.MovieToAdd.Title)</span><span class="fs-6"> (@Html.DisplayFor(modelItem => @Model.MovieToAdd.Year))</span></div>
+        </div>
+        <span class="clist-delete-added-movie" id="clist-delete-added-movie">
+            <i class="delete-movie-icon" id="Rate0" onclick="CRate(0), submitStudent(0)"></i>
+        </span>
+    </article>
+}

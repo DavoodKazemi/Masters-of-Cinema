@@ -40,7 +40,7 @@
                 <section class="clist-add-movies-wrapper">
                     <div class="position-relative">
 
-                        <input value="Gh" class="form-control add-list-search-input" id="movie-id" />
+                        <input value="Gh" class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
 
                         @*BEGIN Search results as suggestions*@
                         <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */">
@@ -139,6 +139,19 @@
     });
     });
 
+</script>
+
+
+<script>
+    // Remove parent of 'remove' link when link is clicked.
+
+
+
+    $(document).on("click", "#clist-delete-added-movie", function (e) {
+        e.preventdefault;
+        $(this).parent().remove();
+        //$(this).parents('.fd-box2').fadeOut(300);
+    });
 </script>
 
 

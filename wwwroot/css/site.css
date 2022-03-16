@@ -1248,33 +1248,13 @@ footer {
     bottom: auto;
     left: auto;
     position: relative; }
-    .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster {
-      list-style: none;
-      color: #89a;
-      line-height: 1.38461538;
-      border: 0;
-      font-family: inherit;
-      font-size: 100%;
-      font-style: inherit;
-      font-weight: inherit;
-      margin: 0;
-      outline: 0;
-      padding: 0;
-      vertical-align: baseline;
-      border-radius: 4px;
-      display: inline-block;
-      overflow: hidden;
-      position: relative;
-      background: #161718;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-      float: left;
-      margin-right: 10px; }
-      .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster img {
+    .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add {
+      display: flex;
+      align-items: center; }
+      .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster {
         list-style: none;
         color: #89a;
         line-height: 1.38461538;
-        width: 35px;
-        height: 52px;
         border: 0;
         font-family: inherit;
         font-size: 100%;
@@ -1285,7 +1265,59 @@ footer {
         padding: 0;
         vertical-align: baseline;
         border-radius: 4px;
-        display: block; }
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        background: #161718;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        float: left;
+        margin-right: 10px; }
+        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster img {
+          list-style: none;
+          color: #89a;
+          line-height: 1.38461538;
+          width: 35px;
+          height: 52px;
+          border: 0;
+          font-family: inherit;
+          font-size: 100%;
+          font-style: inherit;
+          font-weight: inherit;
+          margin: 0;
+          outline: 0;
+          padding: 0;
+          vertical-align: baseline;
+          border-radius: 4px;
+          display: block; }
+      .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie {
+        color: #99AABB;
+        box-sizing: border-box;
+        width: 33px;
+        height: 33px;
+        position: relative;
+        display: block;
+        float: right;
+        cursor: default;
+        margin-left: auto;
+        margin-right: 5px;
+        cursor: pointer; }
+        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie .delete-movie-icon {
+          color: #99AABB;
+          font-size: 20px;
+          box-sizing: border-box;
+          background-image: url("/Image/Icon/delete-rate.svg");
+          width: 13px;
+          height: 13px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+          overflow: hidden;
+          opacity: 1;
+          transition: all .2s ease-in;
+          padding: 5px; }
+        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie:hover .delete-movie-icon {
+          background-image: url("/Image/Icon/delete-hover.svg"); }
 
 html, body {
   height: 100%; }

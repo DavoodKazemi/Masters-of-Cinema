@@ -378,7 +378,7 @@ namespace MastersOfCinema.Controllers
             {
             };
             model.MovieToAdd = _repository.GetMovieById(movieIdToAdd.Value);
-            return PartialView("Lists/_AjaxAddMoviePartial", model);
+            return PartialView("Lists/_AddMoviePartial", model);
 
         }
     }
