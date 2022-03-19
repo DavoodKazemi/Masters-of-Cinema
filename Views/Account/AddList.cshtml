@@ -27,29 +27,32 @@
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class=" my-3">
-                    <label asp-for="Description" class="mb-1 control-label"></label>
+                    <label asp-for="Description" class="mb-1 control-label title-label"></label>
                     <textarea asp-for="Description" class="clist-add-description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="form-group clist-edit-buttons my-2">
+                    <input type="submit" value="Save" class="clist-save-button" />
+                    <input type="submit" value="Cancel" class="clist-cancel-button" />
                 </div>
 
                 @*Begin Add movies section*@
                 <section class="clist-add-movies-wrapper">
-                    <div class="position-relative">
+                    <div class="position-relative my-2">
+                        <div class="clist-movie-load-animation">
+                            <label onclick="addMovie()" class="add-a-film">Add a film</label>
 
-                        <input value="Gh" class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
-
+                            <input value="Gh" class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
+                        </div>
                         @*BEGIN Search results as suggestions*@
-                        <div class="ac_results add-clist-suggestion position-absolute list-ajax-container" style="/* display: none; */">
-                            <ul style="max-height: 180px; overflow: auto;" class="tbody">
+                        <div class="ac_results add-clist-suggestion position-absolute clist-suggest-container" id="clist-live-search-suggest" style="/* display: none; */">
+                            <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
                                 <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
                             </ul>
                             @*<div class="autocomplete-not-found">
-                                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-                            </div>*@
+                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
+            </div>*@
                         </div>
                         @*END Search results as suggestions*@
 
@@ -65,9 +68,14 @@
             <div class="col-md-6">
                 @*Added movies*@
                 <div class="director-info-page to-add-movies-wrapper">
-                    <div class="director-movies-container container list-ajax-container2">
-                        <div class="row px-1 tbody2">
-
+                    <div class="director-movies-container container to-add-movies-container" id="to-add-movies-container">
+                        <div class="row movies-to-add-bodey">
+                            <article id="empty-list-placeholder" class="empty-list-placeholder">
+                                <p>
+                                    <strong class="title-2">Your list is empty.</strong>
+                                    Add films using the live search.
+                                </p>
+                            </article>
                         </div>
                     </div>
                 </div>
@@ -81,22 +89,11 @@
 </div>
 
 
-@*<div class="form-group my-3">
-        <input asp-for="@Model.MovieRating.MovieId" type="hidden" value="@Model.MovieRating.MovieId" class="form-control input-small" id="movie-id" />
-    </div>*@
-
-
-
 @*Search input*@
 
 
 @*start ajax function for infinite scroll*@
 <script type="text/javascript">
-
-</script>
-
-
-<script>
 
     function revealPosts() {
         var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
@@ -111,6 +108,8 @@
         }, 120);
     }
 
+
+    //When user press a key in the live search input, do a search for movies that contain the input search term
     $(document).ready(function () {
         $("#movie-id").keyup(function () {
         var data = "movieId=" + $("#movie-id").val();
@@ -124,7 +123,7 @@
             success: function (data, result) {
                 setTimeout(function () {
                     if (data != '') {
-                        $(".list-ajax-container > .tbody").empty().append(data);
+                        $("#clist-live-search-suggest > .suggest-body").empty().append(data);
                     }
                     revealPosts();
                 }, 800);
@@ -143,17 +142,26 @@
 
 
 <script>
-    // Remove parent of 'remove' link when link is clicked.
-
-
-
+    // Remove added movies from the new list.
     $(document).on("click", "#clist-delete-added-movie", function (e) {
         e.preventdefault;
-        $(this).parent().remove();
-        //$(this).parents('.fd-box2').fadeOut(300);
+        $(this).parent().hide('slow', function () { $(this).remove(); });
+
+        //if this is the only movie in the list, when it is removed, display the placeholder.
+        if ($("#movie-to-add").length == 0) {
+            $("#empty-list-placeholder").slideDown(320);
+        }
     });
 </script>
 
+
+
+<script>
+    //Focus on the live search input, when user clicks on the button
+    function addMovie() {
+        document.getElementById("movie-id").focus();
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

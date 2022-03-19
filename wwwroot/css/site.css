@@ -1076,6 +1076,78 @@ footer {
       -webkit-filter: brightness(106%);
       transition: .3s all ease-in; }
 
+.add-clist-main-content .clist-edit-buttons {
+  line-height: 1;
+  color: #9ab;
+  border: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+  float: left;
+  margin: 0;
+  padding-top: 0; }
+  .add-clist-main-content .clist-edit-buttons .clist-save-button {
+    font-style: inherit;
+    outline: 0;
+    vertical-align: baseline;
+    float: right;
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+    border: none;
+    border-radius: 3px;
+    display: inline-block;
+    font-family: Graphik-Semibold-Web,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: .075em;
+    line-height: 12px;
+    margin: 0;
+    padding: 9px 12px 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    background: #00b020;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: #f4fcf0;
+    cursor: pointer;
+    margin-left: 4px; }
+    .add-clist-main-content .clist-edit-buttons .clist-save-button:hover {
+      background: #00a11d;
+      color: #fff; }
+  .add-clist-main-content .clist-edit-buttons .clist-cancel-button {
+    font-style: inherit;
+    outline: 0;
+    vertical-align: baseline;
+    float: right;
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+    background: #567;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    color: #c8d4e0;
+    display: inline-block;
+    font-family: Graphik-Semibold-Web,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: .075em;
+    line-height: 12px;
+    margin: 0;
+    padding: 9px 12px 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    cursor: pointer;
+    margin-left: 4px; }
+    .add-clist-main-content .clist-edit-buttons .clist-cancel-button:hover {
+      background: #678;
+      color: #fff;
+      text-decoration: none; }
+
 .add-clist-main-content .title-label {
   border: 0;
   font-style: inherit;
@@ -1086,11 +1158,9 @@ footer {
   vertical-align: baseline;
   line-height: 1.38461538;
   color: #fff;
-  font-size: 13px;
   margin-bottom: .38461538rem;
   display: block;
-  position: relative;
-  padding-left: 12px; }
+  position: relative; }
 
 .add-clist-main-content .title-input {
   font-family: Graphik-Regular-Web, sans-serif;
@@ -1129,13 +1199,27 @@ footer {
   display: block;
   margin: 0;
   width: 100%;
-  height: 175px; }
+  height: 175px;
+  white-space: pre; }
   .add-clist-main-content .clist-add-description:focus-visible {
     outline: none;
     background-color: #fff;
     color: #234; }
 
-.add-list-search-input {
+.clist-movie-load-animation:before {
+  content: "";
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  top: 50%;
+  left: calc(285px - (18px / 2) - 8px);
+  transform: translate(-50%, -50%);
+  background-image: url("/Image/General/load-spinner.gif");
+  background-position: center; }
+
+.clist-movie-load-animation .add-list-search-input {
   height: 32px;
   font-family: Graphik-Regular-Web, sans-serif;
   background-color: #2c3440;
@@ -1152,7 +1236,7 @@ footer {
   float: left;
   width: 285px;
   padding: 8px 9px 7px; }
-  .add-list-search-input:focus-visible {
+  .clist-movie-load-animation .add-list-search-input:focus-visible {
     outline: none;
     background-color: #fff;
     color: #234;
@@ -1169,6 +1253,32 @@ footer {
   clear: both;
   float: none;
   width: auto; }
+  .clist-add-movies-wrapper .add-a-film {
+    font-style: inherit;
+    margin: 0;
+    outline: 0;
+    vertical-align: baseline;
+    margin-top: 0;
+    margin-bottom: 0;
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+    background: orange;
+    border: none;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+    color: #f4fcf0;
+    display: inline-block;
+    font-family: Graphik-Semibold-Web,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: .075em;
+    line-height: 12px;
+    padding: 9px 0 8px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 105px; }
   .clist-add-movies-wrapper .add-clist-suggestion {
     line-height: 1;
     color: #9ab;
@@ -1228,8 +1338,10 @@ footer {
           background-color: #00b020; }
 
 .to-add-movies-wrapper {
-  margin-top: 1rem !important; }
-  .to-add-movies-wrapper .list-ajax-container2 {
+  margin-top: 1rem !important;
+  max-height: 702px;
+  overflow-y: auto; }
+  .to-add-movies-wrapper .to-add-movies-container {
     line-height: 1;
     font-family: inherit;
     font-size: 100%;
@@ -1244,14 +1356,55 @@ footer {
     border-radius: 4px;
     color: #89a;
     margin: 0;
-    padding: 0;
     bottom: auto;
     left: auto;
     position: relative; }
-    .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add {
+    .to-add-movies-wrapper .to-add-movies-container .empty-list-placeholder {
+      list-style: none;
+      color: #89a;
+      border: 0;
+      font-family: inherit;
+      font-style: inherit;
+      font-weight: inherit;
+      outline: 0;
+      vertical-align: baseline;
+      font-size: inherit;
+      line-height: 1.38461538;
+      overflow: hidden;
+      position: relative;
+      border-bottom: none;
+      border-top: none;
+      box-sizing: border-box;
+      margin: 0;
+      background: none;
+      display: block;
+      padding: 40px 10px 50px;
+      text-align: center;
+      width: 100%; }
+      .to-add-movies-wrapper .to-add-movies-container .empty-list-placeholder strong {
+        list-style: none;
+        text-align: center;
+        border: 0;
+        font-style: inherit;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #fff;
+        font-family: Graphik-Semibold-Web,sans-serif;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0 0 10px;
+        font-size: 1.38461538rem;
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 5px; }
+    .to-add-movies-wrapper .to-add-movies-container article.movie-to-add {
       display: flex;
-      align-items: center; }
-      .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster {
+      align-items: center;
+      padding: 8px;
+      border-top: 1px solid #345;
+      border-bottom: 1px solid #345; }
+      .to-add-movies-wrapper .to-add-movies-container article.movie-to-add .movie-poster {
         list-style: none;
         color: #89a;
         line-height: 1.38461538;
@@ -1272,7 +1425,7 @@ footer {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
         float: left;
         margin-right: 10px; }
-        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .movie-poster img {
+        .to-add-movies-wrapper .to-add-movies-container article.movie-to-add .movie-poster img {
           list-style: none;
           color: #89a;
           line-height: 1.38461538;
@@ -1289,7 +1442,7 @@ footer {
           vertical-align: baseline;
           border-radius: 4px;
           display: block; }
-      .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie {
+      .to-add-movies-wrapper .to-add-movies-container article.movie-to-add .clist-delete-added-movie {
         color: #99AABB;
         box-sizing: border-box;
         width: 33px;
@@ -1301,7 +1454,7 @@ footer {
         margin-left: auto;
         margin-right: 5px;
         cursor: pointer; }
-        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie .delete-movie-icon {
+        .to-add-movies-wrapper .to-add-movies-container article.movie-to-add .clist-delete-added-movie .delete-movie-icon {
           color: #99AABB;
           font-size: 20px;
           box-sizing: border-box;
@@ -1316,8 +1469,31 @@ footer {
           opacity: 1;
           transition: all .2s ease-in;
           padding: 5px; }
-        .to-add-movies-wrapper .list-ajax-container2 article.movie-to-add .clist-delete-added-movie:hover .delete-movie-icon {
+        .to-add-movies-wrapper .to-add-movies-container article.movie-to-add .clist-delete-added-movie:hover .delete-movie-icon {
           background-image: url("/Image/Icon/delete-hover.svg"); }
+
+.clist-suggest-container .clist-suggestion-dir {
+  list-style: none;
+  cursor: default;
+  line-height: 1.5;
+  border: 0;
+  font-family: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  max-width: 300px;
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+  color: #d8e0e8;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2); }
 
 html, body {
   height: 100%; }

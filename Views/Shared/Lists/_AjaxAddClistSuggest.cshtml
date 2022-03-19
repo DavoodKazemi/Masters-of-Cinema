@@ -2,13 +2,13 @@
 @model AddListViewModel
 
 
-
+@*Display a limited number of the movies that contains the search term*@
 @if (Model.suggestMovies != null)
     @foreach (var item in Model.suggestMovies)
     {
         <li class="ac_even" id="@item.Id" onclick="AddMovie(@item.Id)">
             @item.MovieTitleYear
-            <span class="directors">@item.MovieDirector</span>
+            <span class="clist-suggestion-dir"> — @item.MovieDirector</span>
         </li>
 
     }
@@ -16,25 +16,18 @@
 
 
 <script>
-
+    
     function revealPosts2() {
         var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
-        var i = 0;
-        setInterval(function () {
-            if (i >= posts.length) return false;
-
-            var el = posts[i];
-            $(el).addClass('reveal');
-
-            i++;
-        }, 120);
+        var el = posts[i];
+        $(el).addClass('reveal');
     }
 
 
 
-
+    //If user wants to add one of the movies to his list, he clicks on it
     function AddMovie(id) {
-
+        //If the movie is not added already
         if ($("."+id).length == 0) {
             var data = "movieIdToAdd=" + id;
             console.log(data);
@@ -45,22 +38,25 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
                 data: data,
                 success: function (data, result) {
-                    setTimeout(function () {
-                        if (data != '') {
-                            $(".list-ajax-container2 > .tbody2").append(data);
-                        }
-                        revealPosts2();
-                    }, 800);
-                    //alert('Successfully received Data ');
+                    //Display the movie user clicked on
+                    if (data != '') {
+                        var new_div = $(data).hide();
+                        $(".to-add-movies-container > .movies-to-add-bodey").append(new_div);
+                        new_div.show('slow');
+                    }
+                    //Hide the placeholder, if it's not hidden already
+                    //revealPosts2();
+                    $("#empty-list-placeholder").slideUp(320);
+                    
                     console.log(result);
                 },
                 error: function () {
-                    //alert('Failed to receive the Data');
                     console.log('Failed ');
                 }
             })
 
         }
+        //if the movie is already added
         else {
             console.log("you already added this movie!");
         }            
