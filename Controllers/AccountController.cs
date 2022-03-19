@@ -313,50 +313,57 @@ namespace MastersOfCinema.Controllers
             return View();
         }
 
+        //create list
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddList(AddListViewModel newList)
         {
+            
             if (ModelState.IsValid)
             {
-                var UserName = HttpContext.User.Identity.Name;
-
-                //First we create a record for the list in CList table
-                //Title, Description and user id will be saved there
-                var viewModelObject = new CList
+                //if user added no movie to the list
+                if (newList.MovieId == null)
                 {
-                    Title = newList.Title,
-                    Description =newList.Description,
-                    User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
-                };
-
-                //Insert record
-                _context.Add(viewModelObject);
-                await _context.SaveChangesAsync();
-
-
-                //Then we create one record for each movies of the list in ListMovies table
-                //MovieId and List id will be saved there
-                int i = 0;
-                List<ListMovies> viewModelMovie = new List<ListMovies>
-                {
-                    
-                };
-
-                foreach (var item in newList.MovieId)
-                {
-                    viewModelMovie.Add(new ListMovies { MovieId = item, CListId = viewModelObject.Id });
-                    _context.Add(viewModelMovie[i]);
-
-                    i++;
-                    
+                    newList.Message = "A list must include at least one film.";
                 }
+                //if user added one or more movies to the list
+                else
+                {
+                    var UserName = HttpContext.User.Identity.Name;
 
-                //Insert record
-                //_context.Add(viewModelMovie);
-                await _context.SaveChangesAsync();
+                    //First we create a record for the list in CList table
+                    //Title, Description and user id will be saved there
+                    var viewModelObject = new CList
+                    {
+                        Title = newList.Title,
+                        Description = newList.Description,
+                        User = _context.Users.FirstOrDefault(u => u.UserName == UserName),
+                    };
+                    //Insert record
+                    _context.Add(viewModelObject);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(CLists));
+                    //Then we create one record for each movies of the list in ListMovies table
+                    //MovieId and List id will be saved there
+                    int i = 0;
+                    List<ListMovies> viewModelMovie = new List<ListMovies>
+                    {
+
+                    };
+
+                    foreach (var item in newList.MovieId)
+                    {
+                        viewModelMovie.Add(new ListMovies { MovieId = item, CListId = viewModelObject.Id });
+                        _context.Add(viewModelMovie[i]);
+                        i++;
+                    }
+
+                    //Insert record
+                    //_context.Add(viewModelMovie);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("CList", new { id = viewModelObject.Id });
+                }
             }
             return View(newList);
         }

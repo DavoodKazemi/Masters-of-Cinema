@@ -6,6 +6,13 @@
     //int pageCount = ViewBag.pageCount;
 }
 
+@if (Model != null)
+{
+    @if (Model.Message != null)
+    {
+        <div class="alert alert-info d-inline-block mx-2" role="alert">@Model.Message</div>
+    }
+}
 
 
 <div class="container px-lg-3 mt-4 px-3">
@@ -51,8 +58,8 @@
                                 <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
                             </ul>
                             @*<div class="autocomplete-not-found">
-                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-            </div>*@
+                                    Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
+                                </div>*@
                         </div>
                         @*END Search results as suggestions*@
 
@@ -78,10 +85,11 @@
                             </article>
                         </div>
                     </div>
+                    @* <span asp-validation-for="MovieToAdd" class="text-danger"></span>*@
                 </div>
                 @*End Added movies*@
             </div>
-            
+
         </form>
 
 
