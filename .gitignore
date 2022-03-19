@@ -3,8 +3,9 @@ Areas/
 Data/Default/temp.json
 
 *.suo
-
-
+wwwroot/css/site.css
+wwwroot/css/site.min.css
+obj/Debug/net5.0/MastersOfCinema.csprojAssemblyReference.cache
 
 # Created by https://www.toptal.com/developers/gitignore/api/aspnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=aspnetcore
