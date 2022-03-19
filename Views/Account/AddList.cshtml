@@ -131,7 +131,9 @@
     //When user press a key in the live search input, do a search for movies that contain the input search term
     $(document).ready(function () {
         $("#movie-id").keyup(function () {
-        var data = "movieId=" + $("#movie-id").val();
+            $('#live-search-input-wrapper').addClass('loading');
+
+            var data = "movieId=" + $("#movie-id").val();
             console.log(data);
 
         $.ajax({
@@ -140,18 +142,22 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (data, result) {
+
+                //display the live search results
+                $("#clist-live-search-suggest").show();
+                if (data != '') {
+                    $("#clist-live-search-suggest > .suggest-body").empty().append(data);
+                }
+                revealPosts();
+
+                //hide the loading animation
                 setTimeout(function () {
-                    $("#clist-live-search-suggest").show();
-                    if (data != '') {
-                        $("#clist-live-search-suggest > .suggest-body").empty().append(data);
-                    }
-                    revealPosts();
-                }, 800);
-                //alert('Successfully received Data ');
+                    $('#live-search-input-wrapper').removeClass('loading');
+                }, 500);
+                
                 console.log(result);
             },
             error: function () {
-                //alert('Failed to receive the Data');
                 console.log('Failed ');
             }
         })

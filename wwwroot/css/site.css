@@ -1216,7 +1216,11 @@ footer {
   left: calc(285px - (18px / 2) - 8px);
   transform: translate(-50%, -50%);
   background-image: url("/Image/General/load-spinner.gif");
-  background-position: center; }
+  background-position: center;
+  display: none; }
+
+.clist-movie-load-animation.loading:before {
+  display: block; }
 
 .clist-movie-load-animation .add-list-search-input {
   height: 32px;

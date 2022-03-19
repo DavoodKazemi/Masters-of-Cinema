@@ -169,6 +169,11 @@ $load-circle-size: 18px;
         transform: translate(-50%, -50%);
         background-image: url("/Image/General/load-spinner.gif");
         background-position: center;
+        display: none;
+    }
+
+    &.loading:before {
+        display: block;
     }
 
     .add-list-search-input {
