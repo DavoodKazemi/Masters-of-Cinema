@@ -217,7 +217,6 @@ $load-circle-size: 18px;
     width: auto;
 
     .clist-movie-load-animation {
-        
     }
 
     .add-a-film {
@@ -289,7 +288,7 @@ $load-circle-size: 18px;
             max-height: 180px;
             overflow: auto;
 
-            li {
+            li.clist-found {
                 list-style: none;
                 border: 0;
                 font-family: inherit;
@@ -310,6 +309,27 @@ $load-circle-size: 18px;
                 &:hover {
                     background-color: #00b020;
                 }
+            }
+
+            li.clist-not-found {
+                list-style: none;
+                border: 0;
+                font-family: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+                outline: 0;
+                vertical-align: baseline;
+                color: #fff;
+                cursor: default;
+                display: block;
+                font-size: 13px;
+                line-height: 1.5;
+                margin: 0;
+                overflow: hidden;
+                padding: 5px 8px 5px 10px;
+                text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+                background-color: #ff8000;
+
             }
         }
     }

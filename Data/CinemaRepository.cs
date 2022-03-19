@@ -441,7 +441,7 @@ namespace MastersOfCinema.Data
             }
 
             model.suggestMovies = result;
-
+            model.SearchTerm = searchTerm;
             return model;
         }
         //END Custom lists

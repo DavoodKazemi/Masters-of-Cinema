@@ -1,22 +1,27 @@
 ﻿
 @model AddListViewModel
 
-
 @*Display a limited number of the movies that contains the search term*@
-@if (Model.suggestMovies != null)
+@if (Model.suggestMovies.Count() > 0)
     @foreach (var item in Model.suggestMovies)
     {
-        <li class="ac_even" id="@item.Id" onclick="AddMovie(@item.Id)">
+        <li class="clist-found" id="@item.Id" onclick="AddMovie(@item.Id)">
             @item.MovieTitleYear
             <span class="clist-suggestion-dir"> — @item.MovieDirector</span>
         </li>
 
+    }else
+    {
+        <li class="clist-not-found" id="">
+            Your search - @Model.SearchTerm - did not match any movies.
+            Try different keywords.
+        </li>
     }
 
 
 
 <script>
-    
+
     function revealPosts2() {
         var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
         var el = posts[i];
@@ -28,7 +33,7 @@
     //Clicks the movies to add it to this list
     function AddMovie(id) {
         //If the movie is not added already
-        if ($("."+id).length == 0) {
+        if ($("." + id).length == 0) {
             var data = "movieIdToAdd=" + id;
             console.log(data);
 
@@ -47,7 +52,7 @@
                     //Hide the placeholder, if it's not hidden already
                     //revealPosts2();
                     $("#empty-list-placeholder").slideUp(320);
-                    
+
                     console.log(result);
                 },
                 error: function () {
@@ -59,8 +64,8 @@
         //if the movie is already added
         else {
             console.log("you already added this movie!");
-        }            
         }
+    }
 
 
 </script>

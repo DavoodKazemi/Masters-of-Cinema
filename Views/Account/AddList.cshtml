@@ -50,12 +50,12 @@
                         <div class="clist-movie-load-animation" id="live-search-input-wrapper">
                             <label onclick="addMovie()" class="add-a-film">Add a film</label>
 
-                            <input value="Gh" class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
+                            <input value="" placeholder="Enter name of film..." class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
                         </div>
                         @*BEGIN Search results as suggestions*@
                         <div class="ac_results add-clist-suggestion position-absolute clist-suggest-container" id="clist-live-search-suggest" style="display: none;">
                             <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
-                                <li class="ac_even">Spider-Man: Into the Spider-Verse (2018) <span class="directors">Rodney Rothman, Peter Ramsey, et al.</span></li>
+
                             </ul>
                             @*<div class="autocomplete-not-found">
                                     Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
@@ -114,18 +114,7 @@
         }
     });
 
-    function revealPosts() {
-        var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
-        var i = 0;
-        setInterval(function () {
-            if (i >= posts.length) return false;
 
-            var el = posts[i];
-            $(el).addClass('reveal');
-
-            i++;
-        }, 120);
-    }
 
 
     //When user press a key in the live search input, do a search for movies that contain the input search term
@@ -142,20 +131,18 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (data, result) {
-
                 //display the live search results
                 $("#clist-live-search-suggest").show();
                 if (data != '') {
                     $("#clist-live-search-suggest > .suggest-body").empty().append(data);
                 }
-                revealPosts();
 
-                //hide the loading animation
+                //hide the loading animation (with delay)
                 setTimeout(function () {
                     $('#live-search-input-wrapper').removeClass('loading');
                 }, 500);
                 
-                console.log(result);
+                //console.log(result);
             },
             error: function () {
                 console.log('Failed ');
