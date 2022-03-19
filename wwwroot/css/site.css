@@ -1199,8 +1199,7 @@ footer {
   display: block;
   margin: 0;
   width: 100%;
-  height: 175px;
-  white-space: pre; }
+  height: 175px; }
   .add-clist-main-content .clist-add-description:focus-visible {
     outline: none;
     background-color: #fff;
