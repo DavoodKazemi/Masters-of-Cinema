@@ -3,6 +3,18 @@ $input-width: 285px;
 $load-circle-size: 18px;
 
 
+//notify user when trying to add a movie again!
+.clist-add-notify {
+    display: none;
+    position: absolute;
+    .clist-add-notify-message {
+        display: inline-block;
+        border-radius: 4px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 60%);
+        border-bottom: 1px solid hsla(0,0%,100%,.25);
+        padding-right: 4rem;
+    }
+}
 
 .add-clist-main-content {
     .clist-edit-buttons {

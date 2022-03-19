@@ -21,6 +21,9 @@
 
 
 <script>
+    
+
+
 
     function revealPosts2() {
         var posts = $('.ajax-individual-item-wrapper:not(.reveal)');
@@ -63,7 +66,12 @@
         }
         //if the movie is already added
         else {
+
             console.log("you already added this movie!");
+
+            $("#jnotify-message").empty().append("<div><strong>" + $("." + id + " .movie-to-add-title").text() + "</strong> is already in this list</div>");
+            $("#clist-add-notify").slideDown(320);
+            $('#clist-add-notify').delay(5000).slideUp(320);
         }
     }
 

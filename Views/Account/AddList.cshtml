@@ -14,6 +14,13 @@
     }
 }
 
+@*notify user when trying to add a movie again!*@
+<div class="clist-add-notify ms-2" id="clist-add-notify" role="alert">
+    <div class="clist-add-notify-message alert alert-warning" id="jnotify-message">
+
+    </div>
+</div>
+
 
 <div class="container px-lg-3 mt-4 px-3">
     <div class="row">
@@ -55,7 +62,6 @@
                         @*BEGIN Search results as suggestions*@
                         <div class="ac_results add-clist-suggestion position-absolute clist-suggest-container" id="clist-live-search-suggest" style="display: none;">
                             <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
-
                             </ul>
                             @*<div class="autocomplete-not-found">
                                     Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
@@ -125,30 +131,30 @@
             var data = "movieId=" + $("#movie-id").val();
             console.log(data);
 
-        $.ajax({
-            type: 'GET',
-            url: '/Account/Search',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-            data: data,
-            success: function (data, result) {
-                //display the live search results
-                $("#clist-live-search-suggest").show();
-                if (data != '') {
-                    $("#clist-live-search-suggest > .suggest-body").empty().append(data);
-                }
+            $.ajax({
+                type: 'GET',
+                url: '/Account/Search',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: data,
+                success: function (data, result) {
+                    //display the live search results
+                    $("#clist-live-search-suggest").show();
+                    if (data != '') {
+                        $("#clist-live-search-suggest > .suggest-body").empty().append(data);
+                    }
 
-                //hide the loading animation (with delay)
-                setTimeout(function () {
-                    $('#live-search-input-wrapper').removeClass('loading');
-                }, 500);
-                
-                //console.log(result);
-            },
-            error: function () {
-                console.log('Failed ');
-            }
-        })
-    });
+                    //hide the loading animation (with delay)
+                    setTimeout(function () {
+                        $('#live-search-input-wrapper').removeClass('loading');
+                    }, 500);
+
+                    //console.log(result);
+                },
+                error: function () {
+                    console.log('Failed ');
+                }
+            })
+        });
     });
 
 </script>
