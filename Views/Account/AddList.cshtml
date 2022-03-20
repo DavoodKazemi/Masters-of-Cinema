@@ -22,13 +22,13 @@
 </div>
 
 
-<div class="container px-lg-3 mt-4 px-3">
+<div class="container-lg px-lg-3 mt-4 px-3">
     <div class="row">
         <div class="border-bottom fs-4">New List</div>
     </div>
 </div>
 
-<div class="container add-clist-main-content">
+<div class="container-lg add-clist-main-content">
     <div class="">
 
         <form asp-action="AddList" enctype="multipart/form-data" class="row">
@@ -62,18 +62,12 @@
                         @*BEGIN Search results as suggestions*@
                         <div class="ac_results add-clist-suggestion position-absolute clist-suggest-container" id="clist-live-search-suggest" style="display: none;">
                             <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
+
                             </ul>
-                            @*<div class="autocomplete-not-found">
-                                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-                            </div>*@
                         </div>
                         @*END Search results as suggestions*@
 
                     </div>
-
-
-
-
                 </section>
             </div>
 
@@ -81,8 +75,8 @@
             <div class="col-md-6">
                 @*Added movies*@
                 <div class="director-info-page to-add-movies-wrapper">
-                    <div class="director-movies-container container to-add-movies-container" id="to-add-movies-container">
-                        <div class="row movies-to-add-bodey">
+                    <div class="director-movies-container container to-add-movies-container px-0" id="to-add-movies-container">
+                        <div class="row movies-to-add-bodey mx-0">
                             <article id="empty-list-placeholder" class="empty-list-placeholder">
                                 <p>
                                     <strong class="title-2">Your list is empty.</strong>
@@ -165,10 +159,21 @@
     // Remove added movies from the new list.
     $(document).on("click", "#clist-delete-added-movie", function (e) {
         e.preventdefault;
-        $(this).parent().hide('slow', function () { $(this).remove(); });
 
-        //if this is the only movie in the list, when it is removed, display the placeholder.
-        if ($("#movie-to-add").length == 0) {
+        //If this is not the last movie
+        if ($('[id=clist-delete-added-movie]').length > 1) {
+            //console.log($('[id=clist-delete-added-movie]').length.toString() + " movies remained.");
+            $(this).parent().hide('slow', function () { $(this).remove(); });
+
+            //If this is the last movie (remove it without animation)
+        } else if ($('[id=clist-delete-added-movie]').length == 1) {
+            //console.log("only 1 movie remained. it was the last!");
+            $(this).parent().remove();
+        }
+        
+        //if the removed movie was the last one, display the placeholder.
+        if ($("#clist-delete-added-movie").length == 0) {
+            //console.log("No movies! Only placeholder!");
             $("#empty-list-placeholder").slideDown(320);
         }
     });

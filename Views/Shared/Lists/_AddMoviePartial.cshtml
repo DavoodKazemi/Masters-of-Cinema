@@ -5,8 +5,11 @@
 {
     <article class="movie-to-add" id="movie-to-add">
         <input asp-for="MovieId" class="form-control input-small" type="hidden" value="@Model.MovieToAdd.Id" />
-        <div class="movie-poster">
-            <img src="@("~/image/"+Model.MovieToAdd.ImageName)" class="" asp-append-version="true" />
+
+        <div class="movie-poster-wrapper">
+            <div class="movie-poster">
+                <img src="@("~/image/"+Model.MovieToAdd.ImageName)" class="" asp-append-version="true" />
+            </div>
         </div>
         <div class="list-item-details @Model.MovieToAdd.Id" id="">
             <div><span class="fs-4 fw-bold movie-to-add-title">@Html.DisplayFor(modelItem => @Model.MovieToAdd.Title)</span>
