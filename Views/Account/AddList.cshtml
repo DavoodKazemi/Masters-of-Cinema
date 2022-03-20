@@ -48,7 +48,7 @@
 
                 <div class="form-group clist-edit-buttons my-2">
                     <input type="submit" value="Save" class="clist-save-button" />
-                    <input type="submit" value="Cancel" class="clist-cancel-button" />
+                    <a asp-controller="Account" asp-action="CLists" class="clist-cancel-button">Cancel</a>
                 </div>
 
                 @*Begin Add movies section*@
@@ -64,8 +64,8 @@
                             <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
                             </ul>
                             @*<div class="autocomplete-not-found">
-                                    Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
-                                </div>*@
+                                Film not here? <a href="/about/film-data/" target="_blank">Find out how to add it.</a>
+                            </div>*@
                         </div>
                         @*END Search results as suggestions*@
 
@@ -97,7 +97,8 @@
             </div>
 
         </form>
-
+        
+        
 
     </div>
 </div>
