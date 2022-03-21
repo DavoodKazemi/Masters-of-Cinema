@@ -1,7 +1,7 @@
 ﻿[
 	{
-		"UserId": 1,
-		"Title": "Best movies by Yasujirō Ozu",
+		"CListId": 1,
+		"MovieId": "Best movies by Yasujirō Ozu",
 		"Description": "My most favourite movies of master Ozu! One of the great Japanese masters of cinema, Ozu was known for his famed tatami shot and themes involving family and interpersonal relationships. His most highly acclaimed film is Tokyo Story but is just the beginning."
 	},
 	{

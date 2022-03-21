@@ -285,6 +285,19 @@ namespace MastersOfCinema.Data
                 ctx.Watchlists.AddRange(watchlist);
                 ctx.SaveChanges();
             }
+
+            //Seed custom list movies table
+            if (!ctx.ListMovies.Any())
+            {
+                //Then we need to create the sample data
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/custom-list-movie.json");
+                var json = File.ReadAllText(filePath);
+                var listMovies = JsonSerializer.Deserialize<IEnumerable<ListMovies>>(json);
+
+                ctx.ListMovies.AddRange(listMovies);
+
+                ctx.SaveChanges();
+            }
         }
     }
 }

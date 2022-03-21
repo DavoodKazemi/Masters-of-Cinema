@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="Data\Default\custom-list-movie.json" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="Data\Default\custom-list-movie.json" />
     <None Include="Views\Director\Create.cshtml" />
     <None Include="Views\Director\Details.cshtml" />
     <None Include="Views\Director\Edit.cshtml" />
