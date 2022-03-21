@@ -174,7 +174,7 @@ namespace MastersOfCinema.Data
                 var rate = JsonSerializer.Deserialize<IEnumerable<CList>>(json);
 
                 //List all the users
-                List<User> userList = ctx.Users.ToList();
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
 
                 //array = all data in rate.json file.
                 //We will use the UserId field in "array" to pass User to the "rate"
