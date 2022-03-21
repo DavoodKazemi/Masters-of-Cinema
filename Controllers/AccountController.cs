@@ -227,7 +227,7 @@ namespace MastersOfCinema.Controllers
                 User = user,
                 IsFirstPage = false
             };
-            int itemsPerPage = 3;
+            int itemsPerPage = 9;
             pageNum = pageNum ?? 0;
 
             customList.listCount = customList.Lists.Count();

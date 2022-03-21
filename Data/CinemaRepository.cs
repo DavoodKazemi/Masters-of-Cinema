@@ -342,23 +342,72 @@ namespace MastersOfCinema.Data
             return description;
         }
 
+        //Get lists of the user
+        public IEnumerable<CList> GetUserCLists()
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all custom lists by the user!
+            var customLists = _context.Lists.Include(x => x.Movies).Where(r => r.User.UserName == User);
+
+
+            var lists = new List<CList>();
+
+            //add data to the lists
+            foreach (var item in customLists /*_context.Lists.Include(x => x.Movies).ToArray()*/)
+            {
+                if (item.User.UserName == User)
+                {
+                //If the list is created by this user, add it to lists
+                lists.Add(item);
+
+                item.Avatars = new List<string>();
+
+                //Add the images of the first few movies in the list to the avatar property!
+                //Join two lists in order to find the images of the movies!
+                // (By matching movieId in item with id in movie table)
+                var extractAvatars = item.Movies.Join(_context.Movies, prod => prod.MovieId,
+                  sale => sale.Id,
+                  (prod, sale) => new
+                  {
+                      sale.ImageName
+                  }).Take(5).Reverse();
+
+                //if there are less than 5 movies in the list
+                for (int i = extractAvatars.ToList().Count(); i < 5; i++)
+                {
+                    item.Avatars.Add("defaultImage");
+                }
+
+                item.Avatars.AddRange(extractAvatars.Select(prods => prods.ImageName));
+                //End Add images to the avatar property
+                }
+            }
+
+            return lists;
+        }
+
         //Get all the custom lists one user created
         public IEnumerable<CList> GetListsList()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
             //List of all custom lists by the user!
-            var customLists = _context.Lists.Where(r => r.User.UserName == User);
-
+            //var customLists2 = _context.Lists.Where(r => r.User.UserName == User).Include(x => x.Movies);
+            //var customLists = _context.Lists.Include(x => x.Movies);
+            //var allLists = customLists.Except(customLists2).ToList();
+            var allLists = _context.Lists.Include(x => x.Movies).Include(x => x.User).Where(r => r.User.UserName != User);
             var lists = new List<CList>();
 
+            lists.AddRange(GetUserCLists());
+
             //add data to the lists
-            foreach (var item in _context.Lists.Include(x => x.Movies).ToArray())
+            foreach (var item in allLists /*_context.Lists.Include(x => x.Movies).ToArray()*/)
             {
-                if (item.User.UserName == User)
-                {
+                //if (item.User.UserName != User)
+                //{
+                   
                     //If the list is created by this user, add it to lists
                     lists.Add(item);
-
+                    
                     item.Avatars = new List<string>();
 
                     //Add the images of the first few movies in the list to the avatar property!
@@ -378,7 +427,7 @@ namespace MastersOfCinema.Data
 
                     item.Avatars.AddRange(extractAvatars.Select(prods => prods.ImageName));
                     //End Add images to the avatar property
-                }
+                //}
             }
 
             return lists;
