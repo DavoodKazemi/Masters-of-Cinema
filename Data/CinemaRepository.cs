@@ -376,12 +376,7 @@ namespace MastersOfCinema.Data
                     item.Avatars.Add("defaultImage");
                     }
 
-
                     item.Avatars.AddRange(extractAvatars.Select(prods => prods.ImageName));
-
-                    
-                    
-                    
                     //End Add images to the avatar property
                 }
             }
@@ -404,6 +399,7 @@ namespace MastersOfCinema.Data
             return page;
         }
 
+        //Gets a search term and sends a list of movies
         public IEnumerable<Movie> SearchMovie(string searchTerm)
         {
             var movies = new List<Movie>();
@@ -412,13 +408,9 @@ namespace MastersOfCinema.Data
             return movies;
         }
 
-
+        //Gets a search term and sends a list of pure Movie objects and also ResultMovie (id, title + year + director)
         public AddListViewModel GetSuggest(string searchTerm)
         {
-            /*var movies = new List<Movie>();
-            movies = _context.Movies.Where(m => m.Title.Contains(searchTerm)).Take(10).ToList();*/
-
-
             AddListViewModel model = new AddListViewModel()
             {
                 suggestMovies = new List<ResultMovie>(),
@@ -428,7 +420,7 @@ namespace MastersOfCinema.Data
             model.resultMovies = SearchMovie(searchTerm).ToList();
 
             List<ResultMovie> result = new List<ResultMovie>();
-            //ResultMovie res = new ResultMovie();
+
             string id;
             string info1;
             string info2; 

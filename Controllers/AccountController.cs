@@ -214,6 +214,7 @@ namespace MastersOfCinema.Controllers
             }
         }
 
+        //Start custom lists
         //Displays all of the custom lists of the user!
         public ActionResult CLists(int? pageNum)
         {
@@ -368,13 +369,13 @@ namespace MastersOfCinema.Controllers
             return View(newList);
         }
 
-        //Display suggestions when user type in input of the live search
-        public async Task<IActionResult> Search(string? movieId)
+        //Gets a search term - Display suggestions when user type in input of the live search
+        public async Task<IActionResult> Search(string? searchTerm)
         {
             AddListViewModel model = new AddListViewModel()
             {
             };
-            model = _repository.GetSuggest(movieId);
+            model = _repository.GetSuggest(searchTerm);
             return PartialView("Lists/_AjaxAddClistSuggest", model);
         }
 
@@ -388,5 +389,6 @@ namespace MastersOfCinema.Controllers
             return PartialView("Lists/_AddMoviePartial", model);
 
         }
+        //End custom lists
     }
 }

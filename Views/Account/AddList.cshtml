@@ -1,11 +1,11 @@
 ﻿@model AddListViewModel
 
 @{
-    ViewData["Title"] = "Start as new List";
+    ViewData["Title"] = "Start a new list";
     //Layout = "~/Views/Shared/_ProfileLayout.cshtml";
-    //int pageCount = ViewBag.pageCount;
 }
 
+@*notify user when trying to add a list without adding any movie!*@
 @if (Model != null)
 {
     @if (Model.Message != null)
@@ -57,12 +57,11 @@
                         <div class="clist-movie-load-animation" id="live-search-input-wrapper">
                             <label onclick="addMovie()" class="add-a-film">Add a film</label>
 
-                            <input value="" placeholder="Enter name of film..." class="form-control add-list-search-input" id="movie-id" autocomplete="off" />
+                            <input value="" placeholder="Enter name of film..." class="form-control add-list-search-input" id="search-input" autocomplete="off" />
                         </div>
                         @*BEGIN Search results as suggestions*@
                         <div class="ac_results add-clist-suggestion position-absolute clist-suggest-container" id="clist-live-search-suggest" style="display: none;">
                             <ul style="max-height: 180px; overflow: auto;" class="suggest-body">
-
                             </ul>
                         </div>
                         @*END Search results as suggestions*@
@@ -85,14 +84,13 @@
                             </article>
                         </div>
                     </div>
-                    @* <span asp-validation-for="MovieToAdd" class="text-danger"></span>*@
                 </div>
                 @*End Added movies*@
             </div>
 
         </form>
-        
-        
+
+
 
     </div>
 </div>
@@ -100,93 +98,7 @@
 
 @*Search input*@
 
-
-@*start ajax function for infinite scroll*@
-<script type="text/javascript">
-
-
-    //hide the suggestions list when user click outside the input
-    $(document).mouseup(function (e) {
-        var container = $("#live-search-input-wrapper");
-
-        // if the target of the click isn't the the input, hide the suggestions
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            $("#clist-live-search-suggest").hide();
-        }
-    });
-
-
-
-
-    //When user press a key in the live search input, do a search for movies that contain the input search term
-    $(document).ready(function () {
-        $("#movie-id").keyup(function () {
-            $('#live-search-input-wrapper').addClass('loading');
-
-            var data = "movieId=" + $("#movie-id").val();
-            console.log(data);
-
-            $.ajax({
-                type: 'GET',
-                url: '/Account/Search',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-                data: data,
-                success: function (data, result) {
-                    //display the live search results
-                    $("#clist-live-search-suggest").show();
-                    if (data != '') {
-                        $("#clist-live-search-suggest > .suggest-body").empty().append(data);
-                    }
-
-                    //hide the loading animation (with delay)
-                    setTimeout(function () {
-                        $('#live-search-input-wrapper').removeClass('loading');
-                    }, 500);
-
-                    //console.log(result);
-                },
-                error: function () {
-                    console.log('Failed ');
-                }
-            })
-        });
-    });
-
-</script>
-
-
-<script>
-    // Remove added movies from the new list.
-    $(document).on("click", "#clist-delete-added-movie", function (e) {
-        e.preventdefault;
-
-        //If this is not the last movie
-        if ($('[id=clist-delete-added-movie]').length > 1) {
-            //console.log($('[id=clist-delete-added-movie]').length.toString() + " movies remained.");
-            $(this).parent().hide('slow', function () { $(this).remove(); });
-
-            //If this is the last movie (remove it without animation)
-        } else if ($('[id=clist-delete-added-movie]').length == 1) {
-            //console.log("only 1 movie remained. it was the last!");
-            $(this).parent().remove();
-        }
-        
-        //if the removed movie was the last one, display the placeholder.
-        if ($("#clist-delete-added-movie").length == 0) {
-            //console.log("No movies! Only placeholder!");
-            $("#empty-list-placeholder").slideDown(320);
-        }
-    });
-</script>
-
-
-
-<script>
-    //Focus on the live search input, when user clicks on the button
-    function addMovie() {
-        document.getElementById("movie-id").focus();
-    }
-</script>
+<script src="~/js/add-custom-list.js" asp-append-version="true"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
