@@ -1,7 +1,7 @@
 ﻿[
 	{
-		"CListId": 1,
-		"MovieId": "Best movies by Yasujirō Ozu",
+		"UserId": 1,
+		"Title": "Best movies by Yasujirō Ozu",
 		"Description": "My most favourite movies of master Ozu! One of the great Japanese masters of cinema, Ozu was known for his famed tatami shot and themes involving family and interpersonal relationships. His most highly acclaimed film is Tokyo Story but is just the beginning."
 	},
 	{
@@ -87,12 +87,12 @@
 	{
 		"UserId": 9,
 		"Title": "Best of Andrei Tarkovsky",
-		"Description": "Andrei Tarkovsky was a Soviet filmmaker, writer, film editor, film theorist and opera director, widely regarded as one of the finest filmmakers of the 20th century. Tarkovsky's films include Andrei Rublev, Solaris, Mirror and Stalker. They are characterized by spirituality and metaphysical themes, long takes, lack of conventional dramatic structure and plot, and distinctively authored use of cinematography."
+		"Description": "Russia’s most cryptically poetic, exhaustive, metaphysical, Malick-esque filmmaker. Yes, I am a glutton for punishment. Few directors are more fascinating, frustrating, and fulfilling—all at the same time. He’s the anti-Eisenstein of Russia. Slow, but with purpose. A master of mood, space, and time. Lets you breathe, think, and reassess. Challenging, but never forgettable."
 	},
 	{
 		"UserId": 9,
 		"Title": "Best of Japanese classic movies",
-		"Description": "Russia’s most cryptically poetic, exhaustive, metaphysical, Malick-esque filmmaker. Yes, I am a glutton for punishment. Few directors are more fascinating, frustrating, and fulfilling—all at the same time. He’s the anti-Eisenstein of Russia. Slow, but with purpose. A master of mood, space, and time. Lets you breathe, think, and reassess. Challenging, but never forgettable."
+		"Description": "A treasure trove of Japanese works of art."
 	},
 	{
 		"UserId": 9,
@@ -167,7 +167,7 @@
 	{
 		"UserId": 14,
 		"Title": "Life-changing Films",
-		"Description": "Hope you find something inspiring change in here."
+		"Description": "Hope you find something inspiring here."
 	},
 	{
 		"UserId": 14,
