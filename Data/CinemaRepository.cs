@@ -486,5 +486,14 @@ namespace MastersOfCinema.Data
             return model;
         }
         //END Custom lists
+
+        //Review
+        public IEnumerable<Review> GetMovieReviews(int id)
+        {
+            Movie movie = GetMovieById(id);
+            IEnumerable<Review> reviews = _context.Review.Where(m => m.MovieId == id);
+            return reviews;
+        }
+        //End Review
     }
 }

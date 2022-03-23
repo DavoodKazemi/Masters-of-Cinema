@@ -246,7 +246,8 @@ namespace MastersOfCinema.Controllers
                 RatePercents = _repository.MovieRatingChartStats(id),
                 RateCounts = _repository.MovieRatingCount(id),
                 MovieLog = _repository.IsLoggedMovieId(id),
-                Watchlist = _repository.IsInWatchlistById(id)
+                Watchlist = _repository.IsInWatchlistById(id),
+                Review = _repository.GetMovieReviews(id)
             };
             //If movie was not logged, make a new log obj to prevent error
             if (movieRateDirector.MovieLog == null)
@@ -303,6 +304,48 @@ namespace MastersOfCinema.Controllers
             }
 
             return View(movieRateDirector);
+        }
+        //Post review
+        [HttpPost]
+        public async Task<IActionResult> Review(MovieRateDirector movieRateDirector)
+        {
+            //Only need to get movieId from view
+            //Need to set a movieId and User to the new record
+            Review log = new Review() {
+                ReviewText = movieRateDirector.UserReview.ReviewText
+            };
+            var movieId = movieRateDirector.UserReview.MovieId;
+            //Check to see if this movie had been added to the user's watchlist before
+            var UserName = HttpContext.User.Identity.Name;
+            //watchlist.MovieId = id;
+            log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+            //If true it had been in user's watchlist (meaning user wants to remove it from watchlist)
+            //bool wasLogged = _context.MovieLogs.Where(u => u.User.UserName == UserName).Any(m => m.MovieId == movieId);
+
+            //If rating != 0, it's either create or update, else it's delete rate
+            //if (!wasLogged)
+            //{
+                //Create
+                log.Id = 0;
+                log.MovieId = movieId;
+                
+                if (ModelState.IsValid)
+                {
+                    //Save (Create or update) rating in DB
+                    _context.Update(log);
+                    await _context.SaveChangesAsync();
+                }
+            //}
+            //else //it's a delete request
+            //{
+                //Delete rating - If rating = 0, it means they clicked on remove rate button
+                /*var logItem = _context.MovieLogs.Where(u => u.User.UserName == UserName)
+                .FirstOrDefault(m => m.MovieId == movieId);
+                _context.MovieLogs.Remove(logItem);
+                await _context.SaveChangesAsync();*/
+
+            //}
+            return Ok("Form Data received!");
         }
     }
 }

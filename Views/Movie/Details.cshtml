@@ -13,3 +13,76 @@ else
     <partial name="_MovieDetailsLimited" />
 }
 
+
+
+@*Movie information*@
+<section class="container mb-5 px-sm-2">
+    <div class="row">
+
+        <form id="submitForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
+            <input asp-for="@Model.UserReview.MovieId" type="" value="50" class="form-control input-small" id="" />
+            <input asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control input-small" id="review-text" />
+
+            <input type="button" value="Review" class="clist-save-button"  id="submit-review" />
+
+        </form>
+
+
+        @foreach (var item in Model.Review)
+        {
+            <div>
+                @item.ReviewText
+            </div>
+        }
+    </div>
+
+</section>
+
+<script type="text/javascript">
+    $(document).on("click", "#submit-review", function (e) {
+
+        //Update rate count
+        //var originalRate = oldRate;
+        //var originalCount = oldAllCount;
+
+        //Rate count decreases by 1
+        //If they had not rated movie before, rate count increased by 1
+        @*if (r == 1 && originalRate == 0) {
+            document.getElementById("rate-count").textContent = ++originalCount;
+        } else if (r == 0 && originalRate > 0) {
+            document.getElementById("rate-count").textContent = --originalCount;
+        } else {
+            document.getElementById("rate-count").textContent = originalCount;
+        }*@
+
+        //var originalAverage = Model.AverageRate;
+        //if (r == 0) {
+
+        //}
+        //Update the average instantly
+        var newRate = $("#review-text").val(); //The rating they just chose
+
+
+
+        var data = $("#submitForm").serialize();
+        console.log(data);
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/Movie/Review',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    });
+
+</script>
