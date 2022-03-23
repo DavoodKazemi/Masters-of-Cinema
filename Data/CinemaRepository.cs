@@ -491,7 +491,7 @@ namespace MastersOfCinema.Data
         public IEnumerable<Review> GetMovieReviews(int id)
         {
             Movie movie = GetMovieById(id);
-            IEnumerable<Review> reviews = _context.Review.Where(m => m.MovieId == id);
+            IEnumerable<Review> reviews = _context.Review.Include(x => x.User).Where(m => m.MovieId == id);
             return reviews;
         }
         //End Review

@@ -21,7 +21,7 @@ else
 
         <form id="submitForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
             <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
-            <input asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control input-small" id="review-text" />
+            <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control" id="review-text"></textarea>
 
             <input type="button" value="Review" class="clist-save-button"  id="submit-review" />
 
@@ -30,7 +30,12 @@ else
 
         @foreach (var item in Model.Review)
         {
-            <div>
+            <div class="col-12">
+                <div class="user-avatar">
+                    @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
+                    @await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })
+
+                </div>
                 @item.ReviewText
             </div>
         }
