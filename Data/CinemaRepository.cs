@@ -494,6 +494,30 @@ namespace MastersOfCinema.Data
             IEnumerable<Review> reviews = _context.Review.Include(x => x.User).Where(m => m.MovieId == id);
             return reviews;
         }
+
+        //find out is the movie is reviewd by user
+        // + get the current user's review of the movie
+        public Review IsReviewed(int id)
+        {
+
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var review = _context.Review.Include(m => m.User)
+                .Where(i => i.MovieId == id).Where(u => u.User.UserName == User).FirstOrDefault();
+                
+            return review;
+        }
+
+        //get the current user's review of the movie
+        /*public Review GetUserReview(int id)
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            Movie movie = GetMovieById(id);
+            Review review2 = new Review();
+            Review review = _context.Review.Include(m => m.User)
+                .Where(i => i.MovieId == id).Where(u => u.User.UserName == User).FirstOrDefault() ?? review2;
+            return review;
+        }*/
         //End Review
     }
 }

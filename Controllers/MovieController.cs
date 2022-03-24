@@ -247,7 +247,9 @@ namespace MastersOfCinema.Controllers
                 RateCounts = _repository.MovieRatingCount(id),
                 MovieLog = _repository.IsLoggedMovieId(id),
                 Watchlist = _repository.IsInWatchlistById(id),
-                Review = _repository.GetMovieReviews(id)
+                Review = _repository.GetMovieReviews(id),
+                UserReview = _repository.IsReviewed(id)
+                //UserReview = _repository.GetUserReview(id)
             };
             //If movie was not logged, make a new log obj to prevent error
             if (movieRateDirector.MovieLog == null)
@@ -269,6 +271,13 @@ namespace MastersOfCinema.Controllers
                     User = _context.Users.FirstOrDefault(u => u.UserName == UserName)
                 };
             }
+
+            //If movie is reviewed by this user or not
+            //bool isReviewed = _repository.IsReviewed(id);
+            /*if (movieRateDirector.UserReview == null)
+            {
+                movieRateDirector.UserReview = new Review
+            }*/
 
             //List count
             ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count();
@@ -314,6 +323,7 @@ namespace MastersOfCinema.Controllers
             //Need to set a movieId and User to the new record
             Review log = new Review() {
                 ReviewText = movieRateDirector.UserReview.ReviewText
+                
             };
             var movieId = movieRateDirector.UserReview.MovieId;
             //Check to see if this movie had been added to the user's watchlist before
@@ -335,7 +345,7 @@ namespace MastersOfCinema.Controllers
                     //Save (Create or update) rating in DB
                     _context.Update(log);
                     await _context.SaveChangesAsync();
-            }
+                }
             //}
             //else //it's a delete request
             //{
