@@ -1,4 +1,70 @@
-﻿.review-section-heading {
+﻿$avatar-column: 60px;
+
+//a reveiew ultimate wrapper
+.a-review {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #456;
+}
+
+
+
+
+
+//User avatar side
+.profile-picture-medium-wrapper {
+    width: $avatar-column;
+    float: left;
+
+    .profile-picture-medium {
+        list-style: none;
+        line-height: 1.38461538;
+        border: 0;
+        font-family: inherit;
+        font-size: 100%;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        color: #678;
+        text-decoration: none;
+        -webkit-background-clip: padding-box;
+        display: block;
+        float: left;
+        position: relative;
+        height: 48px;
+        width: 48px;
+        border-radius: 20px;
+        margin-right: 5px;
+        top: 0;
+
+        img {
+            list-style: none;
+            line-height: 1.38461538;
+            color: #678;
+            width: 48px;
+            aspect-ratio: auto 40 / 40;
+            height: 48px;
+            border: 0;
+            font-family: inherit;
+            font-size: 100%;
+            font-style: inherit;
+            font-weight: inherit;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            vertical-align: baseline;
+            display: block;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+    }
+}
+
+
+.review-section-heading {
     line-height: 1;
     border: 0;
     font-style: inherit;
@@ -16,4 +82,167 @@
     margin-top: 0;
     padding-bottom: 5px;
     text-transform: uppercase;
+}
+
+//everything in a review, except avatar side
+.review-main-col {
+    width: calc(100% - #{$avatar-column});
+}
+//User name of reviewer
+.review-head-wrapper {
+    list-style: none;
+    line-height: 1.38461538;
+    border: 0;
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    //font-size: 0;
+    position: relative;
+    display: flex;
+    color: #678;
+    margin-bottom: 10px;
+
+
+    .review-head {
+        list-style: none;
+        color: #678;
+        border: 0;
+        font-family: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        outline: 0;
+        padding: 0;
+        display: inline-block;
+        margin: 0;
+        max-width: 100%;
+        vertical-align: middle;
+        //flex-grow: 1;
+        font-size: 1rem;
+        line-height: 24px;
+        //Review by + First name of the reviewer
+        .review-head-text {
+            list-style: none;
+            line-height: 24px;
+            border: 0;
+            font-family: inherit;
+            font-size: 100%;
+            font-style: inherit;
+            font-weight: inherit;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            vertical-align: baseline;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 5px;
+            color: #678;
+            //First name of the reviewer
+            .review-name {
+                display: inline-block;
+                font-family: Graphik-Semibold-Web,sans-serif;
+                font-weight: 700;
+                color: #abc !important;
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.review-text-wrapper {
+    color: #9ab;
+    list-style: none;
+    border: 0;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    font-family: TiemposTextWeb-Regular,Georgia,serif;
+    font-size: 1.15384615rem;
+    line-height: 1.6;
+
+    .review-text {
+        color: #9ab;
+        list-style: none;
+        line-height: 1.6;
+        border: 0;
+        font-family: inherit;
+        font-size: 100%;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+
+        p {
+            color: #9ab;
+            list-style: none;
+            border: 0;
+            font-family: inherit;
+            font-style: inherit;
+            font-weight: inherit;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            vertical-align: baseline;
+            line-height: inherit;
+            font-size: 1.15384615rem;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+
+.review-input-wrapper {
+    line-height: 1;
+    color: #9ab;
+    -webkit-font-smoothing: subpixel-antialiased;
+    visibility: visible;
+    border: 0;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    position: relative;
+    margin-bottom: 15px;
+
+    .review-input {
+        -webkit-font-smoothing: subpixel-antialiased;
+        visibility: visible;
+        font-family: Graphik-Regular-Web,sans-serif;
+        border: none;
+        border-radius: 3px;
+        box-sizing: border-box;
+        font-size: 1.07692308rem;
+        display: block;
+        margin: 0;
+        width: 100%;
+        background-color: #cde;
+        box-shadow: inset 0 -1px 0 #fff;
+        color: #567;
+        height: 90px;
+        line-height: 1.4;
+        padding: 7px 10px;
+
+        &:focus {
+            background-color: #fff;
+            box-shadow: none;
+            box-shadow: 0 0 5px #012 !important;
+            color: #234;
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
 }

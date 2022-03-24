@@ -31,34 +31,27 @@ else
 
 
 
-                <form id="submitForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
+                <form id="submitForm" enctype="multipart/form-data" class="">
                     <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
-                    <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control" id="review-text"></textarea>
+                    <div class="review-input-wrapper">
+                        <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" placeholder="Add a review..." class="review-input" id="review-text"></textarea>
+                    </div>
 
                     <input type="button" value="Review" class="clist-save-button" id="submit-review" />
 
                 </form>
 
+                <div class="review-ajax-container">
+                    <div class="review-body">
 
-                @foreach (var item in Model.Review)
-                {
-                    <div class="col-12">
-                        <div class="review-ajax-container">
-                                <div class="review-body">
+                
+                
+                        <partial name="~/Views/Shared/Review/_Review.cshtml" />
+                            @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
 
-                                </div>
-                            </div>
-                        <div class="user-avatar">
-                            
-                            <span>Review by</span>
-                            @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
-                            @await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })
-
-                        </div>
-                        
-                        @item.ReviewText
+                
                     </div>
-                }
+                </div>
             </div>
             
         </div>

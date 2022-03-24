@@ -1,12 +1,27 @@
-﻿@model Review
+﻿@model MovieRateDirector
 
+<div class="col-12">
+    <div class="user-avatar"> 
 
-<div class="user-avatar">
+    </div>
+    <div class="review-head-wrapper">
+        <p class="review-head">
+            <span class="review-head">
+                <span>Review by</span>
+                @await Component.InvokeAsync("UserAvatar", new { userId = Model.UserReview.User.Id })
+            </span>
+        </p>
+    </div>
 
-    <span>Review by</span>
-    @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
-    @await Component.InvokeAsync("UserAvatar", new { userId = Model.User.Id })
+    <div class="review-text-wrapper">
+        <div class="review-text">
+            <p>
+                @Model.UserReview.ReviewText
+            </p>
+        </div>
+    </div>
 
 </div>
 
-@Model.ReviewText
+
+

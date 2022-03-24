@@ -335,7 +335,7 @@ namespace MastersOfCinema.Controllers
                     //Save (Create or update) rating in DB
                     _context.Update(log);
                     await _context.SaveChangesAsync();
-                }
+            }
             //}
             //else //it's a delete request
             //{
@@ -344,9 +344,12 @@ namespace MastersOfCinema.Controllers
             .FirstOrDefault(m => m.MovieId == movieId);
             _context.MovieLogs.Remove(logItem);
             await _context.SaveChangesAsync();*/
-
+            MovieRateDirector movieRateDirector2 = new MovieRateDirector();
+            movieRateDirector2.UserReview = log;
             //}
-            return PartialView("Review/_AjaxReview", log);
+            //, new Application.ViewModels.PartialViewModel()
+            //return PartialView("Review/_AjaxReview", log);
+            return PartialView("Review/_AjaxReview", movieRateDirector2);
             //return Ok("Form Data received!");
         }
     }
