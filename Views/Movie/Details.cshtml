@@ -26,12 +26,16 @@ else
             @*reviews wrapper*@
             <div class=" col-md-9 py-3 px-0 review-section-wrapper">
                 <h2 class="review-section-heading">
-                    Popular reviews
+                    Your review
                 </h2>
 
+                <div class="review-ajax-container">
+                    <div class="review-body" id="post-review" style="display: none;">
 
+                    </div>
+                </div>
 
-                <form id="submitForm" enctype="multipart/form-data" class="">
+                <form id="submitForm" enctype="multipart/form-data" class="my-2">
                     <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
                     <div class="review-input-wrapper">
                         <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" placeholder="Add a review..." class="review-input" id="review-text"></textarea>
@@ -40,6 +44,10 @@ else
                     <input type="button" value="Review" class="clist-save-button" id="submit-review" />
 
                 </form>
+
+                <h2 class="review-section-heading">
+                    Popular reviews
+                </h2>
 
                 <div class="review-ajax-container">
                     <div class="review-body">
@@ -58,7 +66,9 @@ else
 
     </section>
 
+
     <script type="text/javascript">
+        //Post review
     $(document).on("click", "#submit-review", function (e) {
 
         //Update rate count
@@ -98,7 +108,9 @@ else
                 //alert('Successfully received Data ');
                 console.log(result);
                 if (data != '') {
-                    $(".review-ajax-container > .review-body").append(data);
+                    $("#submitForm").hide();
+                    $(".review-ajax-container > #post-review").append(data);
+                    $("#post-review").show('slow');
                 }
             },
             error: function () {

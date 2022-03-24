@@ -1,25 +1,36 @@
 ﻿@model MovieRateDirector
+@*Display user's review when it's just posted*@
 
-<div class="col-12">
-    <div class="user-avatar"> 
 
-    </div>
-    <div class="review-head-wrapper">
-        <p class="review-head">
-            <span class="review-head">
-                <span>Review by</span>
-                @await Component.InvokeAsync("UserAvatar", new { userId = Model.UserReview.User.Id })
-            </span>
-        </p>
-    </div>
+<div class="col-12 a-review border-bottom-0">
+    @if (Model.UserReview.User.ProfilePicture != null)
+    {
+        <div class="profile-picture-medium-wrapper">
+            <div class="profile-picture-medium">
+                <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(Model.UserReview.User.ProfilePicture))">
+            </div>
+        </div>
+    }
+    <div class="d-inline-block review-main-col">
+        <div class="review-head-wrapper">
+            <div class="review-head">
+                <div class="review-head-text">
+                    Review by
+                    <span class="review-name">@Model.UserReview.User.FirstName</span>
+                    @*@await Component.InvokeAsync("UserAvatar", new { userId = item.User.Id })*@
+                </div>
+            </div>
+        </div>
 
-    <div class="review-text-wrapper">
-        <div class="review-text">
-            <p>
-                @Model.UserReview.ReviewText
-            </p>
+        <div class="review-text-wrapper">
+            <div class="review-text">
+                <p>
+                    @Model.UserReview.ReviewText
+                </p>
+            </div>
         </div>
     </div>
+
 
 </div>
 
