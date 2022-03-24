@@ -1,0 +1,12 @@
+﻿@model Review
+
+
+<div class="user-avatar">
+
+    <span>Review by</span>
+    @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
+    @await Component.InvokeAsync("UserAvatar", new { userId = Model.User.Id })
+
+</div>
+
+@Model.ReviewText

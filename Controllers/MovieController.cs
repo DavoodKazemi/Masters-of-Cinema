@@ -305,7 +305,8 @@ namespace MastersOfCinema.Controllers
 
             return View(movieRateDirector);
         }
-        //Post review
+
+        //Post review - save it to database - display it
         [HttpPost]
         public async Task<IActionResult> Review(MovieRateDirector movieRateDirector)
         {
@@ -338,14 +339,15 @@ namespace MastersOfCinema.Controllers
             //}
             //else //it's a delete request
             //{
-                //Delete rating - If rating = 0, it means they clicked on remove rate button
-                /*var logItem = _context.MovieLogs.Where(u => u.User.UserName == UserName)
-                .FirstOrDefault(m => m.MovieId == movieId);
-                _context.MovieLogs.Remove(logItem);
-                await _context.SaveChangesAsync();*/
+            //Delete rating - If rating = 0, it means they clicked on remove rate button
+            /*var logItem = _context.MovieLogs.Where(u => u.User.UserName == UserName)
+            .FirstOrDefault(m => m.MovieId == movieId);
+            _context.MovieLogs.Remove(logItem);
+            await _context.SaveChangesAsync();*/
 
             //}
-            return Ok("Form Data received!");
+            return PartialView("Review/_AjaxReview", log);
+            //return Ok("Form Data received!");
         }
     }
 }

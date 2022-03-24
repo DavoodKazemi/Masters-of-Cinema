@@ -15,35 +15,57 @@ else
 
 
 
-@*Movie information*@
-<section class="container mb-5 px-sm-2">
-    <div class="row">
+    @*Movie information*@
+    <section class="container mb-5 px-sm-2">
 
-        <form id="submitForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
-            <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
-            <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control" id="review-text"></textarea>
+        <div class="row">
+            <div class="col-md-3 text-center">
 
-            <input type="button" value="Review" class="clist-save-button"  id="submit-review" />
-
-        </form>
-
-
-        @foreach (var item in Model.Review)
-        {
-            <div class="col-12">
-                <div class="user-avatar">
-                    @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
-                    @await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })
-
-                </div>
-                @item.ReviewText
             </div>
-        }
-    </div>
 
-</section>
+            @*reviews wrapper*@
+            <div class=" col-md-9 py-3 px-0 review-section-wrapper">
+                <h2 class="review-section-heading">
+                    Popular reviews
+                </h2>
 
-<script type="text/javascript">
+
+
+                <form id="submitForm" enctype="multipart/form-data" class="movie-stats-form col-sm-6 col-lg-4">
+                    <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
+                    <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" class="form-control" id="review-text"></textarea>
+
+                    <input type="button" value="Review" class="clist-save-button" id="submit-review" />
+
+                </form>
+
+
+                @foreach (var item in Model.Review)
+                {
+                    <div class="col-12">
+                        <div class="review-ajax-container">
+                                <div class="review-body">
+
+                                </div>
+                            </div>
+                        <div class="user-avatar">
+                            
+                            <span>Review by</span>
+                            @* <vc:user-avatar userId=@item.User.Id></vc:user-avatar>*@
+                            @await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })
+
+                        </div>
+                        
+                        @item.ReviewText
+                    </div>
+                }
+            </div>
+            
+        </div>
+
+    </section>
+
+    <script type="text/javascript">
     $(document).on("click", "#submit-review", function (e) {
 
         //Update rate count
@@ -79,9 +101,12 @@ else
             url: '/Movie/Review',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
-            success: function (result) {
+            success: function (data, result) {
                 //alert('Successfully received Data ');
                 console.log(result);
+                if (data != '') {
+                    $(".review-ajax-container > .review-body").append(data);
+                }
             },
             error: function () {
                 //alert('Failed to receive the Data');
@@ -90,4 +115,4 @@ else
         })
     });
 
-</script>
+    </script>
