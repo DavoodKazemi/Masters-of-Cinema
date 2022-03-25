@@ -35,8 +35,8 @@ $(document).on("click", "#submit-review", function (e) {
                 $('#clist-add-notify').delay(5000).slideUp(320);
                 //end notify user
 
-                $("#post-review").show('slow');
-                $("#no-review-yet").hide("slow");
+                $("#post-review").fadeIn(500);
+                $("#no-review-yet").fadeOut(1000);
 
             }
         },

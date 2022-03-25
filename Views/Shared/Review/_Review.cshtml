@@ -103,7 +103,7 @@
             $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) + 1);
 
             //display the stats anyway, because if you press like, the like count is certainly more than zero
-            $(this).siblings("#review-stats").fadeIn(700);
+            $(this).siblings("#review-stats").fadeIn(400);
 
         } else {
             //else ==> User unliked review
@@ -112,7 +112,7 @@
 
             //hide the stats if the like count is zero
             if (parseInt($(this).siblings().children("#like-count").html()) < 1) {
-                $(this).siblings("#review-stats").fadeOut(1000);
+                $(this).siblings("#review-stats").fadeOut(400);
             }
         }
         //END Start changing UI
