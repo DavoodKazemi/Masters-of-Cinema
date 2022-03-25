@@ -25,7 +25,7 @@ else
 
             @*reviews wrapper*@
         <div class=" col-md-9 py-3 review-section-wrapper">
-            <h2 class="review-section-heading">
+            <h2 class="review-section-heading" id="user-review-section">
                 Your review
             </h2>
 
@@ -131,8 +131,15 @@ else
                 if (data != '') {
                     $("#submitForm").hide();
                     $(".review-ajax-container > #post-review").append(data);
+                    $("html").animate(
+                        {
+                            scrollTop: $("#user-review-section").offset().top
+                        },
+                        800 //speed
+                    );
                     $("#post-review").show('slow');
                     $("#no-review-yet").hide("slow");
+                    
                 }
             },
             error: function () {
