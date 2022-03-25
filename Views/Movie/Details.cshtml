@@ -24,7 +24,7 @@ else
             </div>
 
             @*reviews wrapper*@
-        <div class=" col-md-9 py-3 px-0 review-section-wrapper">
+        <div class=" col-md-9 py-3 review-section-wrapper">
             <h2 class="review-section-heading">
                 Your review
             </h2>
@@ -47,7 +47,7 @@ else
                     </div>
                 </div>
                 <form id="submitForm" enctype="multipart/form-data" class="my-2">
-                    <input asp-for="@Model.UserReview.MovieId" type="" value="@Model.Movie.Id" class="form-control input-small" id="" />
+                    <input asp-for="@Model.UserReview.MovieId" type="hidden" value="@Model.Movie.Id" class="form-control input-small" id="" />
                     <div class="review-input-wrapper">
                         <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" placeholder="Add a review..." class="review-input" id="review-text"></textarea>
                     </div>
@@ -57,22 +57,28 @@ else
                 </form>
             }
 
+            @if (Model.Review.Count() > 0)
+            {
+                <h2 class="review-section-heading">
+                    Popular reviews
+                </h2>
 
-            <h2 class="review-section-heading">
-                Popular reviews
-            </h2>
-
-            <div class="review-ajax-container">
-                <div class="review-body">
-
-
-
-                    <partial name="~/Views/Shared/Review/_Review.cshtml" />
-                    @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
-
-
+                <div class="review-ajax-container">
+                    <div class="review-body">
+                        <partial name="~/Views/Shared/Review/_Review.cshtml" />
+                        @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <h2 class="review-section-heading text-center" id="no-review-yet">
+                    No reviews yet!
+                </h2>
+            }
+
+
+
         </div>
             
         </div>
@@ -124,6 +130,7 @@ else
                     $("#submitForm").hide();
                     $(".review-ajax-container > #post-review").append(data);
                     $("#post-review").show('slow');
+                    $("#no-review-yet").hide("slow");
                 }
             },
             error: function () {

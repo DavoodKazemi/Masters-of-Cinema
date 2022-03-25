@@ -1,4 +1,4 @@
-﻿using MastersOfCinema.Data;
+using MastersOfCinema.Data;
 using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;

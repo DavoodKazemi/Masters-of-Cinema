@@ -1,7 +1,12 @@
 ﻿@model MovieRateDirector
 @*Display all existing reviews when page loads*@
+@{ 
+    string text = "40";
+}
+
 @foreach (var item in Model.Review)
 {
+    @*text = HtmlUtilities.ConvertToPlainText(item.ReviewText);*@
 <div class="col-12 a-review">
     @if (item.User.ProfilePicture != null)
     {
@@ -24,9 +29,8 @@
 
         <div class="review-text-wrapper">
             <div class="review-text">
-                <p>
-                    @item.ReviewText
-                </p>
+                <div style="white-space: pre-line;">@item.ReviewText</div>
+                @*@HtmlUtilities.ConvertToPlainText(item.ReviewText)*@
             </div>
         </div>
     </div>

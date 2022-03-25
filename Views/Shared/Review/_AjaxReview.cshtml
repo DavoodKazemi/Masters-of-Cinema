@@ -2,7 +2,7 @@
 @*Display user's review when it's just posted*@
 
 
-<div class="col-12 a-review border-bottom-0">
+<div class="col-12 border-bottom-0 user-review">
     @if (Model.UserReview.User.ProfilePicture != null)
     {
         <div class="profile-picture-medium-wrapper">
@@ -24,9 +24,7 @@
 
         <div class="review-text-wrapper">
             <div class="review-text">
-                <p>
-                    @Model.UserReview.ReviewText
-                </p>
+                <div style="white-space: pre-wrap;">@Model.UserReview.ReviewText</div>
             </div>
         </div>
     </div>

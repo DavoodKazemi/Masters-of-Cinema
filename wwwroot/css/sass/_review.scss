@@ -7,8 +7,11 @@
     border-bottom: 1px solid #456;
 }
 
-
-
+.user-review {
+    padding-top: 15px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #456;
+}
 
 
 //User avatar side
@@ -230,15 +233,19 @@
         background-color: #cde;
         box-shadow: inset 0 -1px 0 #fff;
         color: #567;
-        height: 90px;
+        height: 100px;
         line-height: 1.4;
         padding: 7px 10px;
+        transition: all .3s ease-in;
+        white-space: pre-wrap;
 
         &:focus {
             background-color: #fff;
             box-shadow: none;
             box-shadow: 0 0 5px #012 !important;
             color: #234;
+            height: 250px;
+            transition: all .3s ease-in;
         }
 
         &:focus-visible {
