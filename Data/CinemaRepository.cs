@@ -490,6 +490,7 @@ namespace MastersOfCinema.Data
         //Review
         public IEnumerable<ReviewViewModel> GetMovieReviews(int id)
         {
+            string currentUser = _accessor.HttpContext.User.Identity.Name;
             Movie movie = GetMovieById(id);
             IEnumerable<Review> reviews = _context.Review.Include(x => x.User).Where(m => m.MovieId == id);
             List<ReviewViewModel> revs = new List<ReviewViewModel>();
@@ -502,7 +503,8 @@ namespace MastersOfCinema.Data
                     MovieId = item.MovieId,
                     ReviewText = item.ReviewText,
                     User = item.User,
-                    LikeCount = _context.LikeReview.Where(x => x.ReviewId == item.Id).Count()
+                    LikeCount = _context.LikeReview.Where(x => x.ReviewId == item.Id).Count(),
+                    IsLiked = _context.LikeReview.Where(x => x.ReviewId == item.Id).Any(m => m.User.UserName == currentUser)
                 });
             }
 
