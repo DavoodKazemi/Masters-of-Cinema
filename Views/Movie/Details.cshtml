@@ -51,8 +51,10 @@ else
                     <div class="review-input-wrapper">
                         <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" placeholder="Add a review..." class="review-input" id="review-text"></textarea>
                     </div>
+                    <div class="review-edit-buttons">
+                        <input type="button" value="Review" class="review-save-button" id="submit-review" />
 
-                    <input type="button" value="Review" class="clist-save-button" id="submit-review" />
+                    </div>
 
                 </form>
             }

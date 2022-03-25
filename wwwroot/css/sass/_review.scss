@@ -1,5 +1,34 @@
 ﻿$avatar-column: 60px;
 
+//Save button
+//Buttons style
+.review-edit-buttons {
+    height: 60px;
+    .review-save-button {
+        font-weight: 700;
+        border: none;
+        border-radius: 3px;
+        display: inline-block;
+        font-family: Graphik-Semibold-Web,sans-serif;
+        letter-spacing: .075em;
+        line-height: 12px;
+        padding: 12px 12px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background: #00b020;
+        color: #f4fcf0;
+        margin-left: 4px;
+        cursor: pointer;
+        float: right;
+        &:hover {
+            background: #00a11d;
+            color: #fff;
+        }
+    }
+}
+
+
+
 //a reveiew ultimate wrapper
 .a-review {
     padding-top: 15px;
