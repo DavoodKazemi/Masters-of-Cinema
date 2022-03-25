@@ -4,6 +4,13 @@
     ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
 }
 
+@*notify user when trying to add a movie again!*@
+<div class="clist-add-notify ms-2 position-fixed" id="clist-add-notify" role="alert">
+    <div class="clist-add-notify-message alert alert-success" id="jnotify-message">
+
+    </div>
+</div>
+
 @if (User.Identity.IsAuthenticated)
 {
     <partial name="_MovieDetails" />
@@ -15,15 +22,15 @@ else
 
 
 
-    @*Movie information*@
-    <section class="container mb-5 px-sm-2">
+@*Movie information*@
+<section class="container mb-5 px-sm-2">
 
-        <div class="row">
-            <div class="col-md-3 text-center">
+    <div class="row">
+        <div class="col-md-3 text-center">
 
-            </div>
+        </div>
 
-            @*reviews wrapper*@
+        @*reviews wrapper*@
         <div class=" col-md-9 py-3 review-section-wrapper">
             <h2 class="review-section-heading" id="user-review-section">
                 Your review
@@ -82,37 +89,15 @@ else
 
 
         </div>
-            
-        </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
         //Post review
     $(document).on("click", "#submit-review", function (e) {
-
-        //Update rate count
-        //var originalRate = oldRate;
-        //var originalCount = oldAllCount;
-
-        //Rate count decreases by 1
-        //If they had not rated movie before, rate count increased by 1
-        @*if (r == 1 && originalRate == 0) {
-            document.getElementById("rate-count").textContent = ++originalCount;
-        } else if (r == 0 && originalRate > 0) {
-            document.getElementById("rate-count").textContent = --originalCount;
-        } else {
-            document.getElementById("rate-count").textContent = originalCount;
-        }*@
-
-        //var originalAverage = Model.AverageRate;
-        //if (r == 0) {
-
-        //}
-        //Update the average instantly
-        var newRate = $("#review-text").val(); //The rating they just chose
-
 
 
         var data = $("#submitForm").serialize();
@@ -131,15 +116,25 @@ else
                 if (data != '') {
                     $("#submitForm").hide();
                     $(".review-ajax-container > #post-review").append(data);
+
+                    //scroll to the review
                     $("html").animate(
                         {
                             scrollTop: $("#user-review-section").offset().top
                         },
                         800 //speed
                     );
+                    //notify user
+                    console.log("Your review saved!");
+
+                    $("#jnotify-message").empty().append("<div>You review for <strong>" + $(".movie-header-title").text() + "</strong> is saved!</div>");
+                    $("#clist-add-notify").delay(1400).slideDown(320);
+                    $('#clist-add-notify').delay(5000).slideUp(320);
+                    //end notify user
+
                     $("#post-review").show('slow');
                     $("#no-review-yet").hide("slow");
-                    
+
                 }
             },
             error: function () {
@@ -149,4 +144,4 @@ else
         })
     });
 
-    </script>
+</script>
