@@ -25,6 +25,8 @@ namespace MastersOfCinema.Data
         public DbSet<CList> Lists { get; set; }
         public DbSet<ListMovies> ListMovies { get; set; }
         public DbSet<Review> Review { get; set; }
+        public DbSet<LikeReview> LikeReview { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
