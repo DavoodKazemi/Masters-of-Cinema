@@ -374,36 +374,38 @@ namespace MastersOfCinema.Controllers
             //return Ok("Form Data received!");
         }
 
+        //Like / Unlike a review
         [HttpPost]
         public async Task<IActionResult> LikeReview(int ReviewId)
         {
-            //Only need to get movieId from view
-            //Need to set a movieId and User to the new record
-            LikeReview log = new LikeReview();
+            //Only need to get Review Id from view
+            //Need to set a Review Id and User to the new record
+            LikeReview like = new LikeReview();
             var reviewId = ReviewId;
-            //Check to see if this movie had been added to the user's watchlist before
+            //Check to see if this review had been liked by this user before
             var UserName = HttpContext.User.Identity.Name;
-            //watchlist.MovieId = id;
-            log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-            //If true it had been in user's watchlist (meaning user wants to remove it from watchlist)
+            
+            like.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+
+            //If true it had been liked by this user before (meaning user wants to unlike it now)
             bool wasLiked = _context.LikeReview.Where(u => u.User.UserName == UserName).Any(m => m.ReviewId == ReviewId);
 
-            //If rating != 0, it's either create or update, else it's delete rate
+            //If wasLiked != true, it's a like request, else it's an unlike request
             if (!wasLiked)
             {
-                //Create
-                log.Id = 0;
-                log.ReviewId = ReviewId;
+                //Create record
+                like.Id = 0;
+                like.ReviewId = ReviewId;
                 if (ModelState.IsValid)
                 {
-                    //Save (Create or update) rating in DB
-                    _context.Update(log);
+                    //Save (Create) like in DB
+                    _context.Update(like);
                     await _context.SaveChangesAsync();
                 }
             }
-            else //it's a delete request
+            else //it's a delete (unlike) request
             {
-                //Delete rating - If rating = 0, it means they clicked on remove rate button
+                //Delete like
                 var logItem = _context.LikeReview.Where(u => u.User.UserName == UserName)
                 .FirstOrDefault(m => m.ReviewId == ReviewId);
                 _context.LikeReview.Remove(logItem);

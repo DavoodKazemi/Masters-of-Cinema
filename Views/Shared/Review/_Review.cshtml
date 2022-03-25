@@ -36,27 +36,48 @@
         @*End review text*@
 
         @*Start like section*@
-        <div class="review-like-wrapper">
-            @*When clicking on this, review will be liked or unliked*@
-            <span class="review-like-button" id="review-like-button">
-                <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
-                @if (item.IsLiked)
-                {
-                    <span class="review-icon-liked" id="like-icon"></span>
-                    <span class="review-liked-text" id="like-caption">Liked</span>
-                }
-                else
-                {
-                    <span class="review-icon-like" id="like-icon"></span>
-                    <span class="review-like-text" id="like-caption">Like Review</span>
-                }
-            </span>
-            @*End When clicking on this, review will be liked or unliked*@
+    <div class="review-like-wrapper">
+        @*When clicking on this, review will be liked or unliked*@
+        <span class="review-like-button" id="review-like-button">
+            <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
+            @if (item.IsLiked)
+            {
+                <span class="review-icon-liked" id="like-icon"></span>
+                <span class="review-liked-text" id="like-caption">Liked</span>
+            }
+            else
+            {
+                <span class="review-icon-like" id="like-icon"></span>
+                <span class="review-like-text" id="like-caption">Like Review</span>
+            }
+        </span>
+        @*End When clicking on this, review will be liked or unliked*@
 
-            @*Start Review like stats*@
-            <span class="review-like-stats d-inline-block">@item.LikeCount people liked this reeview</span>
-            @*End Review stats*@
-        </div>
+        @*Start Review like stats*@
+        @if (item.LikeCount > 0)
+        {
+            if (item.LikeCount == 1 && item.IsLiked)
+            {
+                @*The only one who like this review is this user*@
+                @*We need to hide the element when user unlikes the review*@
+                <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+            }
+            else
+            {
+                @*Other users liked this review*@
+                @*No need to hide/show for this element*@
+                <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+            }
+        }
+        else
+        {
+            @*No one liked this review*@
+            @*We need to show the element when user likes the review*@
+            <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+        }
+
+        @*End Review stats*@
+    </div>
     </div>
 
 
@@ -77,9 +98,22 @@
 
         //if review is liked (or unliked), change the text
         if ($(this).children('#like-caption').hasClass('review-liked-text')) {
+            //if (...) ==> User liked review
             $(this).children("#like-caption").html("Liked");
+            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) + 1);
+
+            //display the stats anyway, because if you press like, the like count is certainly more than zero
+            $(this).siblings("#review-stats").fadeIn(700);
+
         } else {
+            //else ==> User unliked review
             $(this).children("#like-caption").html("Like Review");
+            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) - 1);
+
+            //hide the stats if the like count is zero
+            if (parseInt($(this).siblings().children("#like-count").html()) < 1) {
+                $(this).siblings("#review-stats").fadeOut(1000);
+            }
         }
         //END Start changing UI
 
