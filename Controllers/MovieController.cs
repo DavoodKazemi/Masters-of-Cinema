@@ -373,5 +373,44 @@ namespace MastersOfCinema.Controllers
             return PartialView("Review/_AjaxReview", movieRateDirector2);
             //return Ok("Form Data received!");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> LikeReview(int ReviewId)
+        {
+            //Only need to get movieId from view
+            //Need to set a movieId and User to the new record
+            LikeReview log = new LikeReview();
+            var reviewId = ReviewId;
+            //Check to see if this movie had been added to the user's watchlist before
+            var UserName = HttpContext.User.Identity.Name;
+            //watchlist.MovieId = id;
+            log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+            //If true it had been in user's watchlist (meaning user wants to remove it from watchlist)
+            bool wasLiked = _context.LikeReview.Where(u => u.User.UserName == UserName).Any(m => m.ReviewId == ReviewId);
+
+            //If rating != 0, it's either create or update, else it's delete rate
+            if (!wasLiked)
+            {
+                //Create
+                log.Id = 0;
+                log.ReviewId = ReviewId;
+                if (ModelState.IsValid)
+                {
+                    //Save (Create or update) rating in DB
+                    _context.Update(log);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            else //it's a delete request
+            {
+                //Delete rating - If rating = 0, it means they clicked on remove rate button
+                var logItem = _context.LikeReview.Where(u => u.User.UserName == UserName)
+                .FirstOrDefault(m => m.ReviewId == ReviewId);
+                _context.LikeReview.Remove(logItem);
+                await _context.SaveChangesAsync();
+
+            }
+            return Ok("Form Data received!");
+        }
     }
 }
