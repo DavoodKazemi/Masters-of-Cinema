@@ -488,11 +488,26 @@ namespace MastersOfCinema.Data
         //END Custom lists
 
         //Review
-        public IEnumerable<Review> GetMovieReviews(int id)
+        public IEnumerable<ReviewViewModel> GetMovieReviews(int id)
         {
             Movie movie = GetMovieById(id);
             IEnumerable<Review> reviews = _context.Review.Include(x => x.User).Where(m => m.MovieId == id);
-            return reviews;
+            List<ReviewViewModel> revs = new List<ReviewViewModel>();
+            foreach(var item in reviews)
+            {
+                //Review + the number of its liks
+                revs.Add(new ReviewViewModel
+                {
+                    Id = item.Id,
+                    MovieId = item.MovieId,
+                    ReviewText = item.ReviewText,
+                    User = item.User,
+                    LikeCount = _context.LikeReview.Where(x => x.ReviewId == item.Id).Count()
+                });
+            }
+
+            //We will have a collection of reviews and in each review, the like count is saved
+            return revs;
         }
 
         //find out is the movie is reviewd by user

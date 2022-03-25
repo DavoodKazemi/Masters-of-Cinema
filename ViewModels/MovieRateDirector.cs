@@ -25,7 +25,7 @@ namespace MastersOfCinema.ViewModels
 
         public Watchlist Watchlist { get; set; }
         public MovieLog MovieLog { get; set; }
-        public IEnumerable<Review> Review { get; set; }
+        public IEnumerable<ReviewViewModel> Review { get; set; }
         public Review UserReview { get; set; }
     }
 }

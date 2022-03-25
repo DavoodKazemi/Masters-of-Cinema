@@ -248,7 +248,7 @@ namespace MastersOfCinema.Controllers
                 MovieLog = _repository.IsLoggedMovieId(id),
                 Watchlist = _repository.IsInWatchlistById(id),
                 Review = _repository.GetMovieReviews(id),
-                UserReview = _repository.IsReviewed(id)
+                UserReview = _repository.IsReviewed(id),
                 //UserReview = _repository.GetUserReview(id)
             };
             //If movie was not logged, make a new log obj to prevent error
@@ -278,6 +278,17 @@ namespace MastersOfCinema.Controllers
             {
                 movieRateDirector.UserReview = new Review
             }*/
+
+            //Review like - if its not null, we have at least one review
+            /*if (movieRateDirector.Review != null)
+            {
+                foreach(var item in movieRateDirector.Review)
+                {
+                    ReviewLikeCount = _repository.GetReviewLikeCount(item.Id);
+                }
+            }*/
+            //ViewBag.likeCount = _context.LikeReview.Where(m => m.ReviewId == id).Count();
+            //Review like
 
             //List count
             ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count();
