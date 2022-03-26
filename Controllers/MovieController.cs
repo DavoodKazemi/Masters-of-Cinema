@@ -18,11 +18,6 @@ namespace MastersOfCinema.Controllers
 {
     public class MovieController : Controller
     {
-
-
-
-
-
         private readonly Context _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly ICinemaRepository _repository;
@@ -249,7 +244,7 @@ namespace MastersOfCinema.Controllers
                 Watchlist = _repository.IsInWatchlistById(id),
                 Review = _repository.GetMovieReviews(id),
                 
-                //UserReview = _repository.GetUserReview(id)
+                //UserReview ASSIGNED BELOW
             };
             //If movie was not logged, make a new log obj to prevent error
             if (movieRateDirector.MovieLog == null)
@@ -275,35 +270,12 @@ namespace MastersOfCinema.Controllers
 
             //If movie is reviewed by this user or not
             var UserReviewRaw = _repository.IsReviewed(id);
-
+            //If so, add the review + like stats to UserReview!
             if(UserReviewRaw != null)
             {
-                movieRateDirector.UserReview = new ReviewViewModel()
-                {
-                    Id = UserReviewRaw.Id,
-                    User = UserReviewRaw.User,
-                    MovieId = UserReviewRaw.MovieId,
-                    ReviewText = UserReviewRaw.ReviewText,
-                    LikeCount = _context.LikeReview.Where(x => x.ReviewId == UserReviewRaw.Id).Count(),
-                    IsLiked = _context.LikeReview.Where(x => x.ReviewId == UserReviewRaw.Id).Any(m => m.User.UserName == UserName)
-                };
+                movieRateDirector.UserReview = _repository.GetReviewsLikeStats(UserReviewRaw);
             }
             
-            /*if (movieRateDirector.UserReview == null)
-            {
-                movieRateDirector.UserReview = new Review
-            }*/
-
-            //Review like - if its not null, we have at least one review
-            /*if (movieRateDirector.Review != null)
-            {
-                foreach(var item in movieRateDirector.Review)
-                {
-                    ReviewLikeCount = _repository.GetReviewLikeCount(item.Id);
-                }
-            }*/
-            //ViewBag.likeCount = _context.LikeReview.Where(m => m.ReviewId == id).Count();
-            //Review like
 
             //List count
             ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count();
