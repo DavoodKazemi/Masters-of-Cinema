@@ -69,20 +69,20 @@
                 {
                     @*The only one who like this review is this user*@
                     @*We need to hide the element when user unlikes the review*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
                 }
                 else
                 {
                     @*Other users liked this review*@
                     @*No need to hide/show for this element*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
                 }
             }
             else
             {
                 @*No one liked this review*@
                 @*We need to show the element when user likes the review*@
-                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
             }
 
             @*End Review stats*@

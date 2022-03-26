@@ -248,7 +248,7 @@ namespace MastersOfCinema.Controllers
                 MovieLog = _repository.IsLoggedMovieId(id),
                 Watchlist = _repository.IsInWatchlistById(id),
                 Review = _repository.GetMovieReviews(id),
-                UserReview = _repository.IsReviewed(id),
+                
                 //UserReview = _repository.GetUserReview(id)
             };
             //If movie was not logged, make a new log obj to prevent error
@@ -272,8 +272,23 @@ namespace MastersOfCinema.Controllers
                 };
             }
 
+
             //If movie is reviewed by this user or not
-            //bool isReviewed = _repository.IsReviewed(id);
+            var UserReviewRaw = _repository.IsReviewed(id);
+
+            if(UserReviewRaw != null)
+            {
+                movieRateDirector.UserReview = new ReviewViewModel()
+                {
+                    Id = UserReviewRaw.Id,
+                    User = UserReviewRaw.User,
+                    MovieId = UserReviewRaw.MovieId,
+                    ReviewText = UserReviewRaw.ReviewText,
+                    LikeCount = _context.LikeReview.Where(x => x.ReviewId == UserReviewRaw.Id).Count(),
+                    IsLiked = _context.LikeReview.Where(x => x.ReviewId == UserReviewRaw.Id).Any(m => m.User.UserName == UserName)
+                };
+            }
+            
             /*if (movieRateDirector.UserReview == null)
             {
                 movieRateDirector.UserReview = new Review
@@ -330,48 +345,44 @@ namespace MastersOfCinema.Controllers
         [HttpPost]
         public async Task<IActionResult> Review(MovieRateDirector movieRateDirector)
         {
-            //Only need to get movieId from view
+            //Only need to get movieId and the review text from view
             //Need to set a movieId and User to the new record
-            Review log = new Review() {
+
+            //Start saving the review
+            //create a new review object for saving into database
+            Review newReview = new Review() {
+                //add review text
                 ReviewText = movieRateDirector.UserReview.ReviewText
                 
             };
+            //add movie Id
             var movieId = movieRateDirector.UserReview.MovieId;
-            //Check to see if this movie had been added to the user's watchlist before
-            var UserName = HttpContext.User.Identity.Name;
-            //watchlist.MovieId = id;
-            log.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-            //If true it had been in user's watchlist (meaning user wants to remove it from watchlist)
-            //bool wasLogged = _context.MovieLogs.Where(u => u.User.UserName == UserName).Any(m => m.MovieId == movieId);
+            newReview.MovieId = movieId;
 
-            //If rating != 0, it's either create or update, else it's delete rate
-            //if (!wasLogged)
-            //{
-                //Create
-                log.Id = 0;
-                log.MovieId = movieId;
-                
-                if (ModelState.IsValid)
-                {
-                    //Save (Create or update) rating in DB
-                    _context.Update(log);
-                    await _context.SaveChangesAsync();
-                }
-            //}
-            //else //it's a delete request
-            //{
-            //Delete rating - If rating = 0, it means they clicked on remove rate button
-            /*var logItem = _context.MovieLogs.Where(u => u.User.UserName == UserName)
-            .FirstOrDefault(m => m.MovieId == movieId);
-            _context.MovieLogs.Remove(logItem);
-            await _context.SaveChangesAsync();*/
+            //add user (reviewer)
+            var UserName = HttpContext.User.Identity.Name;
+            newReview.User = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+
+            newReview.Id = 0;
+
+            if (ModelState.IsValid)
+            {
+                //Save (Create or update) rating in DB
+                _context.Update(newReview);
+                await _context.SaveChangesAsync();
+            }
+            //End saving the review
+
+            //create a new model for sending the new review to the view
             MovieRateDirector movieRateDirector2 = new MovieRateDirector();
-            movieRateDirector2.UserReview = log;
-            //}
-            //, new Application.ViewModels.PartialViewModel()
-            //return PartialView("Review/_AjaxReview", log);
+
+            //add like count and isLiked to the new review
+            //(probably would be better to add them manually: likeCount = 0, isLiked = false)
+            movieRateDirector2.UserReview = _repository.GetReviewsLikeStats(newReview);
+            
+            //Display the new review
             return PartialView("Review/_AjaxReview", movieRateDirector2);
-            //return Ok("Form Data received!");
+            //End create and send model
         }
 
         //Like / Unlike a review

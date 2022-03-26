@@ -1,8 +1,11 @@
 ﻿@model MovieRateDirector
-@*Display user's review when it's just posted*@
-
+@*Only for logged in users!*@
+@*Display user's review on the top of reviews*@
+@*when it's just posted and later when page loads by the user*@
 
 <div class="col-12 border-bottom-0 user-review">
+
+    @*Reviewer's avatar is displayed on the left side of each review*@
     @if (Model.UserReview.User.ProfilePicture != null)
     {
         <div class="profile-picture-medium-wrapper">
@@ -11,24 +14,82 @@
             </div>
         </div>
     }
+    else
+    {
+        <div class="profile-picture-medium-wrapper">
+            <div class="profile-picture-medium">
+                <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+            </div>
+        </div>
+    }
+    @*END Reviewer's avatar*@
+
+    @*Start Review's right side*@
     <div class="d-inline-block review-main-col">
+        @*Start Review's header*@
         <div class="review-head-wrapper">
             <div class="review-head">
                 <div class="review-head-text">
                     Review by
                     <span class="review-name">@Model.UserReview.User.FirstName</span>
-                    @*@await Component.InvokeAsync("UserAvatar", new { userId = item.User.Id })*@
                 </div>
             </div>
         </div>
 
+        @*Start review text*@
         <div class="review-text-wrapper">
             <div class="review-text">
                 <div style="white-space: pre-wrap;">@Model.UserReview.ReviewText</div>
             </div>
         </div>
-    </div>
+        @*End review text*@
 
+        @*Start like section*@
+        <div class="review-like-wrapper">
+            @*When clicking on this, review will be liked or unliked*@
+            <span class="review-like-button" id="review-like-button">
+                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small" id="review-id" />
+                @if (Model.UserReview.IsLiked)
+                {
+                    <span class="review-icon-liked" id="like-icon"></span>
+                    <span class="review-liked-text" id="like-caption">Liked</span>
+                }
+                else
+                {
+                    <span class="review-icon-like" id="like-icon"></span>
+                    <span class="review-like-text" id="like-caption">Like Review</span>
+                }
+            </span>
+            @*End When clicking on this, review will be liked or unliked*@
+
+            @*Start Review like stats*@
+            @if (Model.UserReview.LikeCount > 0)
+            {
+                if (Model.UserReview.LikeCount == 1 && Model.UserReview.IsLiked)
+                {
+                    @*The only one who like this review is this user*@
+                    @*We need to hide the element when user unlikes the review*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
+                }
+                else
+                {
+                    @*Other users liked this review*@
+                    @*No need to hide/show for this element*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
+                }
+            }
+            else
+            {
+                @*No one liked this review*@
+                @*We need to show the element when user likes the review*@
+                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
+            }
+
+            @*End Review stats*@
+        </div>
+        @*End like section*@
+    </div>
+    @*END Review's right side*@
 
 </div>
 
