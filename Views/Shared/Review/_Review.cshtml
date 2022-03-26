@@ -8,6 +8,8 @@
 {
     @*text = HtmlUtilities.ConvertToPlainText(item.ReviewText);*@
 <div class="col-12 a-review">
+
+    @*Reviewer's avatar is displayed on the left side of each review*@
     @if (item.User.ProfilePicture != null)
     {
         <div class="profile-picture-medium-wrapper">
@@ -16,6 +18,16 @@
             </div>
         </div>
     }
+    else
+    {
+        <div class="profile-picture-medium-wrapper">
+            <div class="profile-picture-medium">
+                <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+            </div>
+        </div>
+    }
+    @*END Reviewer's avatar*@
+
     <div class="d-inline-block review-main-col">
         <div class="review-head-wrapper">
             <div class="review-head">
@@ -36,48 +48,48 @@
         @*End review text*@
 
         @*Start like section*@
-    <div class="review-like-wrapper">
-        @*When clicking on this, review will be liked or unliked*@
-        <span class="review-like-button" id="review-like-button">
-            <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
-            @if (item.IsLiked)
+        <div class="review-like-wrapper">
+            @*When clicking on this, review will be liked or unliked*@
+            <span class="review-like-button" id="review-like-button">
+                <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
+                @if (item.IsLiked)
+                {
+                    <span class="review-icon-liked" id="like-icon"></span>
+                    <span class="review-liked-text" id="like-caption">Liked</span>
+                }
+                else
+                {
+                    <span class="review-icon-like" id="like-icon"></span>
+                    <span class="review-like-text" id="like-caption">Like Review</span>
+                }
+            </span>
+            @*End When clicking on this, review will be liked or unliked*@
+
+            @*Start Review like stats*@
+            @if (item.LikeCount > 0)
             {
-                <span class="review-icon-liked" id="like-icon"></span>
-                <span class="review-liked-text" id="like-caption">Liked</span>
+                if (item.LikeCount == 1 && item.IsLiked)
+                {
+                    @*The only one who like this review is this user*@
+                    @*We need to hide the element when user unlikes the review*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+                }
+                else
+                {
+                    @*Other users liked this review*@
+                    @*No need to hide/show for this element*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
+                }
             }
             else
             {
-                <span class="review-icon-like" id="like-icon"></span>
-                <span class="review-like-text" id="like-caption">Like Review</span>
+                @*No one liked this review*@
+                @*We need to show the element when user likes the review*@
+                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
             }
-        </span>
-        @*End When clicking on this, review will be liked or unliked*@
 
-        @*Start Review like stats*@
-        @if (item.LikeCount > 0)
-        {
-            if (item.LikeCount == 1 && item.IsLiked)
-            {
-                @*The only one who like this review is this user*@
-                @*We need to hide the element when user unlikes the review*@
-                <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
-            }
-            else
-            {
-                @*Other users liked this review*@
-                @*No need to hide/show for this element*@
-                <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
-            }
-        }
-        else
-        {
-            @*No one liked this review*@
-            @*We need to show the element when user likes the review*@
-            <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this reeview</span>
-        }
-
-        @*End Review stats*@
-    </div>
+            @*End Review stats*@
+        </div>
     </div>
 
 
