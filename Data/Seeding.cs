@@ -306,14 +306,14 @@ namespace MastersOfCinema.Data
                 var filePath = Path.Combine(env.ContentRootPath, "Data/Default/review.json");
                 var json = File.ReadAllText(filePath);
 
-                //rate = a list of movie rating, but the user field needs to be passed by foreach loop
-                var rate = JsonSerializer.Deserialize<IEnumerable<Review>>(json);
+                //reviews = a list of movie Review, but the user field needs to be passed by foreach loop
+                var reviews = JsonSerializer.Deserialize<IEnumerable<Review>>(json);
 
-                //List all the users
+                //List all the users - Also, in order to prevent randomness, we order users
                 List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
 
-                //array = all data in rate.json file.
-                //We will use the UserId field in "array" to pass User to the "rate"
+                //array = all data in review.json file.
+                //We will use the UserId field in "array" to pass User to the "reviews"
                 dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
 
                 //before: UserId = "1" or "2" or ...
@@ -327,8 +327,8 @@ namespace MastersOfCinema.Data
 
                 int i = 0;
 
-                //pass real users to the rate, using real ids in array
-                foreach (var item in rate)
+                //pass real users to the reviews, using real ids in array
+                foreach (var item in reviews)
                 {
                     string id = array[i].UserId;
                     var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
@@ -336,7 +336,48 @@ namespace MastersOfCinema.Data
                     i++;
                 }
 
-                ctx.Review.AddRange(rate);
+                ctx.Review.AddRange(reviews);
+                ctx.SaveChanges();
+            }
+
+            //Seed like review table
+            if (!ctx.LikeReview.Any())
+            {
+                //Then we need to create the sample data
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/like-review.json");
+                var json = File.ReadAllText(filePath);
+
+                //likes = a list of LikeReview, but the user field needs to be passed by foreach loop
+                var likes = JsonSerializer.Deserialize<IEnumerable<LikeReview>>(json);
+
+                //List all the users - Also, in order to prevent randomness, we order users
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
+
+                //array = all data in like-review.json file.
+                //We will use the UserId field in "array" to pass User to the "likes"
+                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+                //before: UserId = "1" or "2" or ...
+                //after: UserId = real user Ids.
+                foreach (var item in array)
+                {
+                    int simpleUserId = item.UserId - 1;
+                    string realUserId = userList[simpleUserId].Id;
+                    item.UserId = realUserId;
+                }
+
+                int i = 0;
+
+                //pass real users to the likes, using real ids in array
+                foreach (var item in likes)
+                {
+                    string id = array[i].UserId;
+                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
+                    item.User = User;
+                    i++;
+                }
+
+                ctx.LikeReview.AddRange(likes);
                 ctx.SaveChanges();
             }
         }

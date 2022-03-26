@@ -1,4 +1,4 @@
-﻿$avatar-column: 60px;
+﻿$avatar-column: 68px;
 @mixin svg-icon ( $svg-url, $bg-size, $height, $width ) {
     display: inline-block;
     text-transform: capitalize;
@@ -343,7 +343,7 @@
         line-height: 1.4;
         padding: 7px 10px;
         transition: all .3s ease-in;
-        white-space: pre-wrap;
+        white-space: pre-line;
 
         &:focus {
             background-color: #fff;
