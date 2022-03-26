@@ -378,6 +378,12 @@ namespace MastersOfCinema.Controllers
         [HttpPost]
         public async Task<IActionResult> LikeReview(int ReviewId)
         {
+            //If user not logged in, they can't like review
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return BadRequest("You should login first");
+            }
+
             //Only need to get Review Id from view
             //Need to set a Review Id and User to the new record
             LikeReview like = new LikeReview();

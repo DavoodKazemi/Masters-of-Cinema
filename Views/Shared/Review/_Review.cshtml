@@ -1,12 +1,8 @@
 ﻿@model MovieRateDirector
-@*Display all existing reviews when page loads*@
-@{
-    string text = "40";
-}
+@*Display all existing reviews when page loads - when user IS logged in*@
 
 @foreach (var item in Model.Review)
 {
-    @*text = HtmlUtilities.ConvertToPlainText(item.ReviewText);*@
 <div class="col-12 a-review">
 
     @*Reviewer's avatar is displayed on the left side of each review*@
@@ -28,13 +24,14 @@
     }
     @*END Reviewer's avatar*@
 
+    @*Start Review's right side*@
     <div class="d-inline-block review-main-col">
+        @*Start Review's header*@
         <div class="review-head-wrapper">
             <div class="review-head">
                 <div class="review-head-text">
                     Review by
                     <span class="review-name">@item.User.FirstName</span>
-                    @*@await Component.InvokeAsync("UserAvatar", new { userId = item.User.Id })*@
                 </div>
             </div>
         </div>
@@ -90,8 +87,9 @@
 
             @*End Review stats*@
         </div>
+        @*End like section*@
     </div>
-
+    @*END Review's right side*@
 
 </div>
 }
