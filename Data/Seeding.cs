@@ -131,9 +131,9 @@ namespace MastersOfCinema.Data
 
                 //rate = a list of movie rating, but the user field needs to be passed by foreach loop
                 var rate = JsonSerializer.Deserialize<IEnumerable<MovieRating>>(json);
-                
-                //List all the users
-                List<User> userList = ctx.Users.ToList();
+
+                //List all the users - Also, in order to prevent randomness, we order users
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
 
                 //array = all data in rate.json file.
                 //We will use the UserId field in "array" to pass User to the "rate"
@@ -163,47 +163,6 @@ namespace MastersOfCinema.Data
                 ctx.SaveChanges();
             }
 
-            //Seed custom lists table
-            if (!ctx.Lists.Any())
-            {
-                //Then we need to create the sample data
-                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/custom-lists.json");
-                var json = File.ReadAllText(filePath);
-
-                //rate = a list of movie rating, but the user field needs to be passed by foreach loop
-                var rate = JsonSerializer.Deserialize<IEnumerable<CList>>(json);
-
-                //List all the users
-                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
-
-                //array = all data in rate.json file.
-                //We will use the UserId field in "array" to pass User to the "rate"
-                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-
-                //before: UserId = "1" or "2" or ...
-                //after: UserId = real user Ids.
-                foreach (var item in array)
-                {
-                    int simpleUserId = item.UserId - 1;
-                    string realUserId = userList[simpleUserId].Id;
-                    item.UserId = realUserId;
-                }
-
-                int i = 0;
-
-                //pass real users to the rate, using real ids in array
-                foreach (var item in rate)
-                {
-                    string id = array[i].UserId;
-                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
-                    item.User = User;
-                    i++;
-                }
-
-                ctx.Lists.AddRange(rate);
-                ctx.SaveChanges();
-            }
-
             //Seed log table
             if (!ctx.MovieLogs.Any())
             {
@@ -214,10 +173,10 @@ namespace MastersOfCinema.Data
                 //log = a list of logs, but the user field needs to be passed by foreach loop
                 var log = JsonSerializer.Deserialize<IEnumerable<MovieLog>>(json);
 
-                //List all the users
-                List<User> userList = ctx.Users.ToList();
+                //List all the users - Also, in order to prevent randomness, we order users
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
 
-                //array = all data in rate.json file.
+                //array = all data in log.json file.
                 //We will use the UserId field in "array" to pass User to the "log"
                 dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
 
@@ -232,7 +191,7 @@ namespace MastersOfCinema.Data
 
                 int i = 0;
 
-                //pass real users to the watchlist, using real ids in array
+                //pass real users to the log, using real ids in array
                 foreach (var item in log)
                 {
                     string id = array[i].UserId;
@@ -255,10 +214,10 @@ namespace MastersOfCinema.Data
                 //watchlist = a list of watchilists, but the user field needs to be passed by foreach loop
                 var watchlist = JsonSerializer.Deserialize<IEnumerable<Watchlist>>(json);
 
-                //List all the users
-                List<User> userList = ctx.Users.ToList();
+                //List all the users - Also, in order to prevent randomness, we order users
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
 
-                //array = all data in rate.json file.
+                //array = all data in watchlist.json file.
                 //We will use the UserId field in "array" to pass User to the "watchlist"
                 dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
 
@@ -283,6 +242,47 @@ namespace MastersOfCinema.Data
                 }
 
                 ctx.Watchlists.AddRange(watchlist);
+                ctx.SaveChanges();
+            }
+
+            //Seed custom lists table
+            if (!ctx.Lists.Any())
+            {
+                //Then we need to create the sample data
+                var filePath = Path.Combine(env.ContentRootPath, "Data/Default/custom-lists.json");
+                var json = File.ReadAllText(filePath);
+
+                //cLists = a list of custom lists, but the user field needs to be passed by foreach loop
+                var cLists = JsonSerializer.Deserialize<IEnumerable<CList>>(json);
+
+                //List all the users - Also, in order to prevent randomness, we order users
+                List<User> userList = ctx.Users.OrderBy(x => x.UserName).ToList();
+
+                //array = all data in custom-lists.json file.
+                //We will use the UserId field in "array" to pass User to the "cLists"
+                dynamic array = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+                //before: UserId = "1" or "2" or ...
+                //after: UserId = real user Ids.
+                foreach (var item in array)
+                {
+                    int simpleUserId = item.UserId - 1;
+                    string realUserId = userList[simpleUserId].Id;
+                    item.UserId = realUserId;
+                }
+
+                int i = 0;
+
+                //pass real users to the cLists, using real ids in array
+                foreach (var item in cLists)
+                {
+                    string id = array[i].UserId;
+                    var User = ctx.Users.Where(i => i.Id == id).FirstOrDefault();
+                    item.User = User;
+                    i++;
+                }
+
+                ctx.Lists.AddRange(cLists);
                 ctx.SaveChanges();
             }
 
