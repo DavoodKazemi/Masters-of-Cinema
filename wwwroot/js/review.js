@@ -1,4 +1,9 @@
-﻿
+﻿//increase the height of the review input when clicked
+$(document).on("click", "#review-text", function (e) {
+    $(this).css("height", "250px")
+});
+
+
 //Post review - Only available when user is logged in
 $(document).on("click", "#submit-review", function (e) {
 
