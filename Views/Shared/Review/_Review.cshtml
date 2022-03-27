@@ -1,0 +1,153 @@
+﻿@model MovieRateDirector
+@*Display all existing reviews when page loads - when user IS logged in*@
+
+@foreach (var item in Model.Review)
+{
+<div class="col-12 a-review">
+
+    @*Reviewer's avatar is displayed on the left side of each review*@
+    @if (item.User.ProfilePicture != null)
+    {
+        <div class="profile-picture-medium-wrapper">
+            <div class="profile-picture-medium">
+                <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="profile-picture-medium-wrapper">
+            <div class="profile-picture-medium">
+                <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+            </div>
+        </div>
+    }
+    @*END Reviewer's avatar*@
+
+    @*Start Review's right side*@
+    <div class="d-inline-block review-main-col">
+        @*Start Review's header*@
+        <div class="review-head-wrapper">
+            <div class="review-head">
+                <div class="review-head-text">
+                    Review by
+                    <span class="review-name">@item.User.FirstName</span>
+                </div>
+            </div>
+        </div>
+
+        @*Start review text*@
+        <div class="review-text-wrapper">
+            <div class="review-text">
+                <div style="white-space: pre-line;">@item.ReviewText</div>
+            </div>
+        </div>
+        @*End review text*@
+
+        @*Start like section*@
+        <div class="review-like-wrapper">
+            @*When clicking on this, review will be liked or unliked*@
+            <span class="review-like-button" id="review-like-button">
+                <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
+                @if (item.IsLiked)
+                {
+                    <span class="review-icon-liked" id="like-icon"></span>
+                    <span class="review-liked-text" id="like-caption">Liked</span>
+                }
+                else
+                {
+                    <span class="review-icon-like" id="like-icon"></span>
+                    <span class="review-like-text" id="like-caption">Like Review</span>
+                }
+            </span>
+            @*End When clicking on this, review will be liked or unliked*@
+
+            @*Start Review like stats*@
+            @if (item.LikeCount > 0)
+            {
+                if (item.LikeCount == 1 && item.IsLiked)
+                {
+                    @*The only one who like this review is this user*@
+                    @*We need to hide the element when user unlikes the review*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                }
+                else
+                {
+                    @*Other users liked this review*@
+                    @*No need to hide/show for this element*@
+                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                }
+            }
+            else
+            {
+                @*No one liked this review*@
+                @*We need to show the element when user likes the review*@
+                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+            }
+
+            @*End Review stats*@
+        </div>
+        @*End like section*@
+    </div>
+    @*END Review's right side*@
+
+</div>
+}
+
+
+@*Like/Unlike*@
+<script>
+    //Log functions
+    $(document).on("click", "#review-like-button", function (e) {
+        //Start changing UI
+        //toggle between two class for changing the icon color
+        $(this).children("#like-icon").toggleClass('review-icon-like review-icon-liked');
+
+        //change the class of caption
+        $(this).children("#like-caption").toggleClass('review-like-text review-liked-text');
+
+        //if review is liked (or unliked), change the text
+        if ($(this).children('#like-caption').hasClass('review-liked-text')) {
+            //if (...) ==> User liked review
+            $(this).children("#like-caption").html("Liked");
+            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) + 1);
+
+            //display the stats anyway, because if you press like, the like count is certainly more than zero
+            $(this).siblings("#review-stats").fadeIn(400);
+
+        } else {
+            //else ==> User unliked review
+            $(this).children("#like-caption").html("Like Review");
+            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) - 1);
+
+            //hide the stats if the like count is zero
+            if (parseInt($(this).siblings().children("#like-count").html()) < 1) {
+                $(this).siblings("#review-stats").fadeOut(400);
+            }
+        }
+        //END Start changing UI
+
+        //Start Ajax function for saving like or removing like from database
+        var id = $(this).children("#review-id").val();
+        var data = "ReviewId=" + id;
+
+        //alert(data);
+        $.ajax({
+
+            type: 'POST',
+            url: '/Movie/LikeReview',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+        //End Ajax function
+
+    });
+</script>

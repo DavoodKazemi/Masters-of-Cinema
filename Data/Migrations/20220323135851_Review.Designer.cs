@@ -4,14 +4,16 @@ using MastersOfCinema.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MastersOfCinema.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220323135851_Review")]
+    partial class Review
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,26 +42,6 @@ namespace MastersOfCinema.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Lists");
-                });
-
-            modelBuilder.Entity("MastersOfCinema.Data.Entities.LikeReview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ReviewId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("LikeReview");
                 });
 
             modelBuilder.Entity("MastersOfCinema.Data.Entities.ListMovies", b =>
@@ -432,15 +414,6 @@ namespace MastersOfCinema.Migrations
                 });
 
             modelBuilder.Entity("MastersOfCinema.Data.Entities.CList", b =>
-                {
-                    b.HasOne("MastersOfCinema.ViewModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MastersOfCinema.Data.Entities.LikeReview", b =>
                 {
                     b.HasOne("MastersOfCinema.ViewModels.User", "User")
                         .WithMany()

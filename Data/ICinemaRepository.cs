@@ -38,8 +38,10 @@ namespace MastersOfCinema.Data
         //Infinity scroll
         IEnumerable<Movie> GetMoviesForAjax(int pageNum, int itemsPerPage);
         IEnumerable<Movie> GetMovieListForAjax(int pageNum, int itemsPerPage, IEnumerable<Movie> movies);
-
-        
-
+        //Review
+        ReviewViewModel GetReviewsLikeStats(Review review);
+        IEnumerable<ReviewViewModel> GetMovieReviews(int id);
+        Review IsReviewed(int id);
+        //Review GetUserReview(int id);
     }
 }

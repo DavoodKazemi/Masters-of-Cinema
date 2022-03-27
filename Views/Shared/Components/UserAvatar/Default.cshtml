@@ -1,0 +1,27 @@
+﻿@model User
+@*@inject SignInManager<User> SignInManager
+    @inject UserManager<User> UserManager*@
+
+@{ 
+
+}
+
+@if (Model.ProfilePicture != null)
+{
+    <div class="nav-item ms-md-auto profile-picture-small-wrapper">
+        <div class="profile-picture-small">
+            <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(@Model.ProfilePicture))">
+            <span class="navbar-user-name">@Model.FirstName</span>
+        </div>
+    </div>
+    
+}
+else
+{
+    <div class="profile-picture-small-wrapper">
+        <div class="profile-picture-small">
+            <i class="fas fa-user-circle me-0 nav-default-profile-picture"></i>
+            <span class="navbar-user-name-default">@Model.FirstName</span>
+        </div>
+    </div>
+}

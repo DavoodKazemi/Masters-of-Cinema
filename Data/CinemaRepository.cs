@@ -486,5 +486,73 @@ namespace MastersOfCinema.Data
             return model;
         }
         //END Custom lists
+
+        //Start Review
+
+        //Gets a review and gives the equivalent ReviewViewModel
+        public ReviewViewModel GetReviewsLikeStats(Review review)
+        {
+            string currentUser = _accessor.HttpContext.User.Identity.Name;
+            ReviewViewModel reviewViewModel = new ReviewViewModel()
+            {
+                Id = review.Id,
+                MovieId = review.MovieId,
+                ReviewText = review.ReviewText,
+                User = review.User,
+                LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
+                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser)
+
+            };
+            return reviewViewModel;
+        }
+
+
+
+        //Get id of a movie and sends it reviews, in form of
+        //ReviewViewModel (review entityt + like count and is liked)
+        public IEnumerable<ReviewViewModel> GetMovieReviews(int id)
+        {
+            //string currentUser = _accessor.HttpContext.User.Identity.Name;
+            Movie movie = GetMovieById(id);
+
+
+            IEnumerable<Review> reviewsRaw = _context.Review.Include(x => x.User).Where(m => m.MovieId == id);
+            List<ReviewViewModel> revs = new List<ReviewViewModel>();
+            foreach(var item in reviewsRaw)
+            {
+                //Review + the number of its liks
+                revs.Add(GetReviewsLikeStats(item));
+            }
+
+            //We will have a collection of reviews and in each review, the like count is saved
+            return revs;
+        }
+
+
+
+        //find out is the movie is reviewd by user
+        // + get the current user's review of the movie
+        public Review IsReviewed(int id)
+        {
+
+            var User = _accessor.HttpContext.User.Identity.Name;
+            //List of all rates by the user - later added to watchlist
+            var review = _context.Review.Include(m => m.User)
+                .Where(i => i.MovieId == id).Where(u => u.User.UserName == User).FirstOrDefault();
+                
+            return review;
+        }
+
+        //get the current user's review of the movie
+        /*public Review GetUserReview(int id)
+        {
+            var User = _accessor.HttpContext.User.Identity.Name;
+            Movie movie = GetMovieById(id);
+            Review review2 = new Review();
+            Review review = _context.Review.Include(m => m.User)
+                .Where(i => i.MovieId == id).Where(u => u.User.UserName == User).FirstOrDefault() ?? review2;
+            return review;
+        }*/
+        //End Review
     }
 }

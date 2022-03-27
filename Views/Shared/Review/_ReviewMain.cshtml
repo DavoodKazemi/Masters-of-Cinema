@@ -1,0 +1,67 @@
+﻿@model MovieRateDirector
+@*Start Review section - when user is logged in*@
+<section class="container mb-5 px-sm-2">
+
+    <div class="row">
+
+        @*reviews wrapper*@
+        <div class="offset-md-3 col-md-9 py-3 review-section-wrapper">
+            <h2 class="review-section-heading" id="user-review-section">
+                Your review
+            </h2>
+
+
+            @if (Model.UserReview != null)
+            {
+                <div class="review-ajax-container">
+                    <div class="review-body" id="post-review" style="">
+                        <partial name="~/Views/Shared/Review/_AjaxReview.cshtml" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.UserReview == null)
+            {
+                <div class="review-ajax-container">
+                    <div class="review-body" id="post-review" style="display: none;">
+
+                    </div>
+                </div>
+                <form id="submitForm" enctype="multipart/form-data" class="my-2">
+                    <input asp-for="@Model.UserReview.MovieId" type="hidden" value="@Model.Movie.Id" class="form-control input-small" id="" />
+                    <div class="review-input-wrapper">
+                        <textarea asp-for="@Model.UserReview.ReviewText" type="" value="" placeholder="Add a review..." class="review-input" id="review-text"></textarea>
+                    </div>
+                    <div class="review-edit-buttons">
+                        <input type="button" value="Review" class="review-save-button" id="submit-review" />
+
+                    </div>
+
+                </form>
+            }
+
+            @if (Model.Review.Count() > 0)
+            {
+                <h2 class="review-section-heading">
+                    Popular reviews
+                </h2>
+
+                <div class="review-ajax-container">
+                    <div class="review-body">
+                        <partial name="~/Views/Shared/Review/_Review.cshtml" />
+                        @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h2 class="review-section-heading text-center" id="no-review-yet">
+                    No reviews yet!
+                </h2>
+            }
+        </div>
+    </div>
+</section>
+@*End Review section*@
+
+<script src="~/js/review.js"></script>

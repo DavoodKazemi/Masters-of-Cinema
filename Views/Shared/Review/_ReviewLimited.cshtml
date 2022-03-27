@@ -1,0 +1,68 @@
+﻿@model MovieRateDirector
+@*Display all existing reviews when page loads - when user not logged in*@
+@*Guest user should not be able to post review, like review, *@
+
+@foreach (var item in Model.Review)
+{
+    <div class="col-12 a-review">
+
+        @*Reviewer's avatar is displayed on the left side of each review*@
+        @if (item.User.ProfilePicture != null)
+        {
+            <div class="profile-picture-medium-wrapper">
+                <div class="profile-picture-medium">
+                    <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="profile-picture-medium-wrapper">
+                <div class="profile-picture-medium">
+                    <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                </div>
+            </div>
+        }
+        @*END Reviewer's avatar*@
+
+        @*Start Review's right side*@
+    <div class="d-inline-block review-main-col">
+        @*Start Review's header*@
+        <div class="review-head-wrapper">
+            <div class="review-head">
+                <div class="review-head-text">
+                    Review by
+                    <span class="review-name">@item.User.FirstName</span>
+                </div>
+            </div>
+        </div>
+
+        @*Start review text*@
+        <div class="review-text-wrapper">
+            <div class="review-text">
+                <div style="white-space: pre-line;">@item.ReviewText</div>
+            </div>
+        </div>
+        @*End review text*@
+
+        @*Start Review stats - guest user cannot like/unlike review *@
+        <div class="review-like-wrapper">
+            @*if guest user clicked on like, refer him to the login page*@
+            <a class="" asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path">
+            <span class="review-like-button" id="review-like-button">
+                <span class="review-icon-like" id="like-icon"></span>
+                <span class="review-like-text" id="like-caption">Like Review</span>
+            </span>
+            </a>
+
+            @if (item.LikeCount > 0)
+            {
+                <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+            }
+
+        </div>
+        @*End Review stats*@
+    </div>
+    @*END Review's right side*@
+    </div>
+}

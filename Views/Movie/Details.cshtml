@@ -4,12 +4,20 @@
     ViewData["Title"] = Model.Movie.Title + " (" + Model.Movie.Year + ")";
 }
 
+@*notify user when trying to add a movie again!*@
+<div class="clist-add-notify ms-2 position-fixed" id="clist-add-notify" role="alert">
+    <div class="clist-add-notify-message alert alert-success" id="jnotify-message">
+
+    </div>
+</div>
+
 @if (User.Identity.IsAuthenticated)
 {
     <partial name="_MovieDetails" />
+    <partial name="~/Views/Shared/Review/_ReviewMain.cshtml" />
 }
 else
 {
     <partial name="_MovieDetailsLimited" />
+    <partial name="~/Views/Shared/Review/_ReviewMainLimited.cshtml" />
 }
-
