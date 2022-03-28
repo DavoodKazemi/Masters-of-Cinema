@@ -406,13 +406,15 @@ namespace MastersOfCinema.Controllers
 
         //Edit a review
         [HttpPost]
-        public async Task<IActionResult> Ferrari3(string reviewText)
+        public async Task<IActionResult> Ferrari3(string reviewId)
         {
             //create a new model for sending the new review to the view
             //MovieRateDirector movieRateDirector = new MovieRateDirector();
+            int id = Int32.Parse(reviewId);
+            var existingUserReview = _context.Review.Include(u => u.User).Where(x => x.Id == id).FirstOrDefault();
 
-
-
+            //create a function to get it by id directly
+            var existingUserReviewStats = _repository.GetReviewsLikeStats(existingUserReview);
             //add like count and isLiked to the new review
             //(probably would be better to add them manually: likeCount = 0, isLiked = false)
             /*movieRateDirector.UserReview = _repository.GetMovieReviews(1).FirstOrDefault();
@@ -424,9 +426,7 @@ namespace MastersOfCinema.Controllers
             Review review = _context.Review.FirstOrDefault();
             //add like count and isLiked to the new review
             //(probably would be better to add them manually: likeCount = 0, isLiked = false)
-            movieRateDirector2.UserReview = new ReviewViewModel() {
-                ReviewText = reviewText,
-            };
+            movieRateDirector2.UserReview = existingUserReviewStats;
 
             //Display the new review
             return PartialView("Review/_EditReview", movieRateDirector2);
@@ -434,15 +434,15 @@ namespace MastersOfCinema.Controllers
 
         //Update a review
         [HttpPost]
-        public async Task<IActionResult> UpdateReview(string reviewText)
+        public async Task<IActionResult> UpdateReview(MovieRateDirector newTextId)
         {
-            var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == 288);
-            var newText = reviewText;
+            var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == newTextId.UserReview.Id);
+            var newText = newTextId.UserReview.ReviewText;
 
             //if (ModelState.IsValid)
             //{
                 //the new text has to be different and also has to not be empty
-                if (review.ReviewText != newText && reviewText != "")
+                if (review.ReviewText != newText && newTextId.UserReview.ReviewText != "")
                 {
                     //If image not uploaded, assign the default photo
                     review.ReviewText = newText;

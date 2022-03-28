@@ -48,7 +48,7 @@
         <div class="review-like-wrapper" id="user-existing-review-stats">
             @*When clicking on this, review will be liked or unliked*@
             <span class="review-like-button" id="review-like-button">
-                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small" id="review-id" />
+                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small" id="user-review-id" />
                 @if (Model.UserReview.IsLiked)
                 {
                     <span class="review-icon-liked" id="like-icon"></span>
@@ -108,8 +108,9 @@
     //first only append the text area -- then send Model.UserReview.Id
     $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
         var self = $(this);
-    var review = $("#user-existing-review").html();
-    var data = "reviewText=" + review;
+        var id = $("#user-review-id").val();
+
+    var data = "reviewId=" + id;
     console.log("Edit started!");
     console.log(data);
     //alert(data);
@@ -161,8 +162,10 @@
     //Save changes 
     $(document).on("click", "#edit-review.no-edit", function (e) {
         var self = $(this);
-        var review = $("#review-text-edit").val();
-        var data = "reviewText=" + review;
+        //var review = $("#review-text-edit").val();
+        //var data = "reviewText=" + review;
+        var data = $("#editForm").serialize();
+        console.log(data);
         console.log("updating!");
         
         
