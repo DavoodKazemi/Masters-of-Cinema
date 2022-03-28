@@ -97,8 +97,40 @@
         float: right;
 
         &:hover {
+            transition: all .3s ease;
             background: #00a11d;
             color: #fff;
+        }
+    }
+
+    .review-cancel-button {
+        font-weight: 700;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 0 hsla(0,0%,100%,.2);
+        cursor: pointer;
+        font-family: Graphik-Semibold-Web,sans-serif;
+        font-size: 1rem;
+        letter-spacing: .075em;
+        line-height: 12px;
+        margin: 0;
+        padding: 12px 12px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background: #567;
+        //background: #89a;
+        //color: #def;
+        color: #c8d4e0;
+        float: right;
+        margin-left: 5px;
+        display: inline;
+        transition: all .3s ease;
+
+        &:hover {
+            transition: all .3s ease;
+            background: #678;
+            color: #fff;
+            //background: #ec1200;
         }
     }
 }

@@ -81,9 +81,12 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
             if (data != '') {
                 //$("#submitForm").hide();
                 $("#edit-review-container").append(data);
+                
+                $("#cancel-edit-review").show();
                 $("#user-existing-review").hide();
                 $("#user-existing-review-stats").hide()
                 self.addClass("no-edit");
+                self.val("Save");
                 //scroll to the review
                 $("html").animate(
                     {
@@ -108,6 +111,43 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
                 //$("#post-review").fadeIn(500);
                 //$("#no-review-yet").fadeOut(1000);
 
+            }
+        },
+        error: function () {
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
+        }
+    });
+
+});
+
+
+//cancel editing review
+$(document).on("click", "#cancel-edit-review", function (e) {
+    var self = $(this);
+    var id = $("#editForm").serialize();
+
+    var data = id;
+    console.log("Edit canceled!");
+    console.log(data);
+
+    $.ajax({
+
+        type: 'POST',
+        url: '/Movie/CancelReview',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (data, result) {
+            console.log(result);
+            if (data != '') {
+                $(".review-ajax-container > #post-review").append(data);
+                $("#edit-review").removeClass("no-edit");
+                $("#edit-review").val("Edit");
+                
+                //remove the textareaeditForm
+                $('#user-review-wrapper').remove();
+                //notify user
+                console.log("Your review edit canceld!");
             }
         },
         error: function () {
@@ -150,7 +190,7 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
                 self.removeClass("no-edit");
                 //remove the textareaeditForm
                 $('#user-review-wrapper').remove();
-
+                self.val("Edit");
                 //scroll to the review
                 $("html").animate(
                     {
@@ -158,6 +198,7 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
                     },
                     800 //speed
                 );
+
                 //notify user
                 console.log("Your review is to be edited!");
 

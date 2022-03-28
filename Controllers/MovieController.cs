@@ -471,6 +471,19 @@ namespace MastersOfCinema.Controllers
             return PartialView("Review/_AjaxReview", newTextId);
         }
 
+        
+        [HttpPost]
+        public async Task<IActionResult> CancelReview(MovieRateDirector newTextId)
+        {
+            var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == newTextId.UserReview.Id);
+
+            //add like count and isLiked to the new review
+            //(probably would be better to add them manually: likeCount = 0, isLiked = false)
+            newTextId.UserReview = _repository.GetReviewLikeStatsById(review.Id);
+
+            //}
+            return PartialView("Review/_AjaxReview", newTextId);
+        }
 
     }
 }
