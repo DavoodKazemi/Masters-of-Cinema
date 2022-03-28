@@ -485,5 +485,25 @@ namespace MastersOfCinema.Controllers
             return PartialView("Review/_AjaxReview", newTextId);
         }
 
+        
+        //Delete a review
+        [HttpPost]
+        public async Task<IActionResult> DeleteReview(MovieRateDirector movieIdReviewId)
+        {
+            //int id = Int32.Parse(reviewId);
+            //Define a methid for get review by id
+            var reviewId = movieIdReviewId.UserReview.Id;
+            var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == reviewId);
+
+
+            _context.Review.Remove(review);
+            await _context.SaveChangesAsync();
+            //Get movie id directly if possible
+            movieIdReviewId.Movie = new Movie { Id = movieIdReviewId.MovieRating.MovieId };
+            //empty the review part of the model
+            //scroll to the text area after del
+            //add a confirm for deletion
+            return PartialView("Review/_EmptyReview", movieIdReviewId);
+        }
     }
 }

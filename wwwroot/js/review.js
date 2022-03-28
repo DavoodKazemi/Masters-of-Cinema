@@ -22,9 +22,9 @@ $(document).on("click", "#submit-review", function (e) {
             //alert('Successfully received Data ');
             console.log(result);
             if (data != '') {
-                $("#submitForm").hide();
+                
                 $(".review-ajax-container > #post-review").append(data);
-
+                $("#submitForm").remove();
                 //scroll to the review
                 $("html").animate(
                     {
@@ -82,6 +82,7 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
                 //$("#submitForm").hide();
                 $("#edit-review-container").append(data);
                 
+                $("#delete-edit-review").show();
                 $("#cancel-edit-review").show();
                 $("#user-existing-review").hide();
                 $("#user-existing-review-stats").hide()
@@ -161,15 +162,13 @@ $(document).on("click", "#cancel-edit-review", function (e) {
 
 //Save changes 
 $(document).on("click", "#edit-review.no-edit", function (e) {
-
     var self = $(this);
-    //var review = $("#review-text-edit").val();
-    //var data = "reviewText=" + review;
+    //var id = $("#user-review-id").val();
     var data = $("#editForm").serialize();
+
+    //var data = "reviewId=" + id;
+    console.log("Edit started!");
     console.log(data);
-    console.log("updating!");
-
-
 
     $.ajax({
 
@@ -224,4 +223,53 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
 //increase the height of the review input when user focused on it -- when editing a review
 $(document).on("focus", "#review-text-edit", function (e) {
     $(this).css("height", "400px")
+});
+
+
+//Delete
+
+$(document).on("click", "#delete-edit-review", function (e) {
+    var formfield1 = $('#movie-id').serialize();
+    var formfield2 = $("#editForm").serialize();
+
+    var seializedTwoFields = formfield1 + '&' + formfield2;
+
+
+
+
+
+
+    //var self = $(this);
+    //var id = $("#user-review-id").val();
+
+    var data = seializedTwoFields;
+    console.log("Review deletion!");
+    console.log(data);
+
+    $.ajax({
+
+        type: 'POST',
+        url: '/Movie/DeleteReview',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (data, result) {
+            console.log(result);
+            if (data != '') {
+                $('#user-review-section').after(data);
+                //$(".review-ajax-container > #post-review").append(data);
+                //$("#edit-review").removeClass("no-edit");
+                //$("#edit-review").val("Edit");
+
+                //remove the textareaeditForm
+                $('#user-review-wrapper').remove();
+                //notify user
+                console.log("Your review has been deleted!");
+            }
+        },
+        error: function () {
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
+        }
+    });
+
 });
