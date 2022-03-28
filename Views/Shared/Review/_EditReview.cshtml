@@ -1,0 +1,16 @@
+﻿@model MovieRateDirector
+@*Only for logged in users!*@
+@*Display user's review on the top of reviews*@
+@*when it's just posted and later when page loads by the user*@
+
+
+<div class="review-input-wrapper" id="review-edit">
+    <textarea asp-for="@Model.UserReview.ReviewText" style="height: 180px;" type="" value="" placeholder="Add a review..." class="review-input" id="review-text-edit"></textarea>
+</div>
+
+<script>
+    //increase the height of the review input when clicked
+    $(document).on("click", "#review-text-edit", function (e) {
+        $(this).css("height", "400px")
+    });
+</script>

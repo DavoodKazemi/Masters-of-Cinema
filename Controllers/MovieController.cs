@@ -403,5 +403,75 @@ namespace MastersOfCinema.Controllers
             }
             return Ok("Form Data received!");
         }
+
+        //Edit a review
+        [HttpPost]
+        public async Task<IActionResult> Ferrari3(string reviewText)
+        {
+            //create a new model for sending the new review to the view
+            //MovieRateDirector movieRateDirector = new MovieRateDirector();
+
+
+
+            //add like count and isLiked to the new review
+            //(probably would be better to add them manually: likeCount = 0, isLiked = false)
+            /*movieRateDirector.UserReview = _repository.GetMovieReviews(1).FirstOrDefault();
+
+            return PartialView("Review/_EditReviewPartial", movieRateDirector);*/
+
+            MovieRateDirector movieRateDirector2 = new MovieRateDirector();
+
+            Review review = _context.Review.FirstOrDefault();
+            //add like count and isLiked to the new review
+            //(probably would be better to add them manually: likeCount = 0, isLiked = false)
+            movieRateDirector2.UserReview = new ReviewViewModel() {
+                ReviewText = reviewText,
+            };
+
+            //Display the new review
+            return PartialView("Review/_EditReview", movieRateDirector2);
+        }
+
+        //Update a review
+        [HttpPost]
+        public async Task<IActionResult> UpdateReview(string reviewText)
+        {
+            var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == 288);
+            var newText = reviewText;
+
+            //if (ModelState.IsValid)
+            //{
+                //the new text has to be different and also has to not be empty
+                if (review.ReviewText != newText && reviewText != "")
+                {
+                    //If image not uploaded, assign the default photo
+                    review.ReviewText = newText;
+                }
+
+                var local = _context.Set<Review>()
+                .Local
+                .FirstOrDefault(entry => entry.Id.Equals(review.Id));
+                // check if local is not null 
+                if (local != null)
+                {
+                    // detach
+                    _context.Entry(local).State = EntityState.Detached;
+                }
+
+                _context.Update(review);
+                await _context.SaveChangesAsync();
+
+                //create a new model for sending the new review to the view
+                MovieRateDirector movieRateDirector2 = new MovieRateDirector();
+
+                //add like count and isLiked to the new review
+                //(probably would be better to add them manually: likeCount = 0, isLiked = false)
+                movieRateDirector2.UserReview = _repository.GetReviewsLikeStats(review);
+
+            //}
+            return PartialView("Review/_AjaxReview", movieRateDirector2);
+        }
+
+
     }
 }
