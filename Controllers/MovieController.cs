@@ -411,10 +411,10 @@ namespace MastersOfCinema.Controllers
             //create a new model for sending the new review to the view
             //MovieRateDirector movieRateDirector = new MovieRateDirector();
             int id = Int32.Parse(reviewId);
-            var existingUserReview = _context.Review.Include(u => u.User).Where(x => x.Id == id).FirstOrDefault();
+            var existingUserReview = _repository.GetReviewLikeStatsById(id);
 
             //create a function to get it by id directly
-            var existingUserReviewStats = _repository.GetReviewsLikeStats(existingUserReview);
+
             //add like count and isLiked to the new review
             //(probably would be better to add them manually: likeCount = 0, isLiked = false)
             /*movieRateDirector.UserReview = _repository.GetMovieReviews(1).FirstOrDefault();
@@ -426,7 +426,7 @@ namespace MastersOfCinema.Controllers
             Review review = _context.Review.FirstOrDefault();
             //add like count and isLiked to the new review
             //(probably would be better to add them manually: likeCount = 0, isLiked = false)
-            movieRateDirector2.UserReview = existingUserReviewStats;
+            movieRateDirector2.UserReview = existingUserReview;
 
             //Display the new review
             return PartialView("Review/_EditReview", movieRateDirector2);
@@ -462,14 +462,13 @@ namespace MastersOfCinema.Controllers
                 await _context.SaveChangesAsync();
 
                 //create a new model for sending the new review to the view
-                MovieRateDirector movieRateDirector2 = new MovieRateDirector();
 
                 //add like count and isLiked to the new review
                 //(probably would be better to add them manually: likeCount = 0, isLiked = false)
-                movieRateDirector2.UserReview = _repository.GetReviewsLikeStats(review);
+                newTextId.UserReview = _repository.GetReviewLikeStatsById(review.Id);
 
             //}
-            return PartialView("Review/_AjaxReview", movieRateDirector2);
+            return PartialView("Review/_AjaxReview", newTextId);
         }
 
 

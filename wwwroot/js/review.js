@@ -51,3 +51,136 @@ $(document).on("click", "#submit-review", function (e) {
         }
     })
 });
+
+
+
+
+//EDIT review
+//var controllerActionUrl = "/Movie/Index";
+//Post review - Only available when user is logged in
+//first only append the text area -- then send Model.UserReview.Id
+$(document).on("click", "#edit-review:not('.no-edit')", function (e) {
+    //$('#editForm').remove();
+    var self = $(this);
+    var id = $("#user-review-id").val();
+
+    var data = "reviewId=" + id;
+    console.log("Edit started!");
+    console.log(data);
+    //alert(data);
+
+    $.ajax({
+
+        type: 'POST',
+        url: '/Movie/Ferrari3',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (data, result) {
+            //alert('Successfully received Data ');
+            console.log(result);
+            if (data != '') {
+                //$("#submitForm").hide();
+                $("#edit-review-container").append(data);
+                $("#user-existing-review").hide();
+                $("#user-existing-review-stats").hide()
+                self.addClass("no-edit");
+                //scroll to the review
+                $("html").animate(
+                    {
+                        scrollTop: $("#user-review-wrapper").offset().top
+                    },
+                    800 //speed
+                );
+
+                
+                $('#review-text-edit').focus();
+                
+                //notify user
+                console.log("Your review is to be edited!");
+
+
+
+                //$("#jnotify-message").empty().append("<div>You review of <strong>" + $(".movie-header-title").text() + "</strong> is saved!</div>");
+                //$("#clist-add-notify").delay(1400).slideDown(320);
+                //$('#clist-add-notify').delay(5000).slideUp(320);
+                //end notify user
+
+                //$("#post-review").fadeIn(500);
+                //$("#no-review-yet").fadeOut(1000);
+
+            }
+        },
+        error: function () {
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
+        }
+    });
+
+});
+
+
+//Save changes 
+$(document).on("click", "#edit-review.no-edit", function (e) {
+
+    var self = $(this);
+    //var review = $("#review-text-edit").val();
+    //var data = "reviewText=" + review;
+    var data = $("#editForm").serialize();
+    console.log(data);
+    console.log("updating!");
+
+
+
+    $.ajax({
+
+        type: 'POST',
+        url: '/Movie/UpdateReview',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (data, result) {
+            //alert('Successfully received Data ');
+            console.log(result);
+            if (data != '') {
+                //$("#submitForm").hide();
+                $(".review-ajax-container > #post-review").append(data);
+
+                //$("#edit-review-container").append(data);
+                //$("#user-existing-review").hide();
+
+                self.removeClass("no-edit");
+                //remove the textareaeditForm
+                $('#user-review-wrapper').remove();
+
+                //scroll to the review
+                $("html").animate(
+                    {
+                        scrollTop: $("#user-review-wrapper").offset().top
+                    },
+                    800 //speed
+                );
+                //notify user
+                console.log("Your review is to be edited!");
+
+                $("#jnotify-message").empty().append("<div>You review of <strong>" + $(".movie-header-title").text() + "</strong> is updated!</div>");
+                $("#clist-add-notify").delay(1400).slideDown(320);
+                $('#clist-add-notify').delay(5000).slideUp(320);
+                //end notify user
+
+                //$("#post-review").fadeIn(500);
+                //$("#no-review-yet").fadeOut(1000);
+
+            }
+        },
+        error: function () {
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
+        }
+    });
+
+
+});
+
+//increase the height of the review input when user focused on it -- when editing a review
+$(document).on("focus", "#review-text-edit", function (e) {
+    $(this).css("height", "400px")
+});
