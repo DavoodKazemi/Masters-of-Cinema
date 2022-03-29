@@ -249,8 +249,9 @@
             vertical-align: baseline;
             display: block;
             overflow: hidden;
-            border-radius: 20px;
             object-fit: cover;
+            border-radius: 30px;
+            border: 1px solid hsla(0,0%,100%,.25);
         }
     }
 }
