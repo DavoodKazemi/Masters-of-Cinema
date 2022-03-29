@@ -489,9 +489,11 @@ namespace MastersOfCinema.Data
 
         //Start Review
 
-        //Gets a review and gives the equivalent ReviewViewModel
-        public ReviewViewModel GetReviewsLikeStats(Review review)
+        //Gets a review id and gives the equivalent ReviewViewModel
+        public ReviewViewModel GetReviewLikeStatsById(int reviewId)
         {
+            Review review = _context.Review.Include(u => u.User).Where(m => m.Id == reviewId).FirstOrDefault();
+
             string currentUser = _accessor.HttpContext.User.Identity.Name;
             ReviewViewModel reviewViewModel = new ReviewViewModel()
             {
@@ -501,8 +503,33 @@ namespace MastersOfCinema.Data
                 User = review.User,
                 LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
                 IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser)
-
             };
+            var IsRatedByReviewer = _context.MovieRatings.Where(x => x.User == review.User).Where(z => z.MovieId == review.MovieId).FirstOrDefault();
+            if (IsRatedByReviewer != null)
+            {
+                reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
+            }
+            return reviewViewModel;
+        }
+
+        //Gets a review and gives the equivalent ReviewViewModel
+        public ReviewViewModel GetReviewsLikeStats(Review review)
+        {
+            string currentUser = _accessor.HttpContext.User.Identity.Name;
+            var IsRatedByReviewer = _context.MovieRatings.Where(x => x.User == review.User).Where(z => z.MovieId == review.MovieId).FirstOrDefault();
+            ReviewViewModel reviewViewModel = new ReviewViewModel()
+            {
+                Id = review.Id,
+                MovieId = review.MovieId,
+                ReviewText = review.ReviewText,
+                User = review.User,
+                LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
+                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser),
+            };
+            if (IsRatedByReviewer != null)
+            {
+                reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
+            }
             return reviewViewModel;
         }
 

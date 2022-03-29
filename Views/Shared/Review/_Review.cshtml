@@ -31,7 +31,23 @@
             <div class="review-head">
                 <div class="review-head-text">
                     Review by
-                    <span class="review-name">@item.User.FirstName</span>
+                    <span class="review-name me-2">
+                        @item.User.FirstName
+                    </span>
+                        @if (@item.ReviewerRate != null)
+                        {
+                        <div class="reviewer-rate-wrapper d-inline-block">
+
+                            @item.ReviewerRate
+                            @for (var i = 0; i < item.ReviewerRate; i++)
+                            {
+                                <span class="starGlowReview" id=""></span>
+
+                            }
+                        </div>
+                        }
+                        
+                    
                 </div>
             </div>
         </div>

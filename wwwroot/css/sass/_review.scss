@@ -11,6 +11,27 @@
     vertical-align: middle;
 }
 
+.reviewer-rate-wrapper {
+    font-size: 0;
+    cursor: default;
+    
+    vertical-align: -webkit-baseline-middle;
+
+    .starGlowReview {
+        background-image: url('/Image/Icon/StarGlow.svg');
+        min-width: 18px;
+        min-height: 18px;
+
+        @media (max-width: 280px) {
+            min-width: 15px;
+            min-height: 15px;
+        }
+
+        display: inline-block;
+        //cursor: pointer;
+    }
+}
+
 
 .review-like-wrapper {
     margin-top: 24px;
@@ -92,13 +113,74 @@
         text-transform: uppercase;
         background: #00b020;
         color: #f4fcf0;
-        margin-left: 4px;
+        margin-left: 6px;
         cursor: pointer;
         float: right;
 
         &:hover {
+            transition: all .3s ease;
             background: #00a11d;
             color: #fff;
+        }
+    }
+
+    .review-cancel-button {
+        font-weight: 700;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 0 hsla(0,0%,100%,.2);
+        cursor: pointer;
+        font-family: Graphik-Semibold-Web,sans-serif;
+        font-size: 1rem;
+        letter-spacing: .075em;
+        line-height: 12px;
+        margin: 0;
+        padding: 12px 12px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        //background: #567;
+        background: #89a;
+        color: #def;
+        //color: #c8d4e0;
+        float: right;
+        margin-left: 6px;
+        display: inline;
+        transition: all .3s ease;
+
+        &:hover {
+            transition: all .3s ease;
+            background: #678;
+            color: #fff;
+            //background: #ec1200;
+        }
+    }
+
+    .review-delete-button {
+        font-weight: 700;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 0 hsla(0,0%,100%,.2);
+        cursor: pointer;
+        font-family: Graphik-Semibold-Web,sans-serif;
+        font-size: 1rem;
+        letter-spacing: .075em;
+        line-height: 12px;
+        margin: 0;
+        padding: 12px 12px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background: #89a;
+        color: #def;
+        float: right;
+        margin-left: 6px;
+        display: inline;
+        transition: all .3s ease;
+
+        &:hover {
+            transition: all .3s ease;
+            //background: #678;
+            color: #fff;
+            background: #ec1200;
         }
     }
 }
@@ -167,7 +249,9 @@
             vertical-align: baseline;
             display: block;
             overflow: hidden;
-            border-radius: 20px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 1px solid hsla(0,0%,100%,.25);
         }
     }
 }
@@ -350,7 +434,6 @@
             box-shadow: none;
             box-shadow: 0 0 5px #012 !important;
             color: #234;
-            height: 250px;
             transition: all .3s ease-in;
         }
 
