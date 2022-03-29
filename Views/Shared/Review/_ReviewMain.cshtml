@@ -1,57 +1,58 @@
 ﻿@model MovieRateDirector
-@*Start Review section - when user is logged in*@
-<section class="container mb-5 px-sm-2">
+    @*Start Review section - when user is logged in*@
+    <section class="container mb-5 px-sm-2">
 
-    <div class="row">
+        <div class="row">
 
-        @*reviews wrapper*@
-        <div class="offset-md-3 col-md-9 py-3 review-section-wrapper">
-            <h2 class="review-section-heading" id="user-review-section">
-                Your review
-            </h2>
-
-
-            @if (Model.UserReview != null)
-            {
-                <div class="review-ajax-container">
-                    <div class="review-body" id="post-review" style="">
-                        <partial name="~/Views/Shared/Review/_AjaxReview.cshtml" />
-                    </div>
-                </div>
-            }
-
-            @if (Model.UserReview == null)
-            {
-                <div class="review-ajax-container 50">
-                    <div class="review-body" id="post-review" style="display: none;">
-
-                    </div>
-                </div>
-                <partial name="~/Views/Shared/Review/_EmptyReview.cshtml" />
-            }
-
-            @if (Model.Review.Count() > 0)
-            {
-                <h2 class="review-section-heading">
-                    Popular reviews
+            @*reviews wrapper*@
+            <div class="offset-md-3 col-md-9 py-3 review-section-wrapper">
+                <h2 class="review-section-heading" id="user-review-section">
+                    Your review
                 </h2>
 
-                <div class="review-ajax-container">
-                    <div class="review-body">
-                        <partial name="~/Views/Shared/Review/_Review.cshtml" />
-                        @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
+
+                @if (Model.UserReview != null)
+                {
+                    <div class="review-ajax-container">
+                        <div class="review-body" id="post-review" style="">
+                            <partial name="~/Views/Shared/Review/_AjaxReview.cshtml" />
+                        </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <h2 class="review-section-heading text-center" id="no-review-yet">
-                    No reviews yet!
-                </h2>
-            }
+                }
+
+                @if (Model.UserReview == null)
+                {
+                    <div class="review-ajax-container 50">
+                        <div class="review-body" id="post-review" style="display: none;">
+
+                        </div>
+                    </div>
+                    <partial name="~/Views/Shared/Review/_EmptyReview.cshtml" />
+                }
+
+                @if (Model.Review.Count() > 0)
+                {
+                    <h2 class="review-section-heading">
+                        Popular reviews
+                    </h2>
+
+                    <div class="review-ajax-container">
+                        <div class="review-body">
+                            <partial name="~/Views/Shared/Review/_Review.cshtml" />
+                            @*@await Component.InvokeAsync("UserAvatar", new { userId = @item.User.Id })*@
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h2 class="review-section-heading text-center" id="no-review-yet">
+                        No reviews yet!
+                    </h2>
+                }
+            </div>
         </div>
-    </div>
-</section>
-@*End Review section*@
+    </section>
+    @*End Review section*@
 
-<script src="~/js/review.js"></script>
+<script src="~/lib/jquery/jquery.confirm.js"></script>
+    <script src="~/js/review.js"></script>

@@ -227,49 +227,93 @@ $(document).on("focus", "#review-text-edit", function (e) {
 
 
 //Delete
-
 $(document).on("click", "#delete-edit-review", function (e) {
-    var formfield1 = $('#movie-id').serialize();
-    var formfield2 = $("#editForm").serialize();
+    console.log("50");
+    var elem = $(this).closest('.item');
 
-    var seializedTwoFields = formfield1 + '&' + formfield2;
+    $.confirm({
+        'title': 'PLEASE CONFIRM',
+        'message': 'Are you sure you want to delete this review?',
+        'buttons': {
+            'DELETE': {
+                'class': 'confirm-delete',
+                'action': function () {
+                    //elem.slideUp();
+                    //actaul delete
+                    //Get movie id
+                    var formfield1 = $('#movie-id').serialize();
+                    //Get review information
+                    var formfield2 = $("#editForm").serialize();
 
+                    var seializedTwoFields = formfield1 + '&' + formfield2;
 
+                    //var self = $(this);
+                    //var id = $("#user-review-id").val();
 
+                    var data = seializedTwoFields;
+                    console.log("Review deletion!");
+                    console.log(data);
 
+                    $.ajax({
 
+                        type: 'POST',
+                        url: '/Movie/DeleteReview',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                        data: data,
+                        success: function (data, result) {
+                            console.log(result);
+                            if (data != '') {
+                                $('#user-review-section').after(data);
+                                //$(".review-ajax-container > #post-review").append(data);
+                                //$("#edit-review").removeClass("no-edit");
+                                //$("#edit-review").val("Edit");
 
-    //var self = $(this);
-    //var id = $("#user-review-id").val();
+                                //remove the textareaeditForm
+                                $('#user-review-wrapper').remove();
+                                //notify user
+                                console.log("Your review has been deleted!");
 
-    var data = seializedTwoFields;
-    console.log("Review deletion!");
-    console.log(data);
-
-    $.ajax({
-
-        type: 'POST',
-        url: '/Movie/DeleteReview',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-        data: data,
-        success: function (data, result) {
-            console.log(result);
-            if (data != '') {
-                $('#user-review-section').after(data);
-                //$(".review-ajax-container > #post-review").append(data);
-                //$("#edit-review").removeClass("no-edit");
-                //$("#edit-review").val("Edit");
-
-                //remove the textareaeditForm
-                $('#user-review-wrapper').remove();
-                //notify user
-                console.log("Your review has been deleted!");
+                                //scroll to the review section
+                                $("html").animate(
+                                    {
+                                        scrollTop: $("#user-review-section").offset().top
+                                    },
+                                    20 //speed
+                                );
+                            }
+                        },
+                        error: function () {
+                            //alert('Failed to receive the Data');
+                            console.log('Failed ');
+                        }
+                    });
+                    //actual delete
+                }
+            },
+            'CANCEL': {
+                'class': 'confirm-cancel',
+                'action': function () { }  // Nothing to do in this case. You can as well omit the action property.
             }
-        },
-        error: function () {
-            //alert('Failed to receive the Data');
-            console.log('Failed ');
         }
     });
 
 });
+
+
+//start hide the confirm message button
+$(document).mouseup(function (e) {
+    //click outside of the message
+    var container = $("#confirmBox, #confirmBox > p, #confirmBox > h3");
+
+    // if the target of the click isn't the message itself, close the message
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $("#confirmOverlay").remove();
+    }
+});
+
+//or when clicking on the × icon, close the message
+$(document).on("click", "#confirm-close-wrapper", function (e) {
+    $("#confirmOverlay").remove();
+});
+
+//End hide the confirm message button
