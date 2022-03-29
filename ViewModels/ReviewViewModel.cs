@@ -12,6 +12,7 @@ namespace MastersOfCinema.ViewModels
         public string ReviewText { get; set; }
         public int LikeCount { get; set; }
         public bool IsLiked { get; set; }
+        public int? ReviewerRate { get; set; }
     }
 }
 

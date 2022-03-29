@@ -4,7 +4,7 @@ $(document).on("click", "#review-text", function (e) {
 });
 
 
-//Post review - Only available when user is logged in
+//Start Post review - Only available when user is logged in
 $(document).on("click", "#submit-review", function (e) {
 
 
@@ -51,14 +51,14 @@ $(document).on("click", "#submit-review", function (e) {
         }
     })
 });
+//END Post review
 
 
 
-
-//EDIT review
-//var controllerActionUrl = "/Movie/Index";
-//Post review - Only available when user is logged in
-//first only append the text area -- then send Model.UserReview.Id
+//START EDIT review
+//Only available when user is logged in
+//first clicking edit button: only append the text area
+//then clicking save: send Model.UserReview.Id
 $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
     //$('#editForm').remove();
     var self = $(this);
@@ -93,7 +93,7 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
                     {
                         scrollTop: $("#user-review-wrapper").offset().top
                     },
-                    800 //speed
+                    100 //speed
                 );
 
                 
@@ -158,9 +158,9 @@ $(document).on("click", "#cancel-edit-review", function (e) {
     });
 
 });
+//END cancel editing review
 
-
-//Save changes 
+//Save changes (after editing)
 $(document).on("click", "#edit-review.no-edit", function (e) {
     var self = $(this);
     //var id = $("#user-review-id").val();
@@ -219,6 +219,9 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
 
 
 });
+//END Save changes 
+
+//START EDIT review
 
 //increase the height of the review input when user focused on it -- when editing a review
 $(document).on("focus", "#review-text-edit", function (e) {
@@ -226,7 +229,7 @@ $(document).on("focus", "#review-text-edit", function (e) {
 });
 
 
-//Delete
+//Delete review
 $(document).on("click", "#delete-edit-review", function (e) {
     //user-review-id
     $.confirm({
@@ -295,6 +298,7 @@ $(document).on("click", "#delete-edit-review", function (e) {
     });
 
 });
+//END Delete review
 
 
 //start hide the confirm message button

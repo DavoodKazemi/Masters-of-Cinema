@@ -504,6 +504,11 @@ namespace MastersOfCinema.Data
                 LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
                 IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser)
             };
+            var IsRatedByReviewer = _context.MovieRatings.Where(x => x.User == review.User).Where(z => z.MovieId == review.MovieId).FirstOrDefault();
+            if (IsRatedByReviewer != null)
+            {
+                reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
+            }
             return reviewViewModel;
         }
 
@@ -511,6 +516,7 @@ namespace MastersOfCinema.Data
         public ReviewViewModel GetReviewsLikeStats(Review review)
         {
             string currentUser = _accessor.HttpContext.User.Identity.Name;
+            var IsRatedByReviewer = _context.MovieRatings.Where(x => x.User == review.User).Where(z => z.MovieId == review.MovieId).FirstOrDefault();
             ReviewViewModel reviewViewModel = new ReviewViewModel()
             {
                 Id = review.Id,
@@ -518,9 +524,12 @@ namespace MastersOfCinema.Data
                 ReviewText = review.ReviewText,
                 User = review.User,
                 LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
-                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser)
-
+                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser),
             };
+            if (IsRatedByReviewer != null)
+            {
+                reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
+            }
             return reviewViewModel;
         }
 

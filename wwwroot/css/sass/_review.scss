@@ -11,6 +11,27 @@
     vertical-align: middle;
 }
 
+.reviewer-rate-wrapper {
+    font-size: 0;
+    cursor: default;
+    
+    vertical-align: -webkit-baseline-middle;
+
+    .starGlowReview {
+        background-image: url('/Image/Icon/StarGlow.svg');
+        min-width: 18px;
+        min-height: 18px;
+
+        @media (max-width: 280px) {
+            min-width: 15px;
+            min-height: 15px;
+        }
+
+        display: inline-block;
+        //cursor: pointer;
+    }
+}
+
 
 .review-like-wrapper {
     margin-top: 24px;
