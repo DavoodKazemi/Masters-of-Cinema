@@ -1,7 +1,7 @@
 ﻿@model MovieRateDirector
 @*Only for logged in users!*@
 @*This partial view is for displaying the user review on the top of reviews*@
-@*Will be rendered: when user opens the movie details view (if he has a reiew of that movie), 
+@*Will be rendered: when user opens the movie details view (if he has a reiew of that movie),
     when user just posts a review, and when user clicks save after editing his review*@
 
 <div class="col-12 border-bottom-0 user-review" id="user-review-wrapper">
@@ -39,14 +39,14 @@
                     {
                         <div class="reviewer-rate-wrapper d-inline-block">
 
-                        @Model.UserReview.ReviewerRate
-                        @for (var i = 0; i < Model.UserReview.ReviewerRate; i++)
-                        {
-                            <span class="starGlowReview" id=""></span>
+                            @Model.UserReview.ReviewerRate
+                            @for (var i = 0; i < Model.UserReview.ReviewerRate; i++)
+                            {
+                                <span class="starGlowReview" id=""></span>
 
-                        }
+                            }
                         </div>
-                     }
+                    }
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
         @*Start review text*@
         <div class="review-text-wrapper">
             <div class="review-text">
-                <div style="white-space: pre-line;" id="user-existing-review">@Model.UserReview.ReviewText</div>
+                <div class="read-more-object-text" style="white-space: pre-line;" id="user-existing-review">@Model.UserReview.ReviewText</div>
             </div>
         </div>
         @*End review text*@
@@ -117,3 +117,41 @@
     @*END Review's right side*@
 
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        var showChar = 800;
+        var ellipsestext = "...";
+        var moretext = "more";
+        var lesstext = "less";
+        $('.read-more-object-text').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar - 1, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent read-more-review"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink read-more-link">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+    });
+</script>

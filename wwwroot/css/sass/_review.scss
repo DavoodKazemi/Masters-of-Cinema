@@ -11,6 +11,24 @@
     vertical-align: middle;
 }
 
+//Start Read more / less button for reviews
+.read-more-review {
+    //the extra oart of review
+    span {
+        display: none;
+    }
+    //button
+    .read-more-link {
+        color: #def;
+
+        &:hover {
+            color: #40bcf4;
+        }
+    }
+}
+//END Read more / less button for reviews
+
+//At the top of every review, the rate of the reviewer is displayed (if rated)
 .reviewer-rate-wrapper {
     font-size: 0;
     cursor: default;
