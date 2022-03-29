@@ -495,7 +495,14 @@ namespace MastersOfCinema.Controllers
             var reviewId = movieIdReviewId.UserReview.Id;
             var review = await _context.Review.Include(x => x.User).FirstOrDefaultAsync(m => m.Id == reviewId);
 
+            //delete the likes of the review too
+            IEnumerable<LikeReview> reviewLikes = _context.LikeReview.Where(x => x.ReviewId == review.Id).ToList();
+            foreach(var item in reviewLikes)
+            {
+                _context.LikeReview.Remove(item);
+            }
 
+            //delete the the review itself
             _context.Review.Remove(review);
             await _context.SaveChangesAsync();
             //Get movie id directly if possible
