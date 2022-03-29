@@ -49,7 +49,7 @@
         <div class="review-like-wrapper" id="user-existing-review-stats">
             @*When clicking on this, review will be liked or unliked*@
             <span class="review-like-button" id="review-like-button">
-                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small" id="user-review-id" />
+                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small user-existing-review-id" id="review-id" />
                 @if (Model.UserReview.IsLiked)
                 {
                     <span class="review-icon-liked" id="like-icon"></span>
@@ -95,7 +95,7 @@
         </div>
         <div class="review-edit-buttons">
             <input type="button" value="Edit" class="review-save-button" id="edit-review" />
-            <input type="button" value="Delete" style="display: none;" class="review-delete-button" id="delete-edit-review" />
+            <input type="button" value="Delete" class="review-delete-button" id="delete-edit-review" />
             <input type="button" value="Cancel" style="display: none;" class="review-cancel-button" id="cancel-edit-review" />
         </div>
 

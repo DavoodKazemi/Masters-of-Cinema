@@ -62,7 +62,7 @@ $(document).on("click", "#submit-review", function (e) {
 $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
     //$('#editForm').remove();
     var self = $(this);
-    var id = $("#user-review-id").val();
+    var id = $(".user-existing-review-id").val();
 
     var data = "reviewId=" + id;
     console.log("Edit started!");
@@ -82,7 +82,7 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
                 //$("#submitForm").hide();
                 $("#edit-review-container").append(data);
                 
-                $("#delete-edit-review").show();
+                //$("#delete-edit-review").show();
                 $("#cancel-edit-review").show();
                 $("#user-existing-review").hide();
                 $("#user-existing-review-stats").hide()
@@ -228,9 +228,7 @@ $(document).on("focus", "#review-text-edit", function (e) {
 
 //Delete
 $(document).on("click", "#delete-edit-review", function (e) {
-    console.log("50");
-    var elem = $(this).closest('.item');
-
+    //user-review-id
     $.confirm({
         'title': 'PLEASE CONFIRM',
         'message': 'Are you sure you want to delete this review?',
@@ -238,12 +236,11 @@ $(document).on("click", "#delete-edit-review", function (e) {
             'DELETE': {
                 'class': 'confirm-delete',
                 'action': function () {
-                    //elem.slideUp();
                     //actaul delete
                     //Get movie id
                     var formfield1 = $('#movie-id').serialize();
                     //Get review information
-                    var formfield2 = $("#editForm").serialize();
+                    var formfield2 = "UserReview.Id=" + $(".user-existing-review-id").val();
 
                     var seializedTwoFields = formfield1 + '&' + formfield2;
 
