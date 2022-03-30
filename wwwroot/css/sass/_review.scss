@@ -12,6 +12,9 @@
 }
 
 //Review likers
+#likers-head-wrapper {
+    
+}
 #review-isliked-true{
     span:first-child{
         font-weight: 700;
@@ -23,15 +26,38 @@
 
 .a-review {
     .review-like-wrapper {
-        .likers-wrapper {
-            opacity: .3;
+        //button to show likers
+        .likers-head-wrapper {
             transition: all .3s ease;
+            cursor: pointer;
+
+            &:hover {
+                transition: all .75s ease;
+                color: #fff;
+            }
+
+            .likers-arrow {
+                transition: all 0.75s ease;
+                margin-left: 3px;
+                vertical-align: sub;
+            }
+
+            .likers-arrow.toggle-up {
+                transform: rotate(180deg);
+                transition: all 0.5s ease;
+                vertical-align: middle;
+            }
+        }
+
+        .likers-wrapper {
+            display: none;
+            //transition: all .3s ease;
         }
 
         &:hover {
             .likers-wrapper {
-                opacity: 1;
-                transition: all .3s ease;
+                //opacity: 1;
+                //transition: all .3s ease;
             }
         }
     }

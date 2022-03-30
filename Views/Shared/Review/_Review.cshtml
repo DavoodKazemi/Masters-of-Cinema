@@ -3,65 +3,65 @@
 
 @foreach (var item in Model.Review)
 {
-<div class="col-12 a-review">
+    <div class="col-12 a-review">
 
-    @*Reviewer's avatar is displayed on the left side of each review*@
-    @if (item.User.ProfilePicture != null)
-    {
-        <div class="profile-picture-medium-wrapper">
-            <div class="profile-picture-medium">
-                <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="profile-picture-medium-wrapper">
-            <div class="profile-picture-medium">
-                <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
-            </div>
-        </div>
-    }
-    @*END Reviewer's avatar*@
-
-    @*Start Review's right side*@
-    <div class="d-inline-block review-main-col">
-        @*Start Review's header*@
-        <div class="review-head-wrapper">
-            <div class="review-head">
-                <div class="review-head-text">
-                    Review by
-                    <span class="review-name me-2">
-                        @item.User.FirstName
-                    </span>
-                        @if (@item.ReviewerRate != null)
-                        {
-                        <div class="reviewer-rate-wrapper d-inline-block">
-
-                            @item.ReviewerRate
-                            @for (var i = 0; i < item.ReviewerRate; i++)
-                            {
-                                <span class="starGlowReview" id=""></span>
-
-                            }
-                        </div>
-                        }
-                        
-                    
+        @*Reviewer's avatar is displayed on the left side of each review*@
+        @if (item.User.ProfilePicture != null)
+        {
+            <div class="profile-picture-medium-wrapper">
+                <div class="profile-picture-medium">
+                    <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
                 </div>
             </div>
-        </div>
-
-        @*Start review text*@
-        <div class="review-text-wrapper">
-            <div class="review-text">
-                <div class="read-more-object-text" style="white-space: pre-line;">@item.ReviewText</div>
+        }
+        else
+        {
+            <div class="profile-picture-medium-wrapper">
+                <div class="profile-picture-medium">
+                    <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                </div>
             </div>
-        </div>
-        @*End review text*@
+        }
+        @*END Reviewer's avatar*@
 
-        @*Start like section*@
-        <div class="review-like-wrapper">
+        @*Start Review's right side*@
+        <div class="d-inline-block review-main-col">
+            @*Start Review's header*@
+            <div class="review-head-wrapper">
+                <div class="review-head">
+                    <div class="review-head-text">
+                        Review by
+                        <span class="review-name me-2">
+                            @item.User.FirstName
+                        </span>
+                        @if (@item.ReviewerRate != null)
+                        {
+                            <div class="reviewer-rate-wrapper d-inline-block">
+
+                                @item.ReviewerRate
+                                @for (var i = 0; i < item.ReviewerRate; i++)
+                                {
+                                    <span class="starGlowReview" id=""></span>
+
+                                }
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+            @*Start review text*@
+            <div class="review-text-wrapper">
+                <div class="review-text">
+                    <div class="read-more-object-text" style="white-space: pre-line;">@item.ReviewText</div>
+                </div>
+            </div>
+            @*End review text*@
+
+            @*Start like section*@
+        <div class="review-like-wrapper" style="overflow: hidden;">
             @*When clicking on this, review will be liked or unliked*@
             <span class="review-like-button" id="review-like-button">
                 <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
@@ -79,50 +79,57 @@
             @*End When clicking on this, review will be liked or unliked*@
 
             @*Start Review like stats*@
-            @if (item.LikeCount > 0)
-            {
-                if (item.LikeCount == 1 && item.IsLiked)
+            <span class="likers-head-wrapper" id="likers-head-wrapper">
+                @if (item.LikeCount > 0)
                 {
-                    @*The only one who like this review is this user*@
-                    @*We need to hide the element when user unlikes the review*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                    if (item.LikeCount == 1 && item.IsLiked)
+                    {
+                        @*The only one who like this review is this user*@
+                        @*We need to hide the element when user unlikes the review*@
+                        <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                    }
+                    else
+                    {
+                        @*Other users liked this review*@
+                        @*No need to hide/show for this element*@
+                        <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                    }
                 }
                 else
                 {
-                    @*Other users liked this review*@
-                    @*No need to hide/show for this element*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
+                    @*No one liked this review*@
+                    @*We need to show the element when user likes the review*@
+                    <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
                 }
-            }
-            else
-            {
-                @*No one liked this review*@
-                @*We need to show the element when user likes the review*@
-                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
-            }
+                <i style='font-size:20px' class='fas likers-arrow'>&#xf107;</i>
+            </span>
 
-            @{ 
+            @{
                 var likes = item.Likers.ToList().Take(5);
                 var extraLikers = item.LikeCount - 5;
             }
-            <span class="likers-wrapper" @if(item.IsLiked) { <text>id="review-isliked-true"</text> }>
-            (Liked by: @foreach (var item2 in item.Likers.ToList().Take(5))
-            {
-                <span>
-                    @item2.User.FirstName@if(item2.Equals(likes.FirstOrDefault())  && item.IsLiked){<text>(you)</text>}@if(!item2.Equals(likes.LastOrDefault())){<text>, </text>}
+            <div class="likers-wrapper" @if (item.IsLiked) { <text> id="review-isliked-true" </text> }>
+                (Liked by: @foreach (var item2 in item.Likers.ToList().Take(5))
+                {
+                    <span>
+                        @item2.User.FirstName@if (item2.Equals(likes.FirstOrDefault()) && item.IsLiked)
+                        {<text>(you)</text>}@if (!item2.Equals(likes.LastOrDefault()))
+                        {<text>, </text>}
 
-                </span>
+                    </span>
 
 
-            }@if (item.LikeCount > 5) {<text> and @extraLikers more.</text> })</span>
+                }@if (item.LikeCount > 5)
+                {<text> and @extraLikers more.</text>})
+            </div>
             @*End Review stats*@
 
         </div>
-        @*End like section*@
-    </div>
-    @*END Review's right side*@
+            @*End like section*@
+        </div>
+        @*END Review's right side*@
 
-</div>
+    </div>
 }
 
 
@@ -180,5 +187,12 @@
         })
         //End Ajax function
 
+    });
+</script>
+
+<script>
+    $(document).on("click", "#likers-head-wrapper", function (e) {
+        $(this).siblings(".likers-wrapper").slideToggle();
+        $(this).children(".likers-arrow").toggleClass("toggle-up");
     });
 </script>
