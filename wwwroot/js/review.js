@@ -15,7 +15,7 @@ $(document).on("click", "#submit-review", function (e) {
     $.ajax({
 
         type: 'POST',
-        url: '/Movie/Review',
+        url: '/Review/Review',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
         data: data,
         success: function (data, result) {
@@ -72,7 +72,7 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
     $.ajax({
 
         type: 'POST',
-        url: '/Movie/Ferrari3',
+        url: '/Review/BeginEditReview',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
         data: data,
         success: function (data, result) {
@@ -135,7 +135,7 @@ $(document).on("click", "#cancel-edit-review", function (e) {
     $.ajax({
 
         type: 'POST',
-        url: '/Movie/CancelReview',
+        url: '/Review/CancelReview',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
         data: data,
         success: function (data, result) {
@@ -173,7 +173,7 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
     $.ajax({
 
         type: 'POST',
-        url: '/Movie/UpdateReview',
+        url: '/Review/UpdateReview',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
         data: data,
         success: function (data, result) {
@@ -257,7 +257,7 @@ $(document).on("click", "#delete-edit-review", function (e) {
                     $.ajax({
 
                         type: 'POST',
-                        url: '/Movie/DeleteReview',
+                        url: '/Review/DeleteReview',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
                         data: data,
                         success: function (data, result) {
@@ -414,7 +414,7 @@ $(document).on("click", "#review-like-button", function (e) {
     $.ajax({
 
         type: 'POST',
-        url: '/Movie/LikeReview',
+        url: '/Review/LikeReview',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
         data: data,
         success: function (result) {
