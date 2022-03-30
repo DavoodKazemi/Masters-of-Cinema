@@ -60,67 +60,25 @@
         @*End review text*@
 
         @*Start like section*@
-        <div class="review-like-wrapper" id="user-existing-review-stats">
-            @*When clicking on this, review will be liked or unliked*@
-            <span class="review-like-button" id="review-like-button">
-                <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small user-existing-review-id" id="review-id" />
-                @if (Model.UserReview.IsLiked)
-                {
-                    <span class="review-icon-liked" id="like-icon"></span>
-                    <span class="review-liked-text" id="like-caption">Liked</span>
-                }
-                else
-                {
-                    <span class="review-icon-like" id="like-icon"></span>
-                    <span class="review-like-text" id="like-caption">Like Review</span>
-                }
-            </span>
-            @*End When clicking on this, review will be liked or unliked*@
-
-            @*Start Review like stats*@
-            @if (Model.UserReview.LikeCount > 0)
+    <div class="review-like-wrapper" id="user-existing-review-stats">
+        @*When clicking on this, review will be liked or unliked*@
+        <span class="review-like-button" id="review-like-button">
+            <input type="hidden" value="@Model.UserReview.Id" class="form-control input-small user-existing-review-id" id="review-id" />
+            @if (Model.UserReview.IsLiked)
             {
-                if (Model.UserReview.LikeCount == 1 && Model.UserReview.IsLiked)
-                {
-                    @*The only one who like this review is this user*@
-                    @*We need to hide the element when user unlikes the review*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
-                }
-                else
-                {
-                    @*Other users liked this review*@
-                    @*No need to hide/show for this element*@
-                    <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
-                }
+                <span class="review-icon-liked" id="like-icon"></span>
+                <span class="review-liked-text" id="like-caption">Liked</span>
             }
             else
             {
-                @*No one liked this review*@
-                @*We need to show the element when user likes the review*@
-                <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@Model.UserReview.LikeCount</span> people liked this review</span>
+                <span class="review-icon-like" id="like-icon"></span>
+                <span class="review-like-text" id="like-caption">Like Review</span>
             }
-
-            @*End Review stats*@
-        <span class="likers-wrapper " @if(Model.UserReview.IsLiked) { <text>id="review-isliked-true"</text> }>
-            
-            @{
-                var likes = Model.UserReview.Likers.ToList();
-                //var extraLikers = Model.UserReview.LikeCount - 5;
-            }
-            (Liked by: @foreach (var item in Model.UserReview.Likers)
-            {
-                <span>
-                    @item.User.FirstName@if(item.Equals(likes.FirstOrDefault()) && Model.UserReview.IsLiked)
-                    {<text>(you)</text>}@if (!item.Equals(likes.LastOrDefault()))
-                    {<text>, </text>}
-
-                </span>
-
-
-            })
         </span>
-        </span>
-        </div>
+        @*End When clicking on this, review will be liked or unliked*@
+
+        <partial name="~/Views/Shared/Review/_LikersUserReview.cshtml" model="Model.UserReview" />
+    </div>
         @*End like section*@
         @*Edit ... button*@
         <div class="edit-review-textarea-wrapper" id="edit-review-container">

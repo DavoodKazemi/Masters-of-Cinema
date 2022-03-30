@@ -35,7 +35,7 @@ $(document).on("click", "#submit-review", function (e) {
                 //notify user
                 console.log("Your review saved!");
 
-                $("#jnotify-message").empty().append("<div>You review of <strong>" + $(".movie-header-title").text() + "</strong> is saved!</div>");
+                $("#jnotify-message").empty().append("<div>Your review of <strong>" + $(".movie-header-title").text() + "</strong> is saved!</div>");
                 $("#clist-add-notify").delay(1400).slideDown(320);
                 $('#clist-add-notify').delay(5000).slideUp(320);
                 //end notify user
@@ -201,7 +201,7 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
                 //notify user
                 console.log("Your review is to be edited!");
 
-                $("#jnotify-message").empty().append("<div>You review of <strong>" + $(".movie-header-title").text() + "</strong> is updated!</div>");
+                $("#jnotify-message").empty().append("<div>Your review of <strong>" + $(".movie-header-title").text() + "</strong> is updated!</div>");
                 $("#clist-add-notify").delay(1400).slideDown(320);
                 $('#clist-add-notify').delay(5000).slideUp(320);
                 //end notify user
@@ -357,3 +357,83 @@ $(document).ready(function () {
 });
 
 //End Read more button
+
+//Start Like/Unlike a review
+/*<#review-like-button> the like button
+ *  <#like-icon> the heart icon
+ *  <#like-caption> liked/like text
+  </> End the like button
+*/
+/*<#likers-head-wrapper> the likers section
+ *  <#like-count> the count
+ *  <#review-stats> x people .. text
+  </> End the likers section
+*/
+
+$(document).on("click", "#review-like-button", function (e) {
+    //Start changing UI
+//*****toggle between two class for changing the icon color
+    $(this).children("#like-icon").toggleClass('review-icon-like review-icon-liked');
+
+//****change the class of caption
+    $(this).children("#like-caption").toggleClass('review-like-text review-liked-text');
+
+//*****if review is liked (or unliked), change the text
+    if ($(this).children('#like-caption').hasClass('review-liked-text')) {
+        //if (...) ==> User liked review
+//******change the caption to "Liked"
+        $(this).children("#like-caption").html("Liked");
+
+//******Increase the count by 1
+        $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) + 1);
+//******display the stats anyway, because if you pressed like, the like count is certainly more than zero
+        //$(this).siblings("#likers-head-wrapper").fadeIn(400);
+
+    } else {
+        //else ==> User unliked review
+//******change the caption to "Like Review"
+        $(this).children("#like-caption").html("Like Review");
+
+        //hide the stats if the like count is gonna be zero (after dcreasing)
+        if (parseInt($(this).siblings().children("#like-count").html()) < 2) {
+            $(this).siblings("#likers-head-wrapper").fadeOut(400);
+        }
+
+//******Decrease the count by 1
+        $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) - 1);
+
+
+    }
+    //END Start changing UI
+
+    //Start Ajax function for saving like or removing like from database
+    var id = $(this).children("#review-id").val();
+    var data = "ReviewId=" + id;
+
+    //alert(data);
+    $.ajax({
+
+        type: 'POST',
+        url: '/Movie/LikeReview',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (result) {
+            //alert('Successfully received Data ');
+            console.log(result);
+        },
+        error: function () {
+            //alert('Failed to receive the Data');
+            console.log('Failed ');
+        }
+    })
+    //End Ajax function
+
+});
+//End Like/Unlike a review
+
+/*Start Display/hide the likers of a review*/
+$(document).on("click", "#likers-head-wrapper", function (e) {
+    $(this).siblings(".likers-wrapper").slideToggle();
+    $(this).children(".likers-arrow").toggleClass("toggle-up");
+});
+/*End Display/hide the likers of a review*/

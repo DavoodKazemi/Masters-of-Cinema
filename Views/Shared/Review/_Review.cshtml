@@ -79,49 +79,8 @@
             @*End When clicking on this, review will be liked or unliked*@
 
             @*Start Review like stats*@
-            <span class="likers-head-wrapper" id="likers-head-wrapper">
-                @if (item.LikeCount > 0)
-                {
-                    if (item.LikeCount == 1 && item.IsLiked)
-                    {
-                        @*The only one who like this review is this user*@
-                        @*We need to hide the element when user unlikes the review*@
-                        <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
-                    }
-                    else
-                    {
-                        @*Other users liked this review*@
-                        @*No need to hide/show for this element*@
-                        <span class="review-like-stats" id="review-stats" style="display: inline-block;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
-                    }
-                }
-                else
-                {
-                    @*No one liked this review*@
-                    @*We need to show the element when user likes the review*@
-                    <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
-                }
-                <i style='font-size:20px' class='fas likers-arrow'>&#xf107;</i>
-            </span>
-
-            @{
-                var likes = item.Likers.ToList().Take(5);
-                var extraLikers = item.LikeCount - 5;
-            }
-            <div class="likers-wrapper" @if (item.IsLiked) { <text> id="review-isliked-true" </text> }>
-                (Liked by: @foreach (var item2 in item.Likers.ToList().Take(5))
-                {
-                    <span>
-                        @item2.User.FirstName@if (item2.Equals(likes.FirstOrDefault()) && item.IsLiked)
-                        {<text>(you)</text>}@if (!item2.Equals(likes.LastOrDefault()))
-                        {<text>, </text>}
-
-                    </span>
-
-
-                }@if (item.LikeCount > 5)
-                {<text> and @extraLikers more.</text>})
-            </div>
+            <partial name="~/Views/Shared/Review/_LikersReview.cshtml" model="item" />
+            @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
             @*End Review stats*@
 
         </div>
@@ -133,66 +92,7 @@
 }
 
 
-@*Like/Unlike*@
-<script>
-    //Log functions
-    $(document).on("click", "#review-like-button", function (e) {
-        //Start changing UI
-        //toggle between two class for changing the icon color
-        $(this).children("#like-icon").toggleClass('review-icon-like review-icon-liked');
-
-        //change the class of caption
-        $(this).children("#like-caption").toggleClass('review-like-text review-liked-text');
-
-        //if review is liked (or unliked), change the text
-        if ($(this).children('#like-caption').hasClass('review-liked-text')) {
-            //if (...) ==> User liked review
-            $(this).children("#like-caption").html("Liked");
-            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) + 1);
-
-            //display the stats anyway, because if you press like, the like count is certainly more than zero
-            $(this).siblings("#review-stats").fadeIn(400);
-
-        } else {
-            //else ==> User unliked review
-            $(this).children("#like-caption").html("Like Review");
-            $(this).siblings().children("#like-count").html(parseInt($(this).siblings().children("#like-count").html()) - 1);
-
-            //hide the stats if the like count is zero
-            if (parseInt($(this).siblings().children("#like-count").html()) < 1) {
-                $(this).siblings("#review-stats").fadeOut(400);
-            }
-        }
-        //END Start changing UI
-
-        //Start Ajax function for saving like or removing like from database
-        var id = $(this).children("#review-id").val();
-        var data = "ReviewId=" + id;
-
-        //alert(data);
-        $.ajax({
-
-            type: 'POST',
-            url: '/Movie/LikeReview',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-            data: data,
-            success: function (result) {
-                //alert('Successfully received Data ');
-                console.log(result);
-            },
-            error: function () {
-                //alert('Failed to receive the Data');
-                console.log('Failed ');
-            }
-        })
-        //End Ajax function
-
-    });
-</script>
 
 <script>
-    $(document).on("click", "#likers-head-wrapper", function (e) {
-        $(this).siblings(".likers-wrapper").slideToggle();
-        $(this).children(".likers-arrow").toggleClass("toggle-up");
-    });
+    
 </script>

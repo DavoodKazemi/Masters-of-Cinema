@@ -1,0 +1,67 @@
+﻿@model ReviewViewModel
+@*
+    Is created to make the parent view (_AjaxReview.cshtml, etx) cleaner
+    When rendering the likers of the user review, this partial view is being called
+    Is being called only when user is logged in and has a review of this movie!
+*@
+
+@*below the user review, there is a section like: x peopla liked this review*@
+
+@if (Model.LikeCount > 0)
+{
+<span class="likers-head-wrapper" id="likers-head-wrapper">
+    @if (Model.LikeCount == 1 && Model.IsLiked)
+    {
+        @*The only one who like user review is himsel!*@
+        @*We need to hide the element when user unlikes the review*@
+        <span class="review-like-stats" id="like-count" style="display: inline-block;">
+            @Model.LikeCount
+        </span>
+        <span id="review-stats"> people liked this review</span>
+    }
+    else
+    {
+        @*Other users liked this review*@
+        @*No need to hide/show for this element*@
+        <span class="review-like-stats" id="like-count" style="display: inline-block;">
+            @Model.LikeCount
+        </span>
+        <span id="review-stats"> people liked this review</span>
+    }
+    <i style='font-size:20px' class='fas likers-arrow'>&#xf107;</i>
+</span>
+}
+else
+{
+<span class="likers-head-wrapper" id="likers-head-wrapper" style="display: none;">
+    @*No one liked the user review*@
+    @*We need to show the element when user likes the review*@
+    <span class="review-like-stats" id="like-count" style="display: inline-block;">
+        @Model.LikeCount
+    </span>
+    <span id="review-stats"> people liked this review</span>
+    <i style='font-size:20px' class='fas likers-arrow'>&#xf107;</i>
+</span>
+}
+
+
+        @*End: x peopla liked this review*@
+
+
+        @*The actual list of likers of the user review*@
+        @{
+            var likes = Model.Likers.ToList();
+        }
+
+        <div class="likers-wrapper " @if (Model.IsLiked) { <text> id="review-isliked-true" </text> }>
+            (Liked by: @foreach (var item in Model.Likers)
+            {
+                <span>
+                    @item.User.FirstName@if (item.Equals(likes.FirstOrDefault()) && Model.IsLiked)
+                    {<text> (you)</text>}@if (!item.Equals(likes.LastOrDefault()))
+                    {<text>, </text>}
+                </span>
+            })
+        </div>
+
+        @*End The actual list of likers of the user review*@

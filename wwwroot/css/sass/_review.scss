@@ -24,7 +24,7 @@
     
 }
 
-.a-review {
+.a-review, .user-review {
     .review-like-wrapper {
         //button to show likers
         .likers-head-wrapper {
@@ -32,19 +32,19 @@
             cursor: pointer;
 
             &:hover {
-                transition: all .75s ease;
+                transition: all .3s ease;
                 color: #fff;
             }
 
             .likers-arrow {
-                transition: all 0.75s ease;
+                transition: transform 0.75s ease, vertical-align 0.75s ease;
                 margin-left: 3px;
                 vertical-align: sub;
             }
 
             .likers-arrow.toggle-up {
                 transform: rotate(180deg);
-                transition: all 0.5s ease;
+                transition: transform 0.75s ease, vertical-align 0.75s ease;
                 vertical-align: middle;
             }
         }
