@@ -275,7 +275,8 @@ namespace MastersOfCinema.Controllers
             
 
             //List count
-            ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count();
+            ViewBag.watchlistCount = _context.Watchlists.Where(m => m.MovieId == id).Count()
+                + _context.ListMovies.Where(m => m.MovieId == id).Count() ;
 
             //Log count
             ViewBag.logCount = _context.MovieLogs.Where(m => m.MovieId == id).Count();
