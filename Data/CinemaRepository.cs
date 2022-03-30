@@ -576,7 +576,7 @@ namespace MastersOfCinema.Data
                 //add it to the brginning
                 reviewViewModel.Likers.Insert(0, myLike);
             }
-
+            reviewViewModel.User = review.User;
             return reviewViewModel;
         }
 

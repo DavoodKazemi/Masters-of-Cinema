@@ -1,6 +1,224 @@
-﻿@{
+﻿@model HomePageViewModel
+@*
+    To-do list for custom list section:
+    1- fix links
+    2- make different classes and make a copy the original styles, for customisation
+    3- add minor changes in styles and markup, like adding "more lists",
+       title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
+    4- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+    5- clean this razor view and remove unnecessary things
+
+    To-do list for popular review section:
+    1- fix the user not populating!
+    2- perhaps add a exclusive view model for more info. ex. movie info and image
+    3- make different classes and make a copy the original styles, for customisation
+    4- add minor changes in styles and markup, like adding "more review!?",
+       title "popular reviews", etc.
+    5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+    6- clean this razor view and remove unnecessary things
+*@
+@{
     ViewBag.Title = "Home Page";
 }
+
+<section>
+    Welcome,
+</section>
+
+<section>
+    @*Popular lists here!*@
+    <div class="custom-lists-page mt-2">
+        <div class="director-movies-container container list-ajax-container">
+            <div class="row px-1 tbody" style="border: 1px solid yellowgreen;">
+                @foreach (var item in Model.PopularLists.Lists)
+                {
+                    <article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-6 col-lg-4">
+                        <div class="mx-auto">
+                            @*Movie poster and its tooltip (title (year)) *@
+                            <div class="movie-poster-wrapper list-poster mx-auto">
+                                <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                                    <div class="avatars-wrapper">
+                                        <ul>
+                                            @foreach (var avatar in item.Avatars)
+                                            {
+                                                if (avatar != "defaultImage")
+                                                {
+                                                    <li>
+                                                        <img src="@("~/image/" + avatar)" class="" asp-append-version="true" />
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="list-avarar-placeholder">
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                                <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
+                            </a>
+                            <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>
+                            <div class="nav-item ms-md-auto profile-picture-small-wrapper">
+                                @if (item.User == Model.User)
+                                {
+                                    <a class="nav-link profile-picture-small"
+                                       asp-controller="Settings" asp-action="Index">
+
+                                        @if (item.User.ProfilePicture != null)
+                                        {
+                                            <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                                            <span class="navbar-user-name">@item.User.FirstName</span>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-user-circle me-0 nav-default-profile-picture"></i>
+                                            <span class="navbar-user-name-default">@item.User.FirstName</span>
+                                        }
+                                    </a>
+                                }
+                                else
+                                {
+                                    @if (item.User.ProfilePicture != null)
+                                    {
+                                        <div class="profile-picture-small">
+                                            <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                                            <span class="navbar-user-name">@item.User.FirstName</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="profile-picture-small">
+                                            <i class="fas fa-user-circle me-0 nav-default-profile-picture"></i>
+                                            <span class="navbar-user-name-default">@item.User.FirstName</span>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+
+
+                        </div>
+                    </article>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    Latest popular reviews here!
+    @foreach (var review in Model.PopularReviews)
+    {
+        @review.ReviewText
+    }
+</section>
+
+<section>
+    Latest popular movies here!
+
+    @foreach (var item in Model.PopularReviews)
+    {
+        <div class="col-12 a-review">
+
+            @*Reviewer's avatar is displayed on the left side of each review*@
+            @if (item.User.ProfilePicture != null)
+            {
+                <div class="profile-picture-medium-wrapper">
+                    <div class="profile-picture-medium">
+                        <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="profile-picture-medium-wrapper">
+                    <div class="profile-picture-medium">
+                        <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                    </div>
+                </div>
+            }
+            @*END Reviewer's avatar*@
+
+            @*Start Review's right side*@
+            <div class="d-inline-block review-main-col">
+                @*Start Review's header*@
+                <div class="review-head-wrapper">
+                    <div class="review-head">
+                        <div class="review-head-text">
+                            Review by
+                            <span class="review-name me-2">
+                                @item.User.FirstName
+                            </span>
+                            @if (@item.ReviewerRate != null)
+                            {
+                                <div class="reviewer-rate-wrapper d-inline-block">
+
+                                    @item.ReviewerRate
+                                    @for (var i = 0; i < item.ReviewerRate; i++)
+                                    {
+                                        <span class="starGlowReview" id=""></span>
+
+                                    }
+                                </div>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+
+                @*Start review text*@
+                <div class="review-text-wrapper">
+                    <div class="review-text">
+                        <div class="read-more-object-text" style="white-space: pre-line;">@item.ReviewText</div>
+                    </div>
+                </div>
+                @*End review text*@
+
+                @*Start like section*@
+                <div class="review-like-wrapper" style="overflow: hidden;">
+                    @*When clicking on this, review will be liked or unliked*@
+                    <span class="review-like-button" id="review-like-button">
+                        <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
+                        @if (item.IsLiked)
+                        {
+                            <span class="review-icon-liked" id="like-icon"></span>
+                            <span class="review-liked-text" id="like-caption">Liked</span>
+                        }
+                        else
+                        {
+                            <span class="review-icon-like" id="like-icon"></span>
+                            <span class="review-like-text" id="like-caption">Like Review</span>
+                        }
+                    </span>
+                    @*End When clicking on this, review will be liked or unliked*@
+
+                    @*Start Review like stats*@
+                    <partial name="~/Views/Shared/Review/_LikersReview.cshtml" model="item" />
+                    @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
+                    @*End Review stats*@
+
+                </div>
+                @*End like section*@
+            </div>
+            @*END Review's right side*@
+
+        </div>
+    }
+
+</section>
+
+<section>
+    Meet the masters of Cinema!
+</section>
+
+
+
 
 <div class="container row text-center mx-auto px-0">
 
