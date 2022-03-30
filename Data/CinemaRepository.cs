@@ -490,6 +490,25 @@ namespace MastersOfCinema.Data
         //Start Review
 
         //Gets a review id and gives the equivalent ReviewViewModel
+
+        //return a collection of LikeReview (including users) who liked a review
+        public List<LikeReview> GetReviewLikers(int reviewId)
+        {
+            Review review = _context.Review.Include(u => u.User).Where(m => m.Id == reviewId).FirstOrDefault();
+            //string currentUser = _accessor.HttpContext.User.Identity.Name;
+
+            //List of all of likers - Exclude the logged in user from list (if he liked the review)
+            List<LikeReview> reviewLikers = _context.LikeReview.Where(g => g.ReviewId == reviewId)
+                /*.Where(u => u.User.UserName != currentUser)*/.Include(u => u.User).ToList();
+
+            /*if (_context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser))
+            {
+                reviewLikersExceptMe.Insert(0, new LikeReview { User = new User { UserName = "Lara" } });
+            }*/
+
+            
+            return reviewLikers;
+        }
         public ReviewViewModel GetReviewLikeStatsById(int reviewId)
         {
             Review review = _context.Review.Include(u => u.User).Where(m => m.Id == reviewId).FirstOrDefault();
@@ -502,13 +521,27 @@ namespace MastersOfCinema.Data
                 ReviewText = review.ReviewText,
                 User = review.User,
                 LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
-                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser)
+                IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser),
+                Likers = GetReviewLikers(reviewId)
             };
             var IsRatedByReviewer = _context.MovieRatings.Where(x => x.User == review.User).Where(z => z.MovieId == review.MovieId).FirstOrDefault();
             if (IsRatedByReviewer != null)
             {
                 reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
             }
+
+            //The like of the current user must be moved to the first of the list
+            if (reviewViewModel.IsLiked && reviewViewModel.LikeCount > 1)
+            {
+                //save the like
+                var myLike = reviewViewModel.Likers.Where(u => u.User.UserName == currentUser).FirstOrDefault();
+                //remove it from the list
+                reviewViewModel.Likers = reviewViewModel.Likers.Where(u => u.User.UserName != currentUser).ToList();
+                //add it to the brginning
+                reviewViewModel.Likers.Insert(0, myLike);
+            }
+
+
             return reviewViewModel;
         }
 
@@ -525,11 +558,25 @@ namespace MastersOfCinema.Data
                 User = review.User,
                 LikeCount = _context.LikeReview.Where(x => x.ReviewId == review.Id).Count(),
                 IsLiked = _context.LikeReview.Where(x => x.ReviewId == review.Id).Any(m => m.User.UserName == currentUser),
+                Likers = GetReviewLikers(review.Id)
             };
             if (IsRatedByReviewer != null)
             {
                 reviewViewModel.ReviewerRate = IsRatedByReviewer.Rating;
             }
+
+
+            //The like of the current user must be moved to the first of the list
+            if (reviewViewModel.IsLiked && reviewViewModel.LikeCount > 1)
+            {
+                //save the like
+                var myLike = reviewViewModel.Likers.Where(u => u.User.UserName == currentUser).FirstOrDefault();
+                //remove it from the list
+                reviewViewModel.Likers = reviewViewModel.Likers.Where(u => u.User.UserName != currentUser).ToList();
+                //add it to the brginning
+                reviewViewModel.Likers.Insert(0, myLike);
+            }
+
             return reviewViewModel;
         }
 

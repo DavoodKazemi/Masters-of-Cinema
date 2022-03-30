@@ -101,7 +101,22 @@
                 <span class="review-like-stats" id="review-stats" style="display: none;"><span id="like-count">@item.LikeCount</span> people liked this review</span>
             }
 
+            @{ 
+                var likes = item.Likers.ToList().Take(5);
+                var extraLikers = item.LikeCount - 5;
+            }
+            <span class="likers-wrapper" @if(item.IsLiked) { <text>id="review-isliked-true"</text> }>
+            (Liked by: @foreach (var item2 in item.Likers.ToList().Take(5))
+            {
+                <span>
+                    @item2.User.FirstName@if(item2.Equals(likes.FirstOrDefault())  && item.IsLiked){<text>(you)</text>}@if(!item2.Equals(likes.LastOrDefault())){<text>, </text>}
+
+                </span>
+
+
+            }@if (item.LikeCount > 5) {<text> and @extraLikers more.</text> })</span>
             @*End Review stats*@
+
         </div>
         @*End like section*@
     </div>

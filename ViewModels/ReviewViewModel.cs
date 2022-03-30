@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MastersOfCinema.Data.Entities;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace MastersOfCinema.ViewModels
@@ -13,6 +16,7 @@ namespace MastersOfCinema.ViewModels
         public int LikeCount { get; set; }
         public bool IsLiked { get; set; }
         public int? ReviewerRate { get; set; }
+        public List<LikeReview> Likers { get; set; }
     }
 }
 

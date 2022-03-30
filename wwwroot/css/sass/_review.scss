@@ -11,6 +11,33 @@
     vertical-align: middle;
 }
 
+//Review likers
+#review-isliked-true{
+    span:first-child{
+        font-weight: 700;
+        //color: greenyellow;
+    }
+    
+    
+}
+
+.a-review {
+    .review-like-wrapper {
+        .likers-wrapper {
+            opacity: .3;
+            transition: all .3s ease;
+        }
+
+        &:hover {
+            .likers-wrapper {
+                opacity: 1;
+                transition: all .3s ease;
+            }
+        }
+    }
+}
+//End Review likers
+
 //Start Read more / less button for reviews
 .read-more-review {
     //the extra oart of review
@@ -117,7 +144,7 @@
 //Buttons style
 .review-edit-buttons {
     height: 60px;
-
+    margin-top: 12px;
     .review-save-button {
         font-weight: 700;
         border: none;

@@ -101,6 +101,25 @@
             }
 
             @*End Review stats*@
+        <span class="likers-wrapper " @if(Model.UserReview.IsLiked) { <text>id="review-isliked-true"</text> }>
+            
+            @{
+                var likes = Model.UserReview.Likers.ToList();
+                //var extraLikers = Model.UserReview.LikeCount - 5;
+            }
+            (Liked by: @foreach (var item in Model.UserReview.Likers)
+            {
+                <span>
+                    @item.User.FirstName@if(item.Equals(likes.FirstOrDefault()) && Model.UserReview.IsLiked)
+                    {<text>(you)</text>}@if (!item.Equals(likes.LastOrDefault()))
+                    {<text>, </text>}
+
+                </span>
+
+
+            })
+        </span>
+        </span>
         </div>
         @*End like section*@
         @*Edit ... button*@
@@ -117,41 +136,3 @@
     @*END Review's right side*@
 
 </div>
-
-
-
-<script>
-    $(document).ready(function () {
-        var showChar = 800;
-        var ellipsestext = "...";
-        var moretext = "more";
-        var lesstext = "less";
-        $('.read-more-object-text').each(function () {
-            var content = $(this).html();
-
-            if (content.length > showChar) {
-
-                var c = content.substr(0, showChar);
-                var h = content.substr(showChar - 1, content.length - showChar);
-
-                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent read-more-review"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink read-more-link">' + moretext + '</a></span>';
-
-                $(this).html(html);
-            }
-
-        });
-
-        $(".morelink").click(function () {
-            if ($(this).hasClass("less")) {
-                $(this).removeClass("less");
-                $(this).html(moretext);
-            } else {
-                $(this).addClass("less");
-                $(this).html(lesstext);
-            }
-            $(this).parent().prev().toggle();
-            $(this).prev().toggle();
-            return false;
-        });
-    });
-</script>
