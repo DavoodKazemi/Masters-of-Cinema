@@ -18,6 +18,8 @@
         5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
         6- clean this razor view and remove unnecessary things
         7- Add your own review link maybe?
+        8- add tooltip for reviewer rate
+
 
         ALso add a section for your activity, like a review, a list, etc
         Add a section for best movies, maybe according to the highest rate
@@ -183,7 +185,6 @@
 
         // trigger masonry
         $container.masonry({
-            columnWidth: 300,
             animate: true
         });
 
@@ -192,73 +193,90 @@
 </script>
 
 
-<section>
+<section class="container homepage-popular-reviews-wrapper">
     Latest popular reviews here!
-    <div id="container-masonary">
+    <div class="row" id="container-masonary">
         @{ 
             var i2 = 0;
         }
         @foreach (var item in Model.PopularReviews)
         {
 
-        <div class="box-masonary" style="background-color: #000000;">
+        <div class="box-masonary col-6" style="">
             <h3 style="background-color: blue">@i2.ToString()</h3>
             @{ i2 = i2 + 1;}
-            <div class="masonary-box a-review">
+            <div class="a-review">
                 @*Movie poster*@
-                <div class="popular-review-header">
-                    <div class="movie-poster col-md-3 text-center" style="align-self: flex-start; flex-shrink: 0; margin-right: 1.53846154rem; width: 75px;">
-                        <div class="movie-lists-poster-wrapper">
+                <div class="popular-review-header row">
+                    <div class="movie-poster col-md-3 text-center" style="align-self: flex-start; flex-shrink: 0; width: 120px;">
                             <img class="img-fluid" src="@("~/image/"+item.ReviewdMovie.ImageName)" asp-append-version="true" />
-                        </div>
                     </div>
+                    <div class="header-right-col col-md-9">
+                        <div class="reviewer-info">
+                            @*Reviewer's avatar is displayed on the left side of each review*@
+                            @if (item.User.ProfilePicture != null)
+                            {
+                                <div class="profile-picture-small-wrapper">
+                                    <div class="profile-picture-small">
+                                        <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                                        <span class="navbar-user-name">@item.User.FirstName</span>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="profile-picture-medium-wrapper">
+                                    <div class="profile-picture-medium">
+                                        <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                                    </div>
+                                </div>
+                            }
+                            @*END Reviewer's avatar*@
+                            <div class="review-head-wrapper">
+                                <div class="review-head">
+                                    <div class="review-head-text">
+                                        Review by
+                                        <span class="review-name me-2">
+                                            @item.User.FirstName
+                                        </span>
+                                        @if (@item.ReviewerRate != null)
+                                        {
+                                            <div class="reviewer-rate-wrapper d-inline-block">
+
+                                                @item.ReviewerRate
+                                                @for (var i = 0; i < item.ReviewerRate; i++)
+                                                {
+                                                    <span class="starGlowReview" id=""></span>
+
+                                                }
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Start Movie info*@
+                        <div class="review-movie-info">
+                            <span class="movie-title">
+                                @item.ReviewdMovie.Title
+                            </span>
+                            <span class="movie-year">
+                                (@item.ReviewdMovie.Year)
+                            </span>
+                        </div>
+                        @*End Movie info*@
+                    </div>
+
                 </div>
-                @*Reviewer's avatar is displayed on the left side of each review*@
-                @if (item.User.ProfilePicture != null)
-                {
-                    <div class="profile-picture-medium-wrapper">
-                        <div class="profile-picture-medium">
-                            <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="profile-picture-medium-wrapper">
-                        <div class="profile-picture-medium">
-                            <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
-                        </div>
-                    </div>
-                }
-                @*END Reviewer's avatar*@
+
+                
 
                 @*Start Review's right side*@
                 <div class="d-inline-block review-main-col">
                     @*Start Review's header*@
-                    <div class="review-head-wrapper">
-                        <div class="review-head">
-                            <div class="review-head-text">
-                                Review by
-                                <span class="review-name me-2">
-                                    @item.User.FirstName
-                                </span>
-                                @if (@item.ReviewerRate != null)
-                                {
-                                    <div class="reviewer-rate-wrapper d-inline-block">
-
-                                        @item.ReviewerRate
-                                        @for (var i = 0; i < item.ReviewerRate; i++)
-                                        {
-                                            <span class="starGlowReview" id=""></span>
-
-                                        }
-                                    </div>
-                                }
-
-
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     @*Start review text*@
                     <div class="review-text-wrapper">

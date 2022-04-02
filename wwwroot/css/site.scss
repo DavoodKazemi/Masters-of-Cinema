@@ -16,13 +16,55 @@
 
 /**/
 
+section.homepage-popular-reviews-wrapper {
+    #container-masonary {
+        .box-masonary {
+            //width: 50%;
+            //height: 290px;
+            //margin: 5px;
+            //background: #084;
+            float: left;
+            //z-index: 999999999;
+            //temp
+            background-color: #000000;
+
+            .a-review {
+                //Header - movie poster + title + user + ...
+                .popular-review-header {
+                    //Movie poster
+                    .movie-poster {
+                        img {
+                        }
+                    }
+                    //End Movie poster
+                    //Start right column - title + user + ...
+                    .header-right-col {
+                        .review-movie-info {
+                            .movie-title {
+                                font-family: TiemposTextWeb-Semibold,Georgia,serif;
+                                font-size: 1.69230769rem;
+                                font-weight: 400;
+                                margin: 0 0 10px;
+                                color: #fff;
+                                line-height: 1.2;
+                            }
+                        }
+
+                        .reviewer-info {
+                        }
+                    }
+                }
+            }
+            //End a-review
+        }
+        //End box-masonary
+    }
+    //End #container-masonary
+}//End section.homepage-popular-reviews-wrapper
+
+
 .box-masonary {
-    width: 40vw;
-    //height: 290px;
-    margin: 5px;
-    //background: #084;
-    float: left;
-    z-index: 999999999;
+    
 }
 
 .box-masonary:hover {
