@@ -17,6 +17,8 @@ namespace MastersOfCinema.ViewModels
         public bool IsLiked { get; set; }
         public int? ReviewerRate { get; set; }
         public List<LikeReview> Likers { get; set; }
+        //For homepage only - to display the movie poster
+        public Movie ReviewdMovie { get; set; }
     }
 }
 

@@ -1,21 +1,26 @@
 ﻿@model HomePageViewModel
 @*
-    To-do list for custom list section:
-    1- fix links
-    2- make different classes and make a copy the original styles, for customisation
-    3- add minor changes in styles and markup, like adding "more lists",
-       title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
-    4- improve mobile if needed, inspiring from the mobile version of LetterBoxd
-    5- clean this razor view and remove unnecessary things
+        To-do list for custom list section:
+    ****1- fix links
+        2- make different classes and make a copy the original styles, for customisation
+        3- add minor changes in styles and markup, like adding "more lists",
+           title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
+        4- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+        5- clean this razor view and remove unnecessary things
+        6- Start a new list button!
 
-    To-do list for popular review section:
-    1- fix the user not populating!
-    2- perhaps add a exclusive view model for more info. ex. movie info and image
-    3- make different classes and make a copy the original styles, for customisation
-    4- add minor changes in styles and markup, like adding "more review!?",
-       title "popular reviews", etc.
-    5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
-    6- clean this razor view and remove unnecessary things
+        To-do list for popular review section:
+    ****1- fix the user not populating!
+        2- perhaps add an exclusive view model for more info. ex. movie info and image
+        3- make different classes and make a copy the original styles, for customisation
+        4- add minor changes in styles and markup, like adding "more review!?",
+           title "popular reviews", etc.
+        5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+        6- clean this razor view and remove unnecessary things
+        7- Add your own review link maybe?
+
+        ALso add a section for your activity, like a review, a list, etc
+        Add a section for best movies, maybe according to the highest rate
 *@
 @{
     ViewBag.Title = "Home Page";
@@ -25,7 +30,12 @@
     Welcome,
 </section>
 
-<section>
+<section class="homepage-popular-lists">
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="border-bottom">Popular lists</div>
+        </div>
+    </div>
     @*Popular lists here!*@
     <div class="custom-lists-page mt-2">
         <div class="director-movies-container container list-ajax-container">
@@ -36,7 +46,7 @@
                         <div class="mx-auto">
                             @*Movie poster and its tooltip (title (year)) *@
                             <div class="movie-poster-wrapper list-poster mx-auto">
-                                <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                                <a asp-controller="Account" asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
                                     <div class="avatars-wrapper">
                                         <ul>
                                             @foreach (var avatar in item.Avatars)
@@ -58,7 +68,7 @@
                                 </a>
                             </div>
 
-                            <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                            <a asp-controller="Account" asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
                                 <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
                             </a>
                             <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>
@@ -110,108 +120,206 @@
     </div>
 </section>
 
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var showChar = 700;
+        var ellipsestext = "...";
+        var moretext = "more";
+        var lesstext = "less";
+        $('.read-more-object-text').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar - 1, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent read-more-review"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink read-more-link">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+
+@*New mixed cod*@
+
+        var $container = $('#container-masonary');
+
+        var reMasonry = function () {
+            $container.masonry();
+        };
+
+        $('.morelink').click(function () {
+            
+
+            var $this = $(this),
+                size = $this.hasClass('large') ?
+                    {@* width: 290,*@ height: "fit-content" } :
+                    { @*width: 590,*@ height: "fit-content" };
+            $this.toggleClass('large').animate(size, reMasonry);
+
+            @*old code when click*@
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+
+    });
+
+
+    $(function () {
+
+        var $container = $('#container-masonary');
+
+        // trigger masonry
+        $container.masonry({
+            columnWidth: 300,
+            animate: true
+        });
+
+        
+    });
+</script>
+
+
 <section>
     Latest popular reviews here!
-    @foreach (var review in Model.PopularReviews)
-    {
-        @review.ReviewText
-    }
-</section>
+    <div id="container-masonary">
+        @{ 
+            var i2 = 0;
+        }
+        @foreach (var item in Model.PopularReviews)
+        {
 
-<section>
-    Latest popular movies here!
-
-    @foreach (var item in Model.PopularReviews)
-    {
-        <div class="col-12 a-review">
-
-            @*Reviewer's avatar is displayed on the left side of each review*@
-            @if (item.User.ProfilePicture != null)
-            {
-                <div class="profile-picture-medium-wrapper">
-                    <div class="profile-picture-medium">
-                        <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="profile-picture-medium-wrapper">
-                    <div class="profile-picture-medium">
-                        <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
-                    </div>
-                </div>
-            }
-            @*END Reviewer's avatar*@
-
-            @*Start Review's right side*@
-            <div class="d-inline-block review-main-col">
-                @*Start Review's header*@
-                <div class="review-head-wrapper">
-                    <div class="review-head">
-                        <div class="review-head-text">
-                            Review by
-                            <span class="review-name me-2">
-                                @item.User.FirstName
-                            </span>
-                            @if (@item.ReviewerRate != null)
-                            {
-                                <div class="reviewer-rate-wrapper d-inline-block">
-
-                                    @item.ReviewerRate
-                                    @for (var i = 0; i < item.ReviewerRate; i++)
-                                    {
-                                        <span class="starGlowReview" id=""></span>
-
-                                    }
-                                </div>
-                            }
-
-
+        <div class="box-masonary" style="background-color: #000000;">
+            <h3 style="background-color: blue">@i2.ToString()</h3>
+            @{ i2 = i2 + 1;}
+            <div class="masonary-box a-review">
+                @*Movie poster*@
+                <div class="popular-review-header">
+                    <div class="movie-poster col-md-3 text-center" style="align-self: flex-start; flex-shrink: 0; margin-right: 1.53846154rem; width: 75px;">
+                        <div class="movie-lists-poster-wrapper">
+                            <img class="img-fluid" src="@("~/image/"+item.ReviewdMovie.ImageName)" asp-append-version="true" />
                         </div>
                     </div>
                 </div>
-
-                @*Start review text*@
-                <div class="review-text-wrapper">
-                    <div class="review-text">
-                        <div class="read-more-object-text" style="white-space: pre-line;">@item.ReviewText</div>
+                @*Reviewer's avatar is displayed on the left side of each review*@
+                @if (item.User.ProfilePicture != null)
+                {
+                    <div class="profile-picture-medium-wrapper">
+                        <div class="profile-picture-medium">
+                            <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(item.User.ProfilePicture))">
+                        </div>
                     </div>
+                }
+                else
+                {
+                    <div class="profile-picture-medium-wrapper">
+                        <div class="profile-picture-medium">
+                            <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                        </div>
+                    </div>
+                }
+                @*END Reviewer's avatar*@
+
+                @*Start Review's right side*@
+                <div class="d-inline-block review-main-col">
+                    @*Start Review's header*@
+                    <div class="review-head-wrapper">
+                        <div class="review-head">
+                            <div class="review-head-text">
+                                Review by
+                                <span class="review-name me-2">
+                                    @item.User.FirstName
+                                </span>
+                                @if (@item.ReviewerRate != null)
+                                {
+                                    <div class="reviewer-rate-wrapper d-inline-block">
+
+                                        @item.ReviewerRate
+                                        @for (var i = 0; i < item.ReviewerRate; i++)
+                                        {
+                                            <span class="starGlowReview" id=""></span>
+
+                                        }
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Start review text*@
+                    <div class="review-text-wrapper">
+                        <div class="review-text">
+                            <div class="read-more-object-text" style="white-space: pre-line;">@item.ReviewText</div>
+                        </div>
+                    </div>
+                    @*End review text*@
+
+                    @*Start like section*@
+                    <div class="review-like-wrapper" style="overflow: hidden;">
+                        @*When clicking on this, review will be liked or unliked*@
+                        <span class="review-like-button" id="review-like-button">
+                            <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
+                            @if (item.IsLiked)
+                            {
+                                <span class="review-icon-liked" id="like-icon"></span>
+                                <span class="review-liked-text" id="like-caption">Liked</span>
+                            }
+                            else
+                            {
+                                <span class="review-icon-like" id="like-icon"></span>
+                                <span class="review-like-text" id="like-caption">Like Review</span>
+                            }
+                        </span>
+                        @*End When clicking on this, review will be liked or unliked*@
+
+                        @*Start Review like stats*@
+                        <partial name="~/Views/Shared/Review/_LikersReview.cshtml" model="item" />
+                        @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
+                        @*End Review stats*@
+
+                    </div>
+                    @*End like section*@
                 </div>
-                @*End review text*@
+                @*END Review's right side*@
 
-                @*Start like section*@
-                <div class="review-like-wrapper" style="overflow: hidden;">
-                    @*When clicking on this, review will be liked or unliked*@
-                    <span class="review-like-button" id="review-like-button">
-                        <input type="hidden" value="@item.Id" class="form-control input-small" id="review-id" />
-                        @if (item.IsLiked)
-                        {
-                            <span class="review-icon-liked" id="like-icon"></span>
-                            <span class="review-liked-text" id="like-caption">Liked</span>
-                        }
-                        else
-                        {
-                            <span class="review-icon-like" id="like-icon"></span>
-                            <span class="review-like-text" id="like-caption">Like Review</span>
-                        }
-                    </span>
-                    @*End When clicking on this, review will be liked or unliked*@
-
-                    @*Start Review like stats*@
-                    <partial name="~/Views/Shared/Review/_LikersReview.cshtml" model="item" />
-                    @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
-                    @*End Review stats*@
-
-                </div>
-                @*End like section*@
             </div>
-            @*END Review's right side*@
-
         </div>
-    }
+
+        }
+    </div>
+</section>
+
+<section class="d-none">
 
 </section>
+
+
+
+<script>
+    //Start Read more button to hide extra part of lenghty reviews
+
+
+//End Read more button
+
+
+//End Read more button
+</script>
+
+
 
 <section>
     Meet the masters of Cinema!

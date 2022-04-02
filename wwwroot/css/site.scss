@@ -1,4 +1,4 @@
-﻿@import "sass/_chart.scss";
+@import "sass/_chart.scss";
 @import "sass/_director-info.scss";
 @import "sass/_director-list.scss";
 @import 'sass/_footer.scss';
@@ -13,6 +13,29 @@
 @import "sass/_add-custom-list";
 @import "sass/_review";
 @import "sass/confirm-message";
+
+/**/
+
+.box-masonary {
+    width: 40vw;
+    //height: 290px;
+    margin: 5px;
+    //background: #084;
+    float: left;
+    z-index: 999999999;
+}
+
+.box-masonary:hover {
+    //background: #999;
+    //cursor: pointer;
+}
+
+.box-masonary.large {
+    //background: #084;
+    z-index: 999999999;
+}
+/**/
+
 html, body {
     height: 100%;
 }

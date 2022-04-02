@@ -30,13 +30,19 @@ namespace MastersOfCinema.Controllers
             var id = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = context.Users.Where(i => i.Id == id).FirstOrDefault();
 
-            List<Review> reviews = context.Review.Take(4).ToList();
+            List<Review> reviews = context.Review.OrderBy(m => m.ReviewText).Take(8).ToList();
             List<ReviewViewModel> PopularReviews = new List<ReviewViewModel>();
             foreach (var item in reviews)
             {
                 item.User = item.User;
                 PopularReviews.Add(repo.GetReviewsLikeStats(item));
             }
+            foreach(var item2 in PopularReviews)
+            {
+                item2.ReviewdMovie = context.Movies
+                    .Where(m => m.Id == item2.MovieId).FirstOrDefault();
+            }
+
             HomePageViewModel homePageViewModel = new HomePageViewModel()
             {
                 ///
