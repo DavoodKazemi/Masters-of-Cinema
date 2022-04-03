@@ -13,5 +13,9 @@ namespace MastersOfCinema.ViewModels
         public User User { get; set; }
 
         public List<ReviewViewModel> PopularReviews { get; set; }
+        //Highly rated movies - ex. 36 movies
+        public List<Movie> HighestRatedMovies { get; set; }
+        //user watchlist
+        public List<Movie> UserWatchlist { get; set; }
     }
 }

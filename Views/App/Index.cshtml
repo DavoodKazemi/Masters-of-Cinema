@@ -4,28 +4,38 @@
     ****1- fix links
         2- make different classes and make a copy the original styles, for customisation
         3- add minor changes in styles and markup, like adding "more lists",
-           title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
+            title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
         4- improve mobile if needed, inspiring from the mobile version of LetterBoxd
-        5- clean this razor view and remove unnecessary things
+       *5- clean this razor view and remove unnecessary things
         6- Start a new list button!
 
         To-do list for popular review section:
     ****1- fix the user not populating!
-        2- perhaps add an exclusive view model for more info. ex. movie info and image
-        3- make different classes and make a copy the original styles, for customisation
+    ****2- perhaps add an exclusive view model for more info. ex. movie info and image
+    ****3- make different classes and make a copy the original styles, for customisation
         4- add minor changes in styles and markup, like adding "more review!?",
-           title "popular reviews", etc.
+            title "popular reviews", etc.
         5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
-        6- clean this razor view and remove unnecessary things
+       *6- clean this razor view and remove unnecessary things
         7- Add your own review link maybe?
         8- add tooltip for reviewer rate
-        9- Choose some interesting/long reviews with proper rate and give them more likes 
+        9- Choose some interesting/long reviews with proper rate and give them more likes
             to be displayed. First one from Lara.
+
+        To-do list for movies sections:
+        1- Seems totally fine, just add small styles to be recognisable.
+           Ex, crown icon for highest rated movies in its titles. Also change the border color!
+        2- Add link!
+        3- Add background for the time being!
+        4- Done!
+
 
 
         ALso add a section for your activity, like a review, a list, etc
         Add a section for best movies, maybe according to the highest rate
-*@
+
+        If it's slow, load blew things when scroll reaches them, using ajax.
+*@      
 @{
     ViewBag.Title = "Home Page";
 }
@@ -37,13 +47,13 @@
 <section class="homepage-popular-lists mb-5">
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
-            <div class="border-bottom">Popular lists</div>
+            <div class="" style="border-bottom: 1px solid #456;">POPULAR LISTS</div>
         </div>
     </div>
     @*Popular lists here!*@
     <div class="custom-lists-page mt-2">
         <div class="director-movies-container container list-ajax-container">
-            <div class="row px-1 tbody" style="border: 1px solid yellowgreen;">
+            <div class="row px-1 tbody" style="">
                 @foreach (var item in Model.PopularLists.Lists)
                 {
                     <partial name="~/Views/Shared/HomePage/_PopularLists.cshtml" model="item" />
@@ -58,25 +68,76 @@
 <script src="~/js/homepage.js"></script>
 
 
-<section class="container homepage-popular-reviews-wrapper">
-    <div class="row">
-        <div class="border-bottom">POPULAR REVIEWS</div>
+<section class="homepage-popular-reviews-wrapper">
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="" style="border-bottom: 1px solid #456;">POPULAR REVIEWS</div>
+        </div>
     </div>
-    
-    <div class="row" id="container-masonary">
 
-        @foreach (var item in Model.PopularReviews)
-        {
-            <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
-        }
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.PopularReviews)
+            {
+                <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
+            }
+        </div>
     </div>
 </section>
 
-<section class="d-none">
+<section class="homepage-popular-movies-wrapper homepage-movie">
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Highest Rated Movies</div>
+        </div>
+    </div>
 
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.HighestRatedMovies)
+            {
+                <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
+
+            }
+        </div>
+    </div>
+</section>
+
+@*Fims in your watchlist*@
+<section class="homepage-watch-movies-wrapper homepage-movie">
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Films you would like to watch</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.UserWatchlist)
+            {
+                <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
+            }
+        </div>
+    </div>
 </section>
 
 
+@*Fims with the most entry in the watchlist table*@
+<section class="homepage-watch-movies-wrapper homepage-movie">
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Films others want to watch</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.HighestRatedMovies)
+            {
+            }
+        </div>
+    </div>
+</section>
 
 <script>
     //Start Read more button to hide extra part of lenghty reviews

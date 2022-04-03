@@ -30,7 +30,7 @@ namespace MastersOfCinema.Controllers
             var id = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = context.Users.Where(i => i.Id == id).FirstOrDefault();
 
-            List<Review> reviews = context.Review.OrderBy(m => m.ReviewText).Take(8).ToList();
+            List<Review> reviews = context.Review.OrderBy(m => m.ReviewText).Take(4).ToList();
             List<ReviewViewModel> PopularReviews = new List<ReviewViewModel>();
             foreach (var item in reviews)
             {
@@ -50,7 +50,25 @@ namespace MastersOfCinema.Controllers
                 User = user,
                 PopularReviews = PopularReviews,
             };
-            
+
+
+            /*Start highest rated movies section*/
+            //Later create a list and manually choose highest rated movies
+            homePageViewModel.HighestRatedMovies = new List<Movie>();
+            List<MovieRating> high = new List<MovieRating>();
+            foreach (var movie in context.MovieRatings)
+            {
+                if(repo.GetAverageRating(movie.Id) > 4.0)
+                {
+                    homePageViewModel.HighestRatedMovies.Add(context.Movies.Where(x => x.Id == movie.Id).FirstOrDefault());
+                }
+            }
+
+            homePageViewModel.HighestRatedMovies = homePageViewModel.HighestRatedMovies.Take(6).ToList();
+
+            /*End highest rated movies section*/
+
+            homePageViewModel.UserWatchlist = repo.GetWatchlist().Take(6).ToList();
 
             return View(homePageViewModel);
         }
