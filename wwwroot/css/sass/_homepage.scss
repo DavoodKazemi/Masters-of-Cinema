@@ -1,0 +1,111 @@
+﻿section.homepage-popular-reviews-wrapper {
+    #container-masonary {
+        .box-masonary {
+            //width: 50%;
+            //height: 290px;
+            //margin: 5px;
+            //background: #084;
+            float: left;
+            //z-index: 999999999;
+            //temp
+            //background-color: #000000;
+            background: #14181c;
+
+            .a-review {
+                //Header - movie poster + title + user + ...
+                .popular-review-header {
+                    margin-bottom: 20px;
+                    //Movie poster
+                    //
+                    .reviewed-movie-poster-wrapper {
+                        width: 120px;
+
+                        .movie-poster {
+                            align-self: flex-start;
+                            flex-shrink: 0;
+                            //width: 120px;
+                            position: relative;
+                            padding-bottom: 150%;
+                            //
+                            img {
+                                border-radius: 5%;
+                                transition: all .3s ease;
+                                object-fit: cover;
+                                object-position: top;
+                                width: 100%;
+                                position: absolute;
+                                height: 100%;
+                                border: 3px solid transparent;
+
+                                &:hover {
+                                    border: 3px solid #00E054;
+                                    transition: all .3s ease;
+                                }
+                                //
+                            }
+                        }
+                    }
+                    //End Movie poster
+                    //Start right column - title + user + ...
+                    .header-right-col {
+                        margin-left: 10px;
+
+                        .review-movie-info {
+                            cursor: pointer;
+
+                            &:hover {
+                                .movie-title {
+                                    color: #40bcf4;
+                                }
+                            }
+
+                            .movie-title {
+                                font-family: TiemposTextWeb-Semibold,Georgia,serif;
+                                font-size: 1.69230769rem;
+                                font-weight: 700;
+                                margin: 0 0 10px;
+                                color: #fff;
+                                line-height: 1.2;
+                            }
+
+                            .movie-year {
+                                font-size: 18px;
+                                color: #89a;
+                            }
+                        }
+
+                        .reviewer-info {
+                            .profile-picture-small-wrapper {
+                                .profile-picture-small {
+                                    padding-top: 5 !important;
+
+                                    img {
+                                    }
+
+                                    .navbar-user-name {
+                                        margin-right: 6px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .reviewer-rate-wrapper {
+                            span {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            //End a-review
+        }
+        //End box-masonary
+    }
+    //End #container-masonary
+}
+//End section.homepage-popular-reviews-wrapper
+
+.box-masonary.large {
+    //background: #084;
+    //z-index: 999999999;
+}
