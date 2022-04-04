@@ -5,7 +5,7 @@
         @*Movie poster and its tooltip (title (year)) *@
         <div class="movie-poster-wrapper mx-auto">
             <span class="movie-tooltip">@Html.DisplayFor(modelItem => Model.Title) (@Html.DisplayFor(modelItem => Model.Year))</span>
-            <a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.Id">
+            <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.Id">
                 <img src="@("~/image/"+Model.ImageName)" class="movie-poster" asp-append-version="true" />
             </a>
         </div>

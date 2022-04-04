@@ -21,10 +21,7 @@ $(document).ready(function () {
 
     });
 
-
-    
     var $container = $('#container-masonary');
-
 
     /*Activate masonary plugin for a grid with different heights*/
     var reMasonry = function () {
@@ -39,8 +36,7 @@ $(document).ready(function () {
         size = $this.hasClass('large') ?
             { height: "fit-content" } :
             { height: "fit-content" };
-    $this.toggleClass('large').animate(size, reMasonry);
-
+    $this.toggleClass('large').animate(size, 12, reMasonry);
 
     /*Toggle the button's htm to less / more*/
     if ($(this).hasClass("less")) {
@@ -57,8 +53,6 @@ $(document).ready(function () {
 
 });
 
-
-
 $(function () {
 
     var $container = $('#container-masonary');
@@ -67,10 +61,7 @@ $(function () {
     $container.masonry({
     animate: true
     });
-
-
 });
-
 
 //Start Like/Unlike a review
 

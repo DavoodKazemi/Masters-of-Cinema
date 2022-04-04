@@ -7,7 +7,7 @@
         <div class="popular-review-header row" style="padding-left: calc(var(--bs-gutter-x) * .5);">
             <div class="reviewed-movie-poster-wrapper ps-0">
                 <div class="movie-poster col-md-3" style="align-self: flex-start; flex-shrink: 0; width: 120px;">
-                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
+                    <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
                         <img class="img-fluid" src="@("~/image/"+Model.ReviewdMovie.ImageName)" asp-append-version="true" />
                     </a>
                 </div>
@@ -28,7 +28,7 @@
 
                 @*Start Movie info*@
                 <div class="review-movie-info">
-                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
+                    <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
                         <span class="movie-title">
                             @Model.ReviewdMovie.Title
                         </span>

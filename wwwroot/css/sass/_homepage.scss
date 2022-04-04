@@ -1,4 +1,35 @@
-﻿/*Start Movie lists in homepage*/
+﻿section.homepage-section {
+    background: #14181c;
+    .hompage-section-head {
+        a.hompage-section-head-link {
+            &:hover {
+                color: #40bcf4;
+            }
+        }
+    }
+}
+
+.grid-item--gigante{
+    background-color: greenyellow !important;
+}
+
+
+section.homepage-welcome-messgae-wrapper {
+    font-family: Graphik-Light-Web, sans-serif;
+    color: #abc;
+    font-size: 1.6rem;
+
+    > a {
+        color: #fff;
+
+        &:hover {
+            border-bottom: 1px solid #fff;
+        }
+    }
+}
+
+
+/*Start Movie lists in homepage*/
 section.homepage-movie {
     .director-list-item {
         .movie-poster-wrapper {
@@ -16,12 +47,6 @@ section.homepage-movie {
                     width: 100%;
                     position: absolute;
                     height: 100%;
-
-
-                    &:hover {
-                        border: 4px solid #00E054;
-                        transition: all .3s ease;
-                    }
                 }
             }
 
@@ -60,10 +85,27 @@ section.homepage-movie {
     //#director-list-item
 }
 
+/*Start differernt border colors for movies sections*/
+section.homepage-movie.homepage-popular-movies-wrapper {
+    img.movie-poster {
+        &:hover {
+            border: 4px solid #00E054 !important;
+            transition: all .3s ease;
+        }
+    }
+}
+
+section.homepage-movie.homepage-watch-movies-wrapper {
+    img.movie-poster {
+        &:hover {
+            border: 4px solid #40bcf4 !important;
+            transition: all .3s ease;
+        }
+    }
+}
+/*End differernt border colors for movies sections*/
+
 /*End Movie lists in homepage*/
-
-
-
 section.homepage-popular-reviews-wrapper {
     #container-masonary {
         .box-masonary {
@@ -75,7 +117,7 @@ section.homepage-popular-reviews-wrapper {
             //z-index: 999999999;
             //temp
             //background-color: #000000;
-            background: #14181c;
+            //background: green;
 
             .a-review {
                 //Header - movie poster + title + user + ...
