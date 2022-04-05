@@ -35,21 +35,87 @@
         Add a section for best movies, maybe according to the highest rate
 
         If it's slow, load blew things when scroll reaches them, using ajax.
+
+
+        Add notify styles inspiring by the fa pinned pages.
 *@      
 @{
     ViewBag.Title = "Home Page";
 }
 
-<section class="homepage-welcome-messgae-wrapper container mb-5 mt-5 text-center">
-    Welcome, <a asp-controller="Settings" asp-action="Index"  target="_blank">@Model.User.FirstName</a>. @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
-    An overview of the website can be found here, as they are listed below. You may visit them first.
+@*Welcome section*@
+<section class="homepage-welcome-messgae-wrapper container mb-5 mt-5">
+    <div class="homepage-welcome-messgae">
+        Welcome, <a asp-controller="Settings" asp-action="Index" target="_blank">@Model.User.FirstName</a>. @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
+        You may have a quick look at the important sections here, as they are shown on this page. Feel free to explore the website and test whatever you want.
+    </div>
 </section>
 
+@*Quick Tour section*@
+<section class="homepage-quick-tour-wrapper">
+    <div class="homepage-quick-tour container">
+        <h2 class="homepage-quick-tour-header">Here’s some of what you’ll find in our website…</h2>
+        <div class="homepage-quick-tour-header-special">
+            <i style="color:yellow;" class="fa">&#xf0eb;</i>
+            <h2 class="d-inline-block ms-2">
+                <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
+            </h2>
+            Use the highlighted links to visit important sections of the website.
+        </div>
+
+        <ul class="homepage-quick-tour-sections-wrapper text-center">
+            <li class="homepage-quick-tour-sections">
+                <h3 class="sections-header">Reviews</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                        <i style="font-size:24px; color:azure;" class="fa">&#xf0eb;</i>
+                        Add or edit a review
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections">
+                <h3 class="sections-header">Custom Lists</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="AddList">
+                        <i style="font-size: 24px; color: azure;" class="fa">&#xf0eb;</i>
+                        Add a custom list
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections">
+                <h3 class="sections-header">Rating feature</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
+                        <i style="font-size:24px; color:azure;" class="fa">&#xf0eb;</i>
+                        Rate a movie
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections">
+                <h3 class="sections-header">Watchlist</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
+                        <i style=" font-size: 24px; color: azure;" class="fa">&#xf0eb;</i>
+                        See your watchlist
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+@*Custom lists section*@
 <section class="homepage-popular-lists mb-5 homepage-section">
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
-                <a target="_blank" asp-controller="Account" asp-action="CLists" class="hompage-section-head-link">POPULAR LISTS</a></div>
+                <a target="_blank" asp-controller="Account" asp-action="CLists" class="hompage-section-head-link">POPULAR LISTS</a>
+                <span>
+                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Account" asp-action="AddList">
+                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Add a custom list
+                    </a>
+                </span>
+            </div>
         </div>
     </div>
     @*Popular lists here!*@
@@ -69,11 +135,14 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="~/js/homepage.js"></script>
 
-
-<section class="homepage-popular-reviews-wrapper">
+@*Review section*@
+<section class="homepage-popular-reviews-wrapper homepage-section">
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
-            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">POPULAR REVIEWS</div>
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">POPULAR REVIEWS
+                <span><a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Add or edit a review</a></span>
+            </div>
         </div>
     </div>
 
@@ -87,12 +156,20 @@
     </div>
 </section>
 
+@*Highest reated movies section*@
 <section class="homepage-popular-movies-wrapper homepage-movie homepage-section">
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
-            <a target="_blank" class="hompage-section-head-link">Highest Rated Movies</a></div>
+                <a target="_blank" class="hompage-section-head-link">Highest Rated Movies</a>
+                <span>
+                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
+                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Rate a movie!
+                    </a>
+                </span>
+            </div>
         </div>
+
     </div>
 
     <div class="container">
@@ -111,7 +188,13 @@
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
-            <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a></div>
+                <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
+                <span>
+                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
+                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> All movies on your watchlist
+                    </a>
+                </span>
+            </div>
         </div>
     </div>
 
