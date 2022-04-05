@@ -269,15 +269,7 @@ section.homepage-movie.homepage-watch-movies-wrapper {
 section.homepage-popular-reviews-wrapper {
     #container-masonary {
         .box-masonary {
-            //width: 50%;
-            //height: 290px;
-            //margin: 5px;
-            //background: #084;
             float: left;
-            //z-index: 999999999;
-            //temp
-            //background-color: #000000;
-            //background: green;
 
             .a-review {
                 //Header - movie poster + title + user + ...
@@ -285,8 +277,18 @@ section.homepage-popular-reviews-wrapper {
                     margin-bottom: 20px;
                     //Movie poster
                     //
+                    margin-left: 0;
+                    margin-right: 0;
+                    padding-left: 0;
+                    padding-right: 0;
+
                     .reviewed-movie-poster-wrapper {
-                        width: 120px;
+                        padding-right: 0;
+
+                        @media (min-width: 768px) {
+                            width: 120px;
+                            max-width: 25%;
+                        }
 
                         .movie-poster {
                             align-self: flex-start;
@@ -316,8 +318,7 @@ section.homepage-popular-reviews-wrapper {
                     //End Movie poster
                     //Start right column - title + user + ...
                     .header-right-col {
-                        margin-left: 10px;
-
+                        //margin-left: 10px;
                         .review-movie-info {
                             cursor: pointer;
 
@@ -329,7 +330,7 @@ section.homepage-popular-reviews-wrapper {
 
                             .movie-title {
                                 font-family: TiemposTextWeb-Semibold,Georgia,serif;
-                                font-size: 1.69230769rem;
+                                //font-size: 1.69230769rem;
                                 font-weight: 700;
                                 margin: 0 0 10px;
                                 color: #fff;
@@ -337,7 +338,7 @@ section.homepage-popular-reviews-wrapper {
                             }
 
                             .movie-year {
-                                font-size: 18px;
+                                //font-size: 18px;
                                 color: #89a;
                             }
                         }

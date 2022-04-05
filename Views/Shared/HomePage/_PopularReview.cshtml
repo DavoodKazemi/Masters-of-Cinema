@@ -1,18 +1,18 @@
 ﻿@model ReviewViewModel
 
-<div class="box-masonary col-6" style="">
+<div class="box-masonary col-md-6" style="">
     @*<h3 style="background-color: blue">@i2.ToString()</h3>*@
     <div class="a-review">
         @*Movie poster*@
-        <div class="popular-review-header row" style="padding-left: calc(var(--bs-gutter-x) * .5);">
-            <div class="reviewed-movie-poster-wrapper ps-0">
-                <div class="movie-poster col-md-3" style="align-self: flex-start; flex-shrink: 0; width: 120px;">
+        <div class="popular-review-header container row" style="">
+            <div class="reviewed-movie-poster-wrapper ps-0 col-3">
+                <div class="movie-poster" style="align-self: flex-start; flex-shrink: 0;">
                     <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
                         <img class="img-fluid" src="@("~/image/"+Model.ReviewdMovie.ImageName)" asp-append-version="true" />
                     </a>
                 </div>
             </div>
-            <div class="header-right-col col-md-9">
+            <div class="header-right-col col-9">
                 <div class="reviewer-info">
                     @*Reviewer's avatar is displayed on the left side of each review*@
                     @if (Model.User.ProfilePicture != null)
@@ -29,10 +29,10 @@
                 @*Start Movie info*@
                 <div class="review-movie-info">
                     <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
-                        <span class="movie-title">
+                        <span class="movie-title fs-3">
                             @Model.ReviewdMovie.Title
                         </span>
-                        <span class="movie-year">
+                        <span class="movie-year fs-6">
                             @Model.ReviewdMovie.Year
                         </span>
                     </a>
@@ -57,7 +57,7 @@
 
 
         @*Start Review's right side*@
-        <div class="d-inline-block review-main-col">
+        <div class="d-inline-block">
             @*Start Review's header*@
 
 
