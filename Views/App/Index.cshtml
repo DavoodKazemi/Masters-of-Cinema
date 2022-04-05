@@ -54,48 +54,48 @@
 @*Quick Tour section*@
 <section class="homepage-quick-tour-wrapper">
     <div class="homepage-quick-tour container">
-        <h2 class="homepage-quick-tour-header">Here’s some of what you’ll find in our website…</h2>
-        <div class="homepage-quick-tour-header-special">
+        <h1 class="homepage-quick-tour-header">Start here…</h1>
+        <div class="homepage-quick-tour-header-special fs-2">
             <i style="color:yellow;" class="fa">&#xf0eb;</i>
-            <h2 class="d-inline-block ms-2">
+            <span class="d-inline-block">
                 <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
-            </h2>
+            </span>
             Use the highlighted links to visit important sections of the website.
         </div>
 
-        <ul class="homepage-quick-tour-sections-wrapper text-center">
-            <li class="homepage-quick-tour-sections">
+        <ul class="homepage-quick-tour-sections-wrapper text-center row">
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
                 <h3 class="sections-header">Reviews</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
-                        <i style="font-size:24px; color:azure;" class="fa">&#xf0eb;</i>
+                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf0eb;</i>
                         Add or edit a review
                     </a>
                 </p>
             </li>
-            <li class="homepage-quick-tour-sections">
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
                 <h3 class="sections-header">Custom Lists</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="AddList">
-                        <i style="font-size: 24px; color: azure;" class="fa">&#xf0eb;</i>
+                        <i style="font-size: 24px; color: #3bb4e5;" class="fa">&#xf0eb;</i>
                         Add a custom list
                     </a>
                 </p>
             </li>
-            <li class="homepage-quick-tour-sections">
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
                 <h3 class="sections-header">Rating feature</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
-                        <i style="font-size:24px; color:azure;" class="fa">&#xf0eb;</i>
+                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf0eb;</i>
                         Rate a movie
                     </a>
                 </p>
             </li>
-            <li class="homepage-quick-tour-sections">
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
                 <h3 class="sections-header">Watchlist</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
-                        <i style=" font-size: 24px; color: azure;" class="fa">&#xf0eb;</i>
+                        <i style=" font-size: 24px; color: #3bb4e5;" class="fa">&#xf0eb;</i>
                         See your watchlist
                     </a>
                 </p>
@@ -210,7 +210,7 @@
 
 
 @*Fims with the most entry in the watchlist table*@
-<section class="homepage-watch-movies-wrapper homepage-movie">
+<section class="homepage-watch-movies-wrapper homepage-movie d-none">
     <div class="container px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Films others want to watch</div>
@@ -237,17 +237,7 @@
 </script>
 
 
-
-<section>
-    Meet the masters of Cinema!
-</section>
-
-
-
-
-<div class="container row text-center mx-auto px-0">
-
-
+<section class="container row text-center mx-auto px-0 pt-5 my-3"  style="border-top: 1px solid #456;">
     <h2>
         In honour of Yasujirō Ozu (1903 – 1963).
     </h2>
@@ -255,6 +245,4 @@
     <h2>
         これ を わが愛する映画監督・小津安二郎（1903〜1963）に捧げる。
     </h2>
-
-
-</div>
+</section>
