@@ -1,4 +1,37 @@
-﻿@mixin tooltip-object ( $width, $white-space, $bottom, $padding ){
+﻿/*start rating mixins*/
+
+@mixin svg-icon ( $svg-url, $bg-size, $height, $width ) {
+    display: inline-block;
+    text-transform: capitalize;
+    background-image: url('/Image/Icon/' + $svg-url);
+    background-repeat: no-repeat;
+    background-size: $bg-size;
+    height: $height;
+    margin: 0 auto 3px;
+    width: $width;
+    vertical-align: middle;
+}
+
+@mixin star-rating-icon ( $svg-file ) {
+    background-image: url('/Image/Icon/' + $svg-file);
+    min-width: 33px;
+    min-height: 33px;
+
+    @media (max-width: 280px) {
+        min-width: 30px;
+        min-height: 30px;
+    }
+
+    display: inline-block;
+    cursor: pointer;
+}
+
+/*end rating mixins*/
+
+
+
+
+@mixin tooltip-object ( $width, $white-space, $bottom, $padding ){
     width: $width;
     white-space: $white-space;
     padding: $padding;

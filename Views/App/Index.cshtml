@@ -1,10 +1,229 @@
-﻿@{
+﻿@model HomePageViewModel
+@*
+        To-do list for custom list section:
+    ****1- fix links
+        2- make different classes and make a copy the original styles, for customisation
+        3- add minor changes in styles and markup, like adding "more lists",
+            title "popular lists", etc. Look at this if needed https://letterboxd.com/lists/ .
+        4- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+       *5- clean this razor view and remove unnecessary things
+        6- Start a new list button!
+
+        To-do list for popular review section:
+    ****1- fix the user not populating!
+    ****2- perhaps add an exclusive view model for more info. ex. movie info and image
+    ****3- make different classes and make a copy the original styles, for customisation
+        4- add minor changes in styles and markup, like adding "more review!?",
+            title "popular reviews", etc.
+        5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+       *6- clean this razor view and remove unnecessary things
+        7- Add your own review link maybe?
+        8- add tooltip for reviewer rate
+        9- Choose some interesting/long reviews with proper rate and give them more likes
+            to be displayed. First one from Lara.
+
+        To-do list for movies sections:
+        1- Seems totally fine, just add small styles to be recognisable.
+           Ex, crown icon for highest rated movies in its titles. Also change the border color!
+        2- Add link!
+        3- Add background for the time being!
+        4- Done!
+
+
+
+        ALso add a section for your activity, like a review, a list, etc
+        Add a section for best movies, maybe according to the highest rate
+
+        If it's slow, load blew things when scroll reaches them, using ajax.
+
+
+        Add notify styles inspiring by the fa pinned pages.
+
+        remove all hompage-highlighted-notify-links things with their styles!
+*@
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="container row text-center mx-auto px-0">
+@*Welcome section*@
+<section class="homepage-welcome-messgae-wrapper container-lg mb-5 mt-5 text-center text-md-start">
+    <div class="homepage-welcome-messgae">
+        Welcome, <a asp-controller="Settings" asp-action="Index" target="_blank">@Model.User.FirstName</a>. @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
+        You may have a quick look at the important sections here, as they are shown on this page. Feel free to explore the website and test whatever you want.
+    </div>
+</section>
+
+@*Quick Tour section*@
+<section class="homepage-quick-tour-wrapper">
+    <div class="homepage-quick-tour container">
+        <h1 class="homepage-quick-tour-header">Start here…</h1>
+        <div class="homepage-quick-tour-header-special fs-2">
+            <i style="color:#3bb4e5;" class="fa">&#xf0eb;</i>
+            <span class="d-inline-block">
+                <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
+            </span>
+            Use the highlighted links to visit important sections of the website.
+        </div>
+
+        <ul class="homepage-quick-tour-sections-wrapper text-center row">
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                <h3 class="sections-header">Reviews</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf56b;</i>
+                        Write/edit a review
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                <h3 class="sections-header">Custom Lists</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="AddList">
+                        <span id="" class="custom-list-ordinary-icon"></span>
+                        Add a custom list
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                <h3 class="sections-header">Rating feature</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
+                        <span id="" class="star-ordinary-icon"></span>
+                        Rate a movie
+                    </a>
+                </p>
+            </li>
+            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                <h3 class="sections-header">Watchlist</h3>
+                <p>
+                    <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
+                        <span id="" class="watchlist-ordinary-icon"></span>
+                        See your watchlist
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+@*Custom lists section*@
+<section class="homepage-popular-lists mb-5 homepage-section my-5">
+    <div class="container-lg px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
+                <a target="_blank" asp-controller="Account" asp-action="CLists" class="hompage-section-head-link">POPULAR LISTS</a>
+            </div>
+        </div>
+    </div>
+    @*Popular lists here!*@
+    <div class="custom-lists-page mt-2">
+        <div class="director-movies-container container-lg list-ajax-container">
+            <div class="row px-1 tbody" style="">
+                @foreach (var item in Model.PopularLists.Lists)
+                {
+                    <partial name="~/Views/Shared/HomePage/_PopularLists.cshtml" model="item" />
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="~/js/homepage.js"></script>
+
+@*Review section*@
+<section class="homepage-popular-reviews-wrapper homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
+        <div class="row">
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
+                POPULAR REVIEWS
+            </div>
+        </div>
+    </div>
+
+    <div class="container-lg">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.PopularReviews)
+            {
+                <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
+            }
+        </div>
+    </div>
+</section>
+
+@*Highest reated movies section*@
+<section class="homepage-popular-movies-wrapper homepage-movie homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
+        <div class="row">
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
+                <a target="_blank" class="hompage-section-head-link">Highest Rated Movies</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.HighestRatedMovies)
+            {
+                <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
+
+            }
+        </div>
+    </div>
+</section>
+
+@*Fims in your watchlist*@
+<section class="homepage-watch-movies-wrapper homepage-movie homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
+        <div class="row">
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
+                <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.UserWatchlist)
+            {
+                <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
+            }
+        </div>
+    </div>
+</section>
 
 
+@*Fims with the most entry in the watchlist table*@
+<section class="homepage-watch-movies-wrapper homepage-movie d-none">
+    <div class="container-lg px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Films others want to watch</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="container-masonary">
+            @foreach (var item in Model.HighestRatedMovies)
+            {
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    //Start Read more button to hide extra part of lenghty reviews
+
+
+//End Read more button
+
+
+//End Read more button
+</script>
+
+
+<section class="container-lg row text-center mx-auto px-0 pt-5 my-3" style="border-top: 1px solid #456;">
     <h2>
         In honour of Yasujirō Ozu (1903 – 1963).
     </h2>
@@ -12,6 +231,4 @@
     <h2>
         これ を わが愛する映画監督・小津安二郎（1903〜1963）に捧げる。
     </h2>
-
-
-</div>
+</section>

@@ -1,0 +1,73 @@
+﻿@model CList
+
+<article class="director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-12 col-md-6 col-lg-4">
+    <div class="mx-auto">
+        @*Movie poster and its tooltip (title (year)) *@
+        <div class="movie-poster-wrapper list-poster mx-auto">
+            <a target="_blank" asp-controller="Account" asp-action="Clist" asp-route-id="@Model.Id" class="mx-auto">
+                <div class="avatars-wrapper">
+                    <ul>
+                        @foreach (var avatar in Model.Avatars)
+                        {
+                            if (avatar != "defaultImage")
+                            {
+                                <li>
+                                    <img src="@("~/image/" + avatar)" class="" asp-append-version="true" />
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="list-avarar-placeholder">
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </a>
+        </div>
+
+        <a target="_blank" asp-controller="Account" asp-action="Clist" asp-route-id="@Model.Id" class="clist-title-wrapper">
+            <div class="lists-list-title">@Html.DisplayFor(modelItem => Model.Title)</div>
+        </a>
+        <div class="clist-description">@Html.DisplayFor(modelItem => Model.Description)</div>
+        <div class="nav-item ms-md-auto profile-picture-small-wrapper">
+            @if (Model.User == Model.User)
+            {
+                <a target="_blank" class="nav-link profile-picture-small"
+                   asp-controller="Settings" asp-action="Index">
+
+                    @if (Model.User.ProfilePicture != null)
+                    {
+                        <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(Model.User.ProfilePicture))">
+                        <span class="navbar-user-name">@Model.User.FirstName</span>
+                    }
+                    else
+                    {
+                        <i class="fas fa-user-circle me-0 nav-default-profile-picture"></i>
+                        <span class="navbar-user-name-default">@Model.User.FirstName</span>
+                    }
+                </a>
+            }
+            else
+            {
+                @if (Model.User.ProfilePicture != null)
+                {
+                    <div class="profile-picture-small">
+                        <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(Model.User.ProfilePicture))">
+                        <span class="navbar-user-name">@Model.User.FirstName</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="profile-picture-small">
+                        <i class="fas fa-user-circle me-0 nav-default-profile-picture"></i>
+                        <span class="navbar-user-name-default">@Model.User.FirstName</span>
+                    </div>
+                }
+            }
+
+        </div>
+
+
+    </div>
+</article>

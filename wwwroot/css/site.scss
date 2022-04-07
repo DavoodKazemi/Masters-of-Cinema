@@ -1,4 +1,4 @@
-﻿@import "sass/_chart.scss";
+@import "sass/_chart.scss";
 @import "sass/_director-info.scss";
 @import "sass/_director-list.scss";
 @import 'sass/_footer.scss';
@@ -13,6 +13,8 @@
 @import "sass/_add-custom-list";
 @import "sass/_review";
 @import "sass/confirm-message";
+@import "sass/_homepage";
+
 html, body {
     height: 100%;
 }

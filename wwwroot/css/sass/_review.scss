@@ -27,7 +27,7 @@ $avatar-width-mobile: 56px;
 }
 
 .a-review, .user-review {
-    .review-like-wrapper {
+    .review-like-wrapper.style-head {
         //button to show likers
         .likers-head-wrapper {
             transition: all .3s ease;
@@ -264,7 +264,7 @@ $avatar-width-mobile: 56px;
 .a-review {
     padding-top: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #456;
+    border-bottom: 1px solid #2c3440;
     margin-bottom: 0.77rem;
 }
 

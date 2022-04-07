@@ -1,0 +1,101 @@
+﻿@model ReviewViewModel
+
+<div class="box-masonary col-md-6" style="">
+    @*<h3 style="background-color: blue">@i2.ToString()</h3>*@
+    <div class="a-review">
+        @*Movie poster*@
+        <div class="popular-review-header container row" style="">
+            <div class="reviewed-movie-poster-wrapper ps-0 col-3">
+                <div class="movie-poster" style="align-self: flex-start; flex-shrink: 0;">
+                    <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
+                        <img class="img-fluid" src="@("~/image/"+Model.ReviewdMovie.ImageName)" asp-append-version="true" />
+                    </a>
+                </div>
+            </div>
+            <div class="header-right-col col-9">
+                <div class="reviewer-info">
+                    @*Reviewer's avatar is displayed on the left side of each review*@
+                    @if (Model.User.ProfilePicture != null)
+                    {
+                        <div class="profile-picture-small-wrapper">
+                            <div class="profile-picture-small">
+                                <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(Model.User.ProfilePicture))">
+                                <span class="navbar-user-name">@Model.User.FirstName</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @*Start Movie info*@
+                <div class="review-movie-info">
+                    <a target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="@Model.ReviewdMovie.Id">
+                        <span class="movie-title fs-3">
+                            @Model.ReviewdMovie.Title
+                        </span>
+                        <span class="movie-year fs-6">
+                            @Model.ReviewdMovie.Year
+                        </span>
+                    </a>
+                </div>
+                @*End Movie info*@
+                @if (@Model.ReviewerRate != null)
+                {
+                    <div class="reviewer-rate-wrapper d-inline-block">
+
+                        @Model.ReviewerRate
+                        @for (var i = 0; i < Model.ReviewerRate; i++)
+                        {
+                            <span class="starGlowReview" id=""></span>
+
+                        }
+                    </div>
+                }
+            </div>
+
+        </div>
+
+
+
+        @*Start Review's right side*@
+        <div class="d-inline-block">
+            @*Start Review's header*@
+
+
+            @*Start review text*@
+            <div class="review-text-wrapper">
+                <div class="review-text">
+                    <div class="read-more-object-text" style="white-space: pre-line;">@Model.ReviewText</div>
+                </div>
+            </div>
+            @*End review text*@
+
+            @*Start like section*@
+            <div class="review-like-wrapper" style="overflow: hidden;">
+                @*When clicking on this, review will be liked or unliked*@
+                <span class="review-like-button" id="review-like-button">
+                    <input type="hidden" value="@Model.Id" class="form-control input-small" id="review-id" />
+                    @if (Model.IsLiked)
+                    {
+                        <span class="review-icon-liked" id="like-icon"></span>
+                        <span class="review-liked-text" id="like-caption">Liked</span>
+                    }
+                    else
+                    {
+                        <span class="review-icon-like" id="like-icon"></span>
+                        <span class="review-like-text" id="like-caption">Like Review</span>
+                    }
+                </span>
+                @*End When clicking on this, review will be liked or unliked*@
+
+                @*Start Review like stats*@
+                <partial name="~/Views/Shared/HomePage/_LikersPopularReview.cshtml" model="Model" />
+                @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
+                @*End Review stats*@
+
+            </div>
+            @*End like section*@
+        </div>
+        @*END Review's right side*@
+
+    </div>
+</div>

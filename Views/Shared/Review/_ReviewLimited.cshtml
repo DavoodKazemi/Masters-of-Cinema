@@ -46,7 +46,7 @@
         @*End review text*@
 
         @*Start Review stats - guest user cannot like/unlike review *@
-        <div class="review-like-wrapper">
+        <div class="review-like-wrapper style-head">
             @*if guest user clicked on like, refer him to the login page*@
             <a class="" asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path">
             <span class="review-like-button" id="review-like-button">

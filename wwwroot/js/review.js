@@ -4,7 +4,7 @@ $(document).on("click", "#review-text", function (e) {
 });
 
 
-//Start Post review - Only available when user is logged in
+//Start Post a new review - Only available when user is logged in
 $(document).on("click", "#submit-review", function (e) {
 
 
