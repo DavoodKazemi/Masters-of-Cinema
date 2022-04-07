@@ -38,13 +38,15 @@
 
 
         Add notify styles inspiring by the fa pinned pages.
-*@      
+
+        remove all hompage-highlighted-notify-links things with their styles!
+*@
 @{
     ViewBag.Title = "Home Page";
 }
 
 @*Welcome section*@
-<section class="homepage-welcome-messgae-wrapper container mb-5 mt-5">
+<section class="homepage-welcome-messgae-wrapper container-lg mb-5 mt-5 text-center text-md-start">
     <div class="homepage-welcome-messgae">
         Welcome, <a asp-controller="Settings" asp-action="Index" target="_blank">@Model.User.FirstName</a>. @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
         You may have a quick look at the important sections here, as they are shown on this page. Feel free to explore the website and test whatever you want.
@@ -56,7 +58,7 @@
     <div class="homepage-quick-tour container">
         <h1 class="homepage-quick-tour-header">Start here…</h1>
         <div class="homepage-quick-tour-header-special fs-2">
-            <i style="color:yellow;" class="fa">&#xf0eb;</i>
+            <i style="color:#3bb4e5;" class="fa">&#xf0eb;</i>
             <span class="d-inline-block">
                 <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
             </span>
@@ -68,8 +70,8 @@
                 <h3 class="sections-header">Reviews</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
-                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf0eb;</i>
-                        Add or edit a review
+                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf56b;</i>
+                        Write/edit a review
                     </a>
                 </p>
             </li>
@@ -77,7 +79,7 @@
                 <h3 class="sections-header">Custom Lists</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="AddList">
-                        <i style="font-size: 24px; color: #3bb4e5;" class="fa">&#xf0eb;</i>
+                        <span id="" class="custom-list-ordinary-icon"></span>
                         Add a custom list
                     </a>
                 </p>
@@ -86,7 +88,7 @@
                 <h3 class="sections-header">Rating feature</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
-                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf0eb;</i>
+                        <span id="" class="star-ordinary-icon"></span>
                         Rate a movie
                     </a>
                 </p>
@@ -95,7 +97,7 @@
                 <h3 class="sections-header">Watchlist</h3>
                 <p>
                     <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
-                        <i style=" font-size: 24px; color: #3bb4e5;" class="fa">&#xf0eb;</i>
+                        <span id="" class="watchlist-ordinary-icon"></span>
                         See your watchlist
                     </a>
                 </p>
@@ -105,22 +107,17 @@
 </section>
 
 @*Custom lists section*@
-<section class="homepage-popular-lists mb-5 homepage-section">
-    <div class="container px-lg-3 mt-4 px-3">
+<section class="homepage-popular-lists mb-5 homepage-section my-5">
+    <div class="container-lg px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
                 <a target="_blank" asp-controller="Account" asp-action="CLists" class="hompage-section-head-link">POPULAR LISTS</a>
-                <span>
-                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Account" asp-action="AddList">
-                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Add a custom list
-                    </a>
-                </span>
             </div>
         </div>
     </div>
     @*Popular lists here!*@
     <div class="custom-lists-page mt-2">
-        <div class="director-movies-container container list-ajax-container">
+        <div class="director-movies-container container-lg list-ajax-container">
             <div class="row px-1 tbody" style="">
                 @foreach (var item in Model.PopularLists.Lists)
                 {
@@ -136,12 +133,11 @@
 <script src="~/js/homepage.js"></script>
 
 @*Review section*@
-<section class="homepage-popular-reviews-wrapper homepage-section">
-    <div class="container-lg px-lg-3 mt-4 px-3">
+<section class="homepage-popular-reviews-wrapper homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
         <div class="row">
-            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">POPULAR REVIEWS
-                <span><a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
-                <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Add or edit a review</a></span>
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
+                POPULAR REVIEWS
             </div>
         </div>
     </div>
@@ -157,16 +153,11 @@
 </section>
 
 @*Highest reated movies section*@
-<section class="homepage-popular-movies-wrapper homepage-movie homepage-section">
-    <div class="container px-lg-3 mt-4 px-3">
+<section class="homepage-popular-movies-wrapper homepage-movie homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
                 <a target="_blank" class="hompage-section-head-link">Highest Rated Movies</a>
-                <span>
-                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
-                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> Rate a movie!
-                    </a>
-                </span>
             </div>
         </div>
 
@@ -184,16 +175,11 @@
 </section>
 
 @*Fims in your watchlist*@
-<section class="homepage-watch-movies-wrapper homepage-movie homepage-section">
-    <div class="container px-lg-3 mt-4 px-3">
+<section class="homepage-watch-movies-wrapper homepage-movie homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456; text-transform: uppercase;">
                 <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
-                <span>
-                    <a class="hompage-highlighted-notify-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
-                        <i style="font-size:24px; color:yellow;" class="fa">&#xf0eb;</i> All movies on your watchlist
-                    </a>
-                </span>
             </div>
         </div>
     </div>
@@ -211,7 +197,7 @@
 
 @*Fims with the most entry in the watchlist table*@
 <section class="homepage-watch-movies-wrapper homepage-movie d-none">
-    <div class="container px-lg-3 mt-4 px-3">
+    <div class="container-lg px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="" style="border-bottom: 1px solid #456; text-transform: uppercase;">Films others want to watch</div>
         </div>
@@ -237,7 +223,7 @@
 </script>
 
 
-<section class="container row text-center mx-auto px-0 pt-5 my-3"  style="border-top: 1px solid #456;">
+<section class="container-lg row text-center mx-auto px-0 pt-5 my-3" style="border-top: 1px solid #456;">
     <h2>
         In honour of Yasujirō Ozu (1903 – 1963).
     </h2>

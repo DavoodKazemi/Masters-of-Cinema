@@ -1,4 +1,6 @@
-﻿section.homepage-quick-tour-wrapper {
+﻿@import '_mixin.scss';
+
+section.homepage-quick-tour-wrapper {
     line-height: 1;
     color: #9ab;
     border: 0;
@@ -29,7 +31,6 @@
         padding: 0 20px;
         //width: 1236px;
         //min-width: 950px;
-
         .homepage-quick-tour-header, .homepage-quick-tour-header-special {
             border: 0;
             font-style: inherit;
@@ -86,7 +87,6 @@
                 //text-align: left;
                 vertical-align: top;
                 //width: 22.81553398%;
-
                 .sections-header {
                     list-style: none;
                     //text-align: left;
@@ -125,6 +125,16 @@
                             transition: all .3s ease;
                         }
 
+                        .watchlist-ordinary-icon {
+                            @include svg-icon ( 'watchlist-ordinary.svg', 30px 30px, 30px, 30px );
+                        }
+                        .star-ordinary-icon {
+                            @include svg-icon ( 'star-ordinary.svg', 30px 30px, 30px, 30px );
+                        }
+                        .custom-list-ordinary-icon{
+                            @include svg-icon ( 'custom-list-ordinary.svg', 30px 30px, 30px, 30px );
+                        }
+
                         &:hover {
                             color: #40bcf4;
                             transition: all .3s ease;
@@ -158,17 +168,6 @@ section.homepage-section {
         span {
             margin-left: auto !important;
         }
-    }
-}
-
-.hompage-highlighted-notify-links {
-    color: floralwhite !important;
-    position: relative;
-    //margin-left: 4px;
-    i {
-        /*position: absolute;
-        left: -4px;
-        transform: translateX(-100%);*/
     }
 }
 

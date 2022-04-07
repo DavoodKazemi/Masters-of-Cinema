@@ -27,21 +27,34 @@ namespace MastersOfCinema.Controllers
         }
         public IActionResult Index()
         {
+            //Id of the current user
             var id = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //Current user
             User user = context.Users.Where(i => i.Id == id).FirstOrDefault();
 
-            List<Review> reviews = context.Review.OrderBy(m => m.ReviewText).Take(8).ToList();
+            /*Start popular Review section*/
+            //Get the id of the most liked reviews
+            var reviews = context.LikeReview
+                                    .GroupBy(q => q.ReviewId)
+                                    .OrderByDescending(gp => gp.Count())
+                                    .Take(8)
+                                    .Select(g => g.Key).ToList();
+
+
+            //Convert the selected reviews into ReviewViewModel
             List<ReviewViewModel> PopularReviews = new List<ReviewViewModel>();
             foreach (var item in reviews)
             {
-                item.User = item.User;
-                PopularReviews.Add(repo.GetReviewsLikeStats(item));
+                PopularReviews.Add(repo.GetReviewLikeStatsById(item));
+                //item.User = item.User;
             }
+            //add movies info to each review
             foreach(var item2 in PopularReviews)
             {
                 item2.ReviewdMovie = context.Movies
                     .Where(m => m.Id == item2.MovieId).FirstOrDefault();
             }
+            /*End popular Review section*/
 
             HomePageViewModel homePageViewModel = new HomePageViewModel()
             {
