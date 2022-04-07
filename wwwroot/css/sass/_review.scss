@@ -1,4 +1,6 @@
 ﻿$avatar-column: 68px;
+$avatar-width-mobile: 56px;
+
 @mixin svg-icon ( $svg-url, $bg-size, $height, $width ) {
     display: inline-block;
     text-transform: capitalize;
@@ -276,6 +278,11 @@
 //User avatar side
 .profile-picture-medium-wrapper {
     width: $avatar-column;
+
+    @media (max-width: 575px) {
+        width: $avatar-width-mobile;
+    }
+
     float: left;
 
     .profile-picture-medium {
@@ -345,12 +352,21 @@
     margin-bottom: .76923077rem;
     margin-top: 0;
     padding-bottom: 5px;
-    text-transform: uppercase;
+    span{
+        text-transform: uppercase;
+    }
+    
 }
 
 //everything in a review, except avatar side
 .review-main-col {
-    width: calc(100% - #{$avatar-column});
+    @media (min-width: 576px) {
+        width: calc(100% - #{$avatar-column});
+    }
+
+    @media (max-width: 575px) {
+        display: block !important;
+    }
 }
 //User name of reviewer
 .review-head-wrapper {
@@ -368,8 +384,11 @@
     position: relative;
     display: flex;
     color: #678;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 
+    @media (max-width: 575px) {
+        margin-top: 12px;
+    }
 
     .review-head {
         list-style: none;
