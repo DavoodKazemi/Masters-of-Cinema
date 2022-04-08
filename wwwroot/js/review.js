@@ -5,54 +5,64 @@ $(document).on("click", "#review-text", function (e) {
 
 
 //Start Post a new review - Only available when user is logged in
-$(document).on("click", "#submit-review", function (e) {
+$(document).unbind().on("click", "#submit-review", function (e) {
 
-
-    var data = $("#submitForm").serialize();
-    console.log(data);
-
-    //alert(data);
-    $.ajax({
-
-        type: 'POST',
-        url: '/Review/Review',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-        data: data,
-        success: function (data, result) {
-            //alert('Successfully received Data ');
-            console.log(result);
-            if (data != '') {
-                
-                $(".review-ajax-container > #post-review").append(data);
-                $("#submitForm").remove();
-                //scroll to the review
-                $("html").animate(
-                    {
-                        scrollTop: $("#user-review-section").offset().top
-                    },
-                    800 //speed
-                );
-                //notify user
-                console.log("Your review saved!");
-
-                $("#jnotify-message").empty().append(
-                    `<div>Your review of <strong>` + $(".movie-header-title").text() + `</strong> is saved!</div>
+    //Dont save review if user not entered any text!
+    if ($("#review-text").val().length === 0) {
+        $("#jnotify-message").empty().append(
+            `<div>Enter your review first!</div>
                     <span class="notify-message-close-wrapper" id="notify-message-close-wrapper"><i class="notify-message-close-icon" id=""></i></span>`
-                );
-                $("#clist-add-notify").delay(1400).slideDown(320);
-                $('#clist-add-notify').delay(5000).slideUp(320);
-                //end notify user
+        );
+        $("#clist-add-notify").slideDown(320);
+        $('#clist-add-notify').delay(2000).slideUp(320);
+    } else {
+        var data = $("#submitForm").serialize();
+        console.log(data);
 
-                $("#post-review").fadeIn(500);
-                $("#no-review-yet").fadeOut(1000);
+        //alert(data);
+        $.ajax({
 
+            type: 'POST',
+            url: '/Review/Review',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (data, result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+                if (data != '') {
+
+                    $(".review-ajax-container > #post-review").append(data);
+                    $("#submitForm").remove();
+                    //scroll to the review
+                    $("html").animate(
+                        {
+                            scrollTop: $("#user-review-section").offset().top
+                        },
+                        800 //speed
+                    );
+                    //notify user
+                    console.log("Your review saved!");
+
+                    $("#jnotify-message").empty().append(
+                        `<div>Your review of <strong>` + $(".movie-header-title").text() + `</strong> is saved!</div>
+                    <span class="notify-message-close-wrapper" id="notify-message-close-wrapper"><i class="notify-message-close-icon" id=""></i></span>`
+                    );
+                    $("#clist-add-notify").delay(1400).slideDown(320);
+                    $('#clist-add-notify').delay(3000).slideUp(320);
+                    //end notify user
+
+                    $("#post-review").fadeIn(500);
+                    $("#no-review-yet").fadeOut(1000);
+
+                }
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
             }
-        },
-        error: function () {
-            //alert('Failed to receive the Data');
-            console.log('Failed ');
-        }
-    })
+        })
+    }
+    
 });
 //END Post review
 
@@ -61,6 +71,8 @@ $(document).on("click", "#submit-review", function (e) {
 //first clicking edit button: only append the text area
 //then clicking save: send Model.UserReview.Id
 $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
+    //existingText = "Old review.";
+    
     //$('#editForm').remove();
     var self = $(this);
     var id = $(".user-existing-review-id").val();
@@ -97,7 +109,10 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
                     100 //speed
                 );
 
-                
+                //Save the existing review in this variable - we will check if the user has made any changes
+                existingText = document.getElementById('review-text-edit').value;
+                console.log(existingText);
+
                 $('#review-text-edit').focus();
                 
                 //notify user
@@ -126,7 +141,7 @@ $(document).on("click", "#edit-review:not('.no-edit')", function (e) {
 
 //cancel editing review
 $(document).on("click", "#cancel-edit-review", function (e) {
-    var self = $(this);
+
     var id = $("#editForm").serialize();
 
     var data = id;
@@ -163,65 +178,79 @@ $(document).on("click", "#cancel-edit-review", function (e) {
 
 //Save changes (after editing)
 $(document).on("click", "#edit-review.no-edit", function (e) {
-    var self = $(this);
-    //var id = $("#user-review-id").val();
-    var data = $("#editForm").serialize();
+    //Get the current value of the textarea to check if the user has any changes
+    var newText = document.getElementById('review-text-edit').value;
 
-    //var data = "reviewId=" + id;
-    console.log("Edit started!");
-    console.log(data);
+    //If user has not made any change, there is no need to update the review!
+    if (existingText === newText) {
+        //console.log($("#review-text-edit").text());
+        $("#jnotify-message").empty().append(
+            `<div>You have made no changes to save!</div>
+            <span class="notify-message-close-wrapper" id="notify-message-close-wrapper"><i class="notify-message-close-icon" id=""></i></span>`
+        );
+        $("#clist-add-notify").slideDown(320);
+        $('#clist-add-notify').delay(2000).slideUp(320);
+        console.log("you made no changes!");
+    } else {
+        var self = $(this);
+        //var id = $("#user-review-id").val();
+        var data = $("#editForm").serialize();
 
-    $.ajax({
+        //var data = "reviewId=" + id;
+        console.log("Edit started!");
+        console.log(data);
 
-        type: 'POST',
-        url: '/Review/UpdateReview',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-        data: data,
-        success: function (data, result) {
-            //alert('Successfully received Data ');
-            console.log(result);
-            if (data != '') {
-                //$("#submitForm").hide();
-                $(".review-ajax-container > #post-review").append(data);
+        $.ajax({
 
-                //$("#edit-review-container").append(data);
-                //$("#user-existing-review").hide();
+            type: 'POST',
+            url: '/Review/UpdateReview',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (data, result) {
+                //alert('Successfully received Data ');
+                console.log(result);
+                if (data != '') {
+                    //$("#submitForm").hide();
+                    $(".review-ajax-container > #post-review").append(data);
 
-                self.removeClass("no-edit");
-                //remove the textareaeditForm
-                $('#user-review-wrapper').remove();
-                self.val("Edit");
-                //scroll to the review
-                $("html").animate(
-                    {
-                        scrollTop: $("#user-review-wrapper").offset().top
-                    },
-                    800 //speed
-                );
+                    //$("#edit-review-container").append(data);
+                    //$("#user-existing-review").hide();
 
-                //notify user
-                console.log("Your review is to be edited!");
+                    self.removeClass("no-edit");
+                    //remove the textareaeditForm
+                    $('#user-review-wrapper').remove();
+                    self.val("Edit");
+                    //scroll to the review
+                    $("html").animate(
+                        {
+                            scrollTop: $("#user-review-wrapper").offset().top
+                        },
+                        800 //speed
+                    );
 
-                $("#jnotify-message").empty().append(
-                    `<div>Your review of <strong>` + $(".movie-header-title").text() +
-                    `</strong> is updated!</div><span class="notify-message-close-wrapper" id="notify-message-close-wrapper">
+                    //notify user
+                    console.log("Your review is to be edited!");
+
+                    $("#jnotify-message").empty().append(
+                        `<div>Your review of <strong>` + $(".movie-header-title").text() +
+                        `</strong> is updated!</div><span class="notify-message-close-wrapper" id="notify-message-close-wrapper">
                     <i class="notify-message-close-icon" id=""></i></span>`);
 
-                $("#clist-add-notify").delay(1400).slideDown(320);
-                $('#clist-add-notify').delay(5000).slideUp(320);
-                //end notify user
+                    $("#clist-add-notify").delay(1400).slideDown(320);
+                    $('#clist-add-notify').delay(3000).slideUp(320);
+                    //end notify user
 
-                //$("#post-review").fadeIn(500);
-                //$("#no-review-yet").fadeOut(1000);
+                    //$("#post-review").fadeIn(500);
+                    //$("#no-review-yet").fadeOut(1000);
 
+                }
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Failed ');
             }
-        },
-        error: function () {
-            //alert('Failed to receive the Data');
-            console.log('Failed ');
-        }
-    });
-
+        });
+    }
 
 });
 //END Save changes 
