@@ -35,7 +35,10 @@ $(document).on("click", "#submit-review", function (e) {
                 //notify user
                 console.log("Your review saved!");
 
-                $("#jnotify-message").empty().append("<div>Your review of <strong>" + $(".movie-header-title").text() + "</strong> is saved!</div>");
+                $("#jnotify-message").empty().append(
+                    `<div>Your review of <strong>` + $(".movie-header-title").text() + `</strong> is saved!</div>
+                    <span class="notify-message-close-wrapper" id="notify-message-close-wrapper"><i class="notify-message-close-icon" id=""></i></span>`
+                );
                 $("#clist-add-notify").delay(1400).slideDown(320);
                 $('#clist-add-notify').delay(5000).slideUp(320);
                 //end notify user
@@ -52,8 +55,6 @@ $(document).on("click", "#submit-review", function (e) {
     })
 });
 //END Post review
-
-
 
 //START EDIT review
 //Only available when user is logged in
@@ -201,7 +202,11 @@ $(document).on("click", "#edit-review.no-edit", function (e) {
                 //notify user
                 console.log("Your review is to be edited!");
 
-                $("#jnotify-message").empty().append("<div>Your review of <strong>" + $(".movie-header-title").text() + "</strong> is updated!</div>");
+                $("#jnotify-message").empty().append(
+                    `<div>Your review of <strong>` + $(".movie-header-title").text() +
+                    `</strong> is updated!</div><span class="notify-message-close-wrapper" id="notify-message-close-wrapper">
+                    <i class="notify-message-close-icon" id=""></i></span>`);
+
                 $("#clist-add-notify").delay(1400).slideDown(320);
                 $('#clist-add-notify').delay(5000).slideUp(320);
                 //end notify user
@@ -437,3 +442,9 @@ $(document).on("click", "#likers-head-wrapper", function (e) {
     $(this).children(".likers-arrow").toggleClass("toggle-up");
 });
 /*End Display/hide the likers of a review*/
+
+//Close button for the notifying messages when adding/editing a review
+$(document).on("click", "#notify-message-close-wrapper", function (e) {
+    $(this).closest("#clist-add-notify").remove();
+});
+//End Close button for the notifying messages

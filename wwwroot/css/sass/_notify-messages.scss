@@ -1,0 +1,45 @@
+﻿.clist-add-notify {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    padding-right: 1rem;
+
+    .clist-add-notify-message {
+        display: inline-block;
+        border-radius: 4px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 60%);
+        border-bottom: 1px solid hsla(0,0%,100%,.25);
+        padding-right: 4rem;
+
+        .notify-message-close-wrapper {
+            height: 18px;
+            overflow: hidden;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            width: 18px;
+            cursor: pointer;
+            transform: translateY(-50%);
+
+            .notify-message-close-icon {
+                background-image: url("/Image/Icon/delete-rate.svg");
+                width: 18px;
+                height: 18px;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                overflow: hidden;
+                transition: all .2s ease-in;
+                cursor: pointer;
+            }
+
+            &:hover {
+                .notify-message-close-icon {
+                    transition: all .2s ease-in;
+                    background-image: url('/Image/Icon/delete-icon-blue.svg');
+                }
+            }
+        }
+    }
+}
