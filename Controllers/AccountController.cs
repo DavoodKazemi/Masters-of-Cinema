@@ -61,7 +61,7 @@ namespace MastersOfCinema.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Profile");
+                        return RedirectToAction("Index", "App");
                     }
                 }
             }

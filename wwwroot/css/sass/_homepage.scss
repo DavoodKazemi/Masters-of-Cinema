@@ -152,7 +152,7 @@ section.homepage-quick-tour-wrapper {
 }
 
 section.homepage-section {
-    background: #14181c;
+    //background: green;
 
     .hompage-section-head {
         display: flex !important;
@@ -323,6 +323,7 @@ section.homepage-popular-reviews-wrapper {
 
                             &:hover {
                                 .movie-title {
+                                    transition: .2s all ease-in;
                                     color: #40bcf4;
                                 }
                             }
@@ -334,6 +335,7 @@ section.homepage-popular-reviews-wrapper {
                                 margin: 0 0 10px;
                                 color: #fff;
                                 line-height: 1.2;
+                                transition: .2s all ease-in;
                             }
 
                             .movie-year {

@@ -30,6 +30,38 @@ namespace MastersOfCinema.Controllers
             this.repository = repository;
             this.userManager = userManager;
         }
+        [HttpGet]
+        public async Task<IActionResult> PopularReview()
+        {
+            //List<ReviewViewModel> popularRevs = new List<ReviewViewModel>();
+
+            /*Start popular Review section*/
+            //Get the id of the most liked reviews
+            var reviews = context.LikeReview
+                                    .GroupBy(q => q.ReviewId)
+                                    .OrderByDescending(gp => gp.Count())
+                                    .Take(12)
+                                    .Select(g => g.Key).ToList();
+
+
+            //Convert the selected reviews into ReviewViewModel
+            List<ReviewViewModel> PopularReviews = new List<ReviewViewModel>();
+            foreach (var item in reviews)
+            {
+                PopularReviews.Add(repository.GetReviewLikeStatsById(item));
+                //item.User = item.User;
+            }
+            //add movies info to each review
+            foreach (var item2 in PopularReviews)
+            {
+                item2.ReviewdMovie = context.Movies
+                    .Where(m => m.Id == item2.MovieId).FirstOrDefault();
+            }
+            /*End popular Review section*/
+
+            return View(PopularReviews);
+        }
+
 
         //Post review - save it to database - display it
         [HttpPost]

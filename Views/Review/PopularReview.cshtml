@@ -1,0 +1,37 @@
+﻿@model List<ReviewViewModel>
+
+@{
+    ViewData["Title"] = "Popular reviews";
+}
+@*Display a limited number of the most liked reviews*@
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="~/js/homepage.js"></script>
+
+@*Review section*@
+<section class="homepage-popular-reviews-wrapper homepage-section my-5">
+    <div class="container-lg px-lg-3 px-3">
+        <div class="row">
+            <div class="hompage-section-head" style="border-bottom: 1px solid #456;  text-transform: uppercase;">
+                The most liked reviews
+            </div>
+        </div>
+    </div>
+
+    <div class="container-lg">
+        <div class="row" id="container-masonary">
+            @if (User.Identity.IsAuthenticated)
+            {
+                @foreach (var item in Model)
+                {
+                    <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
+                }
+            }
+            else
+            {
+
+            }
+
+        </div>
+    </div>
+</section>

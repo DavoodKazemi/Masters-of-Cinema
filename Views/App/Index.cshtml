@@ -13,10 +13,10 @@
     ****1- fix the user not populating!
     ****2- perhaps add an exclusive view model for more info. ex. movie info and image
     ****3- make different classes and make a copy the original styles, for customisation
-        4- add minor changes in styles and markup, like adding "more review!?",
+      --4- add minor changes in styles and markup, like adding "more review!?",
             title "popular reviews", etc.
-        5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
-       *6- clean this razor view and remove unnecessary things
+      **5- improve mobile if needed, inspiring from the mobile version of LetterBoxd
+      **6- clean this razor view and remove unnecessary things
         7- Add your own review link maybe?
         8- add tooltip for reviewer rate
         9- Choose some interesting/long reviews with proper rate and give them more likes
@@ -26,24 +26,27 @@
         1- Seems totally fine, just add small styles to be recognisable.
            Ex, crown icon for highest rated movies in its titles. Also change the border color!
         2- Add link!
-        3- Add background for the time being!
         4- Done!
 
 
 
         ALso add a section for your activity, like a review, a list, etc
-        Add a section for best movies, maybe according to the highest rate
 
         If it's slow, load blew things when scroll reaches them, using ajax.
 
-
-        Add notify styles inspiring by the fa pinned pages.
-
-        remove all hompage-highlighted-notify-links things with their styles!
 *@
 @{
     ViewBag.Title = "Home Page";
 }
+
+<style>
+    .main-content {
+        background: #14181c;
+    }
+    .homepage-quick-tour-wrapper {
+        background: #14181c url(/Image/General/content-bg.0d9a0f0f.png) 0 -1px repeat-x;
+    }
+</style>
 
 @*Welcome section*@
 <section class="homepage-welcome-messgae-wrapper container-lg mb-5 mt-5 text-center text-md-start">
@@ -137,7 +140,9 @@
     <div class="container-lg px-lg-3 px-3">
         <div class="row">
             <div class="hompage-section-head" style="border-bottom: 1px solid #456;">
-                POPULAR REVIEWS
+                <a target="_blank" asp-controller="Review" asp-action="PopularReview" class="hompage-section-head-link">
+                    POPULAR REVIEWS
+                </a>
             </div>
         </div>
     </div>
@@ -211,17 +216,6 @@
         </div>
     </div>
 </section>
-
-<script>
-    //Start Read more button to hide extra part of lenghty reviews
-
-
-//End Read more button
-
-
-//End Read more button
-</script>
-
 
 <section class="container-lg row text-center mx-auto px-0 pt-5 my-3" style="border-top: 1px solid #456;">
     <h2>
