@@ -54,7 +54,7 @@ $(document).on("click", "#clist-delete-added-movie", function (e) {
     //If this is not the last movie
     if ($('[id=clist-delete-added-movie]').length > 1) {
         //console.log($('[id=clist-delete-added-movie]').length.toString() + " movies remained.");
-        $(this).parent().hide('slow', function () { $(this).remove(); });
+        $(this).parent().fadeOut('slow', function () { $(this).remove(); });
 
         //If this is the last movie (remove it without animation)
     } else if ($('[id=clist-delete-added-movie]').length == 1) {
@@ -97,7 +97,7 @@ function AddMovie(id) {
                 if (data != '') {
                     var new_div = $(data).hide();
                     $(".to-add-movies-container > .movies-to-add-bodey").append(new_div);
-                    new_div.show('slow');
+                    new_div.fadeIn('slow');
                 }
                 //Hide the placeholder, if it's not hidden already
                 $("#empty-list-placeholder").slideUp(320);
@@ -115,10 +115,18 @@ function AddMovie(id) {
 
         console.log("you already added this movie!");
 
-        $("#jnotify-message").empty().append("<div><strong>" + $("." + id + " .movie-to-add-title").text() + "</strong> is already in this list</div>");
+        $("#jnotify-message").empty().append("<div><strong>" + $("." + id + " .movie-to-add-title").text() + "</strong> is already in this list</div>"
+            + `<span class="notify-message-close-wrapper" id="notify-message-close-wrapper">
+                <i class="notify-message-close-icon" id=""></i></span>`);
         $("#clist-add-notify").slideDown(320);
-        $('#clist-add-notify').delay(5000).slideUp(320);
+        $('#clist-add-notify').delay(2000).slideUp(320);
     }
 }
 //End
 
+
+//Close button for the notifying messages when adding/editing a review
+$(document).on("click", "#notify-message-close-wrapper", function (e) {
+    $(this).closest("#clist-add-notify").hide();
+});
+//End Close button for the notifying messages
