@@ -28,6 +28,15 @@ html, body {
     color: #99AABB;
 }
 
+.border-bottom-list-header {
+    border-bottom: 1px solid #456;
+}
+
+
+.light-font {
+    font-family: 'Yu Gothic UI Light', 'Segoe UI Light', 'Candara Light', 'Yu Gothic Light', Arial, sans-serif !important;
+}
+
 .main-content {
     //nav-width = 66, footer-width = 56
     min-height: calc(100% - 122px);

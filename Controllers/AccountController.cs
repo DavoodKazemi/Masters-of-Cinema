@@ -216,18 +216,18 @@ namespace MastersOfCinema.Controllers
 
         //Start custom lists
         //Displays all of the custom lists of the user!
-        public ActionResult CLists(int? pageNum)
+        public ActionResult UserLists(int? pageNum)
         {
             var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
             CListsViewModel customList = new CListsViewModel()
             {
 
-                Lists = _repository.GetListsList(),
+                Lists = _repository.GetUserCLists(),
                 User = user,
                 IsFirstPage = false
             };
-            int itemsPerPage = 9;
+            int itemsPerPage = 1;
             pageNum = pageNum ?? 0;
 
             customList.listCount = customList.Lists.Count();
@@ -251,7 +251,7 @@ namespace MastersOfCinema.Controllers
 
                 var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
                 customList.Lists = newItems;
-                return View("CLists", customList);
+                return View("UserLists", customList);
             }
         }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html  dir="ltr">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item"><a class="nav-link @Html.ActiveClass("Account", "CLists") @Html.ActiveClass("Account", "CList")" asp-controller="Account" asp-action="CLists">Lists</a></li>
+                            <li class="nav-item"><a class="nav-link @Html.ActiveClass("List", "Index")" asp-controller="List" asp-action="Index">List</a></li>
                             <li class="nav-item ms-md-auto nav-profile-picture-wrapper">
                                 <a class="nav-link @Html.ActiveClass("Account", "Profile") @Html.ActiveClass("Account", "Films") @Html.ActiveClass("Account", "Watchlist") @Html.ActiveClass("Settings", "Index")
                                 @Html.ActiveClass("Settings", "Email") @Html.ActiveClass("Settings", "ChangePassword") @Html.ActiveClass("Settings", "PersonalData")

@@ -1,0 +1,52 @@
+﻿@model CListsViewModel
+
+@{
+    ViewData["Title"] = "- Lists";
+    //Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    int pageCount = ViewBag.pageCount;
+}
+
+<div class="container px-lg-3 mt-4 px-3">
+    <div class="row">
+        @*add avatar, etc later*@
+        @*<h2>@Model.Title</h2>
+            <div>@Model.Description</div>*@
+
+        <div class="text-center custom-lists-page-header my-3">
+            <h1 class="light-font custom-lists-page-header-text my-3">
+                <span class="">Collect, curate, and share. </span>Lists are the perfect way to group films.
+            </h1>
+
+
+            <a asp-controller="Account" asp-action="AddList" role="button" class="add-list-btn light-font ">
+                Start your own list
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-lg-3 mt-4 px-3">
+    <div class="row">
+        <div class="border-bottom-list-header" style="text-transform: uppercase;">Lists</div>
+    </div>
+</div>
+
+
+@*Movie grids container*@
+<div class="custom-lists-page mt-2">
+    <div class="director-movies-container container list-ajax-container">
+        <div class="row px-1 tbody">
+            <partial name="~/Views/Shared/Lists/_CListPartial.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+<partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
+
+<script>
+    var pageCount = @pageCount;
+    var controllerActionUrl = "/List/Index";
+</script>
+
+<script src="~/js/ajax-infinite-scroll.js" asp-append-version="true"></script>

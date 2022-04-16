@@ -30,8 +30,10 @@ namespace MastersOfCinema.Data
         string GetListTitle(int id);
         string GetListDescription(int id);
         IEnumerable<CList> GetListsList();
+        IEnumerable<CList> GetUserCLists();
         MovieLog IsLoggedMovieId(int id);
         Watchlist IsInWatchlistById(int id);
+
         //Search for create list
         IEnumerable<Movie> SearchMovie(string searchTerm);
         AddListViewModel GetSuggest(string searchTerm);
@@ -43,6 +45,7 @@ namespace MastersOfCinema.Data
         ReviewViewModel GetReviewsLikeStats(Review review);
         IEnumerable<ReviewViewModel> GetMovieReviews(int id);
         Review IsReviewed(int id);
+        
         //Review GetUserReview(int id);
     }
 }

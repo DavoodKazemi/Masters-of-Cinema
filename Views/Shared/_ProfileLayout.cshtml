@@ -11,11 +11,11 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav w-100 d-inline-block text-center">
                     <li class="nav-item d-inline-block"><a class="nav-link @Html.ActiveClass("Settings", "Index") @Html.ActiveClass("Settings", "Email") @Html.ActiveClass("Settings", "ChangePassword") @Html.ActiveClass("Settings", "PersonalData")" asp-controller="Settings" asp-action="Index">Settings</a></li>
-                    
+
                     <li class="nav-item d-inline-block"><a class="nav-link @Html.ActiveClass("Account", "Films")" asp-controller="Account" asp-action="Films">Films</a></li>
                     <li class="nav-item d-inline-block"><a class="nav-link @Html.ActiveClass("Account", "Watchlist")" asp-controller="Account" asp-action="Watchlist">Watchlist</a></li>
                     <li class="nav-item d-inline-block"><a class="nav-link @Html.ActiveClass("Account", "Ratings")" asp-controller="Account" asp-action="Ratings">Ratings</a></li>
-
+                    <li class="nav-item d-inline-block"><a class="nav-link @Html.ActiveClass("Account", "UserLists")" asp-controller="Account" asp-action="UserLists">My Lists</a></li>
                 </ul>
             </div>
         </nav>
