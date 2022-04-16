@@ -8,7 +8,7 @@
             <div class="mx-auto">
                 @*Movie poster and its tooltip (title (year)) *@
                 <div class="movie-poster-wrapper list-poster mx-auto">
-                    <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                    <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="mx-auto">
                         <div class="avatars-wrapper">
                             <ul>
                                 @foreach (var avatar in item.Avatars)
@@ -30,7 +30,7 @@
                     </a>
                 </div>
 
-                <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="clist-title-wrapper">
                     <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
                 </a>
                 <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>
@@ -87,7 +87,7 @@ else
                 @*Movie poster and its tooltip (title (year)) *@
                 <div class="movie-poster-wrapper list-poster mx-auto">
 
-                    <a asp-action="Clist" asp-route-id="@item.Id" class="mx-auto">
+                    <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="mx-auto">
                         <div class="avatars-wrapper">
                             <ul>
                                 @foreach (var avatar in item.Avatars)
@@ -111,7 +111,7 @@ else
                     </a>
                 </div>
 
-                <a asp-action="Clist" asp-route-id="@item.Id" class="clist-title-wrapper">
+                <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="clist-title-wrapper">
                     <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
                 </a>
                 <div class="clist-description">@Html.DisplayFor(modelItem => item.Description)</div>

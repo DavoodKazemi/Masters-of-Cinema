@@ -22,7 +22,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: '/Account/Search',
+            url: '/List/Search',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (data, result) {
@@ -89,7 +89,7 @@ function AddMovie(id) {
 
         $.ajax({
             type: 'GET',
-            url: '/Account/AddMovieToCList',
+            url: '/List/AddMovieToCList',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
             success: function (data, result) {

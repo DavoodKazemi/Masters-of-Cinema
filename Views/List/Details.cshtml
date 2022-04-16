@@ -1,0 +1,35 @@
+﻿@model MovieListViewModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+    int pageCount = ViewBag.pageCount;
+    string listId = ViewBag.listId;
+}
+
+<div class="container px-lg-3 mt-4 px-3">
+    <div class="row">
+        @*add avatar, etc later*@
+        <div class="">List by @Model.CurrentUser.FirstName</div>
+        <h2>@Model.Title</h2>
+        <div>@Model.Description</div>
+    </div>
+</div>
+
+@*Movie grids container*@
+<div class="director-info-page mt-2">
+    <div class="director-movies-container container list-ajax-container">
+        <div class="row px-1 tbody">
+            <partial name="~/Views/Shared/Lists/_AjaxMovieListPartial.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+<partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
+
+<script>
+    var pageCount = @pageCount;
+    var controllerActionUrl = "/List/Details/" + @listId;
+</script>
+
+<script src="~/js/ajax-infinite-scroll.js" asp-append-version="true"></script>
