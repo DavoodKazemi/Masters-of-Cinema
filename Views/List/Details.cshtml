@@ -6,18 +6,76 @@
     string listId = ViewBag.listId;
 }
 
-<div class="container px-lg-3 mt-4 px-3">
+<div class="container-lg px-lg-3 my-4 px-3">
+
+
+    <div class="col-12 list-author border-bottom-list-header">
+
+        @*Reviewer's avatar is displayed on the left side of each review*@
+        @if (Model.CurrentUser.ProfilePicture != null)
+        {
+            <div class="pfp-list-details-wrapper">
+                <div class="profile-picture-medium">
+                    <img class="nav-profile-picture" src="data:image/*;base64,@(Convert.ToBase64String(Model.CurrentUser.ProfilePicture))">
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="pfp-list-details-wrapper">
+                <div class="profile-picture-medium">
+                    <i class="fas fa-user-circle me-0 nav-default-profile-picture fs-2"></i>
+                </div>
+            </div>
+        }
+        @*END Reviewer's avatar*@
+
+        @*Start Review's right side*@
+        <div class="d-inline-block review-main-col">
+            @*Start Review's header*@
+            <div class="list-author-head-wrapper">
+                <div class="review-head">
+                    <div class="review-head-text">
+                        List by
+                        <span class="review-name">@Model.CurrentUser.FirstName</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        @*END Review's right side*@
+    </div>
+
+
+
+
     <div class="row">
         @*add avatar, etc later*@
-        <div class="">List by @Model.CurrentUser.FirstName</div>
-        <h2>@Model.Title</h2>
-        <div>@Model.Description</div>
+        <div><span class="text-white fs-2 me-3">@Model.Title</span>
+             <span class="fs-6 list-info-movie-count">
+                 @Model.listCount
+                 @if (Model.listCount > 1)
+                 {
+                     <text>movies</text>
+                 }
+                 else
+                 {
+                     <text>movie</text>
+                 }
+             </span>
+        </div>
+        @if(Model.Description != null)
+        {
+        <div class="preserve-line-break fs-5 mt-2">@Model.Description</div>
+        }
+        
     </div>
 </div>
 
 @*Movie grids container*@
 <div class="director-info-page mt-2">
-    <div class="director-movies-container container list-ajax-container">
+    <div class="director-movies-container container-lg list-ajax-container">
         <div class="row px-1 tbody">
             <partial name="~/Views/Shared/Lists/_AjaxMovieListPartial.cshtml" />
         </div>

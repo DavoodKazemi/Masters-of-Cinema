@@ -81,7 +81,8 @@ namespace MastersOfCinema.Controllers
                 return NotFound();
             }
 
-            var userId = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
+            var userId = _repository.GetUserCList(id.Value);
             User user = _context.Users.Where(i => i.Id == userId).FirstOrDefault();
 
             MovieListViewModel customList = new MovieListViewModel()

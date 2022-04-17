@@ -15,6 +15,7 @@
 @import "sass/confirm-message";
 @import "sass/_homepage";
 @import "sass/notify-messages";
+@import "sass/list-details";
 
 html, body {
     height: 100%;
@@ -32,6 +33,9 @@ html, body {
     border-bottom: 1px solid #456;
 }
 
+.preserve-line-break {
+    white-space: pre-line;
+}
 
 .light-font {
     font-family: 'Yu Gothic UI Light', 'Segoe UI Light', 'Candara Light', 'Yu Gothic Light', Arial, sans-serif !important;

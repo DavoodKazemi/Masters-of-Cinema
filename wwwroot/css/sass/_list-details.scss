@@ -1,0 +1,61 @@
+﻿//Styles of custom list details page
+
+
+.list-author {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+//User avatar
+.pfp-list-details-wrapper {
+    width: 58px;
+    float: left;
+
+    .profile-picture-medium {
+
+        img {
+            height: 48px;
+            vertical-align: baseline;
+            overflow: hidden;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 1px solid hsla(0,0%,100%,.25);
+        }
+    }
+}
+
+
+//User name of the list author
+.list-author-head-wrapper {
+    
+    position: relative;
+    display: flex;
+    color: #678;
+    margin-bottom: 15px;
+    margin-top: 12px;
+
+
+    .review-head {
+        
+        //Review by + First name of the reviewer
+        .review-head-text {
+
+            //First name of the reviewer
+            .review-name {
+                display: inline-block;
+                //font-family: Graphik-Semibold-Web,sans-serif;
+                font-weight: 700;
+                color: #abc !important;
+            }
+        }
+    }
+}
+
+.list-info-movie-count {
+    border-bottom: 1px solid #456;
+    color: #def;
+    transition: color .3s ease;
+    opacity: .5;
+    white-space: nowrap;
+}

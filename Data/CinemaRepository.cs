@@ -386,8 +386,16 @@ namespace MastersOfCinema.Data
             return lists;
         }
 
-        //Get all the custom lists one user created
-        public IEnumerable<CList> GetListsList()
+        //Gets list id - returns the id of the user created the list
+        public string GetUserCList(int id)
+        {
+            string userId = _context.Lists.Where(y => y.Id == id).Include(m => m.User).FirstOrDefault().User.Id;
+            
+            return userId;
+        }
+
+            //Get all the custom lists one user created
+            public IEnumerable<CList> GetListsList()
         {
             var User = _accessor.HttpContext.User.Identity.Name;
             //List of all custom lists by the user!

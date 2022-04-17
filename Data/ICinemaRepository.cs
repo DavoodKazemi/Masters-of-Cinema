@@ -25,6 +25,7 @@ namespace MastersOfCinema.Data
         IEnumerable<Movie> GetRatings();
 
         //custom lists
+        string GetUserCList(int id);
         IEnumerable<Movie> GetCustomList(int id);
         IEnumerable<CList> GetListsListForAjax(int pageNum, int itemsPerPage, IEnumerable<CList> lists);
         string GetListTitle(int id);
