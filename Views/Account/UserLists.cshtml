@@ -1,4 +1,5 @@
 ﻿@model CListsViewModel
+@*Display the user's custom lists*@
 
 @{
     ViewData["Title"] = @Model.User.FirstName + "'s lists";
@@ -8,43 +9,69 @@
 
 <div class="container px-lg-3 mt-4 px-3">
     <div class="row">
-        @*add avatar, etc later*@
-        <div class="">Lists by @Model.User.FirstName</div>
-        @*<h2>@Model.Title</h2>
-        <div>@Model.Description</div>*@
 
-    <div class="text-center custom-lists-page-header my-3">
-        <h1 class="light-font custom-lists-page-header-text my-3">
-            <span class="">Collect, curate, and share. </span>Lists are the perfect way to group films.
-        </h1>
+        <div class="text-center custom-lists-page-header my-3">
 
+            @*If user has any list*@
+            @if (Model.listCount > 0)
+            {
+                <h1 class="light-font custom-lists-page-header-text my-3">
+                    <span class="">Collect, curate, and share. </span>Lists are the perfect way to group films.
+                </h1>
+                <a asp-controller="List" asp-action="AddList" role="button" class="add-list-btn light-font ">
+                    Start a new list
+                </a>
+            }@*If user has zero list*@
+            else
+            {
+                <h1 class="light-font custom-lists-page-header-text my-3">
+                    <span class="">You have no list yet!</span>
+                </h1>
+                <a asp-controller="List" asp-action="AddList" role="button" class="add-list-btn light-font ">
+                    Add your first list
+                </a>
+            }
 
-        <a asp-controller="List" asp-action="AddList" role="button" class="add-list-btn light-font ">
-            Start your own list
-        </a>
-    </div>
-    </div>
-</div>
-
-<div class="container px-lg-3 mt-4 px-3">
-    <div class="row">
-        <div class="border-bottom-list-header" style="text-transform: uppercase;">Your custom lists</div>
-    </div>
-</div>
-
-
-@*Movie grids container*@
-<div class="custom-lists-page mt-2">
-    <div class="director-movies-container container list-ajax-container">
-        <div class="row px-1 tbody">
-            <partial name="~/Views/Shared/Lists/_CListPartial.cshtml" />
         </div>
     </div>
 </div>
 
+@*If user has any list*@
+@if (Model.listCount > 0)
+{
+    <div class="container px-lg-3 mt-4 px-3">
+        <div class="row">
+            <div class="border-bottom-list-header d-flex" style="text-transform: uppercase;">
+                <span class="me-4">Your custom lists</span>
+                <span class="list-info-movie-count border-0">
+                    @if (Model.listCount > 1)
+                    {
+                        @Model.listCount<text> lists</text>
+                    }
+                    else
+                    {
+                        @Model.listCount<text> list</text>
+                    }
+                </span>
+                <a class="hover-blue ms-auto d-none d-sm-flex" asp-controller="List" asp-action="Index">More lists</a>
+            </div>
+        </div>
+    </div>
 
-<partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
 
+    @*Movie grids container*@
+    <div class="my-lists-page mt-2">
+        <div class="director-movies-container container list-ajax-container">
+            <div class="row px-1 tbody">
+                <partial name="~/Views/Shared/Lists/_CListPartial2.cshtml" />
+            </div>
+        </div>
+    </div>
+
+
+    <partial name="~/Views/Shared/_AjaxLoadAnimationPartial.cshtml" />
+
+}
 <script>
     var pageCount = @pageCount;
     var controllerActionUrl = "/Account/UserLists";

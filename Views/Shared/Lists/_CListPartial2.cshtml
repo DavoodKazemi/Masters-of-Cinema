@@ -1,0 +1,109 @@
+﻿@model CListsViewModel
+@*Display grids of each custom list (used for the user lists page and not index view of the list controller)*@
+
+@if (Model.IsFirstPage)
+{
+    foreach (var item in Model.Lists)
+    {
+        <article class="director-list-item mb-3 mb-md-2 mt-3 mt-lg-4 col-lg-10 col-12">
+            <div class="mx-auto">
+                @*Movie poster and its tooltip (title (year)) *@
+                <div class="movie-poster-wrapper list-poster mx-auto float-md-start">
+                    <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="me-md-3">
+                        <div class="avatars-wrapper mx-auto">
+                            <ul>
+                                @foreach (var avatar in item.Avatars)
+                                {
+                                    if (avatar != "defaultImage")
+                                    {
+                                        <li>
+                                            <img src="@("~/image/" + avatar)" class="" asp-append-version="true" />
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-avarar-placeholder">
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+
+                <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="clist-title-wrapper">
+                    <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
+                </a>
+                <div class="list-info-movie-count d-table">
+                    @item.Movies.Count()
+                    @if (item.Movies.Count() > 1)
+                    {
+                        <text>items</text>
+                    }
+                    else
+                    {
+                        <text>item</text>
+                    }
+                </div>
+                <div class="clist-description mt-1">@Html.DisplayFor(modelItem => item.Description)</div>
+
+
+
+            </div>
+        </article>
+    }
+
+}
+else
+{
+    @foreach (var item in Model.Lists)
+    {
+        <article class="ajax-individual-item-wrapper director-list-item mt-3 mb-2 mt-lg-4 mb-lg-3 col-lg-10 col-12">
+            <div class="mx-auto">
+                @*Movie poster and its tooltip (title (year)) *@
+                <div class="movie-poster-wrapper list-poster mx-auto float-md-start">
+                    <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="me-md-3">
+                        <div class="avatars-wrapper mx-auto">
+                            <ul>
+                                @foreach (var avatar in item.Avatars)
+                                {
+                                    if (avatar != "defaultImage")
+                                    {
+                                        <li>
+                                            <img src="@("~/image/"+avatar)" class="" asp-append-version="true" />
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-avarar-placeholder">
+                                        </li>
+                                    }
+
+                                }
+
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+
+                <a asp-controller="List" asp-action="Details" asp-route-id="@item.Id" class="clist-title-wrapper">
+                    <div class="lists-list-title">@Html.DisplayFor(modelItem => item.Title)</div>
+                </a>
+                <div class="list-info-movie-count d-table">
+                    @item.Movies.Count()
+                    @if (item.Movies.Count() > 1)
+                    {
+                        <text>items</text>
+                    }
+                    else
+                    {
+                        <text>item</text>
+                    }
+                </div>
+                <div class="clist-description mt-1">@Html.DisplayFor(modelItem => item.Description)</div>
+
+            </div>
+        </article>
+    }
+
+}

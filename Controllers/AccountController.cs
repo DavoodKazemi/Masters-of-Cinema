@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace MastersOfCinema.Controllers
 {
+    //[Route("[controller]")]
     public class AccountController : Controller
     {
         private readonly ICinemaRepository _repository;
@@ -227,7 +228,7 @@ namespace MastersOfCinema.Controllers
                 User = user,
                 IsFirstPage = false
             };
-            int itemsPerPage = 1;
+            int itemsPerPage = 3;
             pageNum = pageNum ?? 0;
 
             customList.listCount = customList.Lists.Count();
@@ -239,7 +240,7 @@ namespace MastersOfCinema.Controllers
             {
                 var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
                 customList.Lists = newItems;
-                return PartialView("Lists/_CListPartial", customList);
+                return PartialView("Lists/_CListPartial2", customList);
             }
             else
             {
