@@ -34,11 +34,17 @@
         <div class="d-inline-block review-main-col">
             @*Start Review's header*@
             <div class="list-author-head-wrapper">
-                <div class="review-head">
+                <div class="review-head d-flex w-100">
                     <div class="review-head-text">
                         List by
                         <span class="review-name">@Model.CurrentUser.FirstName</span>
                     </div>
+                    <span class="ms-auto d-none d-sm-flex light-font">
+                        <a asp-controller="Account" asp-action="UserLists" class="hover-blue me-2"><i class="fa me-1" style="margin-top: 5px; opacity: 0.66;">&#xf104;</i>Your lists</a>
+                         - 
+                        <a asp-controller="List" asp-action="Index" class="hover-blue" style="margin-left: 0.5rem!important;">All lists<i class="fa ms-1" style="margin-top: 5px; opacity: 0.66;">&#xf105;</i></a>
+                    </span>
+                    
                 </div>
             </div>
 
