@@ -42,6 +42,10 @@ html, body {
     font-family: 'Yu Gothic UI Light', 'Segoe UI Light', 'Candara Light', 'Yu Gothic Light', Arial, sans-serif !important;
 }
 
+.capitalise {
+    text-transform: uppercase;
+}
+
 .main-content {
     //nav-width = 66, footer-width = 56
     min-height: calc(100% - 122px);

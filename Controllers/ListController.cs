@@ -1,6 +1,7 @@
 ﻿using MastersOfCinema.Data;
 using MastersOfCinema.Data.Entities;
 using MastersOfCinema.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -36,15 +37,33 @@ namespace MastersOfCinema.Controllers
         //Displays all of the custom lists of the user!
         public ActionResult Index(int? pageNum)
         {
-            var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
-            CListsViewModel customList = new CListsViewModel()
+            CListsViewModel customList = new CListsViewModel();
+            if (User.Identity.IsAuthenticated)
             {
+                var id = _userId.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                User user = _context.Users.Where(i => i.Id == id).FirstOrDefault();
+                //customList.User = user;
 
-                Lists = _repository.GetListsList(),
-                User = user,
-                IsFirstPage = false
-            };
+
+                customList = new CListsViewModel()
+                {
+
+                    Lists = _repository.GetListsList(),
+                    User = user,
+                    IsFirstPage = false
+                };
+
+            }
+            else
+            {
+                customList = new CListsViewModel()
+                {
+
+                    Lists = _repository.GetListsList(),
+                    IsFirstPage = false
+                };
+            }
+
             int itemsPerPage = 9;
             pageNum = pageNum ?? 0;
 
@@ -128,6 +147,7 @@ namespace MastersOfCinema.Controllers
 
         //Begin Create Custom list 
         [HttpGet]
+        [Authorize]
         public ActionResult AddList()
         {
             return View();

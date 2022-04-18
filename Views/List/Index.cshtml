@@ -12,11 +12,20 @@
             <h1 class="light-font custom-lists-page-header-text my-3">
                 <span class="">Collect, curate, and share. </span>Lists are the perfect way to group films.
             </h1>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-action="AddList" role="button" class="add-list-btn light-font ">
+                    Start your own list
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path" role="button" class="add-list-btn light-font ">
+                    Sign in to add a list
+                </a>
+            }
 
 
-            <a asp-action="AddList" role="button" class="add-list-btn light-font ">
-                Start your own list
-            </a>
         </div>
     </div>
 </div>
@@ -24,9 +33,13 @@
 <div class="container-lg px-lg-3 mt-4 px-3">
     <div class="border-bottom-list-header d-flex">
         <div class="" style="text-transform: uppercase;">All Lists</div>
-        <span class="ms-auto d-none d-sm-flex light-font">
-            <a asp-controller="Account" asp-action="UserLists" class="hover-blue me-2">My lists</a>
-        </span>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span class="ms-auto d-none d-sm-flex light-font">
+                <a asp-controller="Account" asp-action="UserLists" class="capitalise hover-blue me-2">My lists</a>
+            </span>
+        }
+        
     </div>
 </div>
 
