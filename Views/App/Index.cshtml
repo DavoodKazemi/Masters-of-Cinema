@@ -65,7 +65,7 @@
 }
 @*Quick Tour section*@
 <section class="homepage-quick-tour-wrapper light-font">
-    <div class="homepage-quick-tour container">
+    <div class="homepage-quick-tour container-lg">
         @if (User.Identity.IsAuthenticated)
         {
             <h1 class="homepage-quick-tour-header">Start here…</h1>
@@ -78,41 +78,49 @@
             </div>
 
             <ul class="homepage-quick-tour-sections-wrapper text-center row">
-                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                    <h3 class="sections-header">Reviews</h3>
-                    <p>
-                        <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
-                            <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf56b;</i>
-                            Write/edit a review
-                        </a>
-                    </p>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-start my-3">
+                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                        <span id="" class="tour-icon review-ordinary-icon"></span>
+                        <div class="homepage-tour-text">
+                            <h3 class="sections-header">Reviews</h3>
+                            <span class="" target="_blank" asp-controller="List" asp-action="AddList">
+                                Write/edit a review
+                            </span>
+                        </div>
+                    </a>
                 </li>
-                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                    <h3 class="sections-header">Custom Lists</h3>
-                    <p>
-                        <a class="hompage-tour-links" target="_blank" asp-controller="List" asp-action="AddList">
-                            <span id="" class="custom-list-ordinary-icon"></span>
-                            Add a custom list
-                        </a>
-                    </p>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-start my-3">
+                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="List" asp-action="AddList">
+                        <span id="" class="tour-icon custom-list-ordinary-icon"></span>
+                        <div class="homepage-tour-text">
+                            <h3 class="sections-header">Custom Lists</h3>
+                            <span class="" target="_blank" asp-controller="List" asp-action="AddList">
+                                Add a custom list
+                            </span>
+                        </div>
+                    </a>
                 </li>
-                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                    <h3 class="sections-header">Rating feature</h3>
-                    <p>
-                        <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
-                            <span id="" class="star-ordinary-icon"></span>
-                            Rate a movie
-                        </a>
-                    </p>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-start my-3">
+                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
+                        <span id="" class="tour-icon star-ordinary-icon"></span>
+                        <div class="homepage-tour-text">
+                            <h3 class="sections-header">Rating feature</h3>
+                            <span class="" target="_blank" asp-controller="List" asp-action="AddList">
+                                Rate a movie
+                            </span>
+                        </div>
+                    </a>
                 </li>
-                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                    <h3 class="sections-header">Watchlist</h3>
-                    <p>
-                        <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
-                            <span id="" class="watchlist-ordinary-icon"></span>
-                            See your watchlist
-                        </a>
-                    </p>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-start my-3">
+                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="Account" asp-action="Watchlist">
+                        <span id="" class="tour-icon watchlist-ordinary-icon"></span>
+                        <div class="homepage-tour-text">
+                            <h3 class="sections-header">Watchlist</h3>
+                            <span class="" target="_blank" asp-controller="List" asp-action="AddList">
+                                See your watchlist
+                            </span>
+                        </div>
+                    </a>
                 </li>
             </ul>
         }
@@ -146,7 +154,7 @@
 <section class="homepage-popular-lists mb-5 homepage-section my-5">
     <div class="container-lg px-lg-3 mt-4 px-3">
         <div class="row">
-            <div class="hompage-section-head border-bottom-list-header">
+            <div class="homepage-section-head border-bottom-list-header">
                 <div class="">POPULAR LISTS</div>
                 <a target="_blank" asp-controller="List" asp-action="Index" class="capitalise hover-blue ms-auto d-none d-sm-flex">More lists</a>
             </div>
@@ -173,8 +181,8 @@
 <section class="homepage-popular-reviews-wrapper homepage-section my-5">
     <div class="container-lg px-lg-3 px-3">
         <div class="row">
-            <div class="hompage-section-head border-bottom-list-header">
-                <a target="_blank" asp-controller="Review" asp-action="PopularReview" class="hompage-section-head-link">
+            <div class="homepage-section-head border-bottom-list-header">
+                <a target="_blank" asp-controller="Review" asp-action="PopularReview" class="homepage-section-head-link">
                     POPULAR REVIEWS
                 </a>
             </div>
@@ -195,8 +203,8 @@
 <section class="homepage-popular-movies-wrapper homepage-movie homepage-section my-5">
     <div class="container-lg px-lg-3 px-3">
         <div class="row">
-            <div class="hompage-section-head border-bottom-list-header" style="text-transform: uppercase;">
-                <a target="_blank" class="hompage-section-head-link">Highest Rated Movies</a>
+            <div class="homepage-section-head border-bottom-list-header" style="text-transform: uppercase;">
+                <a target="_blank" class="homepage-section-head-link">Highest Rated Movies</a>
             </div>
         </div>
 
@@ -220,8 +228,8 @@
     <section class="homepage-watch-movies-wrapper homepage-movie homepage-section my-5">
         <div class="container-lg px-lg-3 px-3">
             <div class="row">
-                <div class="hompage-section-head border-bottom-list-header" style="text-transform: uppercase;">
-                    <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
+                <div class="homepage-section-head border-bottom-list-header" style="text-transform: uppercase;">
+                    <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="homepage-section-head-link" style="">Films you would like to watch</a>
                 </div>
             </div>
         </div>

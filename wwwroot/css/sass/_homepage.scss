@@ -96,11 +96,25 @@ section.homepage-quick-tour-wrapper {
             padding: 0;
             vertical-align: baseline;
             list-style: none;
-            font-size: 0;
+            //font-size: 0;
             position: relative;
             text-align: justify;
 
             li.homepage-quick-tour-sections {
+                @media(min-width: 768px) and (max-width: 991px) {
+                    padding-left: 8px;
+                    padding-right: 8px;
+
+                    .homepage-quick-tour-box {
+                        //height: 130px;
+                        padding: 10px 4px 10px 6px !important;
+
+                        .homepage-tour-text {
+                            margin: 0 0 0 50px !important;
+                        }
+                    }
+                }
+
                 color: #9ab;
                 list-style: none;
                 border: 0;
@@ -109,74 +123,139 @@ section.homepage-quick-tour-wrapper {
                 //margin: 0;
                 outline: 0;
                 //padding: 0;
-                font-size: 1.15384615rem;
+                //font-size: 1.15384615rem;
                 display: inline-block;
-                line-height: 0;
+                //line-height: 0;
                 position: relative;
                 //text-align: left;
                 vertical-align: top;
                 //width: 22.81553398%;
-                .sections-header {
-                    list-style: none;
-                    //text-align: left;
-                    border: 0;
-                    font-style: inherit;
-                    outline: 0;
-                    padding: 0;
-                    vertical-align: baseline;
-                    //font-family: Graphik-Semibold-Web,sans-serif;
-                    font-weight: 400;
-                    margin: 0 0 10px;
-                    font-size: 1.38461538rem;
-                    color: #def;
-                    line-height: 1.33;
-                }
+                //new
+                //border: none;
+                //box-shadow: inset 0 1px 0 hsla(0,0%,100%,.05);
+                > a.homepage-quick-tour-box {
+                    transition: none;
 
-                p {
-                    a.hompage-tour-links {
-                        list-style: none;
-                        text-align: left;
-                        line-height: 1.33;
-                        border: 0;
-                        font-size: 100%;
-                        font-style: inherit;
-                        font-weight: inherit;
-                        margin: 0;
-                        outline: 0;
-                        padding: 0;
-                        vertical-align: baseline;
-                        text-decoration: none;
-                        color: #def;
-                        transition: all .3s ease;
+                    .homepage-tour-text {
+                        margin: 0 0 0 50px;
 
-                        i {
-                            transition: all .3s ease;
+                        h3 {
+                            font-size: 1.38461538rem;
+                            margin-bottom: 0;
+                        }
+
+                        span {
+                            font-size: 1.15384615rem;
+                        }
+                    }
+
+                    .tour-icon {
+                        float: left;
+                    }
+
+                    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.1);
+                    //width: 310px;
+                    background: #456;
+                    cursor: pointer;
+                    padding: 16px 8px 18px 15px;
+                    //margin: 10px;
+                    border-radius: 3px;
+                    //width: 20%;
+                    height: 120px;
+                    display: block;
+
+                    &:hover {
+                        background-color: #209ce4;
+
+                        h3, .homepage-tour-text, i {
+                            color: #fff !important;
+                        }
+
+                        .review-ordinary-icon {
+                            background-image: url('/Image/Icon/review-ordinary-white.svg') !important;
                         }
 
                         .watchlist-ordinary-icon {
-                            @include svg-icon ( 'watchlist-ordinary.svg', 30px 30px, 30px, 30px );
+                            background-image: url('/Image/Icon/watchlist-ordinary-white.svg') !important;
                         }
 
                         .star-ordinary-icon {
-                            @include svg-icon ( 'star-ordinary.svg', 30px 30px, 30px, 30px );
+                            background-image: url('/Image/Icon/star-ordinary-white.svg') !important;
                         }
 
                         .custom-list-ordinary-icon {
-                            @include svg-icon ( 'custom-list-ordinary.svg', 30px 30px, 30px, 30px );
+                            background-image: url('/Image/Icon/custom-list-ordinary-white.svg') !important;
+                            //background-image: url('/Image/Icon/review-ordinary.svg') !important;
                         }
+                    }
 
-                        &:hover {
-                            color: #40bcf4;
-                            transition: all .3s ease;
+                    .sections-header {
+                        list-style: none;
+                        //text-align: left;
+                        border: 0;
+                        font-style: inherit;
+                        outline: 0;
+                        padding: 0;
+                        vertical-align: baseline;
+                        //font-family: Graphik-Semibold-Web,sans-serif;
+                        font-weight: 400;
+                        //margin: 0 0 10px;
+                        //font-size: 1.38461538rem;
+                        color: #def;
+                        //line-height: 1.33;
+                    }
 
+                    .watchlist-ordinary-icon {
+                        @include svg-icon ( 'watchlist-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    .star-ordinary-icon {
+                        @include svg-icon ( 'star-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    .custom-list-ordinary-icon {
+                        @include svg-icon ( 'custom-list-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    .review-ordinary-icon {
+                        @include svg-icon ( 'review-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    p {
+                        a.homepage-tour-links {
+                            /*list-style: none;
+                            text-align: left;
+                            line-height: 1.33;
+                            border: 0;
+                            font-size: 100%;
+                            font-style: inherit;
+                            font-weight: inherit;
+                            margin: 0;
+                            outline: 0;
+                            padding: 0;
+                            vertical-align: baseline;
+                            text-decoration: none;
+                            color: #def;*/
+                            //transition: all .3s ease;
                             i {
-                                color: #40bcf4 !important;
-                                transition: all .3s ease;
+                                //transition: all .3s ease;
+                            }
+
+
+
+                            &:hover {
+                                //color: #40bcf4;
+                                //transition: all .3s ease;
+                                i {
+                                    //color: #40bcf4 !important;
+                                    //transition: all .3s ease;
+                                }
                             }
                         }
                     }
                 }
             }
+            //End li
         }
     }
 }
@@ -184,12 +263,12 @@ section.homepage-quick-tour-wrapper {
 section.homepage-section {
     //background: green;
 
-    .hompage-section-head {
+    .homepage-section-head {
         display: flex !important;
         line-height: normal;
         padding-bottom: 10px;
 
-        a.hompage-section-head-link {
+        a.homepage-section-head-link {
             &:hover {
                 color: #40bcf4;
             }
