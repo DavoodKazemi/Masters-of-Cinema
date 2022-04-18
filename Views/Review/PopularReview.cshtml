@@ -20,16 +20,10 @@
 
     <div class="container-lg">
         <div class="row" id="container-masonary">
-            @if (User.Identity.IsAuthenticated)
+            
+            @foreach (var item in Model)
             {
-                @foreach (var item in Model)
-                {
-                    <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
-                }
-            }
-            else
-            {
-
+                <partial name="~/Views/Shared/HomePage/_PopularReview.cshtml" model="item" />
             }
 
         </div>

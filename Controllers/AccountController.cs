@@ -39,8 +39,13 @@ namespace MastersOfCinema.Controllers
             {
                 return RedirectToAction("Index", "Director");
             }
-
-            return View();
+            LoginViewModel model2 = new LoginViewModel()
+            {
+                Username = "LaraCroft@gmail.com",
+                Password = "aVjw3ST!3cS@M26@qK$Y",
+                RememberMe = true
+            };
+            return View(model2);
         }
 
         [HttpPost]

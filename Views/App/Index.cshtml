@@ -47,69 +47,98 @@
     .main-content {
         background: #14181c;
     }
+
     .homepage-quick-tour-wrapper {
         background: #14181c url(/Image/General/content-bg.0d9a0f0f.png) 0 -1px repeat-x;
     }
 </style>
 
 @*Welcome section*@
-<section class="homepage-welcome-messgae-wrapper container-lg mb-5 mt-5 text-center text-md-start">
-    <div class="homepage-welcome-messgae">
-        Welcome, <a asp-controller="Settings" asp-action="Index" target="_blank">@Model.User.FirstName</a>. @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
-        You may have a quick look at the important sections here, as they are shown on this page. Feel free to explore the website and test whatever you want.
-    </div>
-</section>
-
-@*Quick Tour section*@
-<section class="homepage-quick-tour-wrapper">
-    <div class="homepage-quick-tour container">
-        <h1 class="homepage-quick-tour-header">Start here…</h1>
-        <div class="homepage-quick-tour-header-special fs-2">
-            <i style="color:#3bb4e5;" class="fa">&#xf0eb;</i>
-            <span class="d-inline-block">
-                <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
-            </span>
-            Use the highlighted links to visit important sections of the website.
+@if (User.Identity.IsAuthenticated)
+{
+    <section class="light-font homepage-welcome-messgae-wrapper container-lg mb-5 mt-5 text-center text-md-start">
+        <div class="homepage-welcome-messgae">
+            <text>Welcome, </text><a asp-controller="Settings" asp-action="Index" target="_blank">@Model.User.FirstName</a><text>. </text> @*I have built this website, using ASP.Net Core 5.0, JQuery, Sass. *@
+            <text>You may have a quick look at the important sections here, as they are shown on this page. Feel free to explore the website and test whatever you want.</text>
         </div>
+    </section>
+}
+@*Quick Tour section*@
+<section class="homepage-quick-tour-wrapper light-font">
+    <div class="homepage-quick-tour container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1 class="homepage-quick-tour-header">Start here…</h1>
+            <div class="homepage-quick-tour-header-special fs-2">
+                <i style="color:#3bb4e5;" class="fa">&#xf0eb;</i>
+                <span class="d-inline-block">
+                    <span style="color: #3bb4e5;">Quick</span> <span style="color: #3bb4e5;">tip:</span>
+                </span>
+                Use the highlighted links to visit important sections of the website.
+            </div>
 
-        <ul class="homepage-quick-tour-sections-wrapper text-center row">
-            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                <h3 class="sections-header">Reviews</h3>
-                <p>
-                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
-                        <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf56b;</i>
-                        Write/edit a review
-                    </a>
-                </p>
-            </li>
-            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                <h3 class="sections-header">Custom Lists</h3>
-                <p>
-                    <a class="hompage-tour-links" target="_blank" asp-controller="List" asp-action="AddList">
-                        <span id="" class="custom-list-ordinary-icon"></span>
-                        Add a custom list
-                    </a>
-                </p>
-            </li>
-            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                <h3 class="sections-header">Rating feature</h3>
-                <p>
-                    <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
-                        <span id="" class="star-ordinary-icon"></span>
-                        Rate a movie
-                    </a>
-                </p>
-            </li>
-            <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
-                <h3 class="sections-header">Watchlist</h3>
-                <p>
-                    <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
-                        <span id="" class="watchlist-ordinary-icon"></span>
-                        See your watchlist
-                    </a>
-                </p>
-            </li>
-        </ul>
+            <ul class="homepage-quick-tour-sections-wrapper text-center row">
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                    <h3 class="sections-header">Reviews</h3>
+                    <p>
+                        <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                            <i style="font-size:24px; color:#3bb4e5;" class="fa">&#xf56b;</i>
+                            Write/edit a review
+                        </a>
+                    </p>
+                </li>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                    <h3 class="sections-header">Custom Lists</h3>
+                    <p>
+                        <a class="hompage-tour-links" target="_blank" asp-controller="List" asp-action="AddList">
+                            <span id="" class="custom-list-ordinary-icon"></span>
+                            Add a custom list
+                        </a>
+                    </p>
+                </li>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                    <h3 class="sections-header">Rating feature</h3>
+                    <p>
+                        <a class="hompage-tour-links" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="46">
+                            <span id="" class="star-ordinary-icon"></span>
+                            Rate a movie
+                        </a>
+                    </p>
+                </li>
+                <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-center text-sm-start my-3">
+                    <h3 class="sections-header">Watchlist</h3>
+                    <p>
+                        <a class="hompage-tour-links" target="_blank" asp-controller="Account" asp-action="Watchlist">
+                            <span id="" class="watchlist-ordinary-icon"></span>
+                            See your watchlist
+                        </a>
+                    </p>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <div class="text-center">
+                <div class="fs-1 mb-4 text-white">
+                    <div class="mb-2">
+                        Write your own reviews.
+                    </div>
+                    <div class="mb-2">
+                        Make custom lists.
+                    </div>
+                    <div class="mb-2">
+                        Rate movies.
+                    </div>
+                    <div class="mb-2">
+                        And much more...
+                    </div>
+                </div>
+                <a asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path" role="button" class="getting-started-btn capitalise">
+                    Get Started!
+                </a>
+            </div>
+
+        }
     </div>
 </section>
 
@@ -118,7 +147,8 @@
     <div class="container-lg px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="hompage-section-head border-bottom-list-header">
-                <a target="_blank" asp-controller="List" asp-action="Index" class="hompage-section-head-link">POPULAR LISTS</a>
+                <div class="">POPULAR LISTS</div>
+                <a target="_blank" asp-controller="List" asp-action="Index" class="capitalise hover-blue ms-auto d-none d-sm-flex">More lists</a>
             </div>
         </div>
     </div>
@@ -183,26 +213,29 @@
     </div>
 </section>
 
+
 @*Fims in your watchlist*@
-<section class="homepage-watch-movies-wrapper homepage-movie homepage-section my-5">
-    <div class="container-lg px-lg-3 px-3">
-        <div class="row">
-            <div class="hompage-section-head border-bottom-list-header" style="text-transform: uppercase;">
-                <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <section class="homepage-watch-movies-wrapper homepage-movie homepage-section my-5">
+        <div class="container-lg px-lg-3 px-3">
+            <div class="row">
+                <div class="hompage-section-head border-bottom-list-header" style="text-transform: uppercase;">
+                    <a target="_blank" asp-controller="Account" asp-action="Watchlist" class="hompage-section-head-link" style="">Films you would like to watch</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row" id="container-masonary">
-            @foreach (var item in Model.UserWatchlist)
-            {
-                <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
-            }
+        <div class="container">
+            <div class="row" id="container-masonary">
+                @foreach (var item in Model.UserWatchlist)
+                {
+                    <partial name="~/Views/Shared/HomePage/_HighestRatedMovies.cshtml" model="item" />
+                }
+            </div>
         </div>
-    </div>
-</section>
-
+    </section>
+}
 
 @*Fims with the most entry in the watchlist table*@
 <section class="homepage-watch-movies-wrapper homepage-movie d-none">

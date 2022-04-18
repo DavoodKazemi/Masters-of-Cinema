@@ -1,10 +1,40 @@
 ﻿@import '_mixin.scss';
 
+.getting-started-btn {
+    //float: right;
+    border: none;
+    border-radius: 3px;
+    font-family: Graphik-Semibold-Web,sans-serif;
+    letter-spacing: .075em;
+    line-height: 12px;
+    padding: 18px 14px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #00b020;
+    color: #f4fcf0;
+    cursor: pointer;
+    font-size: 1.6rem;
+
+    @media (max-width: 320px) {
+        font-size: 1.3rem;
+    }
+
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: max-content;
+
+    &:hover {
+        background: #00a11d;
+        color: #fff;
+    }
+}
+
 section.homepage-quick-tour-wrapper {
     line-height: 1;
     color: #9ab;
     border: 0;
-    font-family: inherit;
+    //font-family: inherit;
     font-size: 100%;
     font-style: inherit;
     font-weight: inherit;
@@ -18,7 +48,6 @@ section.homepage-quick-tour-wrapper {
         line-height: 1;
         color: #9ab;
         border: 0;
-        font-family: inherit;
         font-size: 100%;
         font-style: inherit;
         font-weight: inherit;
@@ -28,6 +57,10 @@ section.homepage-quick-tour-wrapper {
         box-sizing: border-box;
         //max-width: 100%;
         padding: 0 20px;
+
+        @media (max-width: 360px) {
+            padding: 0 8px;
+        }
         //width: 1236px;
         //min-width: 950px;
         .homepage-quick-tour-header, .homepage-quick-tour-header-special {
@@ -36,7 +69,6 @@ section.homepage-quick-tour-wrapper {
             outline: 0;
             padding: 0;
             vertical-align: baseline;
-            font-family: Graphik-Light-Web,sans-serif;
             font-weight: 400;
             margin: 0 0 1.1rem;
             text-align: center;
@@ -57,7 +89,6 @@ section.homepage-quick-tour-wrapper {
             line-height: 1;
             color: #9ab;
             border: 0;
-            font-family: inherit;
             font-style: inherit;
             font-weight: inherit;
             margin: 0;
@@ -73,7 +104,6 @@ section.homepage-quick-tour-wrapper {
                 color: #9ab;
                 list-style: none;
                 border: 0;
-                font-family: inherit;
                 font-style: inherit;
                 font-weight: inherit;
                 //margin: 0;
@@ -94,7 +124,7 @@ section.homepage-quick-tour-wrapper {
                     outline: 0;
                     padding: 0;
                     vertical-align: baseline;
-                    font-family: Graphik-Semibold-Web,sans-serif;
+                    //font-family: Graphik-Semibold-Web,sans-serif;
                     font-weight: 400;
                     margin: 0 0 10px;
                     font-size: 1.38461538rem;
@@ -108,7 +138,6 @@ section.homepage-quick-tour-wrapper {
                         text-align: left;
                         line-height: 1.33;
                         border: 0;
-                        font-family: inherit;
                         font-size: 100%;
                         font-style: inherit;
                         font-weight: inherit;
@@ -127,10 +156,12 @@ section.homepage-quick-tour-wrapper {
                         .watchlist-ordinary-icon {
                             @include svg-icon ( 'watchlist-ordinary.svg', 30px 30px, 30px, 30px );
                         }
+
                         .star-ordinary-icon {
                             @include svg-icon ( 'star-ordinary.svg', 30px 30px, 30px, 30px );
                         }
-                        .custom-list-ordinary-icon{
+
+                        .custom-list-ordinary-icon {
                             @include svg-icon ( 'custom-list-ordinary.svg', 30px 30px, 30px, 30px );
                         }
 
@@ -171,9 +202,9 @@ section.homepage-section {
 }
 
 section.homepage-welcome-messgae-wrapper {
-    font-family: Graphik-Light-Web, sans-serif;
+    //font-family: Graphik-Light-Web, sans-serif;
     color: #abc;
-    font-size: 1.6rem;
+    font-size: 1.72rem;
 
     .homepage-welcome-messgae {
         > a {

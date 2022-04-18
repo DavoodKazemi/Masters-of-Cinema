@@ -27,10 +27,7 @@ namespace MastersOfCinema.Controllers
         }
         public IActionResult Index()
         {
-            //Id of the current user
-            var id = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //Current user
-            User user = context.Users.Where(i => i.Id == id).FirstOrDefault();
+            
 
             /*Start popular Review section*/
             //Get the id of the most liked reviews
@@ -56,13 +53,30 @@ namespace MastersOfCinema.Controllers
             }
             /*End popular Review section*/
 
-            HomePageViewModel homePageViewModel = new HomePageViewModel()
+            HomePageViewModel homePageViewModel;
+            if (User.Identity.IsAuthenticated)
             {
-                ///
-                PopularLists = new CListsViewModel() { Lists = repo.GetListsList().Take(3).ToList() },
-                User = user,
-                PopularReviews = PopularReviews,
-            };
+                //Id of the current user
+                var id = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //Current user
+                User user = context.Users.Where(i => i.Id == id).FirstOrDefault();
+                homePageViewModel = new HomePageViewModel()
+                {
+                    ///
+                    PopularLists = new CListsViewModel() { Lists = repo.GetListsList().Take(3).ToList() },
+                    User = user,
+                    PopularReviews = PopularReviews,
+                };
+            } else
+            {
+                homePageViewModel = new HomePageViewModel()
+                {
+                    ///
+                    PopularLists = new CListsViewModel() { Lists = repo.GetListsList().Take(3).ToList() },
+                    //User = user,
+                    PopularReviews = PopularReviews,
+                };
+            }
 
 
             /*Start highest rated movies section*/
