@@ -402,10 +402,10 @@ namespace MastersOfCinema.Data
             //var customLists2 = _context.Lists.Where(r => r.User.UserName == User).Include(x => x.Movies);
             //var customLists = _context.Lists.Include(x => x.Movies);
             //var allLists = customLists.Except(customLists2).ToList();
-            var allLists = _context.Lists.Include(x => x.Movies).Include(x => x.User).Where(r => r.User.UserName != User);
+            var allLists = _context.Lists.Include(x => x.Movies).Include(x => x.User);
             var lists = new List<CList>();
 
-            lists.AddRange(GetUserCLists());
+            //lists.AddRange(GetUserCLists());
 
             //add data to the lists
             foreach (var item in allLists /*_context.Lists.Include(x => x.Movies).ToArray()*/)

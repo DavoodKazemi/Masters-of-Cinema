@@ -79,7 +79,7 @@
 
             <ul class="homepage-quick-tour-sections-wrapper text-center row">
                 <li class="homepage-quick-tour-sections col-sm-6 col-md-3 text-start my-3">
-                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="50" asp-fragment="user-review-section">
+                    <a class="homepage-quick-tour-box" target="_blank" asp-controller="Movie" asp-action="Details" asp-route-id="52" asp-fragment="user-review-section">
                         <span id="" class="tour-icon review-ordinary-icon"></span>
                         <div class="homepage-tour-text">
                             <h3 class="sections-header">Reviews</h3>
@@ -155,8 +155,8 @@
     <div class="container-lg px-lg-3 mt-4 px-3">
         <div class="row">
             <div class="homepage-section-head border-bottom-list-header">
-                <div class="">POPULAR LISTS</div>
-                <a target="_blank" asp-controller="List" asp-action="Index" class="capitalise hover-blue ms-auto d-none d-sm-flex">More lists</a>
+                <div class="capitalise">Recommended Lists</div>
+                <a target="_blank" asp-controller="List" asp-action="Index" class="capitalise hover-blue ms-auto d-none d-sm-flex">More</a>
             </div>
         </div>
     </div>
@@ -204,7 +204,7 @@
     <div class="container-lg px-lg-3 px-3">
         <div class="row">
             <div class="homepage-section-head border-bottom-list-header" style="text-transform: uppercase;">
-                <a target="_blank" class="homepage-section-head-link">Highest Rated Movies</a>
+                <a target="_blank" asp-controller="List" asp-action="Details" asp-route-id="20" class="homepage-section-head-link">Highest Rated Movies</a>
             </div>
         </div>
 

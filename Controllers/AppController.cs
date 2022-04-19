@@ -34,7 +34,7 @@ namespace MastersOfCinema.Controllers
             var reviews = context.LikeReview
                                     .GroupBy(q => q.ReviewId)
                                     .OrderByDescending(gp => gp.Count())
-                                    .Take(8)
+                                    .Take(6)
                                     .Select(g => g.Key).ToList();
 
 
@@ -53,6 +53,13 @@ namespace MastersOfCinema.Controllers
             }
             /*End popular Review section*/
 
+            /*Select 3 lists manually*/
+            List<CList> selectedLists = new List<CList>();
+            selectedLists.Add(repo.GetListsList().Where(i => i.Id == 34).FirstOrDefault());
+            selectedLists.Add(repo.GetListsList().Where(i => i.Id == 12).FirstOrDefault());
+            selectedLists.Add(repo.GetListsList().Where(i => i.Id == 24).FirstOrDefault());
+
+
             HomePageViewModel homePageViewModel;
             if (User.Identity.IsAuthenticated)
             {
@@ -63,7 +70,7 @@ namespace MastersOfCinema.Controllers
                 homePageViewModel = new HomePageViewModel()
                 {
                     ///
-                    PopularLists = new CListsViewModel() { Lists = repo.GetListsList().Take(3).ToList() },
+                    PopularLists = new CListsViewModel() { Lists = selectedLists },
                     User = user,
                     PopularReviews = PopularReviews,
                 };
@@ -72,7 +79,7 @@ namespace MastersOfCinema.Controllers
                 homePageViewModel = new HomePageViewModel()
                 {
                     ///
-                    PopularLists = new CListsViewModel() { Lists = repo.GetListsList().Take(3).ToList() },
+                    PopularLists = new CListsViewModel() { Lists = selectedLists },
                     //User = user,
                     PopularReviews = PopularReviews,
                 };
@@ -81,17 +88,21 @@ namespace MastersOfCinema.Controllers
 
             /*Start highest rated movies section*/
             //Later create a list and manually choose highest rated movies
-            homePageViewModel.HighestRatedMovies = new List<Movie>();
-            List<MovieRating> high = new List<MovieRating>();
-            foreach (var movie in context.MovieRatings)
+            var highRatedMovies =  new List<Movie>();
+            highRatedMovies = repo.GetCustomList(20).Take(6).ToList();
+
+            homePageViewModel.HighestRatedMovies = highRatedMovies;
+
+            //List<MovieRating> high = new List<MovieRating>();
+            /*foreach (var movie in context.MovieRatings)
             {
-                if(repo.GetAverageRating(movie.Id) > 4.0)
+                if(repo.GetAverageRating(movie.Id) > 3.5)
                 {
                     homePageViewModel.HighestRatedMovies.Add(context.Movies.Where(x => x.Id == movie.Id).FirstOrDefault());
                 }
-            }
+            }*/
 
-            homePageViewModel.HighestRatedMovies = homePageViewModel.HighestRatedMovies.Take(6).ToList();
+            //homePageViewModel.HighestRatedMovies = homePageViewModel.HighestRatedMovies.Take(16).ToList();
 
             /*End highest rated movies section*/
 
