@@ -101,7 +101,7 @@
 	},
 	{
 		"UserId": 10,
-		"Title": "بهترین فیلم های عباس کیارستمی",
+		"Title": "Best of Abbas Kiarostami",
 		"Description": "فهرستی از فیلم های عباس کیارستمی، کارگردان فقید ایرانی"
 	},
 	{
@@ -171,8 +171,8 @@
 	},
 	{
 		"UserId": 14,
-		"Title": "Top 20 Films of All Time (Calculated)",
-		"Description": "Forgive me if I missed out your favourite movies!"
+		"Title": "Official Top 20 Movies of Masters of Cinema",
+		"Description": "Masters of Cinema's Top 20 movies, based on the average weighted rating of all members of this website.\r\n\r\nHope you see your favourite films here!"
 	},
 	{
 		"UserId": 14,
