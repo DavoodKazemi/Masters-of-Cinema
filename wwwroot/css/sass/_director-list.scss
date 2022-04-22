@@ -50,20 +50,21 @@
 }
 
 
-@media only screen and (max-width: 1800px) {
-    .card-wrapper {
-        width: 250px;
 
-        img {
-            width: 250px;
-            height: auto;
-            /*Optimise this one later*/
-            height: 360px;
-            object-fit: cover;
-            object-position: top;
-        }
+.card-wrapper {
+    width: 250px;
+
+    img {
+        width: 250px;
+        height: auto;
+        /*Optimise this one later*/
+        height: 360px;
+        object-fit: cover;
+        object-position: top;
+        cursor: pointer;
     }
 }
+
 
 @media only screen and (max-width: 1200px) {
     .card-wrapper {
