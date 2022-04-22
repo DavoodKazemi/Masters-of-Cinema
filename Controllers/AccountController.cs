@@ -245,7 +245,7 @@ namespace MastersOfCinema.Controllers
             {
                 var newItems = _repository.GetListsListForAjax(pageNum.Value, itemsPerPage, customList.Lists);
                 customList.Lists = newItems;
-                return PartialView("Lists/_CListPartial2", customList);
+                return PartialView("Lists/_MyCListPartial", customList);
             }
             else
             {
