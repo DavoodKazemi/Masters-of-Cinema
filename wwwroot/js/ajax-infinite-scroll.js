@@ -73,6 +73,7 @@ function loadMoreAjax(loadMoreRowsUrl) {
                     }
                     inCallback = false;
                     $("div#loading-animation").hide();
+                    $('#load-more-movies-button').show();
                     $('#load-more-movies-button').removeClass('button-loading');
                     revealPosts();
 
