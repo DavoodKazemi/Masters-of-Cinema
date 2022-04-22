@@ -73,7 +73,14 @@ namespace MastersOfCinema.Controllers
             }
                 ModelState.AddModelError("", "Failed to login");
 
-            return View();
+            LoginViewModel model2 = new LoginViewModel()
+            {
+                Username = "LaraCroft@gmail.com",
+                Password = "aVjw3ST!3cS@M26@qK$Y",
+                RememberMe = true
+            };
+
+            return View(model2);
         }
 
 
