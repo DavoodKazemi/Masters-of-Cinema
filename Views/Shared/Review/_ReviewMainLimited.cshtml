@@ -1,6 +1,6 @@
 ﻿@model MovieRateDirector
 @*Start Review section - when user is not logged in*@
-<section class="container mb-5 px-sm-2">
+<section class="container mb-5 mt-3 px-sm-2 ps-md-3 ps-lg-4 ps-xl-2">
 
     <div class="row">
         @*reviews wrapper*@
@@ -9,9 +9,9 @@
 
             @if (Model.Review.Count() > 0)
             {
-                <h2 class="review-section-heading">
-                    Popular reviews
-                </h2>
+            <h2 class="review-section-heading">
+                <span>Reviews of </span><strong style="color: white;">@Model.Movie.Title</strong>
+            </h2>
 
                 <div class="review-ajax-container">
                     <div class="review-body">

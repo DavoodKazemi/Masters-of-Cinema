@@ -47,14 +47,14 @@ $avatar-width-mobile: 56px;
             }
 
             .likers-arrow {
-                transition: transform 0.75s ease, vertical-align 0.75s ease;
+                transition: transform 0.2s ease, vertical-align 0.2s ease;
                 margin-left: 3px;
                 vertical-align: sub;
             }
 
             .likers-arrow.toggle-up {
                 transform: rotate(180deg);
-                transition: transform 0.75s ease, vertical-align 0.75s ease;
+                transition: transform 0.2s ease, vertical-align 0.2s ease;
                 vertical-align: middle;
             }
         }
