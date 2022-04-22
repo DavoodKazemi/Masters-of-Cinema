@@ -153,7 +153,8 @@ section.homepage-quick-tour-wrapper {
                         float: left;
                     }
 
-                    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.1);
+                    //box-shadow: inset 0 1px 0 hsla(0,0%,100%,.1);
+                    //box-shadow: inset 1px 1px 1px rgb(255 255 255 / 41%);
                     //width: 310px;
                     background: #456;
                     cursor: pointer;
@@ -161,11 +162,36 @@ section.homepage-quick-tour-wrapper {
                     //margin: 10px;
                     border-radius: 3px;
                     //width: 20%;
-                    height: 120px;
+                    height: 90px;
+                    @media(min-width: 768px) and (max-width: 1200px){
+                        height: 120px;
+                    }
+                    
                     display: block;
 
-                    &:hover {
+                    &.regular:hover {
                         background-color: #209ce4;
+                    }
+
+                    &.github {
+                        background: #456;
+
+                        &:hover {
+                            background-color: #0969DA;
+                        }
+                    }
+
+                    &.gitlab {
+                        background: #456;
+
+                        &:hover {
+                            background-color: #fc6d26;
+                        }
+                    }
+
+
+                    &:hover {
+
 
                         h3, .homepage-tour-text, i {
                             color: #fff !important;
@@ -185,6 +211,16 @@ section.homepage-quick-tour-wrapper {
 
                         .custom-list-ordinary-icon {
                             background-image: url('/Image/Icon/custom-list-ordinary-white.svg') !important;
+                            //background-image: url('/Image/Icon/review-ordinary.svg') !important;
+                        }
+
+                        .github-ordinary-icon {
+                            background-image: url('/Image/Icon/github-ordinary-white.svg') !important;
+                            //background-image: url('/Image/Icon/review-ordinary.svg') !important;
+                        }
+
+                        .gitlab-ordinary-icon {
+                            background-image: url('/Image/Icon/gitlab-ordinary-white.svg') !important;
                             //background-image: url('/Image/Icon/review-ordinary.svg') !important;
                         }
                     }
@@ -219,6 +255,14 @@ section.homepage-quick-tour-wrapper {
 
                     .review-ordinary-icon {
                         @include svg-icon ( 'review-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    .github-ordinary-icon {
+                        @include svg-icon ( 'github-ordinary.svg', 40px 40px, 40px, 40px );
+                    }
+
+                    .gitlab-ordinary-icon {
+                        @include svg-icon ( 'gitlab-ordinary.svg', 40px 40px, 40px, 40px );
                     }
 
                     p {
