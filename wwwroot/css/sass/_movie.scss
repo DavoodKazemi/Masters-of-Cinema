@@ -29,6 +29,8 @@
 
 .movie-lists-poster-wrapper {
     display: inline-table;
+position: sticky;
+top: 15px;
     .movie-lists-stats-wrapper {
         //max-width: 232px;
 

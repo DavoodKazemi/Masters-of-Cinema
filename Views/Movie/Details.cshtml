@@ -14,10 +14,8 @@
 @if (User.Identity.IsAuthenticated)
 {
     <partial name="_MovieDetails" />
-    <partial name="~/Views/Shared/Review/_ReviewMain.cshtml" />
 }
 else
 {
     <partial name="_MovieDetailsLimited" />
-    <partial name="~/Views/Shared/Review/_ReviewMainLimited.cshtml" />
 }
