@@ -37,7 +37,7 @@ $(document).ready(function () {
             { height: "fit-content" } :
             { height: "fit-content" };
     $this.toggleClass('large').animate(size, 12, reMasonry);
-
+        $this.animate(size, 12, reMasonry);
     /*Toggle the button's htm to less / more*/
     if ($(this).hasClass("less")) {
         $(this).removeClass("less");

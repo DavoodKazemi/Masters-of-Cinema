@@ -49,7 +49,7 @@
         <div class="review-like-wrapper style-head">
             @*if guest user clicked on like, refer him to the login page*@
             <a class="" asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path">
-            <span class="review-like-button" id="review-like-button">
+            <span class="review-like-button" id="">
                 <span class="review-icon-like" id="like-icon"></span>
                 <span class="review-like-text" id="like-caption">Like Review</span>
             </span>

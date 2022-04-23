@@ -70,7 +70,10 @@
             @*End review text*@
 
             @*Start like section*@
-            <div class="review-like-wrapper" style="overflow: hidden;">
+        <div class="review-like-wrapper" style="overflow: hidden;">
+
+            @if (User.Identity.IsAuthenticated)
+            {
                 @*When clicking on this, review will be liked or unliked*@
                 <span class="review-like-button" id="review-like-button">
                     <input type="hidden" value="@Model.Id" class="form-control input-small" id="review-id" />
@@ -86,13 +89,24 @@
                     }
                 </span>
                 @*End When clicking on this, review will be liked or unliked*@
+            }
+            else
+            {
+                @*if guest user clicked on like, refer him to the login page*@
+                <a class="" asp-controller="Account" asp-action="Login" asp-route-returnurl="@Context.Request.Path">
+                    <span class="review-like-button" id="">
+                        <span class="review-icon-like" id="like-icon"></span>
+                        <span class="review-like-text" id="like-caption">Like Review</span>
+                    </span>
+                </a>
+            }
 
-                @*Start Review like stats*@
-                <partial name="~/Views/Shared/HomePage/_LikersPopularReview.cshtml" model="Model" />
-                @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
-                @*End Review stats*@
+            @*Start Review like stats*@
+            <partial name="~/Views/Shared/HomePage/_LikersPopularReview.cshtml" model="Model" />
+            @*await Html.PartialAsync("~/Views/Shared/Review/_ReviewLikers.cshtml", item)*@
+            @*End Review stats*@
 
-            </div>
+        </div>
             @*End like section*@
         </div>
         @*END Review's right side*@
